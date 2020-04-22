@@ -18,7 +18,6 @@ public class CommandHandler {
     }
 
     public void handleCommand(String command) throws IOException {
-//        String command = reader.readLine().toLowerCase().trim();
         switch (command) {
             case ("help"):
                 help();
