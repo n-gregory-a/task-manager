@@ -1,7 +1,7 @@
 package ru.naumkin.tm;
 
-import ru.naumkin.tm.util.Command;
-import ru.naumkin.tm.util.CommandHandler;
+import ru.naumkin.tm.enumerated.TerminalCommand;
+import ru.naumkin.tm.service.CommandHandler;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,8 +17,8 @@ public class App
             CommandHandler commandHandler = new CommandHandler(reader);
 
             while (true) {
-                Command command = commandHandler.readCommand(reader);
-                if (command.getCommand().equals(Command.EXIT.getCommand())) {
+                TerminalCommand command = commandHandler.readCommand(reader);
+                if (command.getCommand().equals(TerminalCommand.EXIT.getCommand())) {
                     System.exit(1);
                 } else {
                     commandHandler.handleCommand(command);
