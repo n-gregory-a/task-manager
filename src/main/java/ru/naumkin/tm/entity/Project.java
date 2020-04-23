@@ -1,39 +1,29 @@
 package ru.naumkin.tm.entity;
 
+import java.time.LocalDate;
+import java.util.UUID;
+
 public class Project {
 
-    private int id;
+    private UUID id;
 
     private String name;
+
+    private String description;
+
+    private LocalDate startDate;
+
+    private LocalDate endDate;
 
     public Project() {
     }
 
-    public Project(String name) {
+    public Project(String name, String description, String startDate, String endDate) {
+
+        this.id = UUID.randomUUID();
         this.name = name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "Project{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        this.description = description;
+        this.startDate = LocalDate.parse(startDate);
+        this.endDate = LocalDate.parse(endDate);
     }
 }
