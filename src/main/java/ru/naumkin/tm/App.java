@@ -1,5 +1,6 @@
 package ru.naumkin.tm;
 
+import ru.naumkin.tm.util.Command;
 import ru.naumkin.tm.util.CommandHandler;
 
 import java.io.BufferedReader;
@@ -10,12 +11,13 @@ public class App
 {
     public static void main( String[] args ) throws IOException {
         System.out.println( "*** Welcome to task manager ***" );
+
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             CommandHandler commandHandler = new CommandHandler(reader);
 
             while (true) {
-                String command = reader.readLine().toLowerCase();
-                if (command.equals("exit")) {
+                Command command = commandHandler.readCommand(reader);
+                if (command.getCommand().equals(Command.EXIT.getCommand())) {
                     System.exit(1);
                 } else {
                     commandHandler.handleCommand(command);
