@@ -1,5 +1,6 @@
-package ru.naumkin.tm.util;
+package ru.naumkin.tm.service;
 
+import ru.naumkin.tm.enumerated.TerminalCommand;
 import ru.naumkin.tm.manager.ProjectManager;
 import ru.naumkin.tm.manager.TaskManager;
 
@@ -17,56 +18,44 @@ public class CommandHandler {
         this.reader = reader;
     }
 
-    public void handleCommand(Command command) throws IOException {
+    public void handleCommand(TerminalCommand command) throws IOException {
         switch (command) {
             case HELP:
                 help();
                 break;
-
             case PROJECT_CLEAR:
                 clearProjects();
                 break;
-
             case PROJECT_CREATE:
                 createProject(reader);
                 break;
-
             case PROJECT_LIST:
                 readProjectList();
                 break;
-
             case PROJECT_NAME:
                 readProject(reader);
                 break;
-
             case PROJECT_UPDATE:
                 updateProject(reader);
                 break;
-
             case PROJECT_REMOVE:
                 removeProject(reader);
                 break;
-
             case TASK_CLEAR:
                 clearTasks();
                 break;
-
             case TASK_CREATE:
                 createTask(reader);
                 break;
-
             case TASK_LIST:
                 readTaskList();
                 break;
-
             case TASK_REMOVE:
                 removeTask(reader);
                 break;
-
             case TASK_UPDATE:
                 updateTask(reader);
                 break;
-
             default:
                 System.out.println("Unexpected value: " + command);
         }
@@ -133,11 +122,11 @@ public class CommandHandler {
         );
     }
 
-    public Command readCommand(BufferedReader reader) throws IOException {
+    public TerminalCommand readCommand(BufferedReader reader) throws IOException {
         String commandString = reader.readLine();
-        Command command = null;
+        TerminalCommand command = null;
 
-        for (Command c: Command.values()) {
+        for (TerminalCommand c: TerminalCommand.values()) {
             if (c.getCommand().equals(commandString)) {
                 command = c;
             }
