@@ -1,7 +1,6 @@
 package ru.naumkin.tm.entity;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 public class Task {
@@ -16,7 +15,11 @@ public class Task {
 
     private LocalDate dateFinish = null;
 
-    private String projectId;
+    private String projectId = null;
+
+    public Task(String name) {
+        this.name = name;
+    }
 
     public String getId() {
         return id;
@@ -62,4 +65,15 @@ public class Task {
         this.projectId = projectId;
     }
 
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", dateStart=" + dateStart +
+                ", dateFinish=" + dateFinish +
+                ", projectId='" + projectId + '\'' +
+                '}';
+    }
 }

@@ -1,6 +1,7 @@
 package ru.naumkin.tm.manager;
 
 import ru.naumkin.tm.entity.Task;
+import ru.naumkin.tm.util.DateFormatter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,16 +9,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TaskManager {
-    private Map<String, Task> tasks = new HashMap<>();
 
-    static int id;
+    private Map<String, Task> tasks = new HashMap<>();
 
     public void createTask (BufferedReader reader) throws IOException {
         System.out.println("[TASK CREATE]");
         System.out.println("Enter name: ");
         String name = reader.readLine();
         Task task = new Task(name);
-        task.setId(id++);
         tasks.put(name, task);
         System.out.println("[OK]");
     }
@@ -44,6 +43,7 @@ public class TaskManager {
 
     public void updateTask (BufferedReader reader) throws IOException {
         System.out.println("[TASK UPDATE]");
+        System.out.println("Enter name: ");
         String name = reader.readLine();
         Task task = tasks.get(name);
 
@@ -51,12 +51,24 @@ public class TaskManager {
             System.out.println("Following task will be updated:");
             System.out.println(task.toString());
 
-            System.out.println("Enter new name: ");
+            System.out.println("Enter name: ");
             String newName = reader.readLine();
+
+            System.out.println("Enter description: ");
+            String newDescription = reader.readLine();
+
+            System.out.println("Enter start date(dd.mm.yyyy): ");
+            String newDateStart = reader.readLine();
+
+            System.out.println("Enter finish date(dd.mm.yyyy): ");
+            String newDateFinish = reader.readLine();
 
             tasks.remove(name);
 
             task.setName(newName);
+            task.setDescription(newDescription);
+            task.setDateStart(DateFormatter.convertStringToDate(newDateStart));
+            task.setDateFinish(DateFormatter.convertStringToDate(newDateFinish));
 
             tasks.put(newName, task);
 
