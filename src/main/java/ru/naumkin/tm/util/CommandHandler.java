@@ -17,53 +17,53 @@ public class CommandHandler {
         this.reader = reader;
     }
 
-    public void handleCommand(String command) throws IOException {
+    public void handleCommand(Command command) throws IOException {
         switch (command) {
-            case ("help"):
+            case HELP:
                 help();
                 break;
 
-            case ("project-clear"):
+            case PROJECT_CLEAR:
                 clearProjects();
                 break;
 
-            case ("project-create"):
+            case PROJECT_CREATE:
                 createProject(reader);
                 break;
 
-            case ("project-list"):
+            case PROJECT_LIST:
                 readProjectList();
                 break;
 
-            case ("project-name"):
+            case PROJECT_NAME:
                 readProject(reader);
                 break;
 
-            case ("project-update"):
+            case PROJECT_UPDATE:
                 updateProject(reader);
                 break;
 
-            case ("project-remove"):
+            case PROJECT_REMOVE:
                 removeProject(reader);
                 break;
 
-            case ("task-clear"):
+            case TASK_CLEAR:
                 clearTasks();
                 break;
 
-            case ("task-create"):
+            case TASK_CREATE:
                 createTask(reader);
                 break;
 
-            case ("task-list"):
+            case TASK_LIST:
                 readTaskList();
                 break;
 
-            case ("task-remove"):
+            case TASK_REMOVE:
                 removeTask(reader);
                 break;
 
-            case ("task-update"):
+            case TASK_UPDATE:
                 updateTask(reader);
                 break;
 
@@ -131,5 +131,18 @@ public class CommandHandler {
                         "\ntask-list: Show all tasks." +
                         "\nexit: Exit program."
         );
+    }
+
+    public Command readCommand(BufferedReader reader) throws IOException {
+        String commandString = reader.readLine();
+        Command command = null;
+
+        for (Command c: Command.values()) {
+            if (c.getCommand().equals(commandString)) {
+                command = c;
+            }
+        }
+
+        return command;
     }
 }
