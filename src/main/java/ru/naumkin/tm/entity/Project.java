@@ -1,34 +1,24 @@
 package ru.naumkin.tm.entity;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 public class Project {
 
-    private UUID id;
+    private String id = UUID.randomUUID().toString();
 
-    private String name;
+    private String name = "";
 
-    private String description;
+    private String description = "";
 
-    private LocalDate startDate;
+    private LocalDate dateStart = LocalDate.now();
 
-    private LocalDate endDate;
+    private LocalDate dateFinish = null;
 
     public Project() {
     }
 
-    public Project(String name, String description, String startDate, String endDate) {
-
-        this.id = UUID.randomUUID();
-        this.name = name;
-        this.description = description;
-        this.startDate = LocalDate.parse(startDate);
-        this.endDate = LocalDate.parse(endDate);
-    }
-
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
@@ -48,21 +38,30 @@ public class Project {
         this.description = description;
     }
 
-    public String getStartDate() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        return formatter.format(startDate);
+    public LocalDate getDateStart() {
+        return dateStart;
     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = LocalDate.parse(startDate);
+    public void setDateStart(LocalDate dateStart) {
+        this.dateStart = dateStart;
     }
 
-    public String getEndDate() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        return formatter.format(endDate);
+    public LocalDate getDateFinish() {
+        return dateFinish;
     }
 
-    public void setEndDate(String endDate) {
-        this.endDate = LocalDate.parse(endDate);
+    public void setDateFinish(LocalDate dateFinish) {
+        this.dateFinish = dateFinish;
+    }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", dateStart=" + dateStart +
+                ", dateFinish=" + dateFinish +
+                '}';
     }
 }
