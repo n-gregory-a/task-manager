@@ -1,6 +1,6 @@
-package ru.naumkin.tm.util;
+package ru.naumkin.tm.enumerated;
 
-public enum Command {
+public enum  terminalCommand {
 
     EXIT("exit"),
     HELP("help"),
@@ -18,7 +18,7 @@ public enum Command {
 
     private final String command;
 
-    Command(String command) {
+    terminalCommand(String command) {
         this.command = command;
     }
 
