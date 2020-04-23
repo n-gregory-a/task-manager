@@ -1,6 +1,8 @@
 package ru.naumkin.tm.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class Project {
@@ -14,6 +16,8 @@ public class Project {
     private LocalDate dateStart = LocalDate.now();
 
     private LocalDate dateFinish = null;
+
+    private List<String> taskIdList = new ArrayList<>();
 
     public Project(String name) {
         this.name = name;
