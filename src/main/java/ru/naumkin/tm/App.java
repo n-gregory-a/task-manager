@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 
 public class App 
 {
+
     public static void main( String[] args ) throws IOException {
         System.out.println( "*** Welcome to task manager ***" );
 
@@ -22,9 +23,9 @@ public class App
                 } else {
                     commandHandler.handleCommand(command);
                 }
-
             }
 
         }
     }
+
 }
