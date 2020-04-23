@@ -15,6 +15,10 @@ public class Project {
 
     private LocalDate dateFinish = null;
 
+    public Project(String name) {
+        this.name = name;
+    }
+
     public String getId() {
         return id;
     }
