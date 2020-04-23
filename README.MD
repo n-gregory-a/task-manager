@@ -23,5 +23,5 @@ email: <ovonely@gmail.com>
 
 #### Running
 ***
-    java -jar ./se-02-1.0.0.jar
+    java -jar ./task-manager-1.0.0.jar
 
