@@ -17,6 +17,10 @@ public class ProjectRepository {
         return projects.get(name);
     }
 
+    public void persist(Project project) {
+        projects.put(project.getName(), project);
+    }
+
     public void remove(String name) {
         projects.remove(name);
     }
