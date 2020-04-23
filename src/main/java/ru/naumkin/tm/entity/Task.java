@@ -6,31 +6,19 @@ import java.util.UUID;
 
 public class Task {
 
-    private UUID id;
+    private String id = UUID.randomUUID().toString();
 
-    private String name;
+    private String name = "";
 
-    private String description;
+    private String description = "";
 
-    private LocalDate startDate;
+    private LocalDate dateStart = LocalDate.now();
 
-    private LocalDate endDate;
+    private LocalDate dateFinish = null;
 
-    private UUID projectId;
+    private String projectId;
 
-    public Task() {
-    }
-
-    public Task(String name, String description, String startDate, String endDate, UUID projectId) {
-        this.id = UUID.randomUUID();
-        this.name = name;
-        this.description = description;
-        this.startDate = LocalDate.parse(startDate);
-        this.endDate = LocalDate.parse(endDate);
-        this.projectId = projectId;
-    }
-
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
@@ -50,29 +38,28 @@ public class Task {
         this.description = description;
     }
 
-    public String getStartDate() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        return formatter.format(startDate);
+    public LocalDate getDateStart() {
+        return dateStart;
     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = LocalDate.parse(startDate);
+    public void setDateStart(LocalDate dateStart) {
+        this.dateStart = dateStart;
     }
 
-    public String getEndDate() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        return formatter.format(endDate);
+    public LocalDate getDateFinish() {
+        return dateFinish;
     }
 
-    public void setEndDate(String endDate) {
-        this.endDate = LocalDate.parse(endDate);
+    public void setDateFinish(LocalDate dateFinish) {
+        this.dateFinish = dateFinish;
     }
 
-    public UUID getProjectId() {
+    public String getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(UUID projectId) {
+    public void setProjectId(String projectId) {
         this.projectId = projectId;
     }
+
 }
