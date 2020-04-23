@@ -59,6 +59,14 @@ public class Project {
         this.dateFinish = dateFinish;
     }
 
+    public List<String> getTaskIdList() {
+        return taskIdList;
+    }
+
+    public void setTaskIdList(List<String> taskIdList) {
+        this.taskIdList = taskIdList;
+    }
+
     @Override
     public String toString() {
         return "Project{" +

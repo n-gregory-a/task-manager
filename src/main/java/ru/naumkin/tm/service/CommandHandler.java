@@ -56,9 +56,16 @@ public class CommandHandler {
             case TASK_UPDATE:
                 updateTask(reader);
                 break;
+            case TASK_ATTACH:
+                attachTask(reader);
+                break;
             default:
                 System.out.println("Unexpected value: " + command);
         }
+    }
+
+    private void attachTask(BufferedReader reader) throws IOException {
+        projectManager.attachTask(reader);
     }
 
     private void updateTask(BufferedReader reader) throws IOException {

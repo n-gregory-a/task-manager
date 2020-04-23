@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class TaskManager {
 
-    TaskRepository taskRepository = new TaskRepository();
+    private TaskRepository taskRepository = new TaskRepository();
 
     public void createTask(BufferedReader reader) throws IOException {
         System.out.println("[TASK CREATE]");

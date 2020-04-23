@@ -1,7 +1,9 @@
 package ru.naumkin.tm.manager;
 
 import ru.naumkin.tm.entity.Project;
+import ru.naumkin.tm.entity.Task;
 import ru.naumkin.tm.repository.ProjectRepository;
+import ru.naumkin.tm.repository.TaskRepository;
 import ru.naumkin.tm.util.DateFormatter;
 
 import java.io.BufferedReader;
@@ -9,7 +11,8 @@ import java.io.IOException;
 
 public class ProjectManager {
 
-    ProjectRepository projectRepository = new ProjectRepository();
+    private ProjectRepository projectRepository = new ProjectRepository();
+    private TaskRepository taskRepository = new TaskRepository();
 
     public void createProject(BufferedReader reader) throws IOException {
         System.out.println("[PROJECT CREATE]");
@@ -97,6 +100,19 @@ public class ProjectManager {
     public void deleteAllProjects() {
         projectRepository.removeAll();
         System.out.println("[DONE]");
+    }
+
+    public void attachTask(BufferedReader reader) throws IOException {
+        System.out.println("[ATTACH TASK TO PROJECT]");
+        System.out.println("Enter project name: ");
+        String projectName = reader.readLine();
+        Project project = projectRepository.findOne(projectName);
+
+        System.out.println("Enter task name: ");
+        String taskName = reader.readLine();
+        Task task = taskRepository.findOne(taskName);
+        project.getTaskIdList().add(task.getId());
+        task.setProjectId(project.getId());
     }
 
 }
