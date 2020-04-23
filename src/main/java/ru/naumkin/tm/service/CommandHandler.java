@@ -125,6 +125,7 @@ public class CommandHandler {
                         "\ntask-create: Create new task." +
                         "\ntask-update: Update task" +
                         "\ntask-list: Show all tasks." +
+                        "\ntask-attach: attach task to the project" +
                         "\nexit: Exit program."
         );
     }
