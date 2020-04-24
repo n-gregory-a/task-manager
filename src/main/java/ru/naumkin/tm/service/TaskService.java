@@ -9,7 +9,11 @@ import java.io.IOException;
 
 public class TaskService {
 
-    private TaskRepository taskRepository = new TaskRepository();
+    private TaskRepository taskRepository;
+
+    public TaskService(TaskRepository taskRepository) {
+        this.taskRepository = taskRepository;
+    }
 
     public void createTask(BufferedReader reader) throws IOException {
         System.out.println("[TASK CREATE]");
