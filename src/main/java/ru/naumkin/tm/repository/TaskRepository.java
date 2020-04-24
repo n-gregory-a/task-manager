@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class TaskRepository {
 
-    private static Map<String, Task> tasks = new HashMap<>();
+    private Map<String, Task> tasks = new HashMap<>();
 
     public Map<String, Task> findAll() {
         return tasks;
