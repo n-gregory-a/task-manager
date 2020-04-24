@@ -12,6 +12,7 @@ public class CommandHandler {
     private BufferedReader reader;
 
     private ProjectManager projectManager = new ProjectManager();
+
     private TaskManager taskManager = new TaskManager();
 
     public CommandHandler(BufferedReader reader) {
@@ -66,7 +67,7 @@ public class CommandHandler {
                 viewTasks(reader);
                 break;
             case UNEXPECTED_VALUE:
-                System.out.println("[Unknown command]");;
+                System.out.println("[Unknown command]");
                 break;
         }
     }

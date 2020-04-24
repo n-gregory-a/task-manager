@@ -71,7 +71,7 @@ public class TaskManager {
 
             taskRepository.persist(task);
 
-            System.out.println("[DONE]");
+            System.out.println("[OK]");
             System.out.println("Updated task:");
             System.out.println(taskRepository.findAll());
         } else {
@@ -96,7 +96,7 @@ public class TaskManager {
 
     public void deleteAllTasks() {
         taskRepository.removeAll();
-        System.out.println("[DONE]");
+        System.out.println("[OK]");
     }
 
 }
