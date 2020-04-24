@@ -45,7 +45,7 @@
             <archive>
               <manifest>
                 <addClasspath>true</addClasspath>
-                <mainClass>ru.naumkin.tm.App</mainClass>
+                <mainClass>ru.naumkin.tm.Application</mainClass>
               </manifest>
             </archive>
           </configuration>
