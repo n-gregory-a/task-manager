@@ -18,7 +18,8 @@ public class App
 
             while (true) {
                 TerminalCommand command = commandHandler.readCommand(reader);
-                if (command.getCommand().equals(TerminalCommand.EXIT.getCommand())) {
+                boolean commandIsExit = command.getCommand().equals(TerminalCommand.EXIT.getCommand());
+                if (commandIsExit) {
                     System.exit(1);
                 } else {
                     commandHandler.handleCommand(command);
