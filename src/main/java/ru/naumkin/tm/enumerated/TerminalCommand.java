@@ -13,6 +13,7 @@ public enum  TerminalCommand {
     TASK_CLEAR("task-clear"),
     TASK_CREATE("task-create"),
     TASK_LIST("task-list"),
+    TASK_NAME("task-name"),
     TASK_REMOVE("task-remove"),
     TASK_UPDATE("task-update"),
     TASK_ATTACH("task-attach"),

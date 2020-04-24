@@ -50,6 +50,9 @@ public class CommandHandler {
             case TASK_LIST:
                 readTaskList();
                 break;
+            case TASK_NAME:
+                readTask(reader);
+                break;
             case TASK_REMOVE:
                 removeTask(reader);
                 break;
@@ -86,6 +89,10 @@ public class CommandHandler {
 
     private void createTask(BufferedReader reader) throws IOException {
         taskManager.createTask(reader);
+    }
+
+    private void readTask(BufferedReader reader) throws IOException {
+        taskManager.readTask(reader);
     }
 
     private void readTaskList() {
@@ -133,6 +140,7 @@ public class CommandHandler {
                         "\ntask-create: Create new task." +
                         "\ntask-update: Update task" +
                         "\ntask-list: Show all tasks." +
+                        "\ntask-name: Show task by name" +
                         "\ntask-attach: attach task to the project" +
                         "\ntasks-view: show all tasks attached to the project" +
                         "\nexit: Exit program."
