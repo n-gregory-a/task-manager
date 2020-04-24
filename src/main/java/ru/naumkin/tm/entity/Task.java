@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class Task {
 
-    private String id = UUID.randomUUID().toString();
+    private final String ID = UUID.randomUUID().toString();
 
     private String name = "";
 
@@ -21,8 +21,8 @@ public class Task {
         this.name = name;
     }
 
-    public String getId() {
-        return id;
+    public String getID() {
+        return ID;
     }
 
     public String getName() {
@@ -68,7 +68,7 @@ public class Task {
     @Override
     public String toString() {
         return "Task{" +
-                "id='" + id + '\'' +
+                "id='" + ID + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", dateStart=" + dateStart +
