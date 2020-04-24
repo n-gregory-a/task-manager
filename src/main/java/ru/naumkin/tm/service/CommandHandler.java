@@ -62,8 +62,9 @@ public class CommandHandler {
             case TASKS_VIEW:
                 viewTasks(reader);
                 break;
-            default:
-                System.out.println("Unexpected value: " + command);
+            case UNEXPECTED_VALUE:
+                System.out.println("[Unknown command]");;
+                break;
         }
     }
 
@@ -148,6 +149,11 @@ public class CommandHandler {
             }
         }
 
-        return command;
+        if (command != null) {
+            return command;
+        } else {
+            return TerminalCommand.UNEXPECTED_VALUE;
+        }
     }
+
 }

@@ -16,7 +16,8 @@ public enum  TerminalCommand {
     TASK_REMOVE("task-remove"),
     TASK_UPDATE("task-update"),
     TASK_ATTACH("task-attach"),
-    TASKS_VIEW("tasks-view");
+    TASKS_VIEW("tasks-view"),
+    UNEXPECTED_VALUE("");
 
     private final String command;
 
@@ -32,4 +33,5 @@ public enum  TerminalCommand {
     public String getCommand() {
         return command;
     }
+
 }
