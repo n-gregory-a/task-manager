@@ -116,7 +116,6 @@ public class ProjectService {
         System.out.println("Enter task name: ");
         String taskName = reader.readLine();
         Task task = taskRepository.findOne(taskName);
-        project.getTaskIdList().add(task.getID());
         task.setProjectId(project.getID());
         System.out.println("[OK]");
     }
@@ -133,14 +132,14 @@ public class ProjectService {
 
     private List<Task> findAllTasksAttachedToProject(Project project) {
         List<Task> tasks = new LinkedList<>();
-        for (String taskId: project.getTaskIdList()) {
-            for (Task t: taskRepository.findAll().values()) {
-                boolean taskAttachedToProject = t.getID().equals(taskId);
-                if (taskAttachedToProject) {
-                    tasks.add(t);
-                }
+
+        for (Task t: taskRepository.findAll().values()) {
+            boolean taskAttachedToProject = t.getProjectId().equals(project.getID());
+            if (taskAttachedToProject) {
+                tasks.add(t);
             }
         }
+
         return tasks;
     }
 
