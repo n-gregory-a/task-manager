@@ -1,4 +1,4 @@
-package ru.naumkin.tm.manager;
+package ru.naumkin.tm.service;
 
 import ru.naumkin.tm.entity.Task;
 import ru.naumkin.tm.repository.TaskRepository;
@@ -7,7 +7,7 @@ import ru.naumkin.tm.util.DateFormatter;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class TaskManager {
+public class TaskService {
 
     private TaskRepository taskRepository = new TaskRepository();
 

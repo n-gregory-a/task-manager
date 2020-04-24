@@ -1,7 +1,7 @@
 package ru.naumkin.tm;
 
 import ru.naumkin.tm.enumerated.TerminalCommand;
-import ru.naumkin.tm.service.CommandHandler;
+import ru.naumkin.tm.context.CommandHandler;
 
 import java.io.BufferedReader;
 import java.io.IOException;

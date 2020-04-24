@@ -1,4 +1,4 @@
-package ru.naumkin.tm.manager;
+package ru.naumkin.tm.service;
 
 import ru.naumkin.tm.entity.Project;
 import ru.naumkin.tm.entity.Task;
@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ProjectManager {
+public class ProjectService {
 
     private ProjectRepository projectRepository = new ProjectRepository();
     private TaskRepository taskRepository = new TaskRepository();

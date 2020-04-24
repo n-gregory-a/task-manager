@@ -1,8 +1,8 @@
-package ru.naumkin.tm.service;
+package ru.naumkin.tm.context;
 
 import ru.naumkin.tm.enumerated.TerminalCommand;
-import ru.naumkin.tm.manager.ProjectManager;
-import ru.naumkin.tm.manager.TaskManager;
+import ru.naumkin.tm.service.ProjectService;
+import ru.naumkin.tm.service.TaskService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,9 +11,9 @@ public class CommandHandler {
 
     private BufferedReader reader;
 
-    private ProjectManager projectManager = new ProjectManager();
+    private ProjectService projectService = new ProjectService();
 
-    private TaskManager taskManager = new TaskManager();
+    private TaskService taskService = new TaskService();
 
     public CommandHandler(BufferedReader reader) {
         this.reader = reader;
@@ -73,59 +73,59 @@ public class CommandHandler {
     }
 
     private void viewTasks(BufferedReader reader) throws IOException {
-        projectManager.viewTasks(reader);
+        projectService.viewTasks(reader);
     }
 
     private void attachTask(BufferedReader reader) throws IOException {
-        projectManager.attachTask(reader);
+        projectService.attachTask(reader);
     }
 
     private void updateTask(BufferedReader reader) throws IOException {
-        taskManager.updateTask(reader);
+        taskService.updateTask(reader);
     }
 
     private void removeTask(BufferedReader reader) throws IOException {
-        taskManager.deleteTask(reader);
+        taskService.deleteTask(reader);
     }
 
     private void createTask(BufferedReader reader) throws IOException {
-        taskManager.createTask(reader);
+        taskService.createTask(reader);
     }
 
     private void readTask(BufferedReader reader) throws IOException {
-        taskManager.readTask(reader);
+        taskService.readTask(reader);
     }
 
     private void readTaskList() {
-        taskManager.readTaskList();
+        taskService.readTaskList();
     }
 
     private void clearTasks() {
-        taskManager.deleteAllTasks();
+        taskService.deleteAllTasks();
     }
 
     private void readProject(BufferedReader reader) throws IOException {
-        projectManager.readProject(reader);
+        projectService.readProject(reader);
     }
 
     private void updateProject(BufferedReader reader) throws IOException {
-        projectManager.updateProject(reader);
+        projectService.updateProject(reader);
     }
 
     private void removeProject(BufferedReader reader) throws IOException {
-        projectManager.deleteProject(reader);
+        projectService.deleteProject(reader);
     }
 
     private void readProjectList() {
-        projectManager.readProjectList();
+        projectService.readProjectList();
     }
 
     private void createProject(BufferedReader reader) throws IOException {
-        projectManager.createProject(reader);
+        projectService.createProject(reader);
     }
 
     private void clearProjects() {
-        projectManager.deleteAllProjects();
+        projectService.deleteAllProjects();
     }
 
     private void help() {
