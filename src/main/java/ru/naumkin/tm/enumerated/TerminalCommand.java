@@ -15,7 +15,8 @@ public enum  TerminalCommand {
     TASK_LIST("task-list"),
     TASK_REMOVE("task-remove"),
     TASK_UPDATE("task-update"),
-    TASK_ATTACH("task-attach");
+    TASK_ATTACH("task-attach"),
+    TASKS_VIEW("tasks-view");
 
     private final String command;
 

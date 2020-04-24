@@ -59,9 +59,16 @@ public class CommandHandler {
             case TASK_ATTACH:
                 attachTask(reader);
                 break;
+            case TASKS_VIEW:
+                viewTasks(reader);
+                break;
             default:
                 System.out.println("Unexpected value: " + command);
         }
+    }
+
+    private void viewTasks(BufferedReader reader) throws IOException {
+        projectManager.viewTasks(reader);
     }
 
     private void attachTask(BufferedReader reader) throws IOException {
@@ -126,6 +133,7 @@ public class CommandHandler {
                         "\ntask-update: Update task" +
                         "\ntask-list: Show all tasks." +
                         "\ntask-attach: attach task to the project" +
+                        "\ntasks-view: show all tasks attached to the project" +
                         "\nexit: Exit program."
         );
     }

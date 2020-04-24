@@ -8,6 +8,8 @@ import ru.naumkin.tm.util.DateFormatter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 public class ProjectManager {
 
@@ -74,7 +76,7 @@ public class ProjectManager {
 
             projectRepository.persist(project);
 
-            System.out.println("[DONE]");
+            System.out.println("[OK]");
             System.out.println("Updated project:");
             System.out.println(projectRepository.findOne(name));
         } else {
@@ -90,6 +92,9 @@ public class ProjectManager {
         Project project = projectRepository.findOne(name);
 
         if (project != null) {
+            for (Task t:findAllTasksAttachedToProject(project)) {
+                taskRepository.remove(t.getName());
+            }
             projectRepository.remove(name);
             System.out.println("[OK]");
         } else {
@@ -99,7 +104,7 @@ public class ProjectManager {
 
     public void deleteAllProjects() {
         projectRepository.removeAll();
-        System.out.println("[DONE]");
+        System.out.println("[OK]");
     }
 
     public void attachTask(BufferedReader reader) throws IOException {
@@ -113,6 +118,30 @@ public class ProjectManager {
         Task task = taskRepository.findOne(taskName);
         project.getTaskIdList().add(task.getId());
         task.setProjectId(project.getId());
+        System.out.println("[OK]");
+    }
+
+    public void viewTasks(BufferedReader reader) throws IOException {
+        System.out.println("[VIEW TASKS ATTACHED TO THE PROJECT]");
+        System.out.println("Enter project name: ");
+        String projectName = reader.readLine();
+        Project project = projectRepository.findOne(projectName);
+
+        System.out.println("[ATTACHED TASKS LIST]");
+        System.out.println(findAllTasksAttachedToProject(project));;
+    }
+
+    private List<Task> findAllTasksAttachedToProject(Project project) {
+        List<Task> tasks = new LinkedList<>();
+        for (String taskId: project.getTaskIdList()) {
+            for (Task t: taskRepository.findAll().values()) {
+                boolean taskAttachedToProject = t.getId().equals(taskId);
+                if (taskAttachedToProject) {
+                    tasks.add(t);
+                }
+            }
+        }
+        return tasks;
     }
 
 }
