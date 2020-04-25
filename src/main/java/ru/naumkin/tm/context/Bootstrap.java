@@ -7,6 +7,7 @@ import ru.naumkin.tm.repository.ProjectRepository;
 import ru.naumkin.tm.repository.TaskRepository;
 import ru.naumkin.tm.service.ProjectService;
 import ru.naumkin.tm.service.TaskService;
+import ru.naumkin.tm.util.DateFormatter;
 import ru.naumkin.tm.view.View;
 
 import java.io.BufferedReader;
@@ -118,12 +119,16 @@ public class Bootstrap {
     private void updateProject() throws IOException {
         view.showMessage("[PROJECT UPDATE]");
         Project project = getProjectByName();
+        String name = project.getName();
         view.showMessage("Enter new name: ");
         project.setName(view.readLine());
         view.showMessage("Enter new description: ");
+        project.setDescription(view.readLine());
         view.showMessage("Enter new start date(dd.mm.yyyy): ");
+        project.setDateStart(DateFormatter.convertStringToDate(view.readLine()));
         view.showMessage("Enter new finish date(dd.mm.yyyy): ");
-        projectService.merge(project);
+        project.setDateFinish(DateFormatter.convertStringToDate(view.readLine()));
+        projectService.merge(project, name);
         view.showMessage("[OK]");
     }
 
@@ -173,8 +178,20 @@ public class Bootstrap {
         view.showMessage("[OK]");
     }
 
-    private void updateTask() {
+    private void updateTask() throws IOException {
         view.showMessage("[TASK UPDATE]");
+        Task task = getTaskByName();
+        String name = task.getName();
+        view.showMessage("Enter new name: ");
+        task.setName(view.readLine());
+        view.showMessage("Enter new description: ");
+        task.setDescription(view.readLine());
+        view.showMessage("Enter new start date(dd.mm.yyyy): ");
+        task.setDateStart(DateFormatter.convertStringToDate(view.readLine()));
+        view.showMessage("Enter new finish date(dd.mm.yyyy): ");
+        task.setDateFinish(DateFormatter.convertStringToDate(view.readLine()));
+        taskService.merge(task, name);
+        view.showMessage("[OK]");
     }
 
     private void attachTask() throws IOException {

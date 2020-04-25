@@ -25,8 +25,8 @@ public class TaskService {
         taskRepository.persist(task);
     }
 
-    public void merge(Task task) {
-        taskRepository.merge(task);
+    public void merge(Task task, String name) {
+        taskRepository.merge(task, name);
     }
 
     public void remove(Task task) {

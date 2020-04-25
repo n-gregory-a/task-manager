@@ -25,8 +25,8 @@ public class ProjectService {
         projectRepository.persist(project);
     }
 
-    public void merge(Project project) {
-        projectRepository.merge(project);
+    public void merge(Project project, String name) {
+        projectRepository.merge(project, name);
     }
 
     public void remove(Project project) {
