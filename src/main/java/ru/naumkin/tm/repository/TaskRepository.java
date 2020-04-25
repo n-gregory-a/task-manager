@@ -2,16 +2,16 @@ package ru.naumkin.tm.repository;
 
 import ru.naumkin.tm.entity.Task;
 
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class TaskRepository {
 
     private Map<String, Task> tasks = new HashMap<>();
 
-    public List<Task> findAll() {
-        return (List<Task>) tasks.values();
+    public Collection<Task> findAll() {
+        return tasks.values();
     }
 
     public Task findOne(String name) {

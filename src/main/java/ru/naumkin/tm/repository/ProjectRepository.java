@@ -2,8 +2,8 @@ package ru.naumkin.tm.repository;
 
 import ru.naumkin.tm.entity.Project;
 
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ProjectRepository {
@@ -16,8 +16,8 @@ public class ProjectRepository {
         this.taskRepository = taskRepository;
     }
 
-    public List<Project> findAll() {
-        return (List<Project>) projects.values();
+    public Collection<Project> findAll() {
+        return projects.values();
     }
 
     public Project findOne(String name) {
