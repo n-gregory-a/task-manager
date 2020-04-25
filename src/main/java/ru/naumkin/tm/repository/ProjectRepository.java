@@ -34,10 +34,11 @@ public class ProjectRepository {
         updatingProject.setDescription(project.getDescription());
         updatingProject.setDateStart(project.getDateStart());
         updatingProject.setDateFinish(project.getDateFinish());
+        projects.put(updatingProject.getName(), updatingProject);
     }
 
-    public void remove(String name) {
-        projects.remove(name);
+    public void remove(Project project) {
+        projects.remove(project.getName());
     }
 
     public void removeAll() {
