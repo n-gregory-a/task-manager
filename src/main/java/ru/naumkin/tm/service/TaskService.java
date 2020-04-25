@@ -2,10 +2,8 @@ package ru.naumkin.tm.service;
 
 import ru.naumkin.tm.entity.Task;
 import ru.naumkin.tm.repository.TaskRepository;
-import ru.naumkin.tm.util.DateFormatter;
 
-import java.io.BufferedReader;
-import java.io.IOException;
+import java.util.Collection;
 
 public class TaskService {
 
@@ -15,92 +13,28 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    public void createTask(BufferedReader reader) throws IOException {
-        System.out.println("[TASK CREATE]");
-        System.out.println("Enter name: ");
-        String name = reader.readLine();
-        Task task = new Task(name);
+    public Collection<Task> findAll() {
+        return taskRepository.findAll();
+    }
+
+    public Task findOne(String name) {
+        return taskRepository.findOne(name);
+    }
+
+    public void persist(Task task) {
         taskRepository.persist(task);
-        System.out.println("[OK]");
     }
 
-    public void readTask(BufferedReader reader) throws IOException {
-        System.out.println("[TASK READ]");
-        System.out.println("Enter name: ");
-        String name = reader.readLine();
-        Task task = taskRepository.findOne(name);
-        if (task != null) {
-            System.out.println(task.toString());
-        } else {
-            System.out.println("There is no task with name " + name);
-        }
+    public void merge(Task task) {
+        taskRepository.merge(task);
     }
 
-    public void readTaskList() {
-        System.out.println("[TASK LIST]");
-        int i = 1;
-        for (Task t: taskRepository.findAll().values()) {
-            System.out.println(i++ + ": " + t.toString());
-        }
+    public void remove(Task task) {
+        taskRepository.remove(task);
     }
 
-    public void updateTask(BufferedReader reader) throws IOException {
-        System.out.println("[TASK UPDATE]");
-        System.out.println("Enter name: ");
-        String name = reader.readLine();
-        Task task = taskRepository.findOne(name);
-
-        if (task != null) {
-            System.out.println("Following task will be updated:");
-            System.out.println(task.toString());
-
-            System.out.println("Enter name: ");
-            String newName = reader.readLine();
-
-            System.out.println("Enter description: ");
-            String newDescription = reader.readLine();
-
-            System.out.println("Enter start date(dd.mm.yyyy): ");
-            String newDateStart = reader.readLine();
-
-            System.out.println("Enter finish date(dd.mm.yyyy): ");
-            String newDateFinish = reader.readLine();
-
-            taskRepository.remove(name);
-
-            task.setName(newName);
-            task.setDescription(newDescription);
-            task.setDateStart(DateFormatter.convertStringToDate(newDateStart));
-            task.setDateFinish(DateFormatter.convertStringToDate(newDateFinish));
-
-            taskRepository.persist(task);
-
-            System.out.println("[OK]");
-            System.out.println("Updated task:");
-            System.out.println(taskRepository.findAll());
-        } else {
-            System.out.println("[There is no task with name " + name + "]");
-        }
-
-    }
-
-    public void deleteTask(BufferedReader reader) throws IOException {
-        System.out.println("[TASK DELETE]");
-        System.out.println("Enter name:");
-        String name = reader.readLine();
-        Task task = taskRepository.findOne(name);
-
-        if (task != null) {
-            taskRepository.remove(name);
-            System.out.println("[OK]");
-        } else {
-            System.out.println("[There is no task with name " + name + "]");
-        }
-    }
-
-    public void deleteAllTasks() {
+    public void removeAll() {
         taskRepository.removeAll();
-        System.out.println("[OK]");
     }
 
 }

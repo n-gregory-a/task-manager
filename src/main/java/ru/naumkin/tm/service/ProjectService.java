@@ -1,15 +1,9 @@
 package ru.naumkin.tm.service;
 
 import ru.naumkin.tm.entity.Project;
-import ru.naumkin.tm.entity.Task;
 import ru.naumkin.tm.repository.ProjectRepository;
-import ru.naumkin.tm.repository.TaskRepository;
-import ru.naumkin.tm.util.DateFormatter;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Collection;
 
 public class ProjectService {
 
@@ -19,7 +13,7 @@ public class ProjectService {
         this.projectRepository = projectRepository;
     }
 
-    public List<Project> findAll() {
+    public Collection<Project> findAll() {
         return projectRepository.findAll();
     }
 
@@ -35,8 +29,8 @@ public class ProjectService {
         projectRepository.merge(project);
     }
 
-    public void remove(String name) {
-        projectRepository.remove(name);
+    public void remove(Project project) {
+        projectRepository.remove(project);
     }
 
     public void removeAll() {
