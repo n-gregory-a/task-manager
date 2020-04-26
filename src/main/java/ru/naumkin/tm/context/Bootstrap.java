@@ -181,27 +181,42 @@ public class Bootstrap {
         view.showMessage(task.toString());
     }
 
-    private void removeTask() throws IOException {
-        view.showMessage("[TASK REMOVE]");
-        Task task = getTaskByName();
-        taskService.remove(task);
+    private void updateTask() throws IOException {
+        view.showMessage("[TASK UPDATE]");
+        view.showMessage("Enter task name: ");
+        Task task = new Task(view.readLine());
+        String name = task.getName();
+
+        view.showMessage("Enter new name: ");
+        task.setName(view.readLine());
+
+        view.showMessage("Enter new description: ");
+        task.setDescription(view.readLine());
+
+        view.showMessage("Enter new start date(dd.mm.yyyy): ");
+        task.setDateStart(DateFormatter.convertStringToDate(view.readLine()));
+
+        view.showMessage("Enter new finish date(dd.mm.yyyy): ");
+        task.setDateFinish(DateFormatter.convertStringToDate(view.readLine()));
+
+        try {
+            taskService.merge(task, name);
+        } catch (IllegalArgumentException e) {
+            view.showMessage(e.getMessage());
+            return;
+        }
         view.showMessage("[OK]");
     }
 
-    private void updateTask() throws IOException {
-        view.showMessage("[TASK UPDATE]");
-        Task task = getTaskByName();
-        String name = task.getName();
-        view.showMessage("Enter new name: ");
-        task.setName(view.readLine());
-        view.showMessage("Enter new description: ");
-        task.setDescription(view.readLine());
-        view.showMessage("Enter new start date(dd.mm.yyyy): ");
-        task.setDateStart(DateFormatter.convertStringToDate(view.readLine()));
-        view.showMessage("Enter new finish date(dd.mm.yyyy): ");
-        task.setDateFinish(DateFormatter.convertStringToDate(view.readLine()));
-        taskService.merge(task, name);
-        view.showMessage("[OK]");
+    private void removeTask() throws IOException {
+        view.showMessage("[TASK REMOVE]");
+        if (taskService.findAll().isEmpty()) {
+            view.showMessage("[Task list is empty]");
+        } else {
+            Task task = getTaskByName();
+            taskService.remove(task);
+            view.showMessage("[OK]");
+        }
     }
 
     private void clearTasks() {

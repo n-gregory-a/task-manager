@@ -18,19 +18,44 @@ public class TaskService {
     }
 
     public Task findOne(String name) {
-        return taskRepository.findOne(name);
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("The name is empty");
+        }
+        Task task = taskRepository.findOne(name);
+        if (task != null) {
+            return task;
+        } else {
+            throw new NullPointerException("There is no task with name " + name);
+        }
     }
 
     public void persist(Task task) {
-        taskRepository.persist(task);
+        if (task != null) {
+            taskRepository.persist(task);
+        } else {
+            throw new NullPointerException("There is no task to persist");
+        }
     }
 
     public void merge(Task task, String name) {
-        taskRepository.merge(task, name);
+        if (name.isEmpty() || task.getName().isEmpty()) {
+            throw new IllegalArgumentException("The name is empty, updating failed");
+        }
+
+        Task updatingTask = taskRepository.findOne(name);
+        if (updatingTask != null) {
+            taskRepository.merge(task, name);
+        } else {
+            taskRepository.persist(task);
+        }
     }
 
     public void remove(Task task) {
-        taskRepository.remove(task);
+        if (task != null) {
+            taskRepository.remove(task);
+        } else {
+            throw new NullPointerException("There is no task to remove");
+        }
     }
 
     public void removeAll() {
