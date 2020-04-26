@@ -1,10 +1,9 @@
 package ru.naumkin.tm.repository;
 
 import ru.naumkin.tm.entity.Project;
+import ru.naumkin.tm.entity.Task;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ProjectRepository {
 
@@ -37,6 +36,17 @@ public class ProjectRepository {
     }
 
     public void remove(Project project) {
+        List<String> nameList = new LinkedList<>();
+        for (Task t: taskRepository.findAll()) {
+            boolean taskAttachedToProject = t.getProjectId().equals(project.getID());
+            if (taskAttachedToProject) {
+                nameList.add(t.getName());
+            }
+        }
+        for (String name: nameList) {
+            Task task = taskRepository.findOne(name);
+            taskRepository.remove(task);
+        }
         projects.remove(project.getName());
     }
 
