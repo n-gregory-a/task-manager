@@ -163,6 +163,7 @@ public class Bootstrap {
 
     private void createTask() throws IOException {
         view.showMessage("[TASK CREATE]");
+        view.showMessage("Enter name: ");
         Task task = new Task(view.readLine());
         taskService.persist(task);
         view.showMessage("[OK]");
