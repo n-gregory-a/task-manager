@@ -38,7 +38,7 @@ public class ProjectService {
     }
 
     public void merge(Project project, String name) {
-        if (name.isEmpty()) {
+        if (name.isEmpty() || project.getName().isEmpty()) {
             throw new IllegalArgumentException("The name is empty, updating failed");
         }
 

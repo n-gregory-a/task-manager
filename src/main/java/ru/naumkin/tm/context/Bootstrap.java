@@ -135,7 +135,12 @@ public class Bootstrap {
         view.showMessage("Enter new finish date(dd.mm.yyyy): ");
         project.setDateFinish(DateFormatter.convertStringToDate(view.readLine()));
 
-        projectService.merge(project, name);
+        try {
+            projectService.merge(project, name);
+        } catch (IllegalArgumentException e) {
+            view.showMessage(e.getMessage());
+            return;
+        }
         view.showMessage("[OK]");
     }
 
@@ -261,7 +266,16 @@ public class Bootstrap {
 
     private Task getTaskByName() throws IOException {
         view.showMessage("Enter task name: ");
-        return taskService.findOne(view.readLine());
+        Task task;
+
+        try {
+            task = taskService.findOne(view.readLine());
+        } catch (IllegalArgumentException | NullPointerException e) {
+            view.showMessage(e.getMessage());
+            task = getTaskByName();
+        }
+
+        return task;
     }
 
 }
