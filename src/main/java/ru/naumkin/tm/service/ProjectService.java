@@ -54,7 +54,7 @@ public class ProjectService {
         if (project != null) {
             projectRepository.remove(project);
         } else {
-            throw new NullPointerException("There is no project to remove.");
+            throw new NullPointerException("There is no project to remove");
         }
     }
 
