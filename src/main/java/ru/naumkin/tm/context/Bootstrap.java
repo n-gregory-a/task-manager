@@ -99,6 +99,7 @@ public class Bootstrap {
         view.showMessage("[PROJECT CREATE]");
         view.showMessage("Enter name: ");
         Project project = new Project(view.readLine());
+
         projectService.persist(project);
         view.showMessage("[OK]");
     }
@@ -118,36 +119,40 @@ public class Bootstrap {
 
     private void updateProject() throws IOException {
         view.showMessage("[PROJECT UPDATE]");
-        Project project = getProjectByName();
+        view.showMessage("Enter project name: ");
+        Project project = new Project(view.readLine());
         String name = project.getName();
+
         view.showMessage("Enter new name: ");
         project.setName(view.readLine());
+
         view.showMessage("Enter new description: ");
         project.setDescription(view.readLine());
+
         view.showMessage("Enter new start date(dd.mm.yyyy): ");
         project.setDateStart(DateFormatter.convertStringToDate(view.readLine()));
+
         view.showMessage("Enter new finish date(dd.mm.yyyy): ");
         project.setDateFinish(DateFormatter.convertStringToDate(view.readLine()));
+
         projectService.merge(project, name);
         view.showMessage("[OK]");
     }
 
     private void removeProject() throws IOException {
         view.showMessage("[PROJECT REMOVE]");
-        Project project = getProjectByName();
-        projectService.remove(project);
-        view.showMessage("[OK]");
+        if (projectService.findAll().isEmpty()) {
+            view.showMessage("[Project list is empty]");
+        } else {
+            Project project = getProjectByName();
+            projectService.remove(project);
+            view.showMessage("[OK]");
+        }
     }
 
     private void clearProjects() {
         view.showMessage("[PROJECT LIST CLEAR]");
         projectService.removeAll();
-        view.showMessage("[OK]");
-    }
-
-    private void clearTasks() {
-        view.showMessage("[TASK LIST CLEAR]");
-        taskService.removeAll();
         view.showMessage("[OK]");
     }
 
@@ -194,6 +199,12 @@ public class Bootstrap {
         view.showMessage("[OK]");
     }
 
+    private void clearTasks() {
+        view.showMessage("[TASK LIST CLEAR]");
+        taskService.removeAll();
+        view.showMessage("[OK]");
+    }
+
     private void attachTask() throws IOException {
         view.showMessage("[TASK ATTACH]");
         Project project = getProjectByName();
@@ -236,7 +247,16 @@ public class Bootstrap {
 
     private Project getProjectByName() throws IOException {
         view.showMessage("Enter project name: ");
-        return projectService.findOne(view.readLine());
+        Project project;
+
+        try {
+            project = projectService.findOne(view.readLine());
+        } catch (IllegalArgumentException | NullPointerException e) {
+            view.showMessage(e.getMessage());
+            project = getProjectByName();
+        }
+
+        return project;
     }
 
     private Task getTaskByName() throws IOException {
