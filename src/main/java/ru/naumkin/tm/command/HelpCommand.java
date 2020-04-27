@@ -1,4 +1,4 @@
-package ru.naumkin.tm.comand;
+package ru.naumkin.tm.command;
 
 public class HelpCommand  extends AbstractCommand {
 

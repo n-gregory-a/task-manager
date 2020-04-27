@@ -1,28 +1,35 @@
-package ru.naumkin.tm.comand;
+package ru.naumkin.tm.command;
 
 import ru.naumkin.tm.entity.Project;
 import ru.naumkin.tm.service.ProjectService;
 
 import java.io.IOException;
 
-public class ProjectReadCommand extends AbstractCommand {
+public class ProjectRemoveCommand extends AbstractCommand {
 
     @Override
     public String getName() {
-        return "project-read";
+        return "project-remove";
     }
 
     @Override
     public String getDescription() {
-        return "Show project by name.";
+        return "Remove selected project.";
     }
 
     @Override
     public void execute() throws Exception {
-        bootstrap.getView().showMessage("[PROJECT READ]");
+        bootstrap.getView().showMessage("[PROJECT REMOVE]");
 
-        Project project = getProjectByName();
-        bootstrap.getView().showMessage(project.toString());
+        ProjectService projectService = bootstrap.getProjectService();
+
+        if (projectService.findAll().isEmpty()) {
+            bootstrap.getView().showMessage("[Project list is empty.]");
+        } else {
+            Project project = getProjectByName();
+            projectService.remove(project);
+            bootstrap.getView().showMessage("[OK]");
+        }
     }
 
     private Project getProjectByName() throws IOException {

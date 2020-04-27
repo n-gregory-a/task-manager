@@ -1,4 +1,4 @@
-package ru.naumkin.tm.comand;
+package ru.naumkin.tm.command;
 
 import ru.naumkin.tm.entity.Project;
 import ru.naumkin.tm.service.ProjectService;

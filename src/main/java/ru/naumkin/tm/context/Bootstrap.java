@@ -1,6 +1,6 @@
 package ru.naumkin.tm.context;
 
-import ru.naumkin.tm.comand.*;
+import ru.naumkin.tm.command.*;
 import ru.naumkin.tm.repository.ProjectRepository;
 import ru.naumkin.tm.repository.TaskRepository;
 import ru.naumkin.tm.service.ProjectService;
