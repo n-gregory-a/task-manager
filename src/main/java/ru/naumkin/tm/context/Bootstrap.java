@@ -72,8 +72,9 @@ public class Bootstrap {
         registry(new TaskRemoveCommand());
         registry(new TaskUpdateCommand());
         registry(new TaskViewCommand());
+        registry(new ExitCommand());
         String command = "";
-        while (!"exit".equals(command)) {
+        while (true) {
             command = view.readLine();
             execute(command);
         }
