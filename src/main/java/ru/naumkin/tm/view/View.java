@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class View {
 
-    private BufferedReader reader;
+    private final BufferedReader reader;
 
     public View(BufferedReader reader) {
         this.reader = reader;
