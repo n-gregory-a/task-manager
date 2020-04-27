@@ -22,7 +22,7 @@ public class TaskService {
             throw new IllegalArgumentException("The name is empty");
         }
         if (name == null) {
-            throw new IllegalArgumentException("The name is empty");
+            throw new IllegalArgumentException("The name is null");
         }
         Task task = taskRepository.findOne(name);
         if (task == null) {
@@ -41,6 +41,9 @@ public class TaskService {
     public void merge(Task task, String name) {
         if (name.isEmpty()) {
             throw new IllegalArgumentException("The name is empty, updating failed");
+        }
+        if (name == null) {
+            throw new IllegalArgumentException("The name is null, updating failed");
         }
         if (task.getName().isEmpty()) {
             throw new IllegalArgumentException("The name is empty, updating failed");
