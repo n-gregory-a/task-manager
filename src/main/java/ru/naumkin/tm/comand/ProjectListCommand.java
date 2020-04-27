@@ -23,7 +23,7 @@ public class ProjectListCommand extends AbstractCommand {
 
         int index = 1;
         for (Project project: projectService.findAll()) {
-            bootstrap.getView().showMessage(index++ + ". " + project.getName());
+            bootstrap.getView().showMessage(index++ + ". " + project.toString());
         }
     }
 

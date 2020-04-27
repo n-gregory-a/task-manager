@@ -23,7 +23,7 @@ public class TaskListCommand extends AbstractCommand {
 
         int index = 1;
         for (Task task: taskService.findAll()) {
-            bootstrap.getView().showMessage(index++ + ". " + task.getName());
+            bootstrap.getView().showMessage(index++ + ". " + task.toString());
         }
     }
 
