@@ -28,11 +28,13 @@ public class ProjectRepository {
     }
 
     public void merge(Project project, String name) {
-        Project updatingProject = findOne(name);
+        Project updatingProject = projects.get(name);
         updatingProject.setName(project.getName());
         updatingProject.setDescription(project.getDescription());
         updatingProject.setDateStart(project.getDateStart());
         updatingProject.setDateFinish(project.getDateFinish());
+        projects.remove(name);
+        projects.put(updatingProject.getName(), updatingProject);
     }
 
     public void remove(Project project) {

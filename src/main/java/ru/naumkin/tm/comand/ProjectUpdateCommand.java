@@ -18,7 +18,7 @@ public class ProjectUpdateCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        bootstrap.getView().showMessage("[PROJECT READ]");
+        bootstrap.getView().showMessage("[PROJECT UPDATE]");
 
         ProjectService projectService = bootstrap.getProjectService();
 
