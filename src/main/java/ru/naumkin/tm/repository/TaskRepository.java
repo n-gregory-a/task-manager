@@ -23,12 +23,14 @@ public class TaskRepository {
     }
 
     public void merge(Task task, String name) {
-        Task updatingTask = findOne(name);
+        Task updatingTask = tasks.get(name);
         updatingTask.setName(task.getName());
         updatingTask.setDescription(task.getDescription());
         updatingTask.setDateStart(task.getDateStart());
         updatingTask.setDateFinish(task.getDateFinish());
         updatingTask.setProjectId(task.getProjectId());
+        tasks.remove(name);
+        tasks.put(updatingTask.getName(), updatingTask);
     }
 
     public void remove(Task task) {
