@@ -16,17 +16,17 @@ import java.util.Map;
 
 public class Bootstrap {
 
-    private TaskRepository taskRepository = new TaskRepository();
+    private final TaskRepository taskRepository = new TaskRepository();
 
-    private ProjectRepository projectRepository = new ProjectRepository(taskRepository);
+    private final ProjectRepository projectRepository = new ProjectRepository(taskRepository);
 
-    private TaskService taskService = new TaskService(taskRepository);
+    private final TaskService taskService = new TaskService(taskRepository);
 
-    private ProjectService projectService = new ProjectService(projectRepository);
+    private final ProjectService projectService = new ProjectService(projectRepository);
 
-    private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    private View view = new View(reader);
+    private final View view = new View(reader);
 
     private final Map<String, AbstractCommand> commands = new LinkedHashMap<>();
 
@@ -73,7 +73,7 @@ public class Bootstrap {
         registry(new TaskUpdateCommand());
         registry(new TaskViewCommand());
         registry(new ExitCommand());
-        String command = "";
+        String command;
         while (true) {
             command = view.readLine();
             execute(command);
