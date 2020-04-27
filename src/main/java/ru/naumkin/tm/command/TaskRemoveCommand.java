@@ -25,11 +25,11 @@ public class TaskRemoveCommand extends AbstractCommand {
 
         if (taskService.findAll().isEmpty()) {
             bootstrap.getView().showMessage("[Task list is empty]");
-        } else {
-            Task task = getTaskByName();
-            taskService.remove(task);
-            bootstrap.getView().showMessage("[OK]");
+            return;
         }
+        Task task = getTaskByName();
+        taskService.remove(task);
+        bootstrap.getView().showMessage("[OK]");
     }
 
     private Task getTaskByName() throws IOException {

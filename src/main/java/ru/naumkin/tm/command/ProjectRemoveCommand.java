@@ -25,11 +25,11 @@ public class ProjectRemoveCommand extends AbstractCommand {
 
         if (projectService.findAll().isEmpty()) {
             bootstrap.getView().showMessage("[Project list is empty.]");
-        } else {
-            Project project = getProjectByName();
-            projectService.remove(project);
-            bootstrap.getView().showMessage("[OK]");
+            return;
         }
+        Project project = getProjectByName();
+        projectService.remove(project);
+        bootstrap.getView().showMessage("[OK]");
     }
 
     private Project getProjectByName() throws IOException {
