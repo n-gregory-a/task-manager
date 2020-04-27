@@ -7,9 +7,9 @@ import java.util.*;
 
 public class ProjectRepository {
 
-    private Map<String, Project> projects = new HashMap<>();
+    private final Map<String, Project> projects = new LinkedHashMap<>();
 
-    private TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
 
     public ProjectRepository(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;

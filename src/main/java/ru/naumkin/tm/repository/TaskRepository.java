@@ -3,12 +3,12 @@ package ru.naumkin.tm.repository;
 import ru.naumkin.tm.entity.Task;
 
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class TaskRepository {
 
-    private Map<String, Task> tasks = new HashMap<>();
+    private final Map<String, Task> tasks = new LinkedHashMap<>();
 
     public Collection<Task> findAll() {
         return tasks.values();
