@@ -22,40 +22,43 @@ public class ProjectService {
             throw new IllegalArgumentException("The name is empty");
         }
         Project project = projectRepository.findOne(name);
-        if (project != null) {
-            return project;
-        } else {
+        if (project == null) {
             throw new NullPointerException("There is no project with name " + name);
         }
+        return project;
     }
 
     public void persist(Project project) {
-        if (project != null) {
-            projectRepository.persist(project);
-        } else {
+        if (project == null) {
             throw new NullPointerException("There is no project to persist");
         }
+        projectRepository.persist(project);
     }
 
     public void merge(Project project, String name) {
-        if (name.isEmpty() || project.getName().isEmpty()) {
+        if (name.isEmpty()) {
             throw new IllegalArgumentException("The name is empty, updating failed");
         }
-
+        if (project.getName().isEmpty()) {
+            throw new IllegalArgumentException("The name is empty, updating failed");
+        }
+        if (project == null) {
+            throw new NullPointerException("There is no project to merge");
+        }
         Project updatingProject = projectRepository.findOne(name);
         if (updatingProject != null) {
             projectRepository.merge(project, name);
-        } else {
+        }
+        if (updatingProject == null) {
             projectRepository.persist(project);
         }
     }
 
     public void remove(Project project) {
-        if (project != null) {
-            projectRepository.remove(project);
-        } else {
+        if (project == null) {
             throw new NullPointerException("There is no project to remove");
         }
+        projectRepository.remove(project);
     }
 
     public void removeAll() {

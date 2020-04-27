@@ -21,41 +21,47 @@ public class TaskService {
         if (name.isEmpty()) {
             throw new IllegalArgumentException("The name is empty");
         }
+        if (name == null) {
+            throw new IllegalArgumentException("The name is empty");
+        }
         Task task = taskRepository.findOne(name);
-        if (task != null) {
-            return task;
-        } else {
+        if (task == null) {
             throw new NullPointerException("There is no task with name " + name);
         }
+        return task;
     }
 
     public void persist(Task task) {
-        if (task != null) {
-            taskRepository.persist(task);
-        } else {
+        if (task == null) {
             throw new NullPointerException("There is no task to persist");
         }
+        taskRepository.persist(task);
     }
 
     public void merge(Task task, String name) {
-        if (name.isEmpty() || task.getName().isEmpty()) {
+        if (name.isEmpty()) {
             throw new IllegalArgumentException("The name is empty, updating failed");
         }
-
+        if (task.getName().isEmpty()) {
+            throw new IllegalArgumentException("The name is empty, updating failed");
+        }
+        if (task == null) {
+            throw new NullPointerException("There is no task to merge");
+        }
         Task updatingTask = taskRepository.findOne(name);
         if (updatingTask != null) {
             taskRepository.merge(task, name);
-        } else {
+        }
+        if (updatingTask == null){
             taskRepository.persist(task);
         }
     }
 
     public void remove(Task task) {
-        if (task != null) {
-            taskRepository.remove(task);
-        } else {
+        if (task == null) {
             throw new NullPointerException("There is no task to remove");
         }
+        taskRepository.remove(task);
     }
 
     public void removeAll() {
