@@ -52,12 +52,10 @@ public class TaskService {
             throw new IllegalArgumentException("The name is empty, updating failed");
         }
         Task updatingTask = taskRepository.findOne(name);
-        if (updatingTask != null) {
-            taskRepository.merge(task, name);
-        }
         if (updatingTask == null){
             taskRepository.persist(task);
         }
+        taskRepository.merge(task, name);
     }
 
     public void remove(Task task) {

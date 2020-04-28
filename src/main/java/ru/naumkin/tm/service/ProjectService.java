@@ -52,12 +52,10 @@ public class ProjectService {
             throw new IllegalArgumentException("The name is empty, updating failed");
         }
         Project updatingProject = projectRepository.findOne(name);
-        if (updatingProject != null) {
-            projectRepository.merge(project, name);
-        }
         if (updatingProject == null) {
             projectRepository.persist(project);
         }
+        projectRepository.merge(project, name);
     }
 
     public void remove(Project project) {
