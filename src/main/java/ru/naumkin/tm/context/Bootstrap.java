@@ -1,14 +1,18 @@
 package ru.naumkin.tm.context;
 
 import ru.naumkin.tm.command.*;
+import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.repository.ProjectRepository;
 import ru.naumkin.tm.repository.TaskRepository;
+import ru.naumkin.tm.repository.UserRepository;
 import ru.naumkin.tm.service.ProjectService;
 import ru.naumkin.tm.service.TaskService;
+import ru.naumkin.tm.service.UserService;
 import ru.naumkin.tm.view.View;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -24,11 +28,20 @@ public class Bootstrap {
 
     private final ProjectService projectService = new ProjectService(projectRepository);
 
+    private final UserRepository userRepository = new UserRepository();
+
+    private final UserService userService = new UserService(userRepository);
+
     private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     private final View view = new View(reader);
 
     private final Map<String, AbstractCommand> commands = new LinkedHashMap<>();
+
+    private User currentUser = new User();
+
+    public Bootstrap() throws NoSuchAlgorithmException {
+    }
 
     public TaskService getTaskService() {
         return taskService;
@@ -42,7 +55,7 @@ public class Bootstrap {
         return view;
     }
 
-    public void registry(final AbstractCommand command) {
+    public void registerCommand(final AbstractCommand command) {
         final String cliCommand = command.getName();
         final String cliDescription = command.getDescription();
         if (cliCommand == null || cliCommand.isEmpty()) {
@@ -57,22 +70,22 @@ public class Bootstrap {
 
     public void init() throws Exception {
         view.showMessage("*** Welcome to task manager ***");
-        registry(new HelpCommand());
-        registry(new ProjectClearCommand());
-        registry(new ProjectCreateCommand());
-        registry(new ProjectListCommand());
-        registry(new ProjectReadCommand());
-        registry(new ProjectRemoveCommand());
-        registry(new ProjectUpdateCommand());
-        registry(new TaskAttachCommand());
-        registry(new TaskClearCommand());
-        registry(new TaskCreateCommand());
-        registry(new TaskListCommand());
-        registry(new TaskReadCommand());
-        registry(new TaskRemoveCommand());
-        registry(new TaskUpdateCommand());
-        registry(new TaskViewCommand());
-        registry(new ExitCommand());
+        registerCommand(new HelpCommand());
+        registerCommand(new ProjectClearCommand());
+        registerCommand(new ProjectCreateCommand());
+        registerCommand(new ProjectListCommand());
+        registerCommand(new ProjectReadCommand());
+        registerCommand(new ProjectRemoveCommand());
+        registerCommand(new ProjectUpdateCommand());
+        registerCommand(new TaskAttachCommand());
+        registerCommand(new TaskClearCommand());
+        registerCommand(new TaskCreateCommand());
+        registerCommand(new TaskListCommand());
+        registerCommand(new TaskReadCommand());
+        registerCommand(new TaskRemoveCommand());
+        registerCommand(new TaskUpdateCommand());
+        registerCommand(new TaskViewCommand());
+        registerCommand(new ExitCommand());
         String command;
         while (true) {
             command = view.readLine();
