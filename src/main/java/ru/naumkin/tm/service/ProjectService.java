@@ -18,11 +18,11 @@ public class ProjectService {
     }
 
     public Project findOne(String name) {
-        if (name.isEmpty()) {
-            throw new IllegalArgumentException("The name is empty");
-        }
         if (name == null) {
             throw new IllegalArgumentException("The name is null");
+        }
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("The name is empty");
         }
         Project project = projectRepository.findOne(name);
         if (project == null) {
@@ -39,17 +39,17 @@ public class ProjectService {
     }
 
     public void merge(Project project, String name) {
-        if (name.isEmpty()) {
-            throw new IllegalArgumentException("The name is empty, updating failed");
-        }
         if (name == null) {
             throw new IllegalArgumentException("The name is null, updating failed");
         }
-        if (project.getName().isEmpty()) {
+        if (name.isEmpty()) {
             throw new IllegalArgumentException("The name is empty, updating failed");
         }
         if (project == null) {
             throw new NullPointerException("There is no project to merge");
+        }
+        if (project.getName().isEmpty()) {
+            throw new IllegalArgumentException("The name is empty, updating failed");
         }
         Project updatingProject = projectRepository.findOne(name);
         if (updatingProject != null) {

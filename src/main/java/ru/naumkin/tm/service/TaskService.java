@@ -18,11 +18,11 @@ public class TaskService {
     }
 
     public Task findOne(String name) {
-        if (name.isEmpty()) {
-            throw new IllegalArgumentException("The name is empty");
-        }
         if (name == null) {
             throw new IllegalArgumentException("The name is null");
+        }
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("The name is empty");
         }
         Task task = taskRepository.findOne(name);
         if (task == null) {
@@ -39,17 +39,17 @@ public class TaskService {
     }
 
     public void merge(Task task, String name) {
-        if (name.isEmpty()) {
-            throw new IllegalArgumentException("The name is empty, updating failed");
-        }
         if (name == null) {
             throw new IllegalArgumentException("The name is null, updating failed");
         }
-        if (task.getName().isEmpty()) {
+        if (name.isEmpty()) {
             throw new IllegalArgumentException("The name is empty, updating failed");
         }
         if (task == null) {
             throw new NullPointerException("There is no task to merge");
+        }
+        if (task.getName().isEmpty()) {
+            throw new IllegalArgumentException("The name is empty, updating failed");
         }
         Task updatingTask = taskRepository.findOne(name);
         if (updatingTask != null) {
