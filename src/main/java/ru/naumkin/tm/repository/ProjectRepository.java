@@ -33,6 +33,7 @@ public class ProjectRepository {
         updatingProject.setDescription(project.getDescription());
         updatingProject.setDateStart(project.getDateStart());
         updatingProject.setDateFinish(project.getDateFinish());
+        updatingProject.setUserId(project.getUserId());
         projects.remove(name);
         projects.put(updatingProject.getName(), updatingProject);
     }

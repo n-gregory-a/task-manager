@@ -29,6 +29,7 @@ public class TaskRepository {
         updatingTask.setDateStart(task.getDateStart());
         updatingTask.setDateFinish(task.getDateFinish());
         updatingTask.setProjectId(task.getProjectId());
+        updatingTask.setUserId(task.getUserId());
         tasks.remove(name);
         tasks.put(updatingTask.getName(), updatingTask);
     }
