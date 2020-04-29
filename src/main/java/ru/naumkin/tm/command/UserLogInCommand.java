@@ -5,7 +5,7 @@ import ru.naumkin.tm.util.HashGenerator;
 
 import java.io.IOException;
 
-public class UserAuthoriseCommand extends AbstractCommand {
+public class UserLogInCommand extends AbstractCommand {
 
     @Override
     public String getName() {
