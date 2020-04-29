@@ -15,6 +15,8 @@ public class Project {
 
     private LocalDate dateFinish = null;
 
+    private String userId = null;
+
     public Project(String name) {
         this.name = name;
     }

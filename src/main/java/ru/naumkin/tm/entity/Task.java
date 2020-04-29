@@ -17,6 +17,8 @@ public class Task {
 
     private String projectId = null;
 
+    private String userId = null;
+
     public Task(String name) {
         this.name = name;
     }
