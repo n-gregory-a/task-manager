@@ -57,6 +57,14 @@ public class Project {
         this.dateFinish = dateFinish;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "Project{" +

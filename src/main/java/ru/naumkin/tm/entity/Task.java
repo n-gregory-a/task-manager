@@ -67,6 +67,14 @@ public class Task {
         this.projectId = projectId;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "Task{" +
