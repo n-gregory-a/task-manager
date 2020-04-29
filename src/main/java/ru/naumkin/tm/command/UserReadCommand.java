@@ -6,6 +6,10 @@ import java.io.IOException;
 
 public class UserReadCommand extends AbstractCommand {
 
+    public UserReadCommand() {
+        super(true);
+    }
+
     @Override
     public String getName() {
         return "user-read";

@@ -6,6 +6,10 @@ import ru.naumkin.tm.util.DateFormatter;
 
 public class ProjectUpdateCommand extends AbstractCommand {
 
+    public ProjectUpdateCommand() {
+        super(true);
+    }
+
     @Override
     public String getName() {
         return "project-update";

@@ -4,6 +4,10 @@ import ru.naumkin.tm.entity.User;
 
 public class UserUpdateCommand extends AbstractCommand {
 
+    public UserUpdateCommand() {
+        super(true);
+    }
+
     @Override
     public String getName() {
         return "user-update";

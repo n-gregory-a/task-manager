@@ -7,6 +7,10 @@ import java.io.IOException;
 
 public class ProjectRemoveCommand extends AbstractCommand {
 
+    public ProjectRemoveCommand() {
+        super(true);
+    }
+
     @Override
     public String getName() {
         return "project-remove";

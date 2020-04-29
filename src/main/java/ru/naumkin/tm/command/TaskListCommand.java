@@ -5,6 +5,10 @@ import ru.naumkin.tm.service.TaskService;
 
 public class TaskListCommand extends AbstractCommand {
 
+    public TaskListCommand() {
+        super(true);
+    }
+
     @Override
     public String getName() {
         return "task-list";

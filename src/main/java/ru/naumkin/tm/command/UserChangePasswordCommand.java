@@ -5,6 +5,10 @@ import ru.naumkin.tm.util.HashGenerator;
 
 public class UserChangePasswordCommand extends AbstractCommand {
 
+    public UserChangePasswordCommand() {
+        super(true);
+    }
+
     @Override
     public String getName() {
         return "password-change";

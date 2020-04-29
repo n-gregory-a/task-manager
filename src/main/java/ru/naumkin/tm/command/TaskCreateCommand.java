@@ -6,6 +6,10 @@ import ru.naumkin.tm.service.TaskService;
 
 public class TaskCreateCommand extends AbstractCommand {
 
+    public TaskCreateCommand() {
+        super(true);
+    }
+
     @Override
     public String getName() {
         return "task-create";

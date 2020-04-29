@@ -7,6 +7,10 @@ import java.io.IOException;
 
 public class TaskRemoveCommand extends AbstractCommand {
 
+    public TaskRemoveCommand() {
+        super(true);
+    }
+
     @Override
     public String getName() {
         return "task-remove";

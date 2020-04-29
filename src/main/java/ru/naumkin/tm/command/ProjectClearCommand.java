@@ -4,6 +4,10 @@ import ru.naumkin.tm.service.ProjectService;
 
 public class ProjectClearCommand extends AbstractCommand {
 
+    public ProjectClearCommand() {
+        super(true);
+    }
+
     @Override
     public String getName() {
         return "project-clear";

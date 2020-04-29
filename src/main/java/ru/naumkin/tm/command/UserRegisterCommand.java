@@ -7,6 +7,10 @@ import java.io.IOException;
 
 public class UserRegisterCommand extends AbstractCommand {
 
+    public UserRegisterCommand() {
+        super(false);
+    }
+
     @Override
     public String getName() {
         return "user-new";

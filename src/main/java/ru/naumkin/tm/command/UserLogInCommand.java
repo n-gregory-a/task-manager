@@ -7,6 +7,10 @@ import java.io.IOException;
 
 public class UserLogInCommand extends AbstractCommand {
 
+    public UserLogInCommand() {
+        super(false);
+    }
+
     @Override
     public String getName() {
         return "log-in";

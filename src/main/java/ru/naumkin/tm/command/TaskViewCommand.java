@@ -9,6 +9,10 @@ import java.io.IOException;
 
 public class TaskViewCommand extends AbstractCommand {
 
+    public TaskViewCommand() {
+        super(true);
+    }
+
     @Override
     public String getName() {
         return "tasks-view";

@@ -7,6 +7,10 @@ import java.io.IOException;
 
 public class ProjectReadCommand extends AbstractCommand {
 
+    public ProjectReadCommand() {
+        super(true);
+    }
+
     @Override
     public String getName() {
         return "project-read";

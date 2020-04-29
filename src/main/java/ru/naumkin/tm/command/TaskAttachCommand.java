@@ -9,6 +9,10 @@ import java.io.IOException;
 
 public class TaskAttachCommand extends AbstractCommand {
 
+    public TaskAttachCommand() {
+        super(true);
+    }
+
     @Override
     public String getName() {
         return "task-attach";

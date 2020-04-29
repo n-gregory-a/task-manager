@@ -7,6 +7,10 @@ import java.io.IOException;
 
 public class TaskReadCommand extends AbstractCommand {
 
+    public TaskReadCommand() {
+        super(true);
+    }
+
     @Override
     public String getName() {
         return "task-read";

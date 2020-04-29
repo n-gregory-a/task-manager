@@ -6,6 +6,12 @@ public abstract class AbstractCommand {
 
     protected Bootstrap bootstrap;
 
+    private final boolean isSecure;
+
+    public AbstractCommand(boolean isSecure) {
+        this.isSecure = isSecure;
+    }
+
     public void setBootstrap(Bootstrap bootstrap) {
         this.bootstrap = bootstrap;
     }

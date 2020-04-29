@@ -4,6 +4,10 @@ import ru.naumkin.tm.service.TaskService;
 
 public class TaskClearCommand extends AbstractCommand {
 
+    public TaskClearCommand() {
+        super(true);
+    }
+
     @Override
     public String getName() {
         return "task-clear";

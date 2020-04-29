@@ -2,6 +2,10 @@ package ru.naumkin.tm.command;
 
 public class HelpCommand  extends AbstractCommand {
 
+    public HelpCommand() {
+        super(false);
+    }
+
     @Override
     public String getName() {
         return "help";

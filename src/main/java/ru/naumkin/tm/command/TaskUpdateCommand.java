@@ -6,6 +6,10 @@ import ru.naumkin.tm.util.DateFormatter;
 
 public class TaskUpdateCommand extends AbstractCommand {
 
+    public TaskUpdateCommand() {
+        super(true);
+    }
+
     @Override
     public String getName() {
         return "task-update";

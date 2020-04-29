@@ -6,6 +6,10 @@ import ru.naumkin.tm.service.ProjectService;
 
 public class ProjectCreateCommand extends AbstractCommand {
 
+    public ProjectCreateCommand() {
+        super(true);
+    }
+
     @Override
     public String getName() {
         return "project-create";

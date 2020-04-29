@@ -5,6 +5,10 @@ import ru.naumkin.tm.service.ProjectService;
 
 public class ProjectListCommand extends AbstractCommand {
 
+    public ProjectListCommand() {
+        super(true);
+    }
+
     @Override
     public String getName() {
         return "project-list";

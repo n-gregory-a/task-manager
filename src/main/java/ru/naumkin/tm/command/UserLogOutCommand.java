@@ -2,6 +2,10 @@ package ru.naumkin.tm.command;
 
 public class UserLogOutCommand extends AbstractCommand {
 
+    public UserLogOutCommand() {
+        super(true);
+    }
+
     @Override
     public String getName() {
         return "log-out";
