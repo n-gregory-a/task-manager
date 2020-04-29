@@ -9,17 +9,13 @@ public class User {
 
     private final String ID = UUID.randomUUID().toString();
 
-    private String login = "login";
+    private String login = "user";
 
     private String password = HashGenerator.getHash("password");
 
     private RoleType role = RoleType.USER;
 
     public User() {
-    }
-
-    public User(RoleType role) {
-        this.role = role;
     }
 
     public String getID() {

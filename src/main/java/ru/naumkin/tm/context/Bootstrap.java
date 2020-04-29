@@ -2,12 +2,14 @@ package ru.naumkin.tm.context;
 
 import ru.naumkin.tm.command.*;
 import ru.naumkin.tm.entity.User;
+import ru.naumkin.tm.enumerated.RoleType;
 import ru.naumkin.tm.repository.ProjectRepository;
 import ru.naumkin.tm.repository.TaskRepository;
 import ru.naumkin.tm.repository.UserRepository;
 import ru.naumkin.tm.service.ProjectService;
 import ru.naumkin.tm.service.TaskService;
 import ru.naumkin.tm.service.UserService;
+import ru.naumkin.tm.util.HashGenerator;
 import ru.naumkin.tm.view.View;
 
 import java.io.BufferedReader;
@@ -81,6 +83,7 @@ public class Bootstrap {
 
     public void init() throws Exception {
         view.showMessage("*** Welcome to task manager ***");
+        createDefaultUser();
         registerCommand(new HelpCommand());
         registerCommand(new ProjectClearCommand());
         registerCommand(new ProjectCreateCommand());
@@ -117,6 +120,17 @@ public class Bootstrap {
 
     public List<AbstractCommand> getCommands() {
         return new ArrayList<>(commands.values());
+    }
+
+    public void createDefaultUser() {
+        User user = new User();
+        User administrator = new User();
+        administrator.setLogin("admin");
+        administrator.setPassword(HashGenerator.getHash("MeG@$tr0nG@dmiN$p@$$w0rD"));
+        administrator.setRole(RoleType.ADMINISTRATOR);
+        userService.persist(user);
+        userService.persist(administrator);
+        setCurrentUser(user);
     }
 
 }
