@@ -33,6 +33,7 @@ public class UserLogInCommand extends AbstractCommand {
             return;
         }
         bootstrap.setCurrentUser(user);
+        bootstrap.getView().showMessage("[OK]");
     }
 
     private User getUserByName() throws IOException {

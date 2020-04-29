@@ -28,6 +28,7 @@ public class UserRegisterCommand extends AbstractCommand {
         bootstrap.getView().showMessage("Enter password");
         String password = bootstrap.getView().readLine();
         user.setPassword(HashGenerator.getHash(password));
+        bootstrap.getView().showMessage("[OK]");
     }
 
     private User createUniqueLoginUser() throws IOException {
