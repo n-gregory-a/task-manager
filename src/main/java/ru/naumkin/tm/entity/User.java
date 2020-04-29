@@ -1,10 +1,8 @@
 package ru.naumkin.tm.entity;
 
 import ru.naumkin.tm.enumerated.RoleType;
+import ru.naumkin.tm.util.HashGenerator;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.UUID;
 
 public class User {
@@ -13,15 +11,19 @@ public class User {
 
     private String login = "login";
 
-    private String password = generateHashedPassword("password");
+    private String password = HashGenerator.getHash("password");
 
     private RoleType role = RoleType.USER;
 
-    public User() throws NoSuchAlgorithmException {
+    public User() {
     }
 
-    public User(RoleType role) throws NoSuchAlgorithmException {
+    public User(RoleType role) {
         this.role = role;
+    }
+
+    public String getID() {
+        return ID;
     }
 
     public String getLogin() {
@@ -36,8 +38,8 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) throws NoSuchAlgorithmException {
-        generateHashedPassword(password);
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public RoleType getRole() {
@@ -46,20 +48,6 @@ public class User {
 
     public void setRole(RoleType role) {
         this.role = role;
-    }
-
-    private String generateHashedPassword(String password) throws NoSuchAlgorithmException {
-        SecureRandom random = new SecureRandom();
-        byte[] salt = new byte[16];
-        random.nextBytes(salt);
-        MessageDigest md = MessageDigest.getInstance("SHA-512");
-        md.update(salt);
-        byte[] hashedPassword = md.digest(password.getBytes());
-        StringBuilder builder = new StringBuilder();
-        for (byte b: hashedPassword) {
-            builder.append(String.format("%02X", b));
-        }
-        return builder.toString();
     }
 
 }
