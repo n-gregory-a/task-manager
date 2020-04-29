@@ -16,6 +16,10 @@ public abstract class AbstractCommand {
         this.bootstrap = bootstrap;
     }
 
+    public boolean isSecure() {
+        return isSecure;
+    }
+
     public abstract String getName();
 
     public abstract String getDescription();
