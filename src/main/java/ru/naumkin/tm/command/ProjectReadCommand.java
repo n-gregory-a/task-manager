@@ -20,7 +20,7 @@ public class ProjectReadCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         bootstrap.getView().showMessage("[PROJECT READ]");
-
+        bootstrap.getView().showMessage("Enter project name:");
         Project project = getProjectByName();
         bootstrap.getView().showMessage(project.toString());
     }

@@ -20,7 +20,7 @@ public class TaskReadCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         bootstrap.getView().showMessage("[TASK READ]");
-
+        bootstrap.getView().showMessage("Enter task name:");
         Task task = getTaskByName();
         bootstrap.getView().showMessage(task.toString());
     }
