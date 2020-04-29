@@ -12,7 +12,6 @@ import ru.naumkin.tm.view.View;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -40,7 +39,7 @@ public class Bootstrap {
 
     private User currentUser = new User();
 
-    public Bootstrap() throws NoSuchAlgorithmException {
+    public Bootstrap() {
     }
 
     public TaskService getTaskService() {
@@ -51,8 +50,20 @@ public class Bootstrap {
         return projectService;
     }
 
+    public UserService getUserService() {
+        return userService;
+    }
+
     public View getView() {
         return view;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
     }
 
     public void registerCommand(final AbstractCommand command) {
