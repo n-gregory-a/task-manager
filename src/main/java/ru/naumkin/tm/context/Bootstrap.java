@@ -100,6 +100,12 @@ public class Bootstrap {
         registerCommand(new TaskUpdateCommand());
         registerCommand(new TaskViewCommand());
         registerCommand(new ExitCommand());
+        registerCommand(new UserChangePasswordCommand());
+        registerCommand(new UserLogInCommand());
+        registerCommand(new UserLogOutCommand());
+        registerCommand(new UserReadCommand());
+        registerCommand(new UserRegisterCommand());
+        registerCommand(new UserUpdateCommand());
         String command;
         while (true) {
             command = view.readLine();
