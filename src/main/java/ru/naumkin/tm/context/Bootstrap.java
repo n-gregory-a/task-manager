@@ -119,6 +119,15 @@ public class Bootstrap {
         }
         final AbstractCommand abstractCommand = commands.get(command);
         if (abstractCommand == null) {
+            getView().showMessage("Unknown command");
+            return;
+        }
+        if (getCurrentUser() != null) {
+            abstractCommand.execute();
+            return;
+        }
+        if (abstractCommand.isSecure()) {
+            getView().showMessage("This command requires authorization.");
             return;
         }
         abstractCommand.execute();
