@@ -26,8 +26,9 @@ public class UserUpdateCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         bootstrap.getView().showMessage("[USER UPDATE PROFILE]");
-        User user = bootstrap.getCurrentUser();
-        String login = user.getLogin();
+        bootstrap.getView().showMessage("Enter login:");
+        String login = bootstrap.getView().readLine();
+        User user = bootstrap.getUserService().findOne(login);
         bootstrap.getView().showMessage("Enter new login:");
         String newLogin = bootstrap.getView().readLine();
         user.setLogin(newLogin);
