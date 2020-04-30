@@ -33,6 +33,7 @@ public class UserChangePasswordCommand extends AbstractCommand {
         bootstrap.getView().showMessage("Enter new password:");
         password = bootstrap.getView().readLine();
         user.setPassword(HashGenerator.getHash(password));
+        bootstrap.getView().showMessage("[OK]");
     }
 
 }

@@ -25,9 +25,10 @@ public class UserRegisterCommand extends AbstractCommand {
     public void execute() throws Exception {
         bootstrap.getView().showMessage("[REGISTER NEW USER]");
         User user = createUniqueLoginUser();
-        bootstrap.getView().showMessage("Enter password");
+        bootstrap.getView().showMessage("Enter password:");
         String password = bootstrap.getView().readLine();
         user.setPassword(HashGenerator.getHash(password));
+        bootstrap.getUserService().persist(user);
         bootstrap.getView().showMessage("[OK]");
     }
 
@@ -42,7 +43,6 @@ public class UserRegisterCommand extends AbstractCommand {
                 createUniqueLoginUser();
             }
         }
-        user.setLogin(login);
         return user;
     }
 
