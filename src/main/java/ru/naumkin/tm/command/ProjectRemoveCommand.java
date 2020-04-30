@@ -1,6 +1,9 @@
 package ru.naumkin.tm.command;
 
 import ru.naumkin.tm.entity.Project;
+import ru.naumkin.tm.error.NameIsEmptyException;
+import ru.naumkin.tm.error.NoProjectWithSuchNameException;
+import ru.naumkin.tm.error.ProjectIsNullException;
 import ru.naumkin.tm.service.ProjectService;
 
 import java.io.IOException;
@@ -24,15 +27,17 @@ public class ProjectRemoveCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         bootstrap.getView().showMessage("[PROJECT REMOVE]");
-
         ProjectService projectService = bootstrap.getProjectService();
-
         if (projectService.findAll().isEmpty()) {
             bootstrap.getView().showMessage("[Project list is empty.]");
             return;
         }
         Project project = getProjectByName();
-        projectService.remove(project);
+        try {
+            projectService.remove(project);
+        } catch (ProjectIsNullException e) {
+            bootstrap.getView().showMessage(e.toString());
+        }
         bootstrap.getView().showMessage("[OK]");
     }
 
@@ -40,14 +45,12 @@ public class ProjectRemoveCommand extends AbstractCommand {
         bootstrap.getView().showMessage("Enter project name:");
         ProjectService projectService = bootstrap.getProjectService();
         Project project;
-
         try {
             project = projectService.findOne(bootstrap.getView().readLine());
-        } catch (IllegalArgumentException | NullPointerException e) {
-            bootstrap.getView().showMessage(e.getMessage());
+        } catch (NameIsEmptyException | NoProjectWithSuchNameException e) {
+            bootstrap.getView().showMessage(e.toString());
             project = getProjectByName();
         }
-
         return project;
     }
 

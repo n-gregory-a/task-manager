@@ -22,9 +22,7 @@ public class TaskListCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         bootstrap.getView().showMessage("[TASK LIST]");
-
         TaskService taskService = bootstrap.getTaskService();
-
         int index = 1;
         for (Task task: taskService.findAll()) {
             bootstrap.getView().showMessage(index++ + ". " + task.toString());

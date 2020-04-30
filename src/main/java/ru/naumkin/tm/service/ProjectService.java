@@ -2,6 +2,7 @@ package ru.naumkin.tm.service;
 
 import ru.naumkin.tm.entity.Project;
 import ru.naumkin.tm.error.NameIsEmptyException;
+import ru.naumkin.tm.error.NameIsNullException;
 import ru.naumkin.tm.error.NoProjectWithSuchNameException;
 import ru.naumkin.tm.error.ProjectIsNullException;
 import ru.naumkin.tm.repository.ProjectRepository;
@@ -22,7 +23,7 @@ public class ProjectService {
 
     public Project findOne(String name) {
         if (name == null) {
-            throw new NameIsEmptyException();
+            throw new NameIsNullException();
         }
         if (name.isEmpty()) {
             throw new NameIsEmptyException();

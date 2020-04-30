@@ -1,6 +1,9 @@
 package ru.naumkin.tm.command;
 
 import ru.naumkin.tm.entity.User;
+import ru.naumkin.tm.error.NameIsEmptyException;
+import ru.naumkin.tm.error.NameIsNullException;
+import ru.naumkin.tm.error.NoUserWithSuchLoginException;
 import ru.naumkin.tm.util.HashGenerator;
 
 import java.io.IOException;
@@ -41,8 +44,8 @@ public class UserLogInCommand extends AbstractCommand {
         User user;
         try {
             user = bootstrap.getUserService().findOne(bootstrap.getView().readLine());
-        } catch (IllegalArgumentException | NullPointerException e) {
-            bootstrap.getView().showMessage(e.getMessage());
+        } catch (NameIsNullException | NameIsEmptyException | NoUserWithSuchLoginException e) {
+            bootstrap.getView().showMessage(e.toString());
             user = getUserByName();
         }
         return user;

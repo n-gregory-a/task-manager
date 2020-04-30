@@ -2,6 +2,9 @@ package ru.naumkin.tm.command;
 
 import ru.naumkin.tm.entity.Project;
 import ru.naumkin.tm.entity.Task;
+import ru.naumkin.tm.error.NameIsEmptyException;
+import ru.naumkin.tm.error.NoProjectWithSuchNameException;
+import ru.naumkin.tm.error.NoTaskWithSuchNameException;
 import ru.naumkin.tm.service.ProjectService;
 import ru.naumkin.tm.service.TaskService;
 
@@ -26,10 +29,8 @@ public class TaskAttachCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         bootstrap.getView().showMessage("[TASK ATTACH]");
-
         Project project = getProjectByName();
         Task task = getTaskByName();
-
         task.setProjectId(project.getID());
         bootstrap.getView().showMessage("[OK]");
     }
@@ -38,14 +39,12 @@ public class TaskAttachCommand extends AbstractCommand {
         bootstrap.getView().showMessage("Enter project name: ");
         ProjectService projectService = bootstrap.getProjectService();
         Project project;
-
         try {
             project = projectService.findOne(bootstrap.getView().readLine());
-        } catch (IllegalArgumentException | NullPointerException e) {
-            bootstrap.getView().showMessage(e.getMessage());
+        } catch (NameIsEmptyException | NoProjectWithSuchNameException e) {
+            bootstrap.getView().showMessage(e.toString());
             project = getProjectByName();
         }
-
         return project;
     }
 
@@ -53,14 +52,12 @@ public class TaskAttachCommand extends AbstractCommand {
         bootstrap.getView().showMessage("Enter task name:");
         TaskService taskService = bootstrap.getTaskService();
         Task task;
-
         try {
             task = taskService.findOne(bootstrap.getView().readLine());
-        } catch (IllegalArgumentException | NullPointerException e) {
-            bootstrap.getView().showMessage(e.getMessage());
+        } catch (NameIsEmptyException | NoTaskWithSuchNameException e) {
+            bootstrap.getView().showMessage(e.toString());
             task = getTaskByName();
         }
-
         return task;
     }
 

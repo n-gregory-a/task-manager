@@ -1,6 +1,8 @@
 package ru.naumkin.tm.command;
 
 import ru.naumkin.tm.entity.Task;
+import ru.naumkin.tm.error.NameIsEmptyException;
+import ru.naumkin.tm.error.NoTaskWithSuchNameException;
 import ru.naumkin.tm.service.TaskService;
 
 import java.io.IOException;
@@ -32,14 +34,12 @@ public class TaskReadCommand extends AbstractCommand {
         bootstrap.getView().showMessage("Enter task name:");
         TaskService taskService = bootstrap.getTaskService();
         Task task;
-
         try {
             task = taskService.findOne(bootstrap.getView().readLine());
-        } catch (IllegalArgumentException | NullPointerException e) {
-            bootstrap.getView().showMessage(e.getMessage());
+        } catch (NameIsEmptyException | NoTaskWithSuchNameException e) {
+            bootstrap.getView().showMessage(e.toString());
             task = getTaskByName();
         }
-
         return task;
     }
 

@@ -1,6 +1,7 @@
 package ru.naumkin.tm.command;
 
 import ru.naumkin.tm.entity.User;
+import ru.naumkin.tm.error.UserIsNullException;
 import ru.naumkin.tm.util.HashGenerator;
 
 import java.io.IOException;
@@ -28,7 +29,11 @@ public class UserRegisterCommand extends AbstractCommand {
         bootstrap.getView().showMessage("Enter password:");
         String password = bootstrap.getView().readLine();
         user.setPassword(HashGenerator.getHash(password));
-        bootstrap.getUserService().persist(user);
+        try {
+            bootstrap.getUserService().persist(user);
+        } catch (UserIsNullException e) {
+            bootstrap.getView().showMessage(e.toString());;
+        }
         bootstrap.getView().showMessage("[OK]");
     }
 

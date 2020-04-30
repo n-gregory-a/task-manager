@@ -1,6 +1,8 @@
 package ru.naumkin.tm.command;
 
 import ru.naumkin.tm.entity.Project;
+import ru.naumkin.tm.error.NameIsEmptyException;
+import ru.naumkin.tm.error.NoProjectWithSuchNameException;
 import ru.naumkin.tm.service.ProjectService;
 
 import java.io.IOException;
@@ -35,8 +37,8 @@ public class ProjectReadCommand extends AbstractCommand {
 
         try {
             project = projectService.findOne(bootstrap.getView().readLine());
-        } catch (IllegalArgumentException | NullPointerException e) {
-            bootstrap.getView().showMessage(e.getMessage());
+        } catch (NameIsEmptyException | NoProjectWithSuchNameException e) {
+            bootstrap.getView().showMessage(e.toString());
             project = getProjectByName();
         }
 

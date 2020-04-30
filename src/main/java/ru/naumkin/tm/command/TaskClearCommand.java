@@ -21,9 +21,7 @@ public class TaskClearCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         bootstrap.getView().showMessage("[TASK LIST CLEAR]");
-
         TaskService taskService = bootstrap.getTaskService();
-
         taskService.removeAll();
         bootstrap.getView().showMessage("[OK]");
     }

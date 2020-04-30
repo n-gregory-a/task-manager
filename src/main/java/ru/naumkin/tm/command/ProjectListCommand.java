@@ -22,9 +22,7 @@ public class ProjectListCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         bootstrap.getView().showMessage("[PROJECT LIST]");
-
         ProjectService projectService = bootstrap.getProjectService();
-
         int index = 1;
         for (Project project: projectService.findAll()) {
             bootstrap.getView().showMessage(index++ + ". " + project.toString());

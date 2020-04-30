@@ -1,6 +1,9 @@
 package ru.naumkin.tm.command;
 
 import ru.naumkin.tm.entity.User;
+import ru.naumkin.tm.error.NameIsEmptyException;
+import ru.naumkin.tm.error.NameIsNullException;
+import ru.naumkin.tm.error.UserIsNullException;
 
 public class UserUpdateCommand extends AbstractCommand {
 
@@ -28,8 +31,8 @@ public class UserUpdateCommand extends AbstractCommand {
         user.setLogin(newLogin);
         try {
             bootstrap.getUserService().merge(user, login);
-        } catch (IllegalArgumentException | NullPointerException e) {
-            bootstrap.getView().showMessage(e.getMessage());
+        } catch (NameIsNullException | NameIsEmptyException | UserIsNullException e) {
+            bootstrap.getView().showMessage(e.toString());
             return;
         }
         bootstrap.getView().showMessage("[OK]");
