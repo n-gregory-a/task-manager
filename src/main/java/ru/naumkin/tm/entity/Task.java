@@ -78,13 +78,13 @@ public class Task {
     @Override
     public String toString() {
         return "Task{" +
-                "id='" + ID + '\'' +
+                "ID='" + ID + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", dateStart=" + dateStart +
                 ", dateFinish=" + dateFinish +
                 ", projectId='" + projectId + '\'' +
+                ", userId='" + userId + '\'' +
                 '}';
     }
-
 }

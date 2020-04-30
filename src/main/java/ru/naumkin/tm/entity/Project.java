@@ -73,6 +73,7 @@ public class Project {
                 ", description='" + description + '\'' +
                 ", dateStart=" + dateStart +
                 ", dateFinish=" + dateFinish +
+                ", userId='" + userId + '\'' +
                 '}';
     }
 }
