@@ -28,7 +28,8 @@ public class TaskRemoveCommand extends AbstractCommand {
     public void execute() throws Exception {
         bootstrap.getView().showMessage("[TASK REMOVE]");
         TaskService taskService = bootstrap.getTaskService();
-        if (taskService.findAll().isEmpty()) {
+        String currentUserId = bootstrap.getCurrentUser().getID();
+        if (taskService.findAll(currentUserId).isEmpty()) {
             bootstrap.getView().showMessage("[Task list is empty]");
             return;
         }
@@ -41,8 +42,10 @@ public class TaskRemoveCommand extends AbstractCommand {
         bootstrap.getView().showMessage("Enter task name:");
         TaskService taskService = bootstrap.getTaskService();
         Task task;
+        String taskName = bootstrap.getView().readLine();
+        String currentUserId = bootstrap.getCurrentUser().getID();
         try {
-            task = taskService.findOne(bootstrap.getView().readLine());
+            task = taskService.findOne(taskName, currentUserId);
         } catch (NameIsEmptyException | NoTaskWithSuchNameException e) {
             bootstrap.getView().showMessage(e.toString());
             task = getTaskByName();

@@ -2,9 +2,7 @@ package ru.naumkin.tm.repository;
 
 import ru.naumkin.tm.entity.Task;
 
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class TaskRepository {
 
@@ -14,8 +12,30 @@ public class TaskRepository {
         return tasks.values();
     }
 
+    public List<Task> findAll(String currentUserId) {
+        List<Task> result = new LinkedList<>();
+        for (Task task: tasks.values()) {
+            boolean taskCreatedByCurrentUser =
+                    currentUserId.equals(task.getUserId());
+            if (taskCreatedByCurrentUser) {
+                result.add(task);
+            }
+        }
+        return result;
+    }
+
     public Task findOne(String name) {
         return tasks.get(name);
+    }
+
+    public Task findOne(String name, String currentUserId) {
+        Task result = new Task(name);
+        for (Task task: findAll(currentUserId)) {
+            if (task.getName().equals(name)) {
+                result = task;
+            }
+        }
+        return result;
     }
 
     public void persist(Task task) {

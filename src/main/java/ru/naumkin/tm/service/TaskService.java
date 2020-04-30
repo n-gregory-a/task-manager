@@ -1,13 +1,11 @@
 package ru.naumkin.tm.service;
 
 import ru.naumkin.tm.entity.Task;
-import ru.naumkin.tm.error.NameIsEmptyException;
-import ru.naumkin.tm.error.NameIsNullException;
-import ru.naumkin.tm.error.NoTaskWithSuchNameException;
-import ru.naumkin.tm.error.TaskIsNullException;
+import ru.naumkin.tm.error.*;
 import ru.naumkin.tm.repository.TaskRepository;
 
 import java.util.Collection;
+import java.util.List;
 
 public class TaskService {
 
@@ -19,6 +17,32 @@ public class TaskService {
 
     public Collection<Task> findAll() {
         return taskRepository.findAll();
+    }
+
+    public List<Task> findAll(String currentUserId) {
+        if (currentUserId == null) {
+            throw new CurrentUserIdIsNullException();
+        }
+        if (currentUserId.isEmpty()) {
+            throw new CurrentUserIdIsEmptyException();
+        }
+        return taskRepository.findAll(currentUserId);
+    }
+
+    public Task findOne(String name, String currentUserId) {
+        if (name == null) {
+            throw new NameIsNullException();
+        }
+        if (currentUserId == null) {
+            throw new CurrentUserIdIsNullException();
+        }
+        if (name.isEmpty()) {
+            throw new NameIsEmptyException();
+        }
+        if (currentUserId.isEmpty()) {
+            throw new CurrentUserIdIsEmptyException();
+        }
+        return taskRepository.findOne(name, currentUserId);
     }
 
     public Task findOne(String name) {
