@@ -19,9 +19,31 @@ public class ProjectRepository {
         return projects.values();
     }
 
+    public List<Project> findAll(String currentUserId) {
+        List<Project> result = new LinkedList<>();
+        for (Project project: projects.values()) {
+            boolean projectCreatedByCurrentUser =
+                    currentUserId.equals(project.getUserId());
+            if (projectCreatedByCurrentUser) {
+                result.add(project);
+            }
+        }
+        return result;
+    }
+
     public Project findOne(String name) {
         return projects.get(name);
     }
+
+    public Project findOne(String name, String currentUserId) {
+        Project result = new Project(name);
+        for (Project project: findAll(currentUserId)) {
+            if (project.getName().equals(name)) {
+                result = project;
+            }
+        }
+        return result;
+     }
 
     public void persist(Project project) {
         projects.put(project.getName(), project);

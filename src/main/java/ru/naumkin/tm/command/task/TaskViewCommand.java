@@ -41,12 +41,14 @@ public class TaskViewCommand extends AbstractCommand {
     }
 
     private Project getProjectByName() throws IOException {
-        bootstrap.getView().showMessage("Enter project name: ");
+        bootstrap.getView().showMessage("Enter project name:");
         ProjectService projectService = bootstrap.getProjectService();
         Project project;
+        String projectName = bootstrap.getView().readLine();
+        String currentUserId = bootstrap.getCurrentUser().getID();
         try {
-            project = projectService.findOne(bootstrap.getView().readLine());
-        } catch (NameIsNullException | NameIsEmptyException | NoProjectWithSuchNameException e) {
+            project = projectService.findOne(projectName, currentUserId);
+        } catch (NameIsEmptyException | NoProjectWithSuchNameException e) {
             bootstrap.getView().showMessage(e.toString());
             project = getProjectByName();
         }

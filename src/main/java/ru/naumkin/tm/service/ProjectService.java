@@ -1,13 +1,11 @@
 package ru.naumkin.tm.service;
 
 import ru.naumkin.tm.entity.Project;
-import ru.naumkin.tm.error.NameIsEmptyException;
-import ru.naumkin.tm.error.NameIsNullException;
-import ru.naumkin.tm.error.NoProjectWithSuchNameException;
-import ru.naumkin.tm.error.ProjectIsNullException;
+import ru.naumkin.tm.error.*;
 import ru.naumkin.tm.repository.ProjectRepository;
 
 import java.util.Collection;
+import java.util.List;
 
 public class ProjectService {
 
@@ -19,6 +17,32 @@ public class ProjectService {
 
     public Collection<Project> findAll() {
         return projectRepository.findAll();
+    }
+
+    public List<Project> findAll(String currentUserId) {
+        if (currentUserId == null) {
+            throw new CurrentUserIdIsNullException();
+        }
+        if (currentUserId.isEmpty()) {
+            throw new CurrentUserIdIsEmptyException();
+        }
+        return projectRepository.findAll(currentUserId);
+    }
+
+    public Project findOne(String name, String currentUserId) {
+        if (name == null) {
+            throw new NameIsNullException();
+        }
+        if (currentUserId == null) {
+            throw new CurrentUserIdIsNullException();
+        }
+        if (name.isEmpty()) {
+            throw new NameIsEmptyException();
+        }
+        if (currentUserId.isEmpty()) {
+            throw new CurrentUserIdIsEmptyException();
+        }
+        return projectRepository.findOne(name, currentUserId);
     }
 
     public Project findOne(String name) {
