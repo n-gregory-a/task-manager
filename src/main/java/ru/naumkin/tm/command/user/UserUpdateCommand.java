@@ -2,6 +2,7 @@ package ru.naumkin.tm.command.user;
 
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.User;
+import ru.naumkin.tm.enumerated.RoleType;
 import ru.naumkin.tm.error.NameIsEmptyException;
 import ru.naumkin.tm.error.NameIsNullException;
 import ru.naumkin.tm.error.UserIsNullException;
@@ -37,6 +38,11 @@ public class UserUpdateCommand extends AbstractCommand {
             return;
         }
         bootstrap.getView().showMessage("[OK]");
+    }
+
+    @Override
+    public RoleType[] getRoles() {
+        return new RoleType[] {RoleType.ADMINISTRATOR};
     }
 
 }

@@ -127,15 +127,16 @@ public class Bootstrap {
             getView().showMessage("Unknown command");
             return;
         }
-        if (getCurrentUser() != null) {
+        boolean secureCheck = !abstractCommand.isSecure() ||
+                (abstractCommand.isSecure() && getCurrentUser() != null);
+        boolean roleCheck = (abstractCommand.getRoles() == null) ||
+                (abstractCommand.getRoles() != null &&
+                        getCurrentUser().getRole() == RoleType.ADMINISTRATOR);
+        if (secureCheck && roleCheck) {
             abstractCommand.execute();
             return;
         }
-        if (abstractCommand.isSecure()) {
-            getView().showMessage("This command requires authorization.");
-            return;
-        }
-        abstractCommand.execute();
+        getView().showMessage("This command is not allowed.");
     }
 
     public List<AbstractCommand> getCommands() {

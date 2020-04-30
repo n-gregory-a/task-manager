@@ -2,6 +2,7 @@ package ru.naumkin.tm.command.user;
 
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.User;
+import ru.naumkin.tm.enumerated.RoleType;
 import ru.naumkin.tm.util.HashGenerator;
 
 public class UserChangePasswordCommand extends AbstractCommand {
@@ -35,6 +36,11 @@ public class UserChangePasswordCommand extends AbstractCommand {
         password = bootstrap.getView().readLine();
         user.setPassword(HashGenerator.getHash(password));
         bootstrap.getView().showMessage("[OK]");
+    }
+
+    @Override
+    public RoleType[] getRoles() {
+        return new RoleType[] {RoleType.ADMINISTRATOR};
     }
 
 }

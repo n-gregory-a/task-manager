@@ -2,8 +2,7 @@ package ru.naumkin.tm.command.user;
 
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.User;
-
-import java.io.IOException;
+import ru.naumkin.tm.enumerated.RoleType;
 
 public class UserReadCommand extends AbstractCommand {
 
@@ -26,6 +25,11 @@ public class UserReadCommand extends AbstractCommand {
         bootstrap.getView().showMessage("[READ USER PROFILE]");
         User user = bootstrap.getCurrentUser();
         bootstrap.getView().showMessage(user.toString());
+    }
+
+    @Override
+    public RoleType[] getRoles() {
+        return new RoleType[] {RoleType.ADMINISTRATOR};
     }
 
 }

@@ -1,6 +1,7 @@
 package ru.naumkin.tm.command;
 
 import ru.naumkin.tm.context.Bootstrap;
+import ru.naumkin.tm.enumerated.RoleType;
 
 public abstract class AbstractCommand {
 
@@ -25,5 +26,9 @@ public abstract class AbstractCommand {
     public abstract String getDescription();
 
     public abstract void execute() throws Exception;
+
+    public RoleType[] getRoles() {
+        return null;
+    }
 
 }
