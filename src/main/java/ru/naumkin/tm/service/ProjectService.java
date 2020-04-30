@@ -1,6 +1,9 @@
 package ru.naumkin.tm.service;
 
 import ru.naumkin.tm.entity.Project;
+import ru.naumkin.tm.error.NameIsEmptyException;
+import ru.naumkin.tm.error.NoProjectWithSuchNameException;
+import ru.naumkin.tm.error.ProjectIsNullException;
 import ru.naumkin.tm.repository.ProjectRepository;
 
 import java.util.Collection;
@@ -19,37 +22,37 @@ public class ProjectService {
 
     public Project findOne(String name) {
         if (name == null) {
-            throw new IllegalArgumentException("The name is null");
+            throw new NameIsEmptyException();
         }
         if (name.isEmpty()) {
-            throw new IllegalArgumentException("The name is empty");
+            throw new NameIsEmptyException();
         }
         Project project = projectRepository.findOne(name);
         if (project == null) {
-            throw new NullPointerException("There is no project with name " + name);
+            throw new NoProjectWithSuchNameException(name);
         }
         return project;
     }
 
     public void persist(Project project) {
         if (project == null) {
-            throw new NullPointerException("There is no project to persist");
+            throw new ProjectIsNullException();
         }
         projectRepository.persist(project);
     }
 
     public void merge(Project project, String name) {
         if (name == null) {
-            throw new IllegalArgumentException("The name is null, updating failed");
+            throw new NameIsEmptyException();
         }
         if (name.isEmpty()) {
-            throw new IllegalArgumentException("The name is empty, updating failed");
+            throw new NameIsEmptyException();
         }
         if (project == null) {
-            throw new NullPointerException("There is no project to merge");
+            throw new ProjectIsNullException();
         }
         if (project.getName().isEmpty()) {
-            throw new IllegalArgumentException("The name is empty, updating failed");
+            throw new NameIsEmptyException();
         }
         Project updatingProject = projectRepository.findOne(name);
         if (updatingProject == null) {
@@ -60,7 +63,7 @@ public class ProjectService {
 
     public void remove(Project project) {
         if (project == null) {
-            throw new NullPointerException("There is no project to remove");
+            throw new ProjectIsNullException();
         }
         projectRepository.remove(project);
     }

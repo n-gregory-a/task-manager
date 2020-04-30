@@ -1,6 +1,10 @@
 package ru.naumkin.tm.service;
 
 import ru.naumkin.tm.entity.User;
+import ru.naumkin.tm.error.NameIsEmptyException;
+import ru.naumkin.tm.error.NameIsNullException;
+import ru.naumkin.tm.error.NoUserWithSuchLoginException;
+import ru.naumkin.tm.error.UserIsNullException;
 import ru.naumkin.tm.repository.UserRepository;
 
 import java.security.NoSuchAlgorithmException;
@@ -20,37 +24,37 @@ public class UserService {
 
     public User findOne(String login) {
         if (login == null) {
-            throw new IllegalArgumentException("Login is null.");
+            throw new NameIsNullException();
         }
         if (login.isEmpty()) {
-            throw new IllegalArgumentException("Login is empty.");
+            throw new NameIsEmptyException();
         }
         User user = userRepository.findOne(login);
         if (user == null) {
-            throw new NullPointerException("There is no user with login" + login);
+            throw new NoUserWithSuchLoginException(login);
         }
         return user;
     }
 
     public User persist(User user) {
         if (user == null) {
-            throw new NullPointerException("There is no user to persist.");
+            throw new UserIsNullException();
         }
         return userRepository.persist(user);
     }
 
     public User merge(User user, String login) throws NoSuchAlgorithmException {
         if (login == null) {
-            throw new NullPointerException("The login is null, merging failed.");
+            throw new NameIsNullException();
         }
         if (login.isEmpty()) {
-            throw new IllegalArgumentException("The login is empty, merging failed.");
+            throw new NameIsEmptyException();
         }
         if (user == null) {
-            throw new NullPointerException("There is no user to merge.");
+            throw new UserIsNullException();
         }
         if (user.getLogin().isEmpty()) {
-            throw new IllegalArgumentException("The login is empty, merging failed.");
+            throw new NameIsEmptyException();
         }
         User updatingUser = userRepository.findOne(login);
         if (updatingUser == null) {
@@ -61,7 +65,7 @@ public class UserService {
 
     public User remove(User user) {
         if (user == null) {
-            throw new NullPointerException("There is no user to remove");
+            throw new UserIsNullException();
         }
         return userRepository.remove(user);
     }

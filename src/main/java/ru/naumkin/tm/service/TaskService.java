@@ -1,6 +1,10 @@
 package ru.naumkin.tm.service;
 
 import ru.naumkin.tm.entity.Task;
+import ru.naumkin.tm.error.NameIsEmptyException;
+import ru.naumkin.tm.error.NameIsNullException;
+import ru.naumkin.tm.error.NoTaskWithSuchNameException;
+import ru.naumkin.tm.error.TaskIsNullException;
 import ru.naumkin.tm.repository.TaskRepository;
 
 import java.util.Collection;
@@ -19,37 +23,37 @@ public class TaskService {
 
     public Task findOne(String name) {
         if (name == null) {
-            throw new IllegalArgumentException("The name is null");
+            throw new NameIsNullException();
         }
         if (name.isEmpty()) {
-            throw new IllegalArgumentException("The name is empty");
+            throw new NameIsEmptyException();
         }
         Task task = taskRepository.findOne(name);
         if (task == null) {
-            throw new NullPointerException("There is no task with name " + name);
+            throw new NoTaskWithSuchNameException(name);
         }
         return task;
     }
 
     public void persist(Task task) {
         if (task == null) {
-            throw new NullPointerException("There is no task to persist");
+            throw new TaskIsNullException();
         }
         taskRepository.persist(task);
     }
 
     public void merge(Task task, String name) {
         if (name == null) {
-            throw new IllegalArgumentException("The name is null, updating failed");
+            throw new NameIsNullException();
         }
         if (name.isEmpty()) {
-            throw new IllegalArgumentException("The name is empty, updating failed");
+            throw new NameIsEmptyException();
         }
         if (task == null) {
-            throw new NullPointerException("There is no task to merge");
+            throw new TaskIsNullException();
         }
         if (task.getName().isEmpty()) {
-            throw new IllegalArgumentException("The name is empty, updating failed");
+            throw new NameIsEmptyException();
         }
         Task updatingTask = taskRepository.findOne(name);
         if (updatingTask == null){
@@ -60,7 +64,7 @@ public class TaskService {
 
     public void remove(Task task) {
         if (task == null) {
-            throw new NullPointerException("There is no task to remove");
+            throw new TaskIsNullException();
         }
         taskRepository.remove(task);
     }
