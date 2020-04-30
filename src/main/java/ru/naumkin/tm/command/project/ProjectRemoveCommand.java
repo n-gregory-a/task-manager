@@ -1,5 +1,6 @@
-package ru.naumkin.tm.command;
+package ru.naumkin.tm.command.project;
 
+import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.Project;
 import ru.naumkin.tm.error.NameIsEmptyException;
 import ru.naumkin.tm.error.NoProjectWithSuchNameException;

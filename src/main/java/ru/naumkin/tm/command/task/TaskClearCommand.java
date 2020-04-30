@@ -1,5 +1,6 @@
-package ru.naumkin.tm.command;
+package ru.naumkin.tm.command.task;
 
+import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.service.TaskService;
 
 public class TaskClearCommand extends AbstractCommand {

@@ -1,4 +1,6 @@
-package ru.naumkin.tm.command;
+package ru.naumkin.tm.command.system;
+
+import ru.naumkin.tm.command.AbstractCommand;
 
 public class ExitCommand extends AbstractCommand {
 

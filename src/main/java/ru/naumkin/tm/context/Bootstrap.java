@@ -1,6 +1,11 @@
 package ru.naumkin.tm.context;
 
 import ru.naumkin.tm.command.*;
+import ru.naumkin.tm.command.project.*;
+import ru.naumkin.tm.command.system.ExitCommand;
+import ru.naumkin.tm.command.system.HelpCommand;
+import ru.naumkin.tm.command.task.*;
+import ru.naumkin.tm.command.user.*;
 import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.enumerated.RoleType;
 import ru.naumkin.tm.repository.ProjectRepository;

@@ -1,4 +1,6 @@
-package ru.naumkin.tm.command;
+package ru.naumkin.tm.command.user;
+
+import ru.naumkin.tm.command.AbstractCommand;
 
 public class UserLogOutCommand extends AbstractCommand {
 

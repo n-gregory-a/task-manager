@@ -1,5 +1,6 @@
-package ru.naumkin.tm.command;
+package ru.naumkin.tm.command.task;
 
+import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.Task;
 import ru.naumkin.tm.error.NameIsEmptyException;
 import ru.naumkin.tm.error.NoTaskWithSuchNameException;
