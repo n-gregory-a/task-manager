@@ -23,7 +23,9 @@ public class UserReadCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         bootstrap.getView().showMessage("[READ USER PROFILE]");
-        User user = bootstrap.getCurrentUser();
+        bootstrap.getView().showMessage("Enter login:");
+        String login = bootstrap.getView().readLine();
+        User user = bootstrap.getUserService().findOne(login);
         bootstrap.getView().showMessage(user.toString());
     }
 
