@@ -93,6 +93,19 @@ public class ProjectService {
         projectRepository.remove(project);
     }
 
+    public void remove(Project project, String currentUserId) {
+        if (project == null) {
+            throw new ProjectIsNullException();
+        }
+        if (currentUserId == null) {
+            throw new CurrentUserIdIsNullException();
+        }
+        if (currentUserId.isEmpty()) {
+            throw new CurrentUserIdIsEmptyException();
+        }
+        projectRepository.remove(project, currentUserId);
+    }
+
     public void removeAll() {
         projectRepository.removeAll();
     }
