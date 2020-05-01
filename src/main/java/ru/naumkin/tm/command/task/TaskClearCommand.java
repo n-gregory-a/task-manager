@@ -23,7 +23,7 @@ public class TaskClearCommand extends AbstractCommand {
     public void execute() throws Exception {
         bootstrap.getView().showMessage("[TASK LIST CLEAR]");
         TaskService taskService = bootstrap.getTaskService();
-        taskService.removeAll();
+        taskService.removeAll(bootstrap.getCurrentUser().getID());
         bootstrap.getView().showMessage("[OK]");
     }
 

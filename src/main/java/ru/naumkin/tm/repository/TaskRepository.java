@@ -29,7 +29,7 @@ public class TaskRepository {
     }
 
     public Task findOne(String name, String currentUserId) {
-        Task result = new Task(name);
+        Task result = null;
         for (Task task: findAll(currentUserId)) {
             if (task.getName().equals(name)) {
                 result = task;
@@ -58,8 +58,24 @@ public class TaskRepository {
         tasks.remove(task.getName());
     }
 
+    public Task remove(Task task, String currentUserId) {
+        Task toRemove = findOne(task.getName(), currentUserId);
+        if (toRemove == null) {
+            return null;
+        }
+        tasks.remove(toRemove.getName());
+        return toRemove;
+    }
+
     public void removeAll() {
         tasks.clear();
+    }
+
+    public void removeAll(String currentUserId) {
+        List<Task> toRemove = findAll(currentUserId);
+        for (Task task: toRemove) {
+            tasks.remove(task.getName());
+        }
     }
 
 }

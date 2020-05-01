@@ -42,7 +42,11 @@ public class TaskService {
         if (currentUserId.isEmpty()) {
             throw new CurrentUserIdIsEmptyException();
         }
-        return taskRepository.findOne(name, currentUserId);
+        Task task = taskRepository.findOne(name, currentUserId);
+        if (task == null) {
+            throw new NoTaskWithSuchNameException(name);
+        }
+        return task;
     }
 
     public Task findOne(String name) {
@@ -93,8 +97,33 @@ public class TaskService {
         taskRepository.remove(task);
     }
 
+    public void remove(Task task, String currentUserId) {
+        if (task == null) {
+            throw new TaskIsNullException();
+        }
+        if (currentUserId == null) {
+            throw new CurrentUserIdIsNullException();
+        }
+        if (currentUserId.isEmpty()) {
+            throw new CurrentUserIdIsEmptyException();
+        }
+        Task toRemove = taskRepository.remove(task, currentUserId);
+        if (toRemove == null) {
+            throw new TaskIsNullException();
+        }
+    }
+
     public void removeAll() {
         taskRepository.removeAll();
     }
 
+    public void removeAll(String currentUserId) {
+        if (currentUserId == null) {
+            throw new CurrentUserIdIsNullException();
+        }
+        if (currentUserId.isEmpty()) {
+            throw new CurrentUserIdIsEmptyException();
+        }
+        taskRepository.removeAll(currentUserId);
+    }
 }

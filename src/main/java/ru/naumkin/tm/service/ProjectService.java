@@ -46,7 +46,7 @@ public class ProjectService {
         if (project == null) {
             throw new NoProjectWithSuchNameException(name);
         }
-        return projectRepository.findOne(name, currentUserId);
+        return project;
     }
 
     public Project findOne(String name) {

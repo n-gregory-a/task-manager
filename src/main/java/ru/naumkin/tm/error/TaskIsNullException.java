@@ -4,6 +4,6 @@ public class TaskIsNullException extends RuntimeException {
 
     @Override
     public String toString() {
-        return "Task is null.";
+        return "Task not found.";
     }
 }

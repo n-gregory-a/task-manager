@@ -6,6 +6,7 @@ import ru.naumkin.tm.entity.Task;
 import ru.naumkin.tm.error.NameIsEmptyException;
 import ru.naumkin.tm.error.NoProjectWithSuchNameException;
 import ru.naumkin.tm.error.NoTaskWithSuchNameException;
+import ru.naumkin.tm.error.ProjectIsNullException;
 import ru.naumkin.tm.service.ProjectService;
 import ru.naumkin.tm.service.TaskService;
 
@@ -44,7 +45,9 @@ public class TaskAttachCommand extends AbstractCommand {
         String currentUserId = bootstrap.getCurrentUser().getID();
         try {
             project = projectService.findOne(projectName, currentUserId);
-        } catch (NameIsEmptyException | NoProjectWithSuchNameException e) {
+        } catch (NameIsEmptyException |
+                NoProjectWithSuchNameException |
+                ProjectIsNullException e) {
             bootstrap.getView().showMessage(e.toString());
             project = getProjectByName();
         }
