@@ -76,10 +76,10 @@ public class ProjectRepository {
         projects.remove(project.getName());
     }
 
-    public void remove(Project project, String currentUserId) {
+    public Project remove(Project project, String currentUserId) {
         Project toRemove = findOne(project.getName(), currentUserId);
         if (toRemove == null) {
-            return;
+            return null;
         }
         List<String> nameList = new LinkedList<>();
         for (Task t: taskRepository.findAll(currentUserId)) {
@@ -93,6 +93,7 @@ public class ProjectRepository {
             taskRepository.remove(task);
         }
         projects.remove(project.getName());
+        return toRemove;
     }
 
     public void removeAll() {

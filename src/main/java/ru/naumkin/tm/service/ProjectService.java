@@ -44,7 +44,7 @@ public class ProjectService {
         }
         Project project = projectRepository.findOne(name, currentUserId);
         if (project == null) {
-            throw new ProjectIsNullException();
+            throw new NoProjectWithSuchNameException(name);
         }
         return projectRepository.findOne(name, currentUserId);
     }
@@ -107,7 +107,10 @@ public class ProjectService {
         if (currentUserId.isEmpty()) {
             throw new CurrentUserIdIsEmptyException();
         }
-        projectRepository.remove(project, currentUserId);
+        Project toRemove = projectRepository.remove(project, currentUserId);
+        if (toRemove == null) {
+            throw new ProjectIsNullException();
+        }
     }
 
     public void removeAll() {
