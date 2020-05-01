@@ -37,7 +37,7 @@ public class ProjectRepository {
     }
 
     public Project findOne(String name, String currentUserId) {
-        Project result = new Project(name);
+        Project result = null;
         for (Project project: findAll(currentUserId)) {
             if (project.getName().equals(name)) {
                 result = project;
@@ -77,6 +77,10 @@ public class ProjectRepository {
     }
 
     public void remove(Project project, String currentUserId) {
+        Project toRemove = findOne(project.getName(), currentUserId);
+        if (toRemove == null) {
+            return;
+        }
         List<String> nameList = new LinkedList<>();
         for (Task t: taskRepository.findAll(currentUserId)) {
             boolean taskAttachedToProject = t.getProjectId().equals(project.getID());
@@ -93,6 +97,13 @@ public class ProjectRepository {
 
     public void removeAll() {
         projects.clear();
+    }
+
+    public void removeAll(String currentUserId) {
+        List<Project> toRemove = findAll(currentUserId);
+        for (Project project: toRemove) {
+            projects.remove(project.getName());
+        }
     }
 
 }

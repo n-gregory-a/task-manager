@@ -4,7 +4,7 @@ public class ProjectIsNullException extends RuntimeException {
 
     @Override
     public String toString() {
-        return "Project is null.";
+        return "Project not found.";
     }
 
 }

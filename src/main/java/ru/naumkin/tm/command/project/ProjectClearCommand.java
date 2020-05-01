@@ -22,10 +22,8 @@ public class ProjectClearCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         bootstrap.getView().showMessage("[PROJECT CLEAR]");
-
         ProjectService projectService = bootstrap.getProjectService();
-
-        projectService.removeAll();
+        projectService.removeAll(bootstrap.getCurrentUser().getID());
         bootstrap.getView().showMessage("[OK]");
     }
 

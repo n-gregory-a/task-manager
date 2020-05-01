@@ -42,6 +42,10 @@ public class ProjectService {
         if (currentUserId.isEmpty()) {
             throw new CurrentUserIdIsEmptyException();
         }
+        Project project = projectRepository.findOne(name, currentUserId);
+        if (project == null) {
+            throw new ProjectIsNullException();
+        }
         return projectRepository.findOne(name, currentUserId);
     }
 
@@ -110,4 +114,13 @@ public class ProjectService {
         projectRepository.removeAll();
     }
 
+    public void removeAll(String currentUserId) {
+        if (currentUserId == null) {
+            throw new CurrentUserIdIsNullException();
+        }
+        if (currentUserId.isEmpty()) {
+            throw new CurrentUserIdIsEmptyException();
+        }
+        projectRepository.removeAll(currentUserId);
+    }
 }

@@ -51,7 +51,9 @@ public class ProjectRemoveCommand extends AbstractCommand {
         String currentUserId = bootstrap.getCurrentUser().getID();
         try {
             project = projectService.findOne(projectName, currentUserId);
-        } catch (NameIsEmptyException | NoProjectWithSuchNameException e) {
+        } catch (NameIsEmptyException |
+                NoProjectWithSuchNameException |
+                ProjectIsNullException e) {
             bootstrap.getView().showMessage(e.toString());
             project = getProjectByName();
         }

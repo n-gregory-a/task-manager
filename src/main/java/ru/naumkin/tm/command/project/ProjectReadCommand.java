@@ -4,6 +4,7 @@ import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.Project;
 import ru.naumkin.tm.error.NameIsEmptyException;
 import ru.naumkin.tm.error.NoProjectWithSuchNameException;
+import ru.naumkin.tm.error.ProjectIsNullException;
 import ru.naumkin.tm.service.ProjectService;
 
 import java.io.IOException;
@@ -39,7 +40,9 @@ public class ProjectReadCommand extends AbstractCommand {
         String currentUserId = bootstrap.getCurrentUser().getID();
         try {
             project = projectService.findOne(projectName, currentUserId);
-        } catch (NameIsEmptyException | NoProjectWithSuchNameException e) {
+        } catch (NameIsEmptyException |
+                NoProjectWithSuchNameException |
+                ProjectIsNullException e) {
             bootstrap.getView().showMessage(e.toString());
             project = getProjectByName();
         }
