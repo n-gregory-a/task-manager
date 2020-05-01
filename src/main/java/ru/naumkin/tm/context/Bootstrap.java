@@ -44,7 +44,7 @@ public class Bootstrap {
 
     private final Map<String, AbstractCommand> commands = new LinkedHashMap<>();
 
-    private User currentUser = new User();
+    private User currentUser;
 
     public Bootstrap() {
     }
