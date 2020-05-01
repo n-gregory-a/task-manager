@@ -10,7 +10,7 @@ public class NoUserWithSuchLoginException extends RuntimeException {
 
     @Override
     public String toString() {
-        return "No user with login" + login + '.';
+        return "No user with login " + login + '.';
     }
 
 }
