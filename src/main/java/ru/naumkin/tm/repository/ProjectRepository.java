@@ -2,7 +2,6 @@ package ru.naumkin.tm.repository;
 
 import ru.naumkin.tm.entity.Project;
 import ru.naumkin.tm.entity.Task;
-import ru.naumkin.tm.entity.User;
 
 import java.util.*;
 
