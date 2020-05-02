@@ -1,4 +1,4 @@
-https://gitlab.com/grigory-naumkin/se-06.git
+https://gitlab.com/grigory-naumkin/se-07.git
 
 ### Task Manager
 ***
