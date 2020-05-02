@@ -39,7 +39,7 @@ public class TaskRepository {
     }
 
     public void persist(Task task) {
-        tasks.put(task.getName(), task);
+        tasks.put(task.getID(), task);
     }
 
     public void merge(Task task, String name) {

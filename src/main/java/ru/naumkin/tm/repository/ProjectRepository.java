@@ -46,7 +46,7 @@ public class ProjectRepository {
      }
 
     public void persist(Project project) {
-        projects.put(project.getName(), project);
+        projects.put(project.getID(), project);
     }
 
     public void merge(Project project, String name) {
