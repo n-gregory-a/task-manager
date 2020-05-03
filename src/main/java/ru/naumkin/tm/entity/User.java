@@ -5,9 +5,7 @@ import ru.naumkin.tm.util.HashGenerator;
 
 import java.util.UUID;
 
-public class User {
-
-    private final String ID = UUID.randomUUID().toString();
+public class User extends AbstractEntity {
 
     private String login = "user";
 
@@ -16,10 +14,6 @@ public class User {
     private RoleType role = RoleType.USER;
 
     public User() {
-    }
-
-    public String getID() {
-        return ID;
     }
 
     public String getLogin() {

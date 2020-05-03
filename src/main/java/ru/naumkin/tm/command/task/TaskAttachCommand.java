@@ -33,7 +33,7 @@ public class TaskAttachCommand extends AbstractCommand {
         bootstrap.getView().showMessage("[TASK ATTACH]");
         Project project = getProjectByName();
         Task task = getTaskByName();
-        task.setProjectId(project.getID());
+        task.setProjectId(project.getId());
         bootstrap.getView().showMessage("[OK]");
     }
 
@@ -42,7 +42,7 @@ public class TaskAttachCommand extends AbstractCommand {
         ProjectService projectService = bootstrap.getProjectService();
         Project project;
         String projectName = bootstrap.getView().readLine();
-        String currentUserId = bootstrap.getCurrentUser().getID();
+        String currentUserId = bootstrap.getCurrentUser().getId();
         try {
             project = projectService.findOne(projectName, currentUserId);
         } catch (NameIsEmptyException |
@@ -59,7 +59,7 @@ public class TaskAttachCommand extends AbstractCommand {
         TaskService taskService = bootstrap.getTaskService();
         Task task;
         String taskName = bootstrap.getView().readLine();
-        String currentUserId = bootstrap.getCurrentUser().getID();
+        String currentUserId = bootstrap.getCurrentUser().getId();
         try {
             task = taskService.findOne(taskName, currentUserId);
         } catch (NameIsEmptyException | NoTaskWithSuchNameException e) {

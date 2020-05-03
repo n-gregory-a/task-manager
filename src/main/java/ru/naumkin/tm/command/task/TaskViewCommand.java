@@ -4,7 +4,6 @@ import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.Project;
 import ru.naumkin.tm.entity.Task;
 import ru.naumkin.tm.error.NameIsEmptyException;
-import ru.naumkin.tm.error.NameIsNullException;
 import ru.naumkin.tm.error.NoProjectWithSuchNameException;
 import ru.naumkin.tm.service.ProjectService;
 import ru.naumkin.tm.service.TaskService;
@@ -33,7 +32,7 @@ public class TaskViewCommand extends AbstractCommand {
         TaskService taskService = bootstrap.getTaskService();
         Project project = getProjectByName();
         for (Task task: taskService.findAll()) {
-            boolean taskAttachedToProject = task.getProjectId().equals(project.getID());
+            boolean taskAttachedToProject = task.getProjectId().equals(project.getId());
             if (taskAttachedToProject) {
                 bootstrap.getView().showMessage(task.toString());
             }
@@ -45,7 +44,7 @@ public class TaskViewCommand extends AbstractCommand {
         ProjectService projectService = bootstrap.getProjectService();
         Project project;
         String projectName = bootstrap.getView().readLine();
-        String currentUserId = bootstrap.getCurrentUser().getID();
+        String currentUserId = bootstrap.getCurrentUser().getId();
         try {
             project = projectService.findOne(projectName, currentUserId);
         } catch (NameIsEmptyException | NoProjectWithSuchNameException e) {

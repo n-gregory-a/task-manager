@@ -28,7 +28,7 @@ public class TaskCreateCommand extends AbstractCommand {
         TaskService taskService = bootstrap.getTaskService();
         bootstrap.getView().showMessage("Enter name:");
         Task task = new Task(bootstrap.getView().readLine());
-        task.setUserId(user.getID());
+        task.setUserId(user.getId());
         taskService.persist(task);
         bootstrap.getView().showMessage("[OK]");
     }

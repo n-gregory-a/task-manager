@@ -25,7 +25,7 @@ public class ProjectListCommand extends AbstractCommand {
         bootstrap.getView().showMessage("[PROJECT LIST]");
         ProjectService projectService = bootstrap.getProjectService();
         int index = 1;
-        String currentUserId = bootstrap.getCurrentUser().getID();
+        String currentUserId = bootstrap.getCurrentUser().getId();
         for (Project project: projectService.findAll(currentUserId)) {
             bootstrap.getView().showMessage(index++ + ". " + project.toString());
         }

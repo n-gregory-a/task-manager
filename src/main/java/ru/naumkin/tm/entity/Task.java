@@ -3,9 +3,7 @@ package ru.naumkin.tm.entity;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public class Task {
-
-    private final String ID = UUID.randomUUID().toString();
+public class Task extends AbstractEntity {
 
     private String name = "";
 
@@ -21,10 +19,6 @@ public class Task {
 
     public Task(String name) {
         this.name = name;
-    }
-
-    public String getID() {
-        return ID;
     }
 
     public String getName() {
@@ -78,7 +72,7 @@ public class Task {
     @Override
     public String toString() {
         return "Task{" +
-                "ID='" + ID + '\'' +
+                "ID='" + getId() + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", dateStart=" + dateStart +

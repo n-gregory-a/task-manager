@@ -28,7 +28,7 @@ public class ProjectCreateCommand extends AbstractCommand {
         ProjectService projectService = bootstrap.getProjectService();
         bootstrap.getView().showMessage("Enter name:");
         Project project = new Project(bootstrap.getView().readLine());
-        project.setUserId(user.getID());
+        project.setUserId(user.getId());
         projectService.persist(project);
         bootstrap.getView().showMessage("[OK]");
     }

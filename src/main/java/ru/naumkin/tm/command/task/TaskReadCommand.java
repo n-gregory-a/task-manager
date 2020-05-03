@@ -36,7 +36,7 @@ public class TaskReadCommand extends AbstractCommand {
         TaskService taskService = bootstrap.getTaskService();
         Task task;
         String taskName = bootstrap.getView().readLine();
-        String currentUserId = bootstrap.getCurrentUser().getID();
+        String currentUserId = bootstrap.getCurrentUser().getId();
         try {
             task = taskService.findOne(taskName, currentUserId);
         } catch (NameIsEmptyException | NoTaskWithSuchNameException e) {

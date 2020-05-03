@@ -29,7 +29,7 @@ public class ProjectRemoveCommand extends AbstractCommand {
     public void execute() throws Exception {
         bootstrap.getView().showMessage("[PROJECT REMOVE]");
         ProjectService projectService = bootstrap.getProjectService();
-        String currentUserId = bootstrap.getCurrentUser().getID();
+        String currentUserId = bootstrap.getCurrentUser().getId();
         if (projectService.findAll(currentUserId).isEmpty()) {
             bootstrap.getView().showMessage("[Project list is empty.]");
             return;
@@ -48,7 +48,7 @@ public class ProjectRemoveCommand extends AbstractCommand {
         ProjectService projectService = bootstrap.getProjectService();
         Project project;
         String projectName = bootstrap.getView().readLine();
-        String currentUserId = bootstrap.getCurrentUser().getID();
+        String currentUserId = bootstrap.getCurrentUser().getId();
         try {
             project = projectService.findOne(projectName, currentUserId);
         } catch (NameIsEmptyException |

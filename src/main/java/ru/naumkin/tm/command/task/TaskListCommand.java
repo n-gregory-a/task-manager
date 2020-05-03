@@ -25,7 +25,7 @@ public class TaskListCommand extends AbstractCommand {
         bootstrap.getView().showMessage("[TASK LIST]");
         TaskService taskService = bootstrap.getTaskService();
         int index = 1;
-        String currentUserId = bootstrap.getCurrentUser().getID();
+        String currentUserId = bootstrap.getCurrentUser().getId();
         for (Task task: taskService.findAll(currentUserId)) {
             bootstrap.getView().showMessage(index++ + ". " + task.toString());
         }

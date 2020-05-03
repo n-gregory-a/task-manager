@@ -37,7 +37,7 @@ public class ProjectReadCommand extends AbstractCommand {
         ProjectService projectService = bootstrap.getProjectService();
         Project project;
         String projectName = bootstrap.getView().readLine();
-        String currentUserId = bootstrap.getCurrentUser().getID();
+        String currentUserId = bootstrap.getCurrentUser().getId();
         try {
             project = projectService.findOne(projectName, currentUserId);
         } catch (NameIsEmptyException |
