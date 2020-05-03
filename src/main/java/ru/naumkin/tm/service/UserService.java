@@ -53,7 +53,7 @@ public class UserService {
         if (user == null) {
             throw new UserIsNullException();
         }
-        if (user.getLogin().isEmpty()) {
+        if (user.getName().isEmpty()) {
             throw new NameIsEmptyException();
         }
         User updatingUser = userRepository.findOne(login);

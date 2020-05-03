@@ -31,7 +31,7 @@ public class UserUpdateCommand extends AbstractCommand {
         User user = bootstrap.getUserService().findOne(login);
         bootstrap.getView().showMessage("Enter new login:");
         String newLogin = bootstrap.getView().readLine();
-        user.setLogin(newLogin);
+        user.setName(newLogin);
         try {
             bootstrap.getUserService().merge(user, login);
         } catch (NameIsNullException | NameIsEmptyException | UserIsNullException e) {

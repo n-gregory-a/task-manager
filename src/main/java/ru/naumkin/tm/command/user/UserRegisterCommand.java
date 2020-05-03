@@ -42,9 +42,9 @@ public class UserRegisterCommand extends AbstractCommand {
         bootstrap.getView().showMessage("Enter login:");
         String login = bootstrap.getView().readLine();
         User user = new User();
-        user.setLogin(login);
+        user.setName(login);
         for (User u: bootstrap.getUserService().findAll()) {
-            if (u.getLogin().equals(login)) {
+            if (u.getName().equals(login)) {
                 bootstrap.getView().showMessage("The login is occupied.");
                 createUniqueLoginUser();
             }

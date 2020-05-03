@@ -3,25 +3,13 @@ package ru.naumkin.tm.entity;
 import ru.naumkin.tm.enumerated.RoleType;
 import ru.naumkin.tm.util.HashGenerator;
 
-import java.util.UUID;
-
 public class User extends AbstractEntity {
-
-    private String login = "user";
 
     private String password = HashGenerator.getHash("password");
 
     private RoleType role = RoleType.USER;
 
     public User() {
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
     }
 
     public String getPassword() {
@@ -42,7 +30,7 @@ public class User extends AbstractEntity {
 
     @Override
     public String toString() {
-        return "login: " + login +
+        return "login: " + getName() +
                 ", role: " + role.displayName() +
                 '}';
     }

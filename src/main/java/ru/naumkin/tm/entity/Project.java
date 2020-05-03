@@ -5,8 +5,6 @@ import java.util.UUID;
 
 public class Project extends AbstractEntity {
 
-    private String name = "";
-
     private String description = "";
 
     private LocalDate dateStart = LocalDate.now();
@@ -16,15 +14,7 @@ public class Project extends AbstractEntity {
     private String userId = null;
 
     public Project(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        setName(name);
     }
 
     public String getDescription() {
@@ -63,7 +53,7 @@ public class Project extends AbstractEntity {
     public String toString() {
         return "Project{" +
                 "id='" + getId() + '\'' +
-                ", name='" + name + '\'' +
+                ", name='" + getName() + '\'' +
                 ", description='" + description + '\'' +
                 ", dateStart=" + dateStart +
                 ", dateFinish=" + dateFinish +
