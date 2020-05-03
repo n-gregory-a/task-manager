@@ -18,7 +18,13 @@ public abstract class AbstractRepository<E extends AbstractEntity> implements IR
 
     @Override
     public E findOne(String name) {
-        return map.get(name);
+        String id = null;
+        for (E entity: findAll()) {
+            if (name.equals(entity.getName())) {
+                id = entity.getId();
+            }
+        }
+        return map.get(id);
     }
 
     @Override
