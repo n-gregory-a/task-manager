@@ -49,4 +49,5 @@ public abstract class AbstractRepository<E extends AbstractEntity> implements IR
     public void removeAll() {
         map.clear();
     }
+
 }

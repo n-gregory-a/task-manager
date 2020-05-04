@@ -4,7 +4,7 @@ import ru.naumkin.tm.entity.Project;
 
 import java.util.List;
 
-public interface IProjectRepository {
+public interface IProjectRepository extends IRepository<Project> {
 
     List<Project> findAll(String currentUserId);
 
