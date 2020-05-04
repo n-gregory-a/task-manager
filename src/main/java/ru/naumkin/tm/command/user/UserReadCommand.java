@@ -25,7 +25,13 @@ public class UserReadCommand extends AbstractCommand {
         bootstrap.getView().showMessage("[READ USER PROFILE]");
         bootstrap.getView().showMessage("Enter login:");
         String login = bootstrap.getView().readLine();
-        User user = bootstrap.getUserService().findOne(login);
+        User user;
+        try {
+            user = bootstrap.getUserService().findOne(login);
+        } catch (RuntimeException e) {
+            bootstrap.getView().showMessage(e.toString());
+            return;
+        }
         bootstrap.getView().showMessage(user.toString());
     }
 
