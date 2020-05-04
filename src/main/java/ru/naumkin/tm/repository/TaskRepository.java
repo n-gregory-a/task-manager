@@ -8,19 +8,6 @@ import java.util.*;
 public class TaskRepository extends AbstractRepository<Task> implements ITaskRepository {
 
     @Override
-    public Task merge(Task task, String name) {
-        Task updatingTask = map.get(name);
-        updatingTask.setName(task.getName());
-        updatingTask.setDescription(task.getDescription());
-        updatingTask.setDateStart(task.getDateStart());
-        updatingTask.setDateFinish(task.getDateFinish());
-        updatingTask.setProjectId(task.getProjectId());
-        updatingTask.setUserId(task.getUserId());
-        map.remove(name);
-        return map.put(updatingTask.getName(), updatingTask);
-    }
-
-    @Override
     public List<Task> findAll(String currentUserId) {
         List<Task> result = new LinkedList<>();
         for (Task task: map.values()) {

@@ -33,7 +33,12 @@ public abstract class AbstractRepository<E extends AbstractEntity> implements IR
     }
 
     @Override
-    public abstract E merge(E entity, String name);
+    public E merge(E entity) {
+        if (entity == null) {
+            return null;
+        }
+        return map.put(entity.getId(), entity);
+    }
 
     @Override
     public E remove(E entity) {

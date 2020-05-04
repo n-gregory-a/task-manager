@@ -12,7 +12,7 @@ public interface IRepository<E extends AbstractEntity> {
 
     E persist(E entity);
 
-    E merge(E entity, String name);
+    E merge(E entity);
 
     E remove(E entity);
 

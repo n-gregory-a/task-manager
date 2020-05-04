@@ -7,6 +7,9 @@ import ru.naumkin.tm.error.ProjectIsNullException;
 import ru.naumkin.tm.service.ProjectService;
 import ru.naumkin.tm.util.DateFormatter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProjectUpdateCommand extends AbstractCommand {
 
     public ProjectUpdateCommand() {
@@ -27,9 +30,21 @@ public class ProjectUpdateCommand extends AbstractCommand {
     public void execute() throws Exception {
         bootstrap.getView().showMessage("[PROJECT UPDATE]");
         ProjectService projectService = bootstrap.getProjectService();
-        bootstrap.getView().showMessage("Enter project name:");
-        Project project = new Project(bootstrap.getView().readLine());
+        bootstrap.getView().showMessage("Projects available to update:");
+        List<Project> list = new ArrayList<>();
+        int index = 1;
+        String currentUserId = bootstrap.getCurrentUser().getId();
+        for (Project project: projectService.findAll(currentUserId)) {
+            bootstrap.getView().showMessage(index++ + ". " + project.toString());
+            list.add(project);
+        }
+        bootstrap.getView().showMessage("Choose project to update by number:");
+        Project project = list.get(Integer.parseInt(bootstrap.getView().readLine()) - 1);
+//        bootstrap.getView().showMessage("Enter project name:");
         String name = project.getName();
+        bootstrap.getView().showMessage("Updating project:");
+        bootstrap.getView().showMessage("id: " + project.getId() +
+                ", name: " + project.getName());
         bootstrap.getView().showMessage("Enter new name:");
         project.setName(bootstrap.getView().readLine());
         bootstrap.getView().showMessage("Enter new description:");

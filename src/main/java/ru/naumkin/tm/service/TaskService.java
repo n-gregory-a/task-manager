@@ -87,7 +87,7 @@ public class TaskService {
         if (updatingTask == null){
             taskRepository.persist(task);
         }
-        taskRepository.merge(task, name);
+        taskRepository.merge(task);
     }
 
     public void remove(Task task) {

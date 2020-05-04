@@ -87,7 +87,7 @@ public class ProjectService {
         if (updatingProject == null) {
             projectRepository.persist(project);
         }
-        projectRepository.merge(project, name);
+        projectRepository.merge(project);
     }
 
     public void remove(Project project) {

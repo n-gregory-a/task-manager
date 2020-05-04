@@ -15,18 +15,6 @@ public class ProjectRepository extends AbstractRepository<Project> implements IP
     }
 
     @Override
-    public Project merge(Project project, String id) {
-        Project updatingProject = map.get(id);
-        updatingProject.setName(project.getName());
-        updatingProject.setDescription(project.getDescription());
-        updatingProject.setDateStart(project.getDateStart());
-        updatingProject.setDateFinish(project.getDateFinish());
-        updatingProject.setUserId(project.getUserId());
-        map.remove(id);
-        return map.put(updatingProject.getId(), updatingProject);
-    }
-
-    @Override
     public List<Project> findAll(String currentUserId) {
         List<Project> result = new LinkedList<>();
         for (Project project: map.values()) {

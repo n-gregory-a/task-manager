@@ -60,7 +60,7 @@ public class UserService {
         if (updatingUser == null) {
             return userRepository.persist(user);
         }
-        return userRepository.merge(user, login);
+        return userRepository.merge(user);
     }
 
     public User remove(User user) {
