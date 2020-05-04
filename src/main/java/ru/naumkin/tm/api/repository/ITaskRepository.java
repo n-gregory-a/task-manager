@@ -4,7 +4,7 @@ import ru.naumkin.tm.entity.Task;
 
 import java.util.List;
 
-public interface ITaskRepository {
+public interface ITaskRepository extends IRepository<Task> {
 
     List<Task> findAll(String currentUserId);
 
