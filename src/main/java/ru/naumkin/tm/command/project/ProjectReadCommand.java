@@ -28,15 +28,10 @@ public class ProjectReadCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         bootstrap.getView().showMessage("[PROJECT READ]");
-        Project project = getProjectByName();
-        bootstrap.getView().showMessage(project.toString());
-    }
-
-    private Project getProjectByName() throws IOException {
         bootstrap.getView().showMessage("Enter project name:");
-        ProjectService projectService = bootstrap.getProjectService();
-        Project project;
         String projectName = bootstrap.getView().readLine();
+        ProjectService projectService = bootstrap.getProjectService();
+        Project project = null;
         String currentUserId = bootstrap.getCurrentUser().getId();
         try {
             project = projectService.findOne(projectName, currentUserId);
@@ -44,9 +39,9 @@ public class ProjectReadCommand extends AbstractCommand {
                 NoProjectWithSuchNameException |
                 ProjectIsNullException e) {
             bootstrap.getView().showMessage(e.toString());
-            project = getProjectByName();
+            return;
         }
-        return project;
+        bootstrap.getView().showMessage(project.toString());
     }
 
 }
