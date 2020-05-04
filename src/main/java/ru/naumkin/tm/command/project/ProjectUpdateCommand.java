@@ -40,7 +40,6 @@ public class ProjectUpdateCommand extends AbstractCommand {
         }
         bootstrap.getView().showMessage("Choose project to update by number:");
         Project project = list.get(Integer.parseInt(bootstrap.getView().readLine()) - 1);
-//        bootstrap.getView().showMessage("Enter project name:");
         String name = project.getName();
         bootstrap.getView().showMessage("Updating project:");
         bootstrap.getView().showMessage("id: " + project.getId() +
