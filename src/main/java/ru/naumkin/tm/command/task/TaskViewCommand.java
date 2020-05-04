@@ -32,7 +32,11 @@ public class TaskViewCommand extends AbstractCommand {
         TaskService taskService = bootstrap.getTaskService();
         Project project = getProjectByName();
         for (Task task: taskService.findAll()) {
-            boolean taskAttachedToProject = task.getProjectId().equals(project.getId());
+            String projectId = task.getProjectId();
+            if (projectId == null) {
+                continue;
+            }
+            boolean taskAttachedToProject = projectId.equals(project.getId());
             if (taskAttachedToProject) {
                 bootstrap.getView().showMessage(task.toString());
             }
