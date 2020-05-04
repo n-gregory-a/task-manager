@@ -1,24 +1,22 @@
 package ru.naumkin.tm.service;
 
+import ru.naumkin.tm.api.repository.ITaskRepository;
+import ru.naumkin.tm.api.service.ITaskService;
 import ru.naumkin.tm.entity.Task;
 import ru.naumkin.tm.error.*;
-import ru.naumkin.tm.repository.TaskRepository;
 
-import java.util.Collection;
 import java.util.List;
 
-public class TaskService {
+public class TaskService extends AbstractService<Task> implements ITaskService {
 
-    private final TaskRepository taskRepository;
+    private final ITaskRepository taskRepository;
 
-    public TaskService(TaskRepository taskRepository) {
-        this.taskRepository = taskRepository;
+    public TaskService(ITaskRepository repository) {
+        super(repository);
+        this.taskRepository = repository;
     }
 
-    public Collection<Task> findAll() {
-        return taskRepository.findAll();
-    }
-
+    @Override
     public List<Task> findAll(String currentUserId) {
         if (currentUserId == null) {
             throw new CurrentUserIdIsNullException();
@@ -29,6 +27,7 @@ public class TaskService {
         return taskRepository.findAll(currentUserId);
     }
 
+    @Override
     public Task findOne(String name, String currentUserId) {
         if (name == null) {
             throw new NameIsNullException();
@@ -49,55 +48,8 @@ public class TaskService {
         return task;
     }
 
-    public Task findOne(String name) {
-        if (name == null) {
-            throw new NameIsNullException();
-        }
-        if (name.isEmpty()) {
-            throw new NameIsEmptyException();
-        }
-        Task task = taskRepository.findOne(name);
-        if (task == null) {
-            throw new NoTaskWithSuchNameException(name);
-        }
-        return task;
-    }
-
-    public void persist(Task task) {
-        if (task == null) {
-            throw new TaskIsNullException();
-        }
-        taskRepository.persist(task);
-    }
-
-    public void merge(Task task, String name) {
-        if (name == null) {
-            throw new NameIsNullException();
-        }
-        if (name.isEmpty()) {
-            throw new NameIsEmptyException();
-        }
-        if (task == null) {
-            throw new TaskIsNullException();
-        }
-        if (task.getName().isEmpty()) {
-            throw new NameIsEmptyException();
-        }
-        Task updatingTask = taskRepository.findOne(name);
-        if (updatingTask == null){
-            taskRepository.persist(task);
-        }
-        taskRepository.merge(task);
-    }
-
-    public void remove(Task task) {
-        if (task == null) {
-            throw new TaskIsNullException();
-        }
-        taskRepository.remove(task);
-    }
-
-    public void remove(Task task, String currentUserId) {
+    @Override
+    public Task remove(Task task, String currentUserId) {
         if (task == null) {
             throw new TaskIsNullException();
         }
@@ -111,12 +63,10 @@ public class TaskService {
         if (toRemove == null) {
             throw new TaskIsNullException();
         }
+        return toRemove;
     }
 
-    public void removeAll() {
-        taskRepository.removeAll();
-    }
-
+    @Override
     public void removeAll(String currentUserId) {
         if (currentUserId == null) {
             throw new CurrentUserIdIsNullException();
