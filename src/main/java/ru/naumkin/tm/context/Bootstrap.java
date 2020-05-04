@@ -145,6 +145,7 @@ public class Bootstrap {
 
     public void createDefaultUser() {
         User user = new User();
+        user.setName("user");
         User administrator = new User();
         administrator.setName("admin");
         administrator.setPassword(HashGenerator.getHash("MeG@$tr0nG@dmiN$p@$$w0rD"));

@@ -3,10 +3,9 @@ package ru.naumkin.tm.service;
 import ru.naumkin.tm.api.repository.IRepository;
 import ru.naumkin.tm.api.service.IService;
 import ru.naumkin.tm.entity.AbstractEntity;
-import ru.naumkin.tm.entity.Project;
-import ru.naumkin.tm.entity.Task;
-import ru.naumkin.tm.entity.User;
-import ru.naumkin.tm.error.*;
+import ru.naumkin.tm.error.EntityIsNullException;
+import ru.naumkin.tm.error.NameIsEmptyException;
+import ru.naumkin.tm.error.NameIsNullException;
 
 import java.util.Collection;
 
@@ -33,7 +32,7 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
         }
         E entity = repository.findOne(name);
         if (entity == null) {
-            doThrow(entity, name);
+            throw new EntityIsNullException();
         }
         return entity;
     }
@@ -41,7 +40,7 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
     @Override
     public E persist(E entity) {
         if (entity == null) {
-            doThrow(entity);
+            throw new EntityIsNullException();
         }
         return repository.persist(entity);
     }
@@ -55,7 +54,7 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
             throw new NameIsEmptyException();
         }
         if (entity == null) {
-            doThrow(entity);
+            throw new EntityIsNullException();
         }
         if (entity.getName().isEmpty()) {
             throw new NameIsEmptyException();
@@ -70,7 +69,7 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
     @Override
     public E remove(E entity) {
         if (entity == null) {
-            doThrow(entity);
+            throw new EntityIsNullException();
         }
         return repository.remove(entity);
     }
@@ -78,30 +77,6 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
     @Override
     public void removeAll() {
         repository.removeAll();
-    }
-
-    protected void doThrow(E entity, String name) {
-        if (entity.getClass() == Project.class) {
-            throw new NoProjectWithSuchNameException(name);
-        }
-        if (entity.getClass() == Task.class) {
-            throw new NoTaskWithSuchNameException(name);
-        }
-        if (entity.getClass() == User.class) {
-            throw new NoUserWithSuchLoginException(name);
-        }
-    }
-
-    protected void doThrow(E entity) {
-        if (entity.getClass() == Project.class) {
-            throw new ProjectIsNullException();
-        }
-        if (entity.getClass() == Task.class) {
-            throw new TaskIsNullException();
-        }
-        if (entity.getClass() == User.class) {
-            throw new UserIsNullException();
-        }
     }
 
 }
