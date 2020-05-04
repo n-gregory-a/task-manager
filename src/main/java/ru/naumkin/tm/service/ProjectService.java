@@ -1,24 +1,22 @@
 package ru.naumkin.tm.service;
 
+import ru.naumkin.tm.api.repository.IProjectRepository;
+import ru.naumkin.tm.api.service.IProjectService;
 import ru.naumkin.tm.entity.Project;
 import ru.naumkin.tm.error.*;
-import ru.naumkin.tm.repository.ProjectRepository;
 
-import java.util.Collection;
 import java.util.List;
 
-public class ProjectService {
+public class ProjectService extends AbstractService<Project> implements IProjectService {
 
-    private final ProjectRepository projectRepository;
+    private final IProjectRepository projectRepository;
 
-    public ProjectService(ProjectRepository projectRepository) {
-        this.projectRepository = projectRepository;
+    public ProjectService(IProjectRepository repository) {
+        super(repository);
+        this.projectRepository = repository;
     }
 
-    public Collection<Project> findAll() {
-        return projectRepository.findAll();
-    }
-
+    @Override
     public List<Project> findAll(String currentUserId) {
         if (currentUserId == null) {
             throw new CurrentUserIdIsNullException();
@@ -29,6 +27,7 @@ public class ProjectService {
         return projectRepository.findAll(currentUserId);
     }
 
+    @Override
     public Project findOne(String name, String currentUserId) {
         if (name == null) {
             throw new NameIsNullException();
@@ -49,55 +48,8 @@ public class ProjectService {
         return project;
     }
 
-    public Project findOne(String name) {
-        if (name == null) {
-            throw new NameIsNullException();
-        }
-        if (name.isEmpty()) {
-            throw new NameIsEmptyException();
-        }
-        Project project = projectRepository.findOne(name);
-        if (project == null) {
-            throw new NoProjectWithSuchNameException(name);
-        }
-        return project;
-    }
-
-    public void persist(Project project) {
-        if (project == null) {
-            throw new ProjectIsNullException();
-        }
-        projectRepository.persist(project);
-    }
-
-    public void merge(Project project, String name) {
-        if (name == null) {
-            throw new NameIsEmptyException();
-        }
-        if (name.isEmpty()) {
-            throw new NameIsEmptyException();
-        }
-        if (project == null) {
-            throw new ProjectIsNullException();
-        }
-        if (project.getName().isEmpty()) {
-            throw new NameIsEmptyException();
-        }
-        Project updatingProject = projectRepository.findOne(name);
-        if (updatingProject == null) {
-            projectRepository.persist(project);
-        }
-        projectRepository.merge(project);
-    }
-
-    public void remove(Project project) {
-        if (project == null) {
-            throw new ProjectIsNullException();
-        }
-        projectRepository.remove(project);
-    }
-
-    public void remove(Project project, String currentUserId) {
+    @Override
+    public Project remove(Project project, String currentUserId) {
         if (project == null) {
             throw new ProjectIsNullException();
         }
@@ -111,12 +63,10 @@ public class ProjectService {
         if (toRemove == null) {
             throw new ProjectIsNullException();
         }
+        return toRemove;
     }
 
-    public void removeAll() {
-        projectRepository.removeAll();
-    }
-
+    @Override
     public void removeAll(String currentUserId) {
         if (currentUserId == null) {
             throw new CurrentUserIdIsNullException();
@@ -126,4 +76,5 @@ public class ProjectService {
         }
         projectRepository.removeAll(currentUserId);
     }
+
 }
