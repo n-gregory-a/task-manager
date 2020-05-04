@@ -63,7 +63,11 @@ public class ProjectRepository extends AbstractRepository<Project> implements IP
         }
         List<String> nameList = new LinkedList<>();
         for (Task t: taskRepository.findAll(currentUserId)) {
-            boolean taskAttachedToProject = t.getProjectId().equals(project.getId());
+            String projectId = t.getProjectId();
+            if (projectId == null) {
+                continue;
+            }
+            boolean taskAttachedToProject = projectId.equals(project.getId());
             if (taskAttachedToProject) {
                 nameList.add(t.getName());
             }
