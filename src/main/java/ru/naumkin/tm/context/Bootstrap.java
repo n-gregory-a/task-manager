@@ -6,6 +6,7 @@ import ru.naumkin.tm.api.service.IService;
 import ru.naumkin.tm.api.service.ITaskService;
 import ru.naumkin.tm.command.*;
 import ru.naumkin.tm.command.project.*;
+import ru.naumkin.tm.command.system.AboutCommand;
 import ru.naumkin.tm.command.system.ExitCommand;
 import ru.naumkin.tm.command.system.HelpCommand;
 import ru.naumkin.tm.command.task.*;
@@ -126,6 +127,7 @@ public final class Bootstrap implements ServiceLocator {
         registerCommand(new UserReadCommand());
         registerCommand(new UserRegisterCommand());
         registerCommand(new UserUpdateCommand());
+        registerCommand(new AboutCommand());
         String command;
         while (true) {
             command = terminalService.readLine();
