@@ -23,14 +23,14 @@ public class ProjectCreateCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        bootstrap.getView().showMessage("[PROJECT CREATE]");
+        bootstrap.getTerminalService().showMessage("[PROJECT CREATE]");
         User user = bootstrap.getCurrentUser();
         ProjectService projectService = bootstrap.getProjectService();
-        bootstrap.getView().showMessage("Enter name:");
-        Project project = new Project(bootstrap.getView().readLine());
+        bootstrap.getTerminalService().showMessage("Enter name:");
+        Project project = new Project(bootstrap.getTerminalService().readLine());
         project.setUserId(user.getId());
         projectService.persist(project);
-        bootstrap.getView().showMessage("[OK]");
+        bootstrap.getTerminalService().showMessage("[OK]");
     }
 
 }

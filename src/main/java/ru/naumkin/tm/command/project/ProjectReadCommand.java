@@ -7,8 +7,6 @@ import ru.naumkin.tm.error.NoProjectWithSuchNameException;
 import ru.naumkin.tm.error.ProjectIsNullException;
 import ru.naumkin.tm.service.ProjectService;
 
-import java.io.IOException;
-
 public class ProjectReadCommand extends AbstractCommand {
 
     public ProjectReadCommand() {
@@ -27,9 +25,9 @@ public class ProjectReadCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        bootstrap.getView().showMessage("[PROJECT READ]");
-        bootstrap.getView().showMessage("Enter project name:");
-        String projectName = bootstrap.getView().readLine();
+        bootstrap.getTerminalService().showMessage("[PROJECT READ]");
+        bootstrap.getTerminalService().showMessage("Enter project name:");
+        String projectName = bootstrap.getTerminalService().readLine();
         ProjectService projectService = bootstrap.getProjectService();
         Project project = null;
         String currentUserId = bootstrap.getCurrentUser().getId();
@@ -38,10 +36,10 @@ public class ProjectReadCommand extends AbstractCommand {
         } catch (NameIsEmptyException |
                 NoProjectWithSuchNameException |
                 ProjectIsNullException e) {
-            bootstrap.getView().showMessage(e.toString());
+            bootstrap.getTerminalService().showMessage(e.toString());
             return;
         }
-        bootstrap.getView().showMessage(project.toString());
+        bootstrap.getTerminalService().showMessage(project.toString());
     }
 
 }

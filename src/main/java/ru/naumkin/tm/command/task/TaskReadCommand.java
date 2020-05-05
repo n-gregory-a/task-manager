@@ -26,21 +26,21 @@ public class TaskReadCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        bootstrap.getView().showMessage("[TASK READ]");
+        bootstrap.getTerminalService().showMessage("[TASK READ]");
         Task task = getTaskByName();
-        bootstrap.getView().showMessage(task.toString());
+        bootstrap.getTerminalService().showMessage(task.toString());
     }
 
     private Task getTaskByName() throws IOException {
-        bootstrap.getView().showMessage("Enter task name:");
+        bootstrap.getTerminalService().showMessage("Enter task name:");
         TaskService taskService = bootstrap.getTaskService();
         Task task;
-        String taskName = bootstrap.getView().readLine();
+        String taskName = bootstrap.getTerminalService().readLine();
         String currentUserId = bootstrap.getCurrentUser().getId();
         try {
             task = taskService.findOne(taskName, currentUserId);
         } catch (NameIsEmptyException | NoTaskWithSuchNameException e) {
-            bootstrap.getView().showMessage(e.toString());
+            bootstrap.getTerminalService().showMessage(e.toString());
             task = getTaskByName();
         }
         return task;

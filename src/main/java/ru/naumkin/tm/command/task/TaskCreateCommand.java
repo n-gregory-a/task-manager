@@ -23,14 +23,14 @@ public class TaskCreateCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        bootstrap.getView().showMessage("[TASK CREATE]");
+        bootstrap.getTerminalService().showMessage("[TASK CREATE]");
         User user = bootstrap.getCurrentUser();
         TaskService taskService = bootstrap.getTaskService();
-        bootstrap.getView().showMessage("Enter name:");
-        Task task = new Task(bootstrap.getView().readLine());
+        bootstrap.getTerminalService().showMessage("Enter name:");
+        Task task = new Task(bootstrap.getTerminalService().readLine());
         task.setUserId(user.getId());
         taskService.persist(task);
-        bootstrap.getView().showMessage("[OK]");
+        bootstrap.getTerminalService().showMessage("[OK]");
     }
 
 }

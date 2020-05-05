@@ -30,40 +30,40 @@ public class TaskAttachCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        bootstrap.getView().showMessage("[TASK ATTACH]");
+        bootstrap.getTerminalService().showMessage("[TASK ATTACH]");
         Project project = getProjectByName();
         Task task = getTaskByName();
         task.setProjectId(project.getId());
-        bootstrap.getView().showMessage("[OK]");
+        bootstrap.getTerminalService().showMessage("[OK]");
     }
 
     private Project getProjectByName() throws IOException {
-        bootstrap.getView().showMessage("Enter project name:");
+        bootstrap.getTerminalService().showMessage("Enter project name:");
         ProjectService projectService = bootstrap.getProjectService();
         Project project;
-        String projectName = bootstrap.getView().readLine();
+        String projectName = bootstrap.getTerminalService().readLine();
         String currentUserId = bootstrap.getCurrentUser().getId();
         try {
             project = projectService.findOne(projectName, currentUserId);
         } catch (NameIsEmptyException |
                 NoProjectWithSuchNameException |
                 ProjectIsNullException e) {
-            bootstrap.getView().showMessage(e.toString());
+            bootstrap.getTerminalService().showMessage(e.toString());
             project = getProjectByName();
         }
         return project;
     }
 
     private Task getTaskByName() throws IOException {
-        bootstrap.getView().showMessage("Enter task name:");
+        bootstrap.getTerminalService().showMessage("Enter task name:");
         TaskService taskService = bootstrap.getTaskService();
         Task task;
-        String taskName = bootstrap.getView().readLine();
+        String taskName = bootstrap.getTerminalService().readLine();
         String currentUserId = bootstrap.getCurrentUser().getId();
         try {
             task = taskService.findOne(taskName, currentUserId);
         } catch (NameIsEmptyException | NoTaskWithSuchNameException e) {
-            bootstrap.getView().showMessage(e.toString());
+            bootstrap.getTerminalService().showMessage(e.toString());
             task = getTaskByName();
         }
         return task;

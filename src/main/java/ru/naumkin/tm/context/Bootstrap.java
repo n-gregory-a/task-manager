@@ -15,7 +15,7 @@ import ru.naumkin.tm.service.ProjectService;
 import ru.naumkin.tm.service.TaskService;
 import ru.naumkin.tm.service.UserService;
 import ru.naumkin.tm.util.HashGenerator;
-import ru.naumkin.tm.view.View;
+import ru.naumkin.tm.view.TerminalService;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -40,7 +40,7 @@ public class Bootstrap {
 
     private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    private final View view = new View(reader);
+    private final TerminalService terminalService = new TerminalService(reader);
 
     private final Map<String, AbstractCommand> commands = new LinkedHashMap<>();
 
@@ -61,8 +61,8 @@ public class Bootstrap {
         return userService;
     }
 
-    public View getView() {
-        return view;
+    public TerminalService getTerminalService() {
+        return terminalService;
     }
 
     public User getCurrentUser() {
@@ -87,7 +87,7 @@ public class Bootstrap {
     }
 
     public void init() throws Exception {
-        view.showMessage("*** Welcome to task manager ***");
+        terminalService.showMessage("*** Welcome to task manager ***");
         createDefaultUser();
         registerCommand(new HelpCommand());
         registerCommand(new ProjectClearCommand());
@@ -113,7 +113,7 @@ public class Bootstrap {
         registerCommand(new UserUpdateCommand());
         String command;
         while (true) {
-            command = view.readLine();
+            command = terminalService.readLine();
             execute(command);
         }
     }
@@ -124,7 +124,7 @@ public class Bootstrap {
         }
         final AbstractCommand abstractCommand = commands.get(command);
         if (abstractCommand == null) {
-            getView().showMessage("Unknown command");
+            getTerminalService().showMessage("Unknown command");
             return;
         }
         boolean secureCheck = !abstractCommand.isSecure() ||
@@ -136,7 +136,7 @@ public class Bootstrap {
             abstractCommand.execute();
             return;
         }
-        getView().showMessage("This command is not allowed.");
+        getTerminalService().showMessage("This command is not allowed.");
     }
 
     public List<AbstractCommand> getCommands() {

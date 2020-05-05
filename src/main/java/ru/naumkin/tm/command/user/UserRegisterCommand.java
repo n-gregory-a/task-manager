@@ -25,27 +25,27 @@ public class UserRegisterCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        bootstrap.getView().showMessage("[REGISTER NEW USER]");
+        bootstrap.getTerminalService().showMessage("[REGISTER NEW USER]");
         User user = createUniqueLoginUser();
-        bootstrap.getView().showMessage("Enter password:");
-        String password = bootstrap.getView().readLine();
+        bootstrap.getTerminalService().showMessage("Enter password:");
+        String password = bootstrap.getTerminalService().readLine();
         user.setPassword(HashGenerator.getHash(password));
         try {
             bootstrap.getUserService().persist(user);
         } catch (UserIsNullException e) {
-            bootstrap.getView().showMessage(e.toString());;
+            bootstrap.getTerminalService().showMessage(e.toString());;
         }
-        bootstrap.getView().showMessage("[OK]");
+        bootstrap.getTerminalService().showMessage("[OK]");
     }
 
     private User createUniqueLoginUser() throws IOException {
-        bootstrap.getView().showMessage("Enter login:");
-        String login = bootstrap.getView().readLine();
+        bootstrap.getTerminalService().showMessage("Enter login:");
+        String login = bootstrap.getTerminalService().readLine();
         User user = new User();
         user.setName(login);
         for (User u: bootstrap.getUserService().findAll()) {
             if (u.getName().equals(login)) {
-                bootstrap.getView().showMessage("The login is occupied.");
+                bootstrap.getTerminalService().showMessage("The login is occupied.");
                 createUniqueLoginUser();
             }
         }

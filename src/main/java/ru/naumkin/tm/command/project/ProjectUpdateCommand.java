@@ -28,37 +28,37 @@ public class ProjectUpdateCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        bootstrap.getView().showMessage("[PROJECT UPDATE]");
+        bootstrap.getTerminalService().showMessage("[PROJECT UPDATE]");
         ProjectService projectService = bootstrap.getProjectService();
-        bootstrap.getView().showMessage("Projects available to update:");
+        bootstrap.getTerminalService().showMessage("Projects available to update:");
         List<Project> list = new ArrayList<>();
         int index = 1;
         String currentUserId = bootstrap.getCurrentUser().getId();
         for (Project project: projectService.findAll(currentUserId)) {
-            bootstrap.getView().showMessage(index++ + ". " + project.toString());
+            bootstrap.getTerminalService().showMessage(index++ + ". " + project.toString());
             list.add(project);
         }
-        bootstrap.getView().showMessage("Choose project to update by number:");
-        Project project = list.get(Integer.parseInt(bootstrap.getView().readLine()) - 1);
+        bootstrap.getTerminalService().showMessage("Choose project to update by number:");
+        Project project = list.get(Integer.parseInt(bootstrap.getTerminalService().readLine()) - 1);
         String name = project.getName();
-        bootstrap.getView().showMessage("Updating project:");
-        bootstrap.getView().showMessage("id: " + project.getId() +
+        bootstrap.getTerminalService().showMessage("Updating project:");
+        bootstrap.getTerminalService().showMessage("id: " + project.getId() +
                 ", name: " + project.getName());
-        bootstrap.getView().showMessage("Enter new name:");
-        project.setName(bootstrap.getView().readLine());
-        bootstrap.getView().showMessage("Enter new description:");
-        project.setDescription(bootstrap.getView().readLine());
-        bootstrap.getView().showMessage("Enter new start date(dd.mm.yyyy):");
-        project.setDateStart(DateFormatter.convertStringToDate(bootstrap.getView().readLine()));
-        bootstrap.getView().showMessage("Enter new finish date(dd.mm.yyyy):");
-        project.setDateFinish(DateFormatter.convertStringToDate(bootstrap.getView().readLine()));
+        bootstrap.getTerminalService().showMessage("Enter new name:");
+        project.setName(bootstrap.getTerminalService().readLine());
+        bootstrap.getTerminalService().showMessage("Enter new description:");
+        project.setDescription(bootstrap.getTerminalService().readLine());
+        bootstrap.getTerminalService().showMessage("Enter new start date(dd.mm.yyyy):");
+        project.setDateStart(DateFormatter.convertStringToDate(bootstrap.getTerminalService().readLine()));
+        bootstrap.getTerminalService().showMessage("Enter new finish date(dd.mm.yyyy):");
+        project.setDateFinish(DateFormatter.convertStringToDate(bootstrap.getTerminalService().readLine()));
         try {
             projectService.merge(project, name);
         } catch (NameIsEmptyException | ProjectIsNullException e) {
-            bootstrap.getView().showMessage(e.toString());
+            bootstrap.getTerminalService().showMessage(e.toString());
             return;
         }
-        bootstrap.getView().showMessage("[OK]");
+        bootstrap.getTerminalService().showMessage("[OK]");
     }
 
 }

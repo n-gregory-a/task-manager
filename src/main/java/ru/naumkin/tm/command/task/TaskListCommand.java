@@ -22,12 +22,12 @@ public class TaskListCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        bootstrap.getView().showMessage("[TASK LIST]");
+        bootstrap.getTerminalService().showMessage("[TASK LIST]");
         TaskService taskService = bootstrap.getTaskService();
         int index = 1;
         String currentUserId = bootstrap.getCurrentUser().getId();
         for (Task task: taskService.findAll(currentUserId)) {
-            bootstrap.getView().showMessage(index++ + ". " + task.toString());
+            bootstrap.getTerminalService().showMessage(index++ + ". " + task.toString());
         }
     }
 

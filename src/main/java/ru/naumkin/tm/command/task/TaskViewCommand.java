@@ -28,7 +28,7 @@ public class TaskViewCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        bootstrap.getView().showMessage("[VIEW TASKS ATTACHED TO THE PROJECT]");
+        bootstrap.getTerminalService().showMessage("[VIEW TASKS ATTACHED TO THE PROJECT]");
         TaskService taskService = bootstrap.getTaskService();
         Project project = getProjectByName();
         for (Task task: taskService.findAll()) {
@@ -38,21 +38,21 @@ public class TaskViewCommand extends AbstractCommand {
             }
             boolean taskAttachedToProject = projectId.equals(project.getId());
             if (taskAttachedToProject) {
-                bootstrap.getView().showMessage(task.toString());
+                bootstrap.getTerminalService().showMessage(task.toString());
             }
         }
     }
 
     private Project getProjectByName() throws IOException {
-        bootstrap.getView().showMessage("Enter project name:");
+        bootstrap.getTerminalService().showMessage("Enter project name:");
         ProjectService projectService = bootstrap.getProjectService();
         Project project;
-        String projectName = bootstrap.getView().readLine();
+        String projectName = bootstrap.getTerminalService().readLine();
         String currentUserId = bootstrap.getCurrentUser().getId();
         try {
             project = projectService.findOne(projectName, currentUserId);
         } catch (NameIsEmptyException | NoProjectWithSuchNameException e) {
-            bootstrap.getView().showMessage(e.toString());
+            bootstrap.getTerminalService().showMessage(e.toString());
             project = getProjectByName();
         }
         return project;

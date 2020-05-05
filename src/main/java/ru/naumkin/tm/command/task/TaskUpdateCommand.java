@@ -26,26 +26,26 @@ public class TaskUpdateCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        bootstrap.getView().showMessage("[TASK UPDATE]");
-        bootstrap.getView().showMessage("Enter task name:");
-        Task task = new Task(bootstrap.getView().readLine());
+        bootstrap.getTerminalService().showMessage("[TASK UPDATE]");
+        bootstrap.getTerminalService().showMessage("Enter task name:");
+        Task task = new Task(bootstrap.getTerminalService().readLine());
         String name = task.getName();
         TaskService taskService = bootstrap.getTaskService();
-        bootstrap.getView().showMessage("Enter new name: ");
-        task.setName(bootstrap.getView().readLine());
-        bootstrap.getView().showMessage("Enter new description: ");
-        task.setDescription(bootstrap.getView().readLine());
-        bootstrap.getView().showMessage("Enter new start date(dd.mm.yyyy): ");
-        task.setDateStart(DateFormatter.convertStringToDate(bootstrap.getView().readLine()));
-        bootstrap.getView().showMessage("Enter new finish date(dd.mm.yyyy): ");
-        task.setDateFinish(DateFormatter.convertStringToDate(bootstrap.getView().readLine()));
+        bootstrap.getTerminalService().showMessage("Enter new name: ");
+        task.setName(bootstrap.getTerminalService().readLine());
+        bootstrap.getTerminalService().showMessage("Enter new description: ");
+        task.setDescription(bootstrap.getTerminalService().readLine());
+        bootstrap.getTerminalService().showMessage("Enter new start date(dd.mm.yyyy): ");
+        task.setDateStart(DateFormatter.convertStringToDate(bootstrap.getTerminalService().readLine()));
+        bootstrap.getTerminalService().showMessage("Enter new finish date(dd.mm.yyyy): ");
+        task.setDateFinish(DateFormatter.convertStringToDate(bootstrap.getTerminalService().readLine()));
         try {
             taskService.merge(task, name);
         } catch (NameIsNullException | NameIsEmptyException | TaskIsNullException e) {
-            bootstrap.getView().showMessage(e.toString());
+            bootstrap.getTerminalService().showMessage(e.toString());
             return;
         }
-        bootstrap.getView().showMessage("[OK]");
+        bootstrap.getTerminalService().showMessage("[OK]");
     }
 
 }

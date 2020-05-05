@@ -22,12 +22,12 @@ public class ProjectListCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        bootstrap.getView().showMessage("[PROJECT LIST]");
+        bootstrap.getTerminalService().showMessage("[PROJECT LIST]");
         ProjectService projectService = bootstrap.getProjectService();
         int index = 1;
         String currentUserId = bootstrap.getCurrentUser().getId();
         for (Project project: projectService.findAll(currentUserId)) {
-            bootstrap.getView().showMessage(index++ + ". " + project.toString());
+            bootstrap.getTerminalService().showMessage(index++ + ". " + project.toString());
         }
     }
 

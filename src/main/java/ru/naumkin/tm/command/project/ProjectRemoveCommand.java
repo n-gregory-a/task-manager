@@ -7,8 +7,6 @@ import ru.naumkin.tm.error.NoProjectWithSuchNameException;
 import ru.naumkin.tm.error.ProjectIsNullException;
 import ru.naumkin.tm.service.ProjectService;
 
-import java.io.IOException;
-
 public class ProjectRemoveCommand extends AbstractCommand {
 
     public ProjectRemoveCommand() {
@@ -27,30 +25,30 @@ public class ProjectRemoveCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        bootstrap.getView().showMessage("[PROJECT REMOVE]");
+        bootstrap.getTerminalService().showMessage("[PROJECT REMOVE]");
         ProjectService projectService = bootstrap.getProjectService();
         String currentUserId = bootstrap.getCurrentUser().getId();
         if (projectService.findAll(currentUserId).isEmpty()) {
-            bootstrap.getView().showMessage("[Project list is empty.]");
+            bootstrap.getTerminalService().showMessage("[Project list is empty.]");
             return;
         }
         Project project;
-        bootstrap.getView().showMessage("Enter project name:");
-        String projectName = bootstrap.getView().readLine();
+        bootstrap.getTerminalService().showMessage("Enter project name:");
+        String projectName = bootstrap.getTerminalService().readLine();
         try {
             project = projectService.findOne(projectName, currentUserId);
         } catch (NameIsEmptyException |
                 NoProjectWithSuchNameException |
                 ProjectIsNullException e) {
-            bootstrap.getView().showMessage(e.toString());
+            bootstrap.getTerminalService().showMessage(e.toString());
             return;
         }
         try {
             projectService.remove(project, currentUserId);
         } catch (ProjectIsNullException e) {
-            bootstrap.getView().showMessage(e.toString());
+            bootstrap.getTerminalService().showMessage(e.toString());
         }
-        bootstrap.getView().showMessage("[OK]");
+        bootstrap.getTerminalService().showMessage("[OK]");
     }
 
 }

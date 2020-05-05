@@ -23,14 +23,14 @@ public class UserChangePasswordCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        bootstrap.getView().showMessage("[PASSWORD CHANGE]");
-        bootstrap.getView().showMessage("Enter login:");
-        String login = bootstrap.getView().readLine();
+        bootstrap.getTerminalService().showMessage("[PASSWORD CHANGE]");
+        bootstrap.getTerminalService().showMessage("Enter login:");
+        String login = bootstrap.getTerminalService().readLine();
         User user = bootstrap.getUserService().findOne(login);
-        bootstrap.getView().showMessage("Enter new password:");
-        String password = bootstrap.getView().readLine();
+        bootstrap.getTerminalService().showMessage("Enter new password:");
+        String password = bootstrap.getTerminalService().readLine();
         user.setPassword(HashGenerator.getHash(password));
-        bootstrap.getView().showMessage("[OK]");
+        bootstrap.getTerminalService().showMessage("[OK]");
     }
 
     @Override

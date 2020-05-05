@@ -21,7 +21,7 @@ public class HelpCommand  extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         for (final AbstractCommand command: bootstrap.getCommands()) {
-            bootstrap.getView().showMessage(command.getName() + ": " + command.getDescription());
+            bootstrap.getTerminalService().showMessage(command.getName() + ": " + command.getDescription());
         }
     }
 

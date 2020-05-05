@@ -3,11 +3,11 @@ package ru.naumkin.tm.view;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class View {
+public class TerminalService {
 
     private final BufferedReader reader;
 
-    public View(BufferedReader reader) {
+    public TerminalService(BufferedReader reader) {
         this.reader = reader;
     }
 
