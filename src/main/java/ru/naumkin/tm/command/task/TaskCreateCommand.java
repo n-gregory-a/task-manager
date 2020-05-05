@@ -1,9 +1,9 @@
 package ru.naumkin.tm.command.task;
 
+import ru.naumkin.tm.api.service.ITaskService;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.Task;
 import ru.naumkin.tm.entity.User;
-import ru.naumkin.tm.service.TaskService;
 
 public class TaskCreateCommand extends AbstractCommand {
 
@@ -23,14 +23,14 @@ public class TaskCreateCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        bootstrap.getTerminalService().showMessage("[TASK CREATE]");
-        User user = bootstrap.getCurrentUser();
-        TaskService taskService = bootstrap.getTaskService();
-        bootstrap.getTerminalService().showMessage("Enter name:");
-        Task task = new Task(bootstrap.getTerminalService().readLine());
+        serviceLocator.getTerminalService().showMessage("[TASK CREATE]");
+        User user = serviceLocator.getCurrentUser();
+        ITaskService taskService = serviceLocator.getTaskService();
+        serviceLocator.getTerminalService().showMessage("Enter name:");
+        Task task = new Task(serviceLocator.getTerminalService().readLine());
         task.setUserId(user.getId());
         taskService.persist(task);
-        bootstrap.getTerminalService().showMessage("[OK]");
+        serviceLocator.getTerminalService().showMessage("[OK]");
     }
 
 }

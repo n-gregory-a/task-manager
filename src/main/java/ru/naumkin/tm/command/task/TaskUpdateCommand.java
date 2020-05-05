@@ -1,11 +1,11 @@
 package ru.naumkin.tm.command.task;
 
+import ru.naumkin.tm.api.service.ITaskService;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.Task;
 import ru.naumkin.tm.error.NameIsEmptyException;
 import ru.naumkin.tm.error.NameIsNullException;
 import ru.naumkin.tm.error.TaskIsNullException;
-import ru.naumkin.tm.service.TaskService;
 import ru.naumkin.tm.util.DateFormatter;
 
 public class TaskUpdateCommand extends AbstractCommand {
@@ -26,26 +26,26 @@ public class TaskUpdateCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        bootstrap.getTerminalService().showMessage("[TASK UPDATE]");
-        bootstrap.getTerminalService().showMessage("Enter task name:");
-        Task task = new Task(bootstrap.getTerminalService().readLine());
+        serviceLocator.getTerminalService().showMessage("[TASK UPDATE]");
+        serviceLocator.getTerminalService().showMessage("Enter task name:");
+        Task task = new Task(serviceLocator.getTerminalService().readLine());
         String name = task.getName();
-        TaskService taskService = bootstrap.getTaskService();
-        bootstrap.getTerminalService().showMessage("Enter new name: ");
-        task.setName(bootstrap.getTerminalService().readLine());
-        bootstrap.getTerminalService().showMessage("Enter new description: ");
-        task.setDescription(bootstrap.getTerminalService().readLine());
-        bootstrap.getTerminalService().showMessage("Enter new start date(dd.mm.yyyy): ");
-        task.setDateStart(DateFormatter.convertStringToDate(bootstrap.getTerminalService().readLine()));
-        bootstrap.getTerminalService().showMessage("Enter new finish date(dd.mm.yyyy): ");
-        task.setDateFinish(DateFormatter.convertStringToDate(bootstrap.getTerminalService().readLine()));
+        ITaskService taskService = serviceLocator.getTaskService();
+        serviceLocator.getTerminalService().showMessage("Enter new name: ");
+        task.setName(serviceLocator.getTerminalService().readLine());
+        serviceLocator.getTerminalService().showMessage("Enter new description: ");
+        task.setDescription(serviceLocator.getTerminalService().readLine());
+        serviceLocator.getTerminalService().showMessage("Enter new start date(dd.mm.yyyy): ");
+        task.setDateStart(DateFormatter.convertStringToDate(serviceLocator.getTerminalService().readLine()));
+        serviceLocator.getTerminalService().showMessage("Enter new finish date(dd.mm.yyyy): ");
+        task.setDateFinish(DateFormatter.convertStringToDate(serviceLocator.getTerminalService().readLine()));
         try {
             taskService.merge(task, name);
         } catch (NameIsNullException | NameIsEmptyException | TaskIsNullException e) {
-            bootstrap.getTerminalService().showMessage(e.toString());
+            serviceLocator.getTerminalService().showMessage(e.toString());
             return;
         }
-        bootstrap.getTerminalService().showMessage("[OK]");
+        serviceLocator.getTerminalService().showMessage("[OK]");
     }
 
 }

@@ -25,27 +25,27 @@ public class UserRegisterCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        bootstrap.getTerminalService().showMessage("[REGISTER NEW USER]");
+        serviceLocator.getTerminalService().showMessage("[REGISTER NEW USER]");
         User user = createUniqueLoginUser();
-        bootstrap.getTerminalService().showMessage("Enter password:");
-        String password = bootstrap.getTerminalService().readLine();
+        serviceLocator.getTerminalService().showMessage("Enter password:");
+        String password = serviceLocator.getTerminalService().readLine();
         user.setPassword(HashGenerator.getHash(password));
         try {
-            bootstrap.getUserService().persist(user);
+            serviceLocator.getUserService().persist(user);
         } catch (UserIsNullException e) {
-            bootstrap.getTerminalService().showMessage(e.toString());;
+            serviceLocator.getTerminalService().showMessage(e.toString());;
         }
-        bootstrap.getTerminalService().showMessage("[OK]");
+        serviceLocator.getTerminalService().showMessage("[OK]");
     }
 
     private User createUniqueLoginUser() throws IOException {
-        bootstrap.getTerminalService().showMessage("Enter login:");
-        String login = bootstrap.getTerminalService().readLine();
+        serviceLocator.getTerminalService().showMessage("Enter login:");
+        String login = serviceLocator.getTerminalService().readLine();
         User user = new User();
         user.setName(login);
-        for (User u: bootstrap.getUserService().findAll()) {
+        for (User u: serviceLocator.getUserService().findAll()) {
             if (u.getName().equals(login)) {
-                bootstrap.getTerminalService().showMessage("The login is occupied.");
+                serviceLocator.getTerminalService().showMessage("The login is occupied.");
                 createUniqueLoginUser();
             }
         }

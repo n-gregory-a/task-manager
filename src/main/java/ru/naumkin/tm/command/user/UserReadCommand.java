@@ -22,17 +22,17 @@ public class UserReadCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        bootstrap.getTerminalService().showMessage("[READ USER PROFILE]");
-        bootstrap.getTerminalService().showMessage("Enter login:");
-        String login = bootstrap.getTerminalService().readLine();
+        serviceLocator.getTerminalService().showMessage("[READ USER PROFILE]");
+        serviceLocator.getTerminalService().showMessage("Enter login:");
+        String login = serviceLocator.getTerminalService().readLine();
         User user;
         try {
-            user = bootstrap.getUserService().findOne(login);
+            user = serviceLocator.getUserService().findOne(login);
         } catch (RuntimeException e) {
-            bootstrap.getTerminalService().showMessage(e.toString());
+            serviceLocator.getTerminalService().showMessage(e.toString());
             return;
         }
-        bootstrap.getTerminalService().showMessage(user.toString());
+        serviceLocator.getTerminalService().showMessage(user.toString());
     }
 
     @Override

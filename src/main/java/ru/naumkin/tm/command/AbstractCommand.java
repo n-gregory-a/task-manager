@@ -1,11 +1,12 @@
 package ru.naumkin.tm.command;
 
+import ru.naumkin.tm.api.ServiceLocator;
 import ru.naumkin.tm.context.Bootstrap;
 import ru.naumkin.tm.enumerated.RoleType;
 
 public abstract class AbstractCommand {
 
-    protected Bootstrap bootstrap;
+    protected ServiceLocator serviceLocator;
 
     private final boolean isSecure;
 
@@ -13,8 +14,8 @@ public abstract class AbstractCommand {
         this.isSecure = isSecure;
     }
 
-    public void setBootstrap(Bootstrap bootstrap) {
-        this.bootstrap = bootstrap;
+    public void setServiceLocator(Bootstrap serviceLocator) {
+        this.serviceLocator = serviceLocator;
     }
 
     public boolean isSecure() {

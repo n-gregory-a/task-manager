@@ -25,20 +25,20 @@ public class UserUpdateCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        bootstrap.getTerminalService().showMessage("[USER UPDATE PROFILE]");
-        bootstrap.getTerminalService().showMessage("Enter login:");
-        String login = bootstrap.getTerminalService().readLine();
-        User user = bootstrap.getUserService().findOne(login);
-        bootstrap.getTerminalService().showMessage("Enter new login:");
-        String newLogin = bootstrap.getTerminalService().readLine();
+        serviceLocator.getTerminalService().showMessage("[USER UPDATE PROFILE]");
+        serviceLocator.getTerminalService().showMessage("Enter login:");
+        String login = serviceLocator.getTerminalService().readLine();
+        User user = serviceLocator.getUserService().findOne(login);
+        serviceLocator.getTerminalService().showMessage("Enter new login:");
+        String newLogin = serviceLocator.getTerminalService().readLine();
         user.setName(newLogin);
         try {
-            bootstrap.getUserService().merge(user, login);
+            serviceLocator.getUserService().merge(user, login);
         } catch (NameIsNullException | NameIsEmptyException | UserIsNullException e) {
-            bootstrap.getTerminalService().showMessage(e.toString());
+            serviceLocator.getTerminalService().showMessage(e.toString());
             return;
         }
-        bootstrap.getTerminalService().showMessage("[OK]");
+        serviceLocator.getTerminalService().showMessage("[OK]");
     }
 
     @Override

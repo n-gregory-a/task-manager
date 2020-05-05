@@ -27,26 +27,26 @@ public class UserLogInCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        bootstrap.getTerminalService().showMessage("[USER AUTHORISATION]");
+        serviceLocator.getTerminalService().showMessage("[USER AUTHORISATION]");
         User user = getUserByName();
-        bootstrap.getTerminalService().showMessage("Enter password:");
-        String password = bootstrap.getTerminalService().readLine();
+        serviceLocator.getTerminalService().showMessage("Enter password:");
+        String password = serviceLocator.getTerminalService().readLine();
         boolean passwordIsCorrect = HashGenerator.getHash(password).equals(user.getPassword());
         if (!passwordIsCorrect) {
-            bootstrap.getTerminalService().showMessage("Password is incorrect. Authorisation failed.");
+            serviceLocator.getTerminalService().showMessage("Password is incorrect. Authorisation failed.");
             return;
         }
-        bootstrap.setCurrentUser(user);
-        bootstrap.getTerminalService().showMessage("[OK]");
+        serviceLocator.setCurrentUser(user);
+        serviceLocator.getTerminalService().showMessage("[OK]");
     }
 
     private User getUserByName() throws IOException {
-        bootstrap.getTerminalService().showMessage("Enter login:");
+        serviceLocator.getTerminalService().showMessage("Enter login:");
         User user;
         try {
-            user = bootstrap.getUserService().findOne(bootstrap.getTerminalService().readLine());
+            user = serviceLocator.getUserService().findOne(serviceLocator.getTerminalService().readLine());
         } catch (NameIsNullException | NameIsEmptyException | NoUserWithSuchLoginException e) {
-            bootstrap.getTerminalService().showMessage(e.toString());
+            serviceLocator.getTerminalService().showMessage(e.toString());
             user = getUserByName();
         }
         return user;

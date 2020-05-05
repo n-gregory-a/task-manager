@@ -1,7 +1,7 @@
 package ru.naumkin.tm.command.task;
 
+import ru.naumkin.tm.api.service.ITaskService;
 import ru.naumkin.tm.command.AbstractCommand;
-import ru.naumkin.tm.service.TaskService;
 
 public class TaskClearCommand extends AbstractCommand {
 
@@ -21,10 +21,10 @@ public class TaskClearCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        bootstrap.getTerminalService().showMessage("[TASK LIST CLEAR]");
-        TaskService taskService = bootstrap.getTaskService();
-        taskService.removeAll(bootstrap.getCurrentUser().getId());
-        bootstrap.getTerminalService().showMessage("[OK]");
+        serviceLocator.getTerminalService().showMessage("[TASK LIST CLEAR]");
+        ITaskService taskService = serviceLocator.getTaskService();
+        taskService.removeAll(serviceLocator.getCurrentUser().getId());
+        serviceLocator.getTerminalService().showMessage("[OK]");
     }
 
 }

@@ -1,9 +1,9 @@
 package ru.naumkin.tm.command.project;
 
+import ru.naumkin.tm.api.service.IProjectService;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.Project;
 import ru.naumkin.tm.entity.User;
-import ru.naumkin.tm.service.ProjectService;
 
 public class ProjectCreateCommand extends AbstractCommand {
 
@@ -23,14 +23,14 @@ public class ProjectCreateCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        bootstrap.getTerminalService().showMessage("[PROJECT CREATE]");
-        User user = bootstrap.getCurrentUser();
-        ProjectService projectService = bootstrap.getProjectService();
-        bootstrap.getTerminalService().showMessage("Enter name:");
-        Project project = new Project(bootstrap.getTerminalService().readLine());
+        serviceLocator.getTerminalService().showMessage("[PROJECT CREATE]");
+        User user = serviceLocator.getCurrentUser();
+        IProjectService projectService = serviceLocator.getProjectService();
+        serviceLocator.getTerminalService().showMessage("Enter name:");
+        Project project = new Project(serviceLocator.getTerminalService().readLine());
         project.setUserId(user.getId());
         projectService.persist(project);
-        bootstrap.getTerminalService().showMessage("[OK]");
+        serviceLocator.getTerminalService().showMessage("[OK]");
     }
 
 }

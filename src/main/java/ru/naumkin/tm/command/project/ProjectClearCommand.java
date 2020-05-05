@@ -1,7 +1,7 @@
 package ru.naumkin.tm.command.project;
 
+import ru.naumkin.tm.api.service.IProjectService;
 import ru.naumkin.tm.command.AbstractCommand;
-import ru.naumkin.tm.service.ProjectService;
 
 public class ProjectClearCommand extends AbstractCommand {
 
@@ -21,10 +21,10 @@ public class ProjectClearCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        bootstrap.getTerminalService().showMessage("[PROJECT CLEAR]");
-        ProjectService projectService = bootstrap.getProjectService();
-        projectService.removeAll(bootstrap.getCurrentUser().getId());
-        bootstrap.getTerminalService().showMessage("[OK]");
+        serviceLocator.getTerminalService().showMessage("[PROJECT CLEAR]");
+        IProjectService projectService = serviceLocator.getProjectService();
+        projectService.removeAll(serviceLocator.getCurrentUser().getId());
+        serviceLocator.getTerminalService().showMessage("[OK]");
     }
 
 }

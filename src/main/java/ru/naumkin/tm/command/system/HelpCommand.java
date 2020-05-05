@@ -20,8 +20,8 @@ public class HelpCommand  extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        for (final AbstractCommand command: bootstrap.getCommands()) {
-            bootstrap.getTerminalService().showMessage(command.getName() + ": " + command.getDescription());
+        for (final AbstractCommand command: serviceLocator.getCommand()) {
+            serviceLocator.getTerminalService().showMessage(command.getName() + ": " + command.getDescription());
         }
     }
 

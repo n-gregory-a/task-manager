@@ -1,5 +1,9 @@
 package ru.naumkin.tm.context;
 
+import ru.naumkin.tm.api.ServiceLocator;
+import ru.naumkin.tm.api.service.IProjectService;
+import ru.naumkin.tm.api.service.IService;
+import ru.naumkin.tm.api.service.ITaskService;
 import ru.naumkin.tm.command.*;
 import ru.naumkin.tm.command.project.*;
 import ru.naumkin.tm.command.system.ExitCommand;
@@ -24,7 +28,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Bootstrap {
+public class Bootstrap implements ServiceLocator {
 
     private final TaskRepository taskRepository = new TaskRepository();
 
@@ -49,26 +53,37 @@ public class Bootstrap {
     public Bootstrap() {
     }
 
-    public TaskService getTaskService() {
+    @Override
+    public ITaskService getTaskService() {
         return taskService;
     }
 
-    public ProjectService getProjectService() {
+    @Override
+    public IProjectService getProjectService() {
         return projectService;
     }
 
-    public UserService getUserService() {
+    @Override
+    public IService<User> getUserService() {
         return userService;
     }
 
+    @Override
     public TerminalService getTerminalService() {
         return terminalService;
     }
 
+    @Override
     public User getCurrentUser() {
         return currentUser;
     }
 
+    @Override
+    public List<AbstractCommand> getCommand() {
+        return new ArrayList<>(commands.values());
+    }
+
+    @Override
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
@@ -82,7 +97,7 @@ public class Bootstrap {
         if (cliDescription == null || cliDescription.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        command.setBootstrap(this);
+        command.setServiceLocator(this);
         commands.put(cliCommand, command);
     }
 
@@ -137,10 +152,6 @@ public class Bootstrap {
             return;
         }
         getTerminalService().showMessage("This command is not allowed.");
-    }
-
-    public List<AbstractCommand> getCommands() {
-        return new ArrayList<>(commands.values());
     }
 
     public void createDefaultUser() {
