@@ -17,9 +17,9 @@ public abstract class AbstractRepository<E extends AbstractEntity> implements IR
     }
 
     @Override
-    public E findOne(String name) {
+    public E findOne(final String name) {
         String id = null;
-        for (E entity: findAll()) {
+        for (final E entity: findAll()) {
             if (name.equals(entity.getName())) {
                 id = entity.getId();
             }
@@ -28,12 +28,12 @@ public abstract class AbstractRepository<E extends AbstractEntity> implements IR
     }
 
     @Override
-    public E persist(E entity) {
+    public E persist(final E entity) {
         return map.put(entity.getId(), entity);
     }
 
     @Override
-    public E merge(E entity) {
+    public E merge(final E entity) {
         if (entity == null) {
             return null;
         }
@@ -41,7 +41,7 @@ public abstract class AbstractRepository<E extends AbstractEntity> implements IR
     }
 
     @Override
-    public E remove(E entity) {
+    public E remove(final E entity) {
         return map.remove(entity.getId());
     }
 

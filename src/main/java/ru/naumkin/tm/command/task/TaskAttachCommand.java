@@ -12,7 +12,7 @@ import ru.naumkin.tm.error.ProjectIsNullException;
 
 import java.io.IOException;
 
-public class TaskAttachCommand extends AbstractCommand {
+public final class TaskAttachCommand extends AbstractCommand {
 
     public TaskAttachCommand() {
         super(true);
@@ -39,10 +39,10 @@ public class TaskAttachCommand extends AbstractCommand {
 
     private Project getProjectByName() throws IOException {
         serviceLocator.getTerminalService().showMessage("Enter project name:");
-        IProjectService projectService = serviceLocator.getProjectService();
+        final IProjectService projectService = serviceLocator.getProjectService();
         Project project;
-        String projectName = serviceLocator.getTerminalService().readLine();
-        String currentUserId = serviceLocator.getCurrentUser().getId();
+        final String projectName = serviceLocator.getTerminalService().readLine();
+        final String currentUserId = serviceLocator.getCurrentUser().getId();
         try {
             project = projectService.findOne(projectName, currentUserId);
         } catch (NameIsEmptyException |
@@ -56,10 +56,10 @@ public class TaskAttachCommand extends AbstractCommand {
 
     private Task getTaskByName() throws IOException {
         serviceLocator.getTerminalService().showMessage("Enter task name:");
-        ITaskService taskService = serviceLocator.getTaskService();
+        final ITaskService taskService = serviceLocator.getTaskService();
         Task task;
-        String taskName = serviceLocator.getTerminalService().readLine();
-        String currentUserId = serviceLocator.getCurrentUser().getId();
+        final String taskName = serviceLocator.getTerminalService().readLine();
+        final String currentUserId = serviceLocator.getCurrentUser().getId();
         try {
             task = taskService.findOne(taskName, currentUserId);
         } catch (NameIsEmptyException | NoTaskWithSuchNameException e) {

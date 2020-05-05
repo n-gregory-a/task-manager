@@ -10,7 +10,7 @@ import ru.naumkin.tm.error.NoProjectWithSuchNameException;
 
 import java.io.IOException;
 
-public class TaskViewCommand extends AbstractCommand {
+public final class TaskViewCommand extends AbstractCommand {
 
     public TaskViewCommand() {
         super(true);
@@ -29,14 +29,14 @@ public class TaskViewCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[VIEW TASKS ATTACHED TO THE PROJECT]");
-        ITaskService taskService = serviceLocator.getTaskService();
+        final ITaskService taskService = serviceLocator.getTaskService();
         Project project = getProjectByName();
-        for (Task task: taskService.findAll()) {
-            String projectId = task.getProjectId();
+        for (final Task task: taskService.findAll()) {
+            final String projectId = task.getProjectId();
             if (projectId == null) {
                 continue;
             }
-            boolean taskAttachedToProject = projectId.equals(project.getId());
+            final boolean taskAttachedToProject = projectId.equals(project.getId());
             if (taskAttachedToProject) {
                 serviceLocator.getTerminalService().showMessage(task.toString());
             }
@@ -45,10 +45,10 @@ public class TaskViewCommand extends AbstractCommand {
 
     private Project getProjectByName() throws IOException {
         serviceLocator.getTerminalService().showMessage("Enter project name:");
-        IProjectService projectService = serviceLocator.getProjectService();
+        final IProjectService projectService = serviceLocator.getProjectService();
         Project project;
-        String projectName = serviceLocator.getTerminalService().readLine();
-        String currentUserId = serviceLocator.getCurrentUser().getId();
+        final String projectName = serviceLocator.getTerminalService().readLine();
+        final String currentUserId = serviceLocator.getCurrentUser().getId();
         try {
             project = projectService.findOne(projectName, currentUserId);
         } catch (NameIsEmptyException | NoProjectWithSuchNameException e) {

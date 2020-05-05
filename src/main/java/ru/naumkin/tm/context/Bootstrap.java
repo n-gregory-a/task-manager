@@ -28,7 +28,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Bootstrap implements ServiceLocator {
+public final class Bootstrap implements ServiceLocator {
 
     private final TaskRepository taskRepository = new TaskRepository();
 
@@ -84,7 +84,7 @@ public class Bootstrap implements ServiceLocator {
     }
 
     @Override
-    public void setCurrentUser(User currentUser) {
+    public void setCurrentUser(final User currentUser) {
         this.currentUser = currentUser;
     }
 
@@ -142,9 +142,9 @@ public class Bootstrap implements ServiceLocator {
             getTerminalService().showMessage("Unknown command");
             return;
         }
-        boolean secureCheck = !abstractCommand.isSecure() ||
+        final boolean secureCheck = !abstractCommand.isSecure() ||
                 (abstractCommand.isSecure() && getCurrentUser() != null);
-        boolean roleCheck = (abstractCommand.getRoles() == null) ||
+        final boolean roleCheck = (abstractCommand.getRoles() == null) ||
                 (abstractCommand.getRoles() != null &&
                         getCurrentUser().getRole() == RoleType.ADMINISTRATOR);
         if (secureCheck && roleCheck) {

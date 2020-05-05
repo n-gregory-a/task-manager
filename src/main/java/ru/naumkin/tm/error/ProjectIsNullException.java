@@ -1,6 +1,6 @@
 package ru.naumkin.tm.error;
 
-public class ProjectIsNullException extends RuntimeException {
+public final class ProjectIsNullException extends RuntimeException {
 
     @Override
     public String toString() {

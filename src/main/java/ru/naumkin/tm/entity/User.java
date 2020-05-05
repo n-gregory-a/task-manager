@@ -3,7 +3,7 @@ package ru.naumkin.tm.entity;
 import ru.naumkin.tm.enumerated.RoleType;
 import ru.naumkin.tm.util.HashGenerator;
 
-public class User extends AbstractEntity {
+public final class User extends AbstractEntity {
 
     private String password = HashGenerator.getHash("password");
 
@@ -16,7 +16,7 @@ public class User extends AbstractEntity {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(final String password) {
         this.password = password;
     }
 
@@ -24,7 +24,7 @@ public class User extends AbstractEntity {
         return role;
     }
 
-    public void setRole(RoleType role) {
+    public void setRole(final RoleType role) {
         this.role = role;
     }
 

@@ -8,13 +8,13 @@ public interface IRepository<E extends AbstractEntity> {
 
     Collection<E> findAll();
 
-    E findOne(String name);
+    E findOne(final String name);
 
-    E persist(E entity);
+    E persist(final E entity);
 
-    E merge(E entity);
+    E merge(final E entity);
 
-    E remove(E entity);
+    E remove(final E entity);
 
     void removeAll();
 

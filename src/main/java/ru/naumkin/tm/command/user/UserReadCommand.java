@@ -4,7 +4,7 @@ import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.enumerated.RoleType;
 
-public class UserReadCommand extends AbstractCommand {
+public final class UserReadCommand extends AbstractCommand {
 
     public UserReadCommand() {
         super(true);
@@ -24,7 +24,7 @@ public class UserReadCommand extends AbstractCommand {
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[READ USER PROFILE]");
         serviceLocator.getTerminalService().showMessage("Enter login:");
-        String login = serviceLocator.getTerminalService().readLine();
+        final String login = serviceLocator.getTerminalService().readLine();
         User user;
         try {
             user = serviceLocator.getUserService().findOne(login);

@@ -3,7 +3,7 @@ package ru.naumkin.tm.view;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class TerminalService {
+public final class TerminalService {
 
     private final BufferedReader reader;
 
@@ -11,7 +11,7 @@ public class TerminalService {
         this.reader = reader;
     }
 
-    public void showMessage(String message) {
+    public void showMessage(final String message) {
         System.out.println(message);
     }
 

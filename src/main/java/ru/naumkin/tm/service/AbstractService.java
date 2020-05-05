@@ -13,7 +13,7 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
 
     protected IRepository<E> repository;
 
-    public AbstractService(IRepository<E> repository) {
+    public AbstractService(final IRepository<E> repository) {
         this.repository = repository;
     }
 
@@ -23,7 +23,7 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
     }
 
     @Override
-    public E findOne(String name) {
+    public E findOne(final String name) {
         if (name == null) {
             throw new NameIsNullException();
         }
@@ -38,7 +38,7 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
     }
 
     @Override
-    public E persist(E entity) {
+    public E persist(final E entity) {
         if (entity == null) {
             throw new EntityIsNullException();
         }
@@ -46,7 +46,7 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
     }
 
     @Override
-    public E merge(E entity, String name) {
+    public E merge(final E entity, final String name) {
         if (name == null) {
             throw new NameIsEmptyException();
         }
@@ -59,7 +59,7 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
         if (entity.getName().isEmpty()) {
             throw new NameIsEmptyException();
         }
-        E updatingEntity = repository.findOne(name);
+        final E updatingEntity = repository.findOne(name);
         if (updatingEntity == null) {
             return repository.persist(entity);
         }
@@ -67,7 +67,7 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
     }
 
     @Override
-    public E remove(E entity) {
+    public E remove(final E entity) {
         if (entity == null) {
             throw new EntityIsNullException();
         }

@@ -9,7 +9,7 @@ import ru.naumkin.tm.util.HashGenerator;
 
 import java.io.IOException;
 
-public class UserLogInCommand extends AbstractCommand {
+public final class UserLogInCommand extends AbstractCommand {
 
     public UserLogInCommand() {
         super(false);
@@ -30,8 +30,8 @@ public class UserLogInCommand extends AbstractCommand {
         serviceLocator.getTerminalService().showMessage("[USER AUTHORISATION]");
         User user = getUserByName();
         serviceLocator.getTerminalService().showMessage("Enter password:");
-        String password = serviceLocator.getTerminalService().readLine();
-        boolean passwordIsCorrect = HashGenerator.getHash(password).equals(user.getPassword());
+        final String password = serviceLocator.getTerminalService().readLine();
+        final boolean passwordIsCorrect = HashGenerator.getHash(password).equals(user.getPassword());
         if (!passwordIsCorrect) {
             serviceLocator.getTerminalService().showMessage("Password is incorrect. Authorisation failed.");
             return;

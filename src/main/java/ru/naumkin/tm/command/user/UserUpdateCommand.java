@@ -7,7 +7,7 @@ import ru.naumkin.tm.error.NameIsEmptyException;
 import ru.naumkin.tm.error.NameIsNullException;
 import ru.naumkin.tm.error.UserIsNullException;
 
-public class UserUpdateCommand extends AbstractCommand {
+public final class UserUpdateCommand extends AbstractCommand {
 
     public UserUpdateCommand() {
         super(true);
@@ -27,10 +27,10 @@ public class UserUpdateCommand extends AbstractCommand {
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[USER UPDATE PROFILE]");
         serviceLocator.getTerminalService().showMessage("Enter login:");
-        String login = serviceLocator.getTerminalService().readLine();
+        final String login = serviceLocator.getTerminalService().readLine();
         User user = serviceLocator.getUserService().findOne(login);
         serviceLocator.getTerminalService().showMessage("Enter new login:");
-        String newLogin = serviceLocator.getTerminalService().readLine();
+        final String newLogin = serviceLocator.getTerminalService().readLine();
         user.setName(newLogin);
         try {
             serviceLocator.getUserService().merge(user, login);

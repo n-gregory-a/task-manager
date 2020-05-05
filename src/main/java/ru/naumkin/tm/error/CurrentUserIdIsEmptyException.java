@@ -1,6 +1,6 @@
 package ru.naumkin.tm.error;
 
-public class CurrentUserIdIsEmptyException extends RuntimeException {
+public final class CurrentUserIdIsEmptyException extends RuntimeException {
 
     @Override
     public String toString() {

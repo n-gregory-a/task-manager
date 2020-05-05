@@ -1,6 +1,6 @@
 package ru.naumkin.tm.error;
 
-public class NameIsEmptyException extends RuntimeException {
+public final class NameIsEmptyException extends RuntimeException {
 
     @Override
     public String toString() {

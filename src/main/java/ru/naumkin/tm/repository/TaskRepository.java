@@ -5,13 +5,13 @@ import ru.naumkin.tm.entity.Task;
 
 import java.util.*;
 
-public class TaskRepository extends AbstractRepository<Task> implements ITaskRepository {
+public final class TaskRepository extends AbstractRepository<Task> implements ITaskRepository {
 
     @Override
-    public List<Task> findAll(String currentUserId) {
+    public List<Task> findAll(final String currentUserId) {
         List<Task> result = new LinkedList<>();
-        for (Task task: map.values()) {
-            boolean taskCreatedByCurrentUser =
+        for (final Task task: map.values()) {
+            final boolean taskCreatedByCurrentUser =
                     currentUserId.equals(task.getUserId());
             if (taskCreatedByCurrentUser) {
                 result.add(task);
@@ -21,9 +21,9 @@ public class TaskRepository extends AbstractRepository<Task> implements ITaskRep
     }
 
     @Override
-    public Task findOne(String name, String currentUserId) {
+    public Task findOne(final String name, final String currentUserId) {
         Task result = null;
-        for (Task task: findAll(currentUserId)) {
+        for (final Task task: findAll(currentUserId)) {
             if (task.getName().equals(name)) {
                 result = task;
             }
@@ -32,8 +32,8 @@ public class TaskRepository extends AbstractRepository<Task> implements ITaskRep
     }
 
     @Override
-    public Task remove(Task task, String currentUserId) {
-        Task toRemove = findOne(task.getName(), currentUserId);
+    public Task remove(final Task task, final String currentUserId) {
+        final Task toRemove = findOne(task.getName(), currentUserId);
         if (toRemove == null) {
             return null;
         }
@@ -42,9 +42,9 @@ public class TaskRepository extends AbstractRepository<Task> implements ITaskRep
     }
 
     @Override
-    public void removeAll(String currentUserId) {
+    public void removeAll(final String currentUserId) {
         List<Task> toRemove = findAll(currentUserId);
-        for (Task task: toRemove) {
+        for (final Task task: toRemove) {
             map.remove(task.getName());
         }
     }

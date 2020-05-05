@@ -8,7 +8,7 @@ import ru.naumkin.tm.error.NameIsNullException;
 import ru.naumkin.tm.error.TaskIsNullException;
 import ru.naumkin.tm.util.DateFormatter;
 
-public class TaskUpdateCommand extends AbstractCommand {
+public final class TaskUpdateCommand extends AbstractCommand {
 
     public TaskUpdateCommand() {
         super(true);
@@ -29,8 +29,8 @@ public class TaskUpdateCommand extends AbstractCommand {
         serviceLocator.getTerminalService().showMessage("[TASK UPDATE]");
         serviceLocator.getTerminalService().showMessage("Enter task name:");
         Task task = new Task(serviceLocator.getTerminalService().readLine());
-        String name = task.getName();
-        ITaskService taskService = serviceLocator.getTaskService();
+        final String name = task.getName();
+        final ITaskService taskService = serviceLocator.getTaskService();
         serviceLocator.getTerminalService().showMessage("Enter new name: ");
         task.setName(serviceLocator.getTerminalService().readLine());
         serviceLocator.getTerminalService().showMessage("Enter new description: ");

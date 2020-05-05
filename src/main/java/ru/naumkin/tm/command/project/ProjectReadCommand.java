@@ -7,7 +7,7 @@ import ru.naumkin.tm.error.NameIsEmptyException;
 import ru.naumkin.tm.error.NoProjectWithSuchNameException;
 import ru.naumkin.tm.error.ProjectIsNullException;
 
-public class ProjectReadCommand extends AbstractCommand {
+public final class ProjectReadCommand extends AbstractCommand {
 
     public ProjectReadCommand() {
         super(true);
@@ -27,10 +27,10 @@ public class ProjectReadCommand extends AbstractCommand {
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[PROJECT READ]");
         serviceLocator.getTerminalService().showMessage("Enter project name:");
-        String projectName = serviceLocator.getTerminalService().readLine();
-        IProjectService projectService = serviceLocator.getProjectService();
+        final String projectName = serviceLocator.getTerminalService().readLine();
+        final IProjectService projectService = serviceLocator.getProjectService();
         Project project;
-        String currentUserId = serviceLocator.getCurrentUser().getId();
+        final String currentUserId = serviceLocator.getCurrentUser().getId();
         try {
             project = projectService.findOne(projectName, currentUserId);
         } catch (NameIsEmptyException |

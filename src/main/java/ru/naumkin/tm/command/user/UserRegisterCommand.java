@@ -7,7 +7,7 @@ import ru.naumkin.tm.util.HashGenerator;
 
 import java.io.IOException;
 
-public class UserRegisterCommand extends AbstractCommand {
+public final class UserRegisterCommand extends AbstractCommand {
 
     public UserRegisterCommand() {
         super(false);
@@ -28,7 +28,7 @@ public class UserRegisterCommand extends AbstractCommand {
         serviceLocator.getTerminalService().showMessage("[REGISTER NEW USER]");
         User user = createUniqueLoginUser();
         serviceLocator.getTerminalService().showMessage("Enter password:");
-        String password = serviceLocator.getTerminalService().readLine();
+        final String password = serviceLocator.getTerminalService().readLine();
         user.setPassword(HashGenerator.getHash(password));
         try {
             serviceLocator.getUserService().persist(user);
@@ -40,7 +40,7 @@ public class UserRegisterCommand extends AbstractCommand {
 
     private User createUniqueLoginUser() throws IOException {
         serviceLocator.getTerminalService().showMessage("Enter login:");
-        String login = serviceLocator.getTerminalService().readLine();
+        final String login = serviceLocator.getTerminalService().readLine();
         User user = new User();
         user.setName(login);
         for (User u: serviceLocator.getUserService().findAll()) {

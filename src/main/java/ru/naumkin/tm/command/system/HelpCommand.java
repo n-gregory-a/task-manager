@@ -2,7 +2,7 @@ package ru.naumkin.tm.command.system;
 
 import ru.naumkin.tm.command.AbstractCommand;
 
-public class HelpCommand  extends AbstractCommand {
+public final class HelpCommand  extends AbstractCommand {
 
     public HelpCommand() {
         super(false);
@@ -19,7 +19,7 @@ public class HelpCommand  extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws Exception {
+    public void execute() {
         for (final AbstractCommand command: serviceLocator.getCommand()) {
             serviceLocator.getTerminalService().showMessage(command.getName() + ": " + command.getDescription());
         }

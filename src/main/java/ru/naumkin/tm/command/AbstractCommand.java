@@ -10,11 +10,11 @@ public abstract class AbstractCommand {
 
     private final boolean isSecure;
 
-    public AbstractCommand(boolean isSecure) {
+    public AbstractCommand(final boolean isSecure) {
         this.isSecure = isSecure;
     }
 
-    public void setServiceLocator(Bootstrap serviceLocator) {
+    public void setServiceLocator(final Bootstrap serviceLocator) {
         this.serviceLocator = serviceLocator;
     }
 

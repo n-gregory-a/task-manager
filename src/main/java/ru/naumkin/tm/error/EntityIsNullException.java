@@ -1,6 +1,6 @@
 package ru.naumkin.tm.error;
 
-public class EntityIsNullException extends RuntimeException {
+public final class EntityIsNullException extends RuntimeException {
 
     @Override
     public String toString() {

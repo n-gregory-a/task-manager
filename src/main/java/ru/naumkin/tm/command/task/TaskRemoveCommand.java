@@ -8,7 +8,7 @@ import ru.naumkin.tm.error.NoTaskWithSuchNameException;
 
 import java.io.IOException;
 
-public class TaskRemoveCommand extends AbstractCommand {
+public final class TaskRemoveCommand extends AbstractCommand {
 
     public TaskRemoveCommand() {
         super(true);
@@ -27,8 +27,8 @@ public class TaskRemoveCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[TASK REMOVE]");
-        ITaskService taskService = serviceLocator.getTaskService();
-        String currentUserId = serviceLocator.getCurrentUser().getId();
+        final ITaskService taskService = serviceLocator.getTaskService();
+        final String currentUserId = serviceLocator.getCurrentUser().getId();
         if (taskService.findAll(currentUserId).isEmpty()) {
             serviceLocator.getTerminalService().showMessage("[Task list is empty]");
             return;
@@ -40,10 +40,10 @@ public class TaskRemoveCommand extends AbstractCommand {
 
     private Task getTaskByName() throws IOException {
         serviceLocator.getTerminalService().showMessage("Enter task name:");
-        ITaskService taskService = serviceLocator.getTaskService();
+        final ITaskService taskService = serviceLocator.getTaskService();
         Task task;
-        String taskName = serviceLocator.getTerminalService().readLine();
-        String currentUserId = serviceLocator.getCurrentUser().getId();
+        final String taskName = serviceLocator.getTerminalService().readLine();
+        final String currentUserId = serviceLocator.getCurrentUser().getId();
         try {
             task = taskService.findOne(taskName, currentUserId);
         } catch (NameIsEmptyException | NoTaskWithSuchNameException e) {

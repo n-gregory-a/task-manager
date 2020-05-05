@@ -1,10 +1,10 @@
 package ru.naumkin.tm.error;
 
-public class NoProjectWithSuchNameException extends RuntimeException {
+public final class NoProjectWithSuchNameException extends RuntimeException {
 
     private final String name;
 
-    public NoProjectWithSuchNameException(String name) {
+    public NoProjectWithSuchNameException(final String name) {
         this.name = name;
     }
 

@@ -4,7 +4,7 @@ import ru.naumkin.tm.api.service.ITaskService;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.Task;
 
-public class TaskListCommand extends AbstractCommand {
+public final class TaskListCommand extends AbstractCommand {
 
     public TaskListCommand() {
         super(true);
@@ -23,10 +23,10 @@ public class TaskListCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[TASK LIST]");
-        ITaskService taskService = serviceLocator.getTaskService();
+        final ITaskService taskService = serviceLocator.getTaskService();
         int index = 1;
-        String currentUserId = serviceLocator.getCurrentUser().getId();
-        for (Task task: taskService.findAll(currentUserId)) {
+        final String currentUserId = serviceLocator.getCurrentUser().getId();
+        for (final Task task: taskService.findAll(currentUserId)) {
             serviceLocator.getTerminalService().showMessage(index++ + ". " + task.toString());
         }
     }

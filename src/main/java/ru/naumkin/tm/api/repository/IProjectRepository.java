@@ -6,12 +6,12 @@ import java.util.List;
 
 public interface IProjectRepository extends IRepository<Project> {
 
-    List<Project> findAll(String currentUserId);
+    List<Project> findAll(final String currentUserId);
 
-    Project findOne(String name, String currentUserId);
+    Project findOne(final String name, final String currentUserId);
 
-    Project remove(Project project, String currentUserId);
+    Project remove(final Project project, final String currentUserId);
 
-    void removeAll(String currentUserId);
+    void removeAll(final String currentUserId);
 
 }

@@ -1,9 +1,8 @@
 package ru.naumkin.tm.entity;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
-public class Task extends AbstractEntity {
+public final class Task extends AbstractEntity {
 
     private String description = "";
 
@@ -15,7 +14,7 @@ public class Task extends AbstractEntity {
 
     private String userId = null;
 
-    public Task(String name) {
+    public Task(final String name) {
         setName(name);
     }
 
@@ -23,7 +22,7 @@ public class Task extends AbstractEntity {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -31,7 +30,7 @@ public class Task extends AbstractEntity {
         return dateStart;
     }
 
-    public void setDateStart(LocalDate dateStart) {
+    public void setDateStart(final LocalDate dateStart) {
         this.dateStart = dateStart;
     }
 
@@ -39,7 +38,7 @@ public class Task extends AbstractEntity {
         return dateFinish;
     }
 
-    public void setDateFinish(LocalDate dateFinish) {
+    public void setDateFinish(final LocalDate dateFinish) {
         this.dateFinish = dateFinish;
     }
 
@@ -47,7 +46,7 @@ public class Task extends AbstractEntity {
         return projectId;
     }
 
-    public void setProjectId(String projectId) {
+    public void setProjectId(final String projectId) {
         this.projectId = projectId;
     }
 
@@ -55,7 +54,7 @@ public class Task extends AbstractEntity {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(final String userId) {
         this.userId = userId;
     }
 

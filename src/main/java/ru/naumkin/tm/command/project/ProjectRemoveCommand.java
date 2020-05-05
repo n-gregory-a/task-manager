@@ -7,7 +7,7 @@ import ru.naumkin.tm.error.NameIsEmptyException;
 import ru.naumkin.tm.error.NoProjectWithSuchNameException;
 import ru.naumkin.tm.error.ProjectIsNullException;
 
-public class ProjectRemoveCommand extends AbstractCommand {
+public final class ProjectRemoveCommand extends AbstractCommand {
 
     public ProjectRemoveCommand() {
         super(true);
@@ -26,15 +26,15 @@ public class ProjectRemoveCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[PROJECT REMOVE]");
-        IProjectService projectService = serviceLocator.getProjectService();
-        String currentUserId = serviceLocator.getCurrentUser().getId();
+        final IProjectService projectService = serviceLocator.getProjectService();
+        final String currentUserId = serviceLocator.getCurrentUser().getId();
         if (projectService.findAll(currentUserId).isEmpty()) {
             serviceLocator.getTerminalService().showMessage("[Project list is empty.]");
             return;
         }
         Project project;
         serviceLocator.getTerminalService().showMessage("Enter project name:");
-        String projectName = serviceLocator.getTerminalService().readLine();
+        final String projectName = serviceLocator.getTerminalService().readLine();
         try {
             project = projectService.findOne(projectName, currentUserId);
         } catch (NameIsEmptyException |

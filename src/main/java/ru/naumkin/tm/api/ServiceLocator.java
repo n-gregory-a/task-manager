@@ -21,7 +21,7 @@ public interface ServiceLocator {
 
     User getCurrentUser();
 
-    void setCurrentUser(User user);
+    void setCurrentUser(final User user);
 
     List<AbstractCommand> getCommand();
 

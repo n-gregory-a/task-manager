@@ -2,7 +2,7 @@ package ru.naumkin.tm.command.user;
 
 import ru.naumkin.tm.command.AbstractCommand;
 
-public class UserLogOutCommand extends AbstractCommand {
+public final class UserLogOutCommand extends AbstractCommand {
 
     public UserLogOutCommand() {
         super(true);

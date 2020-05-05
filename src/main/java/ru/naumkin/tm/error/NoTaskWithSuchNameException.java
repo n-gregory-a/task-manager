@@ -1,10 +1,10 @@
 package ru.naumkin.tm.error;
 
-public class NoTaskWithSuchNameException extends RuntimeException {
+public final class NoTaskWithSuchNameException extends RuntimeException {
 
     private final String name;
 
-    public NoTaskWithSuchNameException(String name) {
+    public NoTaskWithSuchNameException(final String name) {
         this.name = name;
     }
 

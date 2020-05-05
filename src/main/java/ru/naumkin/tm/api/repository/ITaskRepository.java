@@ -6,12 +6,12 @@ import java.util.List;
 
 public interface ITaskRepository extends IRepository<Task> {
 
-    List<Task> findAll(String currentUserId);
+    List<Task> findAll(final String currentUserId);
 
-    Task findOne(String name, String currentUserId);
+    Task findOne(final String name, final String currentUserId);
 
-    Task remove(Task task, String currentUserId);
+    Task remove(final Task task, final String currentUserId);
 
-    void removeAll(String currentUserId);
+    void removeAll(final String currentUserId);
 
 }

@@ -8,13 +8,13 @@ public interface IService<E extends AbstractEntity> {
 
     Collection<E> findAll();
 
-    E findOne(String name);
+    E findOne(final String name);
 
-    E persist(E entity);
+    E persist(final E entity);
 
-    E merge(E entity, String name);
+    E merge(final E entity, final String name);
 
-    E remove(E entity);
+    E remove(final E entity);
 
     void removeAll();
 

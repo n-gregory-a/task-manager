@@ -5,7 +5,7 @@ import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.Task;
 import ru.naumkin.tm.entity.User;
 
-public class TaskCreateCommand extends AbstractCommand {
+public final class TaskCreateCommand extends AbstractCommand {
 
     public TaskCreateCommand() {
         super(true);
@@ -25,7 +25,7 @@ public class TaskCreateCommand extends AbstractCommand {
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[TASK CREATE]");
         User user = serviceLocator.getCurrentUser();
-        ITaskService taskService = serviceLocator.getTaskService();
+        final ITaskService taskService = serviceLocator.getTaskService();
         serviceLocator.getTerminalService().showMessage("Enter name:");
         Task task = new Task(serviceLocator.getTerminalService().readLine());
         task.setUserId(user.getId());

@@ -7,17 +7,17 @@ import ru.naumkin.tm.error.*;
 
 import java.util.List;
 
-public class ProjectService extends AbstractService<Project> implements IProjectService {
+public final class ProjectService extends AbstractService<Project> implements IProjectService {
 
     private final IProjectRepository projectRepository;
 
-    public ProjectService(IProjectRepository repository) {
+    public ProjectService(final IProjectRepository repository) {
         super(repository);
         this.projectRepository = repository;
     }
 
     @Override
-    public List<Project> findAll(String currentUserId) {
+    public List<Project> findAll(final String currentUserId) {
         if (currentUserId == null) {
             throw new CurrentUserIdIsNullException();
         }
@@ -28,7 +28,7 @@ public class ProjectService extends AbstractService<Project> implements IProject
     }
 
     @Override
-    public Project findOne(String name, String currentUserId) {
+    public Project findOne(final String name, final String currentUserId) {
         if (name == null) {
             throw new NameIsNullException();
         }
@@ -41,7 +41,7 @@ public class ProjectService extends AbstractService<Project> implements IProject
         if (currentUserId.isEmpty()) {
             throw new CurrentUserIdIsEmptyException();
         }
-        Project project = projectRepository.findOne(name, currentUserId);
+        final Project project = projectRepository.findOne(name, currentUserId);
         if (project == null) {
             throw new NoProjectWithSuchNameException(name);
         }
@@ -49,7 +49,7 @@ public class ProjectService extends AbstractService<Project> implements IProject
     }
 
     @Override
-    public Project remove(Project project, String currentUserId) {
+    public Project remove(final Project project, final String currentUserId) {
         if (project == null) {
             throw new ProjectIsNullException();
         }
@@ -59,7 +59,7 @@ public class ProjectService extends AbstractService<Project> implements IProject
         if (currentUserId.isEmpty()) {
             throw new CurrentUserIdIsEmptyException();
         }
-        Project toRemove = projectRepository.remove(project, currentUserId);
+        final Project toRemove = projectRepository.remove(project, currentUserId);
         if (toRemove == null) {
             throw new ProjectIsNullException();
         }
@@ -67,7 +67,7 @@ public class ProjectService extends AbstractService<Project> implements IProject
     }
 
     @Override
-    public void removeAll(String currentUserId) {
+    public void removeAll(final String currentUserId) {
         if (currentUserId == null) {
             throw new CurrentUserIdIsNullException();
         }

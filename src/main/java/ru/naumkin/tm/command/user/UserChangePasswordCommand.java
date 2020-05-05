@@ -5,7 +5,7 @@ import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.enumerated.RoleType;
 import ru.naumkin.tm.util.HashGenerator;
 
-public class UserChangePasswordCommand extends AbstractCommand {
+public final class UserChangePasswordCommand extends AbstractCommand {
 
     public UserChangePasswordCommand() {
         super(true);
@@ -25,10 +25,10 @@ public class UserChangePasswordCommand extends AbstractCommand {
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[PASSWORD CHANGE]");
         serviceLocator.getTerminalService().showMessage("Enter login:");
-        String login = serviceLocator.getTerminalService().readLine();
+        final String login = serviceLocator.getTerminalService().readLine();
         User user = serviceLocator.getUserService().findOne(login);
         serviceLocator.getTerminalService().showMessage("Enter new password:");
-        String password = serviceLocator.getTerminalService().readLine();
+        final String password = serviceLocator.getTerminalService().readLine();
         user.setPassword(HashGenerator.getHash(password));
         serviceLocator.getTerminalService().showMessage("[OK]");
     }

@@ -8,7 +8,7 @@ import ru.naumkin.tm.error.NoTaskWithSuchNameException;
 
 import java.io.IOException;
 
-public class TaskReadCommand extends AbstractCommand {
+public final class TaskReadCommand extends AbstractCommand {
 
     public TaskReadCommand() {
         super(true);
@@ -33,10 +33,10 @@ public class TaskReadCommand extends AbstractCommand {
 
     private Task getTaskByName() throws IOException {
         serviceLocator.getTerminalService().showMessage("Enter task name:");
-        ITaskService taskService = serviceLocator.getTaskService();
+        final ITaskService taskService = serviceLocator.getTaskService();
         Task task;
-        String taskName = serviceLocator.getTerminalService().readLine();
-        String currentUserId = serviceLocator.getCurrentUser().getId();
+        final String taskName = serviceLocator.getTerminalService().readLine();
+        final String currentUserId = serviceLocator.getCurrentUser().getId();
         try {
             task = taskService.findOne(taskName, currentUserId);
         } catch (NameIsEmptyException | NoTaskWithSuchNameException e) {

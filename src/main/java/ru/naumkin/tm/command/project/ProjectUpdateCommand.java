@@ -10,7 +10,7 @@ import ru.naumkin.tm.util.DateFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProjectUpdateCommand extends AbstractCommand {
+public final class ProjectUpdateCommand extends AbstractCommand {
 
     public ProjectUpdateCommand() {
         super(true);
@@ -29,18 +29,18 @@ public class ProjectUpdateCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[PROJECT UPDATE]");
-        IProjectService projectService = serviceLocator.getProjectService();
+        final IProjectService projectService = serviceLocator.getProjectService();
         serviceLocator.getTerminalService().showMessage("Projects available to update:");
         List<Project> list = new ArrayList<>();
         int index = 1;
-        String currentUserId = serviceLocator.getCurrentUser().getId();
+        final String currentUserId = serviceLocator.getCurrentUser().getId();
         for (Project project: projectService.findAll(currentUserId)) {
             serviceLocator.getTerminalService().showMessage(index++ + ". " + project.toString());
             list.add(project);
         }
         serviceLocator.getTerminalService().showMessage("Choose project to update by number:");
         Project project = list.get(Integer.parseInt(serviceLocator.getTerminalService().readLine()) - 1);
-        String name = project.getName();
+        final String name = project.getName();
         serviceLocator.getTerminalService().showMessage("Updating project:");
         serviceLocator.getTerminalService().showMessage("id: " + project.getId() +
                 ", name: " + project.getName());

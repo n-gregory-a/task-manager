@@ -1,6 +1,6 @@
 package ru.naumkin.tm.error;
 
-public class UserIsNullException extends RuntimeException {
+public final class UserIsNullException extends RuntimeException {
 
     @Override
     public String toString() {

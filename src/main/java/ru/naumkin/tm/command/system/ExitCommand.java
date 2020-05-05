@@ -2,7 +2,7 @@ package ru.naumkin.tm.command.system;
 
 import ru.naumkin.tm.command.AbstractCommand;
 
-public class ExitCommand extends AbstractCommand {
+public final class ExitCommand extends AbstractCommand {
 
     public ExitCommand() {
         super(false);
