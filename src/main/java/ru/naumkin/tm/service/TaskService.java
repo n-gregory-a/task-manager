@@ -1,5 +1,7 @@
 package ru.naumkin.tm.service;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.ITaskRepository;
 import ru.naumkin.tm.api.service.ITaskService;
 import ru.naumkin.tm.entity.Task;
@@ -11,13 +13,13 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
 
     private final ITaskRepository taskRepository;
 
-    public TaskService(final ITaskRepository repository) {
+    public TaskService(final @NotNull ITaskRepository repository) {
         super(repository);
         this.taskRepository = repository;
     }
 
     @Override
-    public List<Task> findAll(final String currentUserId) {
+    public List<Task> findAll(@Nullable final String currentUserId) {
         if (currentUserId == null) {
             throw new CurrentUserIdIsNullException();
         }
@@ -28,7 +30,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     }
 
     @Override
-    public Task findOne(final String name, final String currentUserId) {
+    public Task findOne(@Nullable final String name, @Nullable final String currentUserId) {
         if (name == null) {
             throw new NameIsNullException();
         }
@@ -49,7 +51,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     }
 
     @Override
-    public Task remove(final Task task, final String currentUserId) {
+    public Task remove(@Nullable final Task task, @Nullable final String currentUserId) {
         if (task == null) {
             throw new TaskIsNullException();
         }
@@ -67,7 +69,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     }
 
     @Override
-    public void removeAll(final String currentUserId) {
+    public void removeAll(@Nullable final String currentUserId) {
         if (currentUserId == null) {
             throw new CurrentUserIdIsNullException();
         }

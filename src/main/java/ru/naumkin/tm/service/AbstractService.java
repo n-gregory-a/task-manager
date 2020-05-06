@@ -1,5 +1,7 @@
 package ru.naumkin.tm.service;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.IRepository;
 import ru.naumkin.tm.api.service.IService;
 import ru.naumkin.tm.entity.AbstractEntity;
@@ -11,9 +13,9 @@ import java.util.Collection;
 
 public abstract class AbstractService<E extends AbstractEntity> implements IService<E> {
 
-    protected IRepository<E> repository;
+    final protected IRepository<E> repository;
 
-    public AbstractService(final IRepository<E> repository) {
+    public AbstractService(@NotNull final IRepository<E> repository) {
         this.repository = repository;
     }
 
@@ -23,7 +25,7 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
     }
 
     @Override
-    public E findOne(final String name) {
+    public E findOne(@Nullable final String name) {
         if (name == null) {
             throw new NameIsNullException();
         }
@@ -38,7 +40,7 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
     }
 
     @Override
-    public E persist(final E entity) {
+    public E persist(@Nullable final E entity) {
         if (entity == null) {
             throw new EntityIsNullException();
         }
@@ -46,7 +48,7 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
     }
 
     @Override
-    public E merge(final E entity, final String name) {
+    public E merge(@Nullable final E entity, @Nullable final String name) {
         if (name == null) {
             throw new NameIsEmptyException();
         }
@@ -67,7 +69,7 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
     }
 
     @Override
-    public E remove(final E entity) {
+    public E remove(@Nullable final E entity) {
         if (entity == null) {
             throw new EntityIsNullException();
         }

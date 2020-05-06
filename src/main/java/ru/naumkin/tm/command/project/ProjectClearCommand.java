@@ -20,7 +20,7 @@ public final class ProjectClearCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws Exception {
+    public void execute() {
         serviceLocator.getTerminalService().showMessage("[PROJECT CLEAR]");
         final IProjectService projectService = serviceLocator.getProjectService();
         projectService.removeAll(serviceLocator.getUserService().getCurrentUserId());

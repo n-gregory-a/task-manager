@@ -21,7 +21,7 @@ public final class ProjectListCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws Exception {
+    public void execute() {
         serviceLocator.getTerminalService().showMessage("[PROJECT LIST]");
         final IProjectService projectService = serviceLocator.getProjectService();
         int index = 1;

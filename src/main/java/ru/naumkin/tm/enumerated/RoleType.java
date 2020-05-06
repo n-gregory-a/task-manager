@@ -1,5 +1,7 @@
 package ru.naumkin.tm.enumerated;
 
+import org.jetbrains.annotations.NotNull;
+
 public enum RoleType {
 
     ADMINISTRATOR("administrator"),
@@ -7,7 +9,7 @@ public enum RoleType {
 
     private final String role;
 
-    RoleType(final String role) {
+    RoleType(@NotNull final String role) {
         this.role = role;
     }
 
