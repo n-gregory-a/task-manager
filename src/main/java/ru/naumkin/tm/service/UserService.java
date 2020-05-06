@@ -10,12 +10,25 @@ import ru.naumkin.tm.util.HashGenerator;
 
 public final class UserService extends AbstractService<User> implements IUserService {
 
-    public UserService(final IRepository<User> repository) {
+    private User currentUser;
+
+    public UserService(final IRepository<User> repository, User currentUser) {
         super(repository);
+        this.currentUser = currentUser;
     }
 
     @Override
-    public User createUser(RoleType role) {
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    @Override
+    public void setCurrentUser(final User currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    @Override
+    public User createUser(final RoleType role) {
         if (role == null) {
             throw new RoleTypeIsNullException();
         }
@@ -33,11 +46,16 @@ public final class UserService extends AbstractService<User> implements IUserSer
     }
 
     @Override
-    public boolean isRoleAdmin(User user) {
-        if (user == null) {
+    public boolean isRoleAdmin() {
+        return currentUser.getRole() == RoleType.ADMINISTRATOR;
+    }
+
+    @Override
+    public String getCurrentUserId() {
+        if (currentUser == null) {
             throw new UserIsNullException();
         }
-        return user.getRole() == RoleType.ADMINISTRATOR;
+        return getCurrentUser().getId();
     }
 
 }

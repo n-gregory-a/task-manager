@@ -5,8 +5,14 @@ import ru.naumkin.tm.enumerated.RoleType;
 
 public interface IUserService extends IService<User> {
 
-    User createUser(RoleType role);
+    User getCurrentUser();
 
-    boolean isRoleAdmin(User user);
+    void setCurrentUser(final User currentUser);
+
+    User createUser(final RoleType role);
+
+    boolean isRoleAdmin();
+
+    String getCurrentUserId();
 
 }

@@ -24,7 +24,7 @@ public final class TaskCreateCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[TASK CREATE]");
-        User user = serviceLocator.getCurrentUser();
+        User user = serviceLocator.getUserService().getCurrentUser();
         final ITaskService taskService = serviceLocator.getTaskService();
         serviceLocator.getTerminalService().showMessage("Enter name:");
         Task task = new Task(serviceLocator.getTerminalService().readLine());

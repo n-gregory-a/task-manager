@@ -33,7 +33,7 @@ public final class ProjectUpdateCommand extends AbstractCommand {
         serviceLocator.getTerminalService().showMessage("Projects available to update:");
         List<Project> list = new ArrayList<>();
         int index = 1;
-        final String currentUserId = serviceLocator.getCurrentUser().getId();
+        final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
         for (Project project: projectService.findAll(currentUserId)) {
             serviceLocator.getTerminalService().showMessage(index++ + ". " + project.toString());
             list.add(project);

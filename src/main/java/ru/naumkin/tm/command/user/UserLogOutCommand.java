@@ -21,7 +21,7 @@ public final class UserLogOutCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[USER CLOSE SESSION]");
-        serviceLocator.setCurrentUser(null);
+        serviceLocator.getUserService().setCurrentUser(null);
         serviceLocator.getTerminalService().showMessage("Session was closed.");
     }
 

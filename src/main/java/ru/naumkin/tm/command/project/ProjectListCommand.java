@@ -25,7 +25,7 @@ public final class ProjectListCommand extends AbstractCommand {
         serviceLocator.getTerminalService().showMessage("[PROJECT LIST]");
         final IProjectService projectService = serviceLocator.getProjectService();
         int index = 1;
-        final String currentUserId = serviceLocator.getCurrentUser().getId();
+        final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
         for (Project project: projectService.findAll(currentUserId)) {
             serviceLocator.getTerminalService().showMessage(index++ + ". " + project.toString());
         }

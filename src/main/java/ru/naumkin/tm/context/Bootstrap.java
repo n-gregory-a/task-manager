@@ -2,9 +2,9 @@ package ru.naumkin.tm.context;
 
 import ru.naumkin.tm.api.ServiceLocator;
 import ru.naumkin.tm.api.service.IProjectService;
-import ru.naumkin.tm.api.service.IService;
 import ru.naumkin.tm.api.service.ITaskService;
-import ru.naumkin.tm.command.*;
+import ru.naumkin.tm.api.service.IUserService;
+import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.command.project.*;
 import ru.naumkin.tm.command.system.AboutCommand;
 import ru.naumkin.tm.command.system.ExitCommand;
@@ -19,14 +19,11 @@ import ru.naumkin.tm.repository.UserRepository;
 import ru.naumkin.tm.service.ProjectService;
 import ru.naumkin.tm.service.TaskService;
 import ru.naumkin.tm.service.UserService;
-import ru.naumkin.tm.util.HashGenerator;
 import ru.naumkin.tm.view.TerminalService;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 public final class Bootstrap implements ServiceLocator {
@@ -41,15 +38,15 @@ public final class Bootstrap implements ServiceLocator {
 
     private final UserRepository userRepository = new UserRepository();
 
-    private final UserService userService = new UserService(userRepository);
+    private User currentUser;
+
+    private final UserService userService = new UserService(userRepository, currentUser);
 
     private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    private final TerminalService terminalService = new TerminalService(reader);
-
     private final Map<String, AbstractCommand> commands = new LinkedHashMap<>();
 
-    private User currentUser;
+    private final TerminalService terminalService = new TerminalService(reader, commands);
 
     public Bootstrap() {
     }
@@ -65,28 +62,13 @@ public final class Bootstrap implements ServiceLocator {
     }
 
     @Override
-    public IService<User> getUserService() {
+    public IUserService getUserService() {
         return userService;
     }
 
     @Override
     public TerminalService getTerminalService() {
         return terminalService;
-    }
-
-    @Override
-    public User getCurrentUser() {
-        return currentUser;
-    }
-
-    @Override
-    public List<AbstractCommand> getCommand() {
-        return new ArrayList<>(commands.values());
-    }
-
-    @Override
-    public void setCurrentUser(final User currentUser) {
-        this.currentUser = currentUser;
     }
 
     public void registerCommand(final AbstractCommand command) {
@@ -145,10 +127,10 @@ public final class Bootstrap implements ServiceLocator {
             return;
         }
         final boolean secureCheck = !abstractCommand.isSecure() ||
-                (abstractCommand.isSecure() && getCurrentUser() != null);
+                (abstractCommand.isSecure() && userService.getCurrentUser() != null);
         final boolean roleCheck = (abstractCommand.getRoles() == null) ||
                 (abstractCommand.getRoles() != null &&
-                        userService.isRoleAdmin(currentUser));
+                        userService.isRoleAdmin());
         if (secureCheck && roleCheck) {
             abstractCommand.execute();
             return;
@@ -159,7 +141,7 @@ public final class Bootstrap implements ServiceLocator {
     public void createDefaultUser() {
         User user = userService.createUser(RoleType.USER);
         User administrator = userService.createUser(RoleType.ADMINISTRATOR);
-        setCurrentUser(user);
+        userService.setCurrentUser(user);
     }
 
 }

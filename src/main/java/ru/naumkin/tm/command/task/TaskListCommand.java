@@ -25,7 +25,7 @@ public final class TaskListCommand extends AbstractCommand {
         serviceLocator.getTerminalService().showMessage("[TASK LIST]");
         final ITaskService taskService = serviceLocator.getTaskService();
         int index = 1;
-        final String currentUserId = serviceLocator.getCurrentUser().getId();
+        final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
         for (final Task task: taskService.findAll(currentUserId)) {
             serviceLocator.getTerminalService().showMessage(index++ + ". " + task.toString());
         }

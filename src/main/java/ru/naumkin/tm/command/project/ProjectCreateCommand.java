@@ -24,7 +24,7 @@ public final class ProjectCreateCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[PROJECT CREATE]");
-        final User user = serviceLocator.getCurrentUser();
+        final User user = serviceLocator.getUserService().getCurrentUser();
         final IProjectService projectService = serviceLocator.getProjectService();
         serviceLocator.getTerminalService().showMessage("Enter name:");
         Project project = new Project(serviceLocator.getTerminalService().readLine());

@@ -42,7 +42,7 @@ public final class TaskAttachCommand extends AbstractCommand {
         final IProjectService projectService = serviceLocator.getProjectService();
         Project project;
         final String projectName = serviceLocator.getTerminalService().readLine();
-        final String currentUserId = serviceLocator.getCurrentUser().getId();
+        final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
         try {
             project = projectService.findOne(projectName, currentUserId);
         } catch (NameIsEmptyException |
@@ -59,7 +59,7 @@ public final class TaskAttachCommand extends AbstractCommand {
         final ITaskService taskService = serviceLocator.getTaskService();
         Task task;
         final String taskName = serviceLocator.getTerminalService().readLine();
-        final String currentUserId = serviceLocator.getCurrentUser().getId();
+        final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
         try {
             task = taskService.findOne(taskName, currentUserId);
         } catch (NameIsEmptyException | NoTaskWithSuchNameException e) {

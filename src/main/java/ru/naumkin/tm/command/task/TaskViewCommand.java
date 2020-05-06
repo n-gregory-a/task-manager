@@ -48,7 +48,7 @@ public final class TaskViewCommand extends AbstractCommand {
         final IProjectService projectService = serviceLocator.getProjectService();
         Project project;
         final String projectName = serviceLocator.getTerminalService().readLine();
-        final String currentUserId = serviceLocator.getCurrentUser().getId();
+        final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
         try {
             project = projectService.findOne(projectName, currentUserId);
         } catch (NameIsEmptyException | NoProjectWithSuchNameException e) {

@@ -20,7 +20,7 @@ public final class HelpCommand  extends AbstractCommand {
 
     @Override
     public void execute() {
-        for (final AbstractCommand command: serviceLocator.getCommand()) {
+        for (final AbstractCommand command: serviceLocator.getTerminalService().getCommand()) {
             serviceLocator.getTerminalService().showMessage(command.getName() + ": " + command.getDescription());
         }
     }

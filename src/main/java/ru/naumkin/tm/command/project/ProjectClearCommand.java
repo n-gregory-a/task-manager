@@ -23,7 +23,7 @@ public final class ProjectClearCommand extends AbstractCommand {
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[PROJECT CLEAR]");
         final IProjectService projectService = serviceLocator.getProjectService();
-        projectService.removeAll(serviceLocator.getCurrentUser().getId());
+        projectService.removeAll(serviceLocator.getUserService().getCurrentUserId());
         serviceLocator.getTerminalService().showMessage("[OK]");
     }
 

@@ -27,7 +27,7 @@ public final class ProjectRemoveCommand extends AbstractCommand {
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[PROJECT REMOVE]");
         final IProjectService projectService = serviceLocator.getProjectService();
-        final String currentUserId = serviceLocator.getCurrentUser().getId();
+        final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
         if (projectService.findAll(currentUserId).isEmpty()) {
             serviceLocator.getTerminalService().showMessage("[Project list is empty.]");
             return;

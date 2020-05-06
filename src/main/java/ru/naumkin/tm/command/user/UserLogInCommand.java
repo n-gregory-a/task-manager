@@ -36,7 +36,7 @@ public final class UserLogInCommand extends AbstractCommand {
             serviceLocator.getTerminalService().showMessage("Password is incorrect. Authorisation failed.");
             return;
         }
-        serviceLocator.setCurrentUser(user);
+        serviceLocator.getUserService().setCurrentUser(user);
         serviceLocator.getTerminalService().showMessage("[OK]");
     }
 

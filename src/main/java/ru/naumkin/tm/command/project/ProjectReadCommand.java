@@ -30,7 +30,7 @@ public final class ProjectReadCommand extends AbstractCommand {
         final String projectName = serviceLocator.getTerminalService().readLine();
         final IProjectService projectService = serviceLocator.getProjectService();
         Project project;
-        final String currentUserId = serviceLocator.getCurrentUser().getId();
+        final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
         try {
             project = projectService.findOne(projectName, currentUserId);
         } catch (NameIsEmptyException |

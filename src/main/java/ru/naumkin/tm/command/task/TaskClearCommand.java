@@ -23,7 +23,7 @@ public final class TaskClearCommand extends AbstractCommand {
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[TASK LIST CLEAR]");
         final ITaskService taskService = serviceLocator.getTaskService();
-        taskService.removeAll(serviceLocator.getCurrentUser().getId());
+        taskService.removeAll(serviceLocator.getUserService().getCurrentUserId());
         serviceLocator.getTerminalService().showMessage("[OK]");
     }
 
