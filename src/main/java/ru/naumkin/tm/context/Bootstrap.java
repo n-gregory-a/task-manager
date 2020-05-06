@@ -1,8 +1,12 @@
 package ru.naumkin.tm.context;
 
 import ru.naumkin.tm.api.ServiceLocator;
+import ru.naumkin.tm.api.repository.IProjectRepository;
+import ru.naumkin.tm.api.repository.IRepository;
+import ru.naumkin.tm.api.repository.ITaskRepository;
 import ru.naumkin.tm.api.service.IProjectService;
 import ru.naumkin.tm.api.service.ITaskService;
+import ru.naumkin.tm.api.service.ITerminalService;
 import ru.naumkin.tm.api.service.IUserService;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.command.project.*;
@@ -19,7 +23,7 @@ import ru.naumkin.tm.repository.UserRepository;
 import ru.naumkin.tm.service.ProjectService;
 import ru.naumkin.tm.service.TaskService;
 import ru.naumkin.tm.service.UserService;
-import ru.naumkin.tm.view.TerminalService;
+import ru.naumkin.tm.service.TerminalService;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -28,25 +32,25 @@ import java.util.Map;
 
 public final class Bootstrap implements ServiceLocator {
 
-    private final TaskRepository taskRepository = new TaskRepository();
+    private final ITaskRepository taskRepository = new TaskRepository();
 
-    private final ProjectRepository projectRepository = new ProjectRepository(taskRepository);
+    private final IProjectRepository projectRepository = new ProjectRepository(taskRepository);
 
-    private final TaskService taskService = new TaskService(taskRepository);
+    private final ITaskService taskService = new TaskService(taskRepository);
 
-    private final ProjectService projectService = new ProjectService(projectRepository);
+    private final IProjectService projectService = new ProjectService(projectRepository);
 
-    private final UserRepository userRepository = new UserRepository();
+    private final IRepository<User> userRepository = new UserRepository();
 
     private User currentUser;
 
-    private final UserService userService = new UserService(userRepository, currentUser);
+    private final IUserService userService = new UserService(userRepository, currentUser);
 
     private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     private final Map<String, AbstractCommand> commands = new LinkedHashMap<>();
 
-    private final TerminalService terminalService = new TerminalService(reader, commands);
+    private final ITerminalService terminalService = new TerminalService(reader, commands);
 
     public Bootstrap() {
     }
@@ -67,7 +71,7 @@ public final class Bootstrap implements ServiceLocator {
     }
 
     @Override
-    public TerminalService getTerminalService() {
+    public ITerminalService getTerminalService() {
         return terminalService;
     }
 

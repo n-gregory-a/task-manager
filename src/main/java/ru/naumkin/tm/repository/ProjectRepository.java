@@ -3,6 +3,7 @@ package ru.naumkin.tm.repository;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.IProjectRepository;
+import ru.naumkin.tm.api.repository.ITaskRepository;
 import ru.naumkin.tm.entity.Project;
 import ru.naumkin.tm.entity.Task;
 
@@ -10,9 +11,9 @@ import java.util.*;
 
 public final class ProjectRepository extends AbstractRepository<Project> implements IProjectRepository {
 
-    private final TaskRepository taskRepository;
+    private final ITaskRepository taskRepository;
 
-    public ProjectRepository(@NotNull final TaskRepository taskRepository) {
+    public ProjectRepository(final ITaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
 
