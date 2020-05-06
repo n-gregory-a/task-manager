@@ -148,7 +148,7 @@ public final class Bootstrap implements ServiceLocator {
                 (abstractCommand.isSecure() && getCurrentUser() != null);
         final boolean roleCheck = (abstractCommand.getRoles() == null) ||
                 (abstractCommand.getRoles() != null &&
-                        getCurrentUser().getRole() == RoleType.ADMINISTRATOR);
+                        userService.isRoleAdmin(currentUser));
         if (secureCheck && roleCheck) {
             abstractCommand.execute();
             return;
@@ -157,14 +157,8 @@ public final class Bootstrap implements ServiceLocator {
     }
 
     public void createDefaultUser() {
-        User user = new User();
-        user.setName("user");
-        User administrator = new User();
-        administrator.setName("admin");
-        administrator.setPassword(HashGenerator.getHash("MeG@$tr0nG@dmiN$p@$$w0rD"));
-        administrator.setRole(RoleType.ADMINISTRATOR);
-        userService.persist(user);
-        userService.persist(administrator);
+        User user = userService.createUser(RoleType.USER);
+        User administrator = userService.createUser(RoleType.ADMINISTRATOR);
         setCurrentUser(user);
     }
 
