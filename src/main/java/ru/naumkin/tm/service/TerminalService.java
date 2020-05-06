@@ -1,4 +1,4 @@
-package ru.naumkin.tm.view;
+package ru.naumkin.tm.service;
 
 import ru.naumkin.tm.api.service.ITerminalService;
 import ru.naumkin.tm.command.AbstractCommand;
