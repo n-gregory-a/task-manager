@@ -58,6 +58,4 @@ public final class UserService extends AbstractService<User> implements IUserSer
         return getCurrentUser().getId();
     }
 
-
-
 }

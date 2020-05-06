@@ -37,4 +37,5 @@ public final class User extends AbstractEntity {
                 ", role: " + role.displayName() +
                 '}';
     }
+
 }
