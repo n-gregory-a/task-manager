@@ -1,5 +1,7 @@
 package ru.naumkin.tm.service;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.IRepository;
 import ru.naumkin.tm.api.service.IUserService;
 import ru.naumkin.tm.entity.User;
@@ -10,12 +12,12 @@ import ru.naumkin.tm.util.HashGenerator;
 
 public final class UserService extends AbstractService<User> implements IUserService {
 
-    public UserService(final IRepository<User> repository) {
+    public UserService(@NotNull final IRepository<User> repository) {
         super(repository);
     }
 
     @Override
-    public User createUser(RoleType role) {
+    public User createUser(@Nullable RoleType role) {
         if (role == null) {
             throw new RoleTypeIsNullException();
         }
@@ -33,7 +35,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
     }
 
     @Override
-    public boolean isRoleAdmin(User user) {
+    public boolean isRoleAdmin(@Nullable User user) {
         if (user == null) {
             throw new UserIsNullException();
         }

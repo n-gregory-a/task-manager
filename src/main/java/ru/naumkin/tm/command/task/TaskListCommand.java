@@ -21,7 +21,7 @@ public final class TaskListCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws Exception {
+    public void execute() {
         serviceLocator.getTerminalService().showMessage("[TASK LIST]");
         final ITaskService taskService = serviceLocator.getTaskService();
         int index = 1;

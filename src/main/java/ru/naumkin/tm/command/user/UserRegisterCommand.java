@@ -33,7 +33,7 @@ public final class UserRegisterCommand extends AbstractCommand {
         try {
             serviceLocator.getUserService().persist(user);
         } catch (UserIsNullException e) {
-            serviceLocator.getTerminalService().showMessage(e.toString());;
+            serviceLocator.getTerminalService().showMessage(e.toString());
         }
         serviceLocator.getTerminalService().showMessage("[OK]");
     }

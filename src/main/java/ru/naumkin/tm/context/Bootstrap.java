@@ -4,7 +4,7 @@ import ru.naumkin.tm.api.ServiceLocator;
 import ru.naumkin.tm.api.service.IProjectService;
 import ru.naumkin.tm.api.service.IService;
 import ru.naumkin.tm.api.service.ITaskService;
-import ru.naumkin.tm.command.*;
+import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.command.project.*;
 import ru.naumkin.tm.command.system.AboutCommand;
 import ru.naumkin.tm.command.system.ExitCommand;
@@ -19,7 +19,6 @@ import ru.naumkin.tm.repository.UserRepository;
 import ru.naumkin.tm.service.ProjectService;
 import ru.naumkin.tm.service.TaskService;
 import ru.naumkin.tm.service.UserService;
-import ru.naumkin.tm.util.HashGenerator;
 import ru.naumkin.tm.view.TerminalService;
 
 import java.io.BufferedReader;

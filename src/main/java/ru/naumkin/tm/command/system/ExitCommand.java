@@ -19,7 +19,7 @@ public final class ExitCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws Exception {
+    public void execute() {
         System.exit(1);
     }
 

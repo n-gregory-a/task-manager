@@ -1,5 +1,7 @@
 package ru.naumkin.tm.service;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.IProjectRepository;
 import ru.naumkin.tm.api.service.IProjectService;
 import ru.naumkin.tm.entity.Project;
@@ -11,13 +13,13 @@ public final class ProjectService extends AbstractService<Project> implements IP
 
     private final IProjectRepository projectRepository;
 
-    public ProjectService(final IProjectRepository repository) {
+    public ProjectService(@NotNull final IProjectRepository repository) {
         super(repository);
         this.projectRepository = repository;
     }
 
     @Override
-    public List<Project> findAll(final String currentUserId) {
+    public List<Project> findAll(@Nullable final String currentUserId) {
         if (currentUserId == null) {
             throw new CurrentUserIdIsNullException();
         }
@@ -28,7 +30,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
     }
 
     @Override
-    public Project findOne(final String name, final String currentUserId) {
+    public Project findOne(@Nullable final String name, @Nullable final String currentUserId) {
         if (name == null) {
             throw new NameIsNullException();
         }
@@ -49,7 +51,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
     }
 
     @Override
-    public Project remove(final Project project, final String currentUserId) {
+    public Project remove(@Nullable final Project project, @Nullable final String currentUserId) {
         if (project == null) {
             throw new ProjectIsNullException();
         }
@@ -67,7 +69,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
     }
 
     @Override
-    public void removeAll(final String currentUserId) {
+    public void removeAll(@Nullable final String currentUserId) {
         if (currentUserId == null) {
             throw new CurrentUserIdIsNullException();
         }
