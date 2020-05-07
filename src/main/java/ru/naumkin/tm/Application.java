@@ -1,5 +1,6 @@
 package ru.naumkin.tm;
 
+import org.jetbrains.annotations.NotNull;
 import ru.naumkin.tm.command.project.*;
 import ru.naumkin.tm.command.system.AboutCommand;
 import ru.naumkin.tm.command.system.ExitCommand;
@@ -11,8 +12,8 @@ import ru.naumkin.tm.context.Bootstrap;
 public final class Application {
 
     public static void main(String[] args) throws Exception {
-        final Bootstrap bootstrap = new Bootstrap();
-        final Class[] classes = new Class[] {
+        @NotNull final Bootstrap bootstrap = new Bootstrap();
+        @NotNull final Class[] classes = new Class[] {
                 HelpCommand.class,
                 ProjectClearCommand.class,
                 ProjectCreateCommand.class,
