@@ -89,9 +89,12 @@ public final class Bootstrap implements ServiceLocator {
     public void init(Class[] classes) throws Exception {
         terminalService.showMessage("*** Welcome to task manager ***");
         createDefaultUser();
+        Class abstractCommand = AbstractCommand.class;
         for (Class clazz: classes) {
-            final AbstractCommand command = (AbstractCommand) clazz.newInstance();
-            registerCommand(command);
+            if (abstractCommand.isAssignableFrom(clazz)) {
+                final AbstractCommand command = (AbstractCommand) clazz.newInstance();
+                registerCommand(command);
+            }
         }
         String command;
         while (true) {
