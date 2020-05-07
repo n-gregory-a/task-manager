@@ -12,9 +12,8 @@ public final class UserService extends AbstractService<User> implements IUserSer
 
     private User currentUser;
 
-    public UserService(final IRepository<User> repository, User currentUser) {
+    public UserService(final IRepository<User> repository) {
         super(repository);
-        this.currentUser = currentUser;
     }
 
     @Override

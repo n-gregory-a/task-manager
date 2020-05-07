@@ -42,9 +42,7 @@ public final class Bootstrap implements ServiceLocator {
 
     private final IRepository<User> userRepository = new UserRepository();
 
-    private User currentUser;
-
-    private final IUserService userService = new UserService(userRepository, currentUser);
+    private final IUserService userService = new UserService(userRepository);
 
     private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
