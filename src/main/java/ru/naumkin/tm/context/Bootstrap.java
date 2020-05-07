@@ -86,32 +86,13 @@ public final class Bootstrap implements ServiceLocator {
         commands.put(cliCommand, command);
     }
 
-    public void init() throws Exception {
+    public void init(Class[] classes) throws Exception {
         terminalService.showMessage("*** Welcome to task manager ***");
         createDefaultUser();
-        registerCommand(new HelpCommand());
-        registerCommand(new ProjectClearCommand());
-        registerCommand(new ProjectCreateCommand());
-        registerCommand(new ProjectListCommand());
-        registerCommand(new ProjectReadCommand());
-        registerCommand(new ProjectRemoveCommand());
-        registerCommand(new ProjectUpdateCommand());
-        registerCommand(new TaskAttachCommand());
-        registerCommand(new TaskClearCommand());
-        registerCommand(new TaskCreateCommand());
-        registerCommand(new TaskListCommand());
-        registerCommand(new TaskReadCommand());
-        registerCommand(new TaskRemoveCommand());
-        registerCommand(new TaskUpdateCommand());
-        registerCommand(new TaskViewCommand());
-        registerCommand(new ExitCommand());
-        registerCommand(new UserChangePasswordCommand());
-        registerCommand(new UserLogInCommand());
-        registerCommand(new UserLogOutCommand());
-        registerCommand(new UserReadCommand());
-        registerCommand(new UserRegisterCommand());
-        registerCommand(new UserUpdateCommand());
-        registerCommand(new AboutCommand());
+        for (Class clazz: classes) {
+            final AbstractCommand command = (AbstractCommand) clazz.newInstance();
+            registerCommand(command);
+        }
         String command;
         while (true) {
             command = terminalService.readLine();
