@@ -1,7 +1,5 @@
 package ru.naumkin.tm.repository;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.IRepository;
 import ru.naumkin.tm.entity.AbstractEntity;
 
@@ -19,8 +17,8 @@ public abstract class AbstractRepository<E extends AbstractEntity> implements IR
     }
 
     @Override
-    public E findOne(@NotNull final String name) {
-        @Nullable String id = null;
+    public E findOne(final String name) {
+        String id = null;
         for (final E entity: findAll()) {
             if (name.equals(entity.getName())) {
                 id = entity.getId();
@@ -30,12 +28,12 @@ public abstract class AbstractRepository<E extends AbstractEntity> implements IR
     }
 
     @Override
-    public E persist(@NotNull final E entity) {
+    public E persist(final E entity) {
         return map.put(entity.getId(), entity);
     }
 
     @Override
-    public E merge(@Nullable final E entity) {
+    public E merge(final E entity) {
         if (entity == null) {
             return null;
         }
@@ -43,7 +41,7 @@ public abstract class AbstractRepository<E extends AbstractEntity> implements IR
     }
 
     @Override
-    public E remove(@NotNull final E entity) {
+    public E remove(final E entity) {
         return map.remove(entity.getId());
     }
 

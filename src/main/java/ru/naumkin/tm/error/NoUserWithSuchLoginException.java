@@ -1,12 +1,10 @@
 package ru.naumkin.tm.error;
 
-import org.jetbrains.annotations.NotNull;
-
 public final class NoUserWithSuchLoginException extends RuntimeException {
 
     private final String login;
 
-    public NoUserWithSuchLoginException(@NotNull final String login) {
+    public NoUserWithSuchLoginException(final String login) {
         this.login = login;
     }
 

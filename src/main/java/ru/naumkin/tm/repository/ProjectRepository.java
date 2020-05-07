@@ -1,13 +1,12 @@
 package ru.naumkin.tm.repository;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.IProjectRepository;
 import ru.naumkin.tm.api.repository.ITaskRepository;
 import ru.naumkin.tm.entity.Project;
 import ru.naumkin.tm.entity.Task;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 
 public final class ProjectRepository extends AbstractRepository<Project> implements IProjectRepository {
 
@@ -18,8 +17,8 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
     }
 
     @Override
-    public List<Project> findAll(@NotNull final String currentUserId) {
-        @NotNull List<Project> result = new LinkedList<>();
+    public List<Project> findAll(final String currentUserId) {
+        List<Project> result = new LinkedList<>();
         for (final Project project: map.values()) {
             boolean projectCreatedByCurrentUser =
                     currentUserId.equals(project.getUserId());
@@ -31,8 +30,8 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
     }
 
     @Override
-    public Project findOne(@NotNull final String name, @NotNull final String currentUserId) {
-        @Nullable Project result = null;
+    public Project findOne(final String name, final String currentUserId) {
+        Project result = null;
         for (final Project project: findAll(currentUserId)) {
             if (project.getName().equals(name)) {
                 result = project;
@@ -42,8 +41,8 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
     }
 
     @Override
-    public Project remove(@NotNull final Project project) {
-        @NotNull List<String> nameList = new LinkedList<>();
+    public Project remove(final Project project) {
+        List<String> nameList = new LinkedList<>();
         for (final Task t: taskRepository.findAll()) {
             final boolean taskAttachedToProject = t.getProjectId().equals(project.getId());
             if (taskAttachedToProject) {
@@ -60,11 +59,11 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
 
     @Override
     public Project remove(final Project project, final String currentUserId) {
-        @Nullable final Project toRemove = findOne(project.getName(), currentUserId);
+        final Project toRemove = findOne(project.getName(), currentUserId);
         if (toRemove == null) {
             return null;
         }
-        @NotNull List<String> nameList = new LinkedList<>();
+        List<String> nameList = new LinkedList<>();
         for (final Task t: taskRepository.findAll(currentUserId)) {
             final String projectId = t.getProjectId();
             if (projectId == null) {
@@ -85,7 +84,7 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
 
     @Override
     public void removeAll(final String currentUserId) {
-        @NotNull List<Project> toRemove = findAll(currentUserId);
+        List<Project> toRemove = findAll(currentUserId);
         for (final Project project: toRemove) {
             map.remove(project.getId());
         }

@@ -1,17 +1,16 @@
 package ru.naumkin.tm.repository;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.ITaskRepository;
 import ru.naumkin.tm.entity.Task;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 
 public final class TaskRepository extends AbstractRepository<Task> implements ITaskRepository {
 
     @Override
-    public List<Task> findAll(@NotNull final String currentUserId) {
-        @NotNull List<Task> result = new LinkedList<>();
+    public List<Task> findAll(final String currentUserId) {
+        List<Task> result = new LinkedList<>();
         for (final Task task: map.values()) {
             final boolean taskCreatedByCurrentUser =
                     currentUserId.equals(task.getUserId());
@@ -23,8 +22,8 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
     }
 
     @Override
-    public Task findOne(@NotNull final String name, @NotNull final String currentUserId) {
-        @Nullable Task result = null;
+    public Task findOne(final String name, final String currentUserId) {
+        Task result = null;
         for (final Task task: findAll(currentUserId)) {
             if (task.getName().equals(name)) {
                 result = task;
@@ -34,8 +33,8 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
     }
 
     @Override
-    public Task remove(@NotNull final Task task, @NotNull final String currentUserId) {
-        @Nullable final Task toRemove = findOne(task.getName(), currentUserId);
+    public Task remove(final Task task, final String currentUserId) {
+        final Task toRemove = findOne(task.getName(), currentUserId);
         if (toRemove == null) {
             return null;
         }
@@ -44,8 +43,8 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
     }
 
     @Override
-    public void removeAll(@NotNull final String currentUserId) {
-        @NotNull List<Task> toRemove = findAll(currentUserId);
+    public void removeAll(final String currentUserId) {
+        List<Task> toRemove = findAll(currentUserId);
         for (final Task task: toRemove) {
             map.remove(task.getName());
         }
