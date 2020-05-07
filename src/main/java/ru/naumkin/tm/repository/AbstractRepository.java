@@ -1,5 +1,7 @@
 package ru.naumkin.tm.repository;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.IRepository;
 import ru.naumkin.tm.entity.AbstractEntity;
 
@@ -12,12 +14,12 @@ public abstract class AbstractRepository<E extends AbstractEntity> implements IR
     protected final Map<String, E> map = new LinkedHashMap<>();
 
     @Override
-    public Collection<E> findAll() {
+    public @NotNull Collection<E> findAll() {
         return map.values();
     }
 
     @Override
-    public E findOne(final String name) {
+    public @Nullable E findOne(final @NotNull String name) {
         String id = null;
         for (final E entity: findAll()) {
             if (name.equals(entity.getName())) {
@@ -28,12 +30,12 @@ public abstract class AbstractRepository<E extends AbstractEntity> implements IR
     }
 
     @Override
-    public E persist(final E entity) {
+    public @Nullable E persist(final @NotNull E entity) {
         return map.put(entity.getId(), entity);
     }
 
     @Override
-    public E merge(final E entity) {
+    public @Nullable E merge(final @Nullable E entity) {
         if (entity == null) {
             return null;
         }
@@ -41,7 +43,7 @@ public abstract class AbstractRepository<E extends AbstractEntity> implements IR
     }
 
     @Override
-    public E remove(final E entity) {
+    public @Nullable E remove(final @NotNull E entity) {
         return map.remove(entity.getId());
     }
 

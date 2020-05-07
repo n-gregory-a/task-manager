@@ -1,5 +1,7 @@
 package ru.naumkin.tm.repository;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.ITaskRepository;
 import ru.naumkin.tm.entity.Task;
 
@@ -9,7 +11,7 @@ import java.util.List;
 public final class TaskRepository extends AbstractRepository<Task> implements ITaskRepository {
 
     @Override
-    public List<Task> findAll(final String currentUserId) {
+    public @NotNull List<Task> findAll(final @NotNull String currentUserId) {
         List<Task> result = new LinkedList<>();
         for (final Task task: map.values()) {
             final boolean taskCreatedByCurrentUser =
@@ -22,7 +24,7 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
     }
 
     @Override
-    public Task findOne(final String name, final String currentUserId) {
+    public @Nullable Task findOne(final @NotNull String name, final @NotNull String currentUserId) {
         Task result = null;
         for (final Task task: findAll(currentUserId)) {
             if (task.getName().equals(name)) {
@@ -33,8 +35,8 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
     }
 
     @Override
-    public Task remove(final Task task, final String currentUserId) {
-        final Task toRemove = findOne(task.getName(), currentUserId);
+    public @Nullable Task remove(final @NotNull Task task, final @NotNull String currentUserId) {
+        final @Nullable Task toRemove = findOne(task.getName(), currentUserId);
         if (toRemove == null) {
             return null;
         }
@@ -43,8 +45,8 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
     }
 
     @Override
-    public void removeAll(final String currentUserId) {
-        List<Task> toRemove = findAll(currentUserId);
+    public void removeAll(final @NotNull String currentUserId) {
+        @Nullable List<Task> toRemove = findAll(currentUserId);
         for (final Task task: toRemove) {
             map.remove(task.getName());
         }
