@@ -1,11 +1,7 @@
 package ru.naumkin.tm.command.system;
 
+import com.jcabi.manifests.Manifests;
 import ru.naumkin.tm.command.AbstractCommand;
-
-import java.io.IOException;
-import java.util.jar.Attributes;
-import java.util.jar.JarFile;
-import java.util.jar.Manifest;
 
 public final class AboutCommand extends AbstractCommand {
 
@@ -24,13 +20,10 @@ public final class AboutCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws IOException {
-        Manifest manifest = new JarFile("target/task-manager-1.0.0.jar").getManifest();
-
-        Attributes attributes = manifest.getMainAttributes();
-        String title = attributes.getValue("Implementation-Title");
-        String buildNumber = attributes.getValue("buildNumber");
-        String developer = attributes.getValue("developer");
+    public void execute() {
+        String buildNumber = Manifests.read("buildNumber");
+        String developer = Manifests.read("developer");
+        String title = Manifests.read("Implementation-Title");
         serviceLocator.getTerminalService().showMessage("Title: " + title +
                 "\nDeveloper: " + developer + "\nBuild number: " + buildNumber);
     }
