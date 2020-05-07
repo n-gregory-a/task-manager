@@ -1,5 +1,7 @@
 package ru.naumkin.tm.service;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.IRepository;
 import ru.naumkin.tm.api.service.IUserService;
 import ru.naumkin.tm.entity.User;
@@ -17,21 +19,21 @@ public final class UserService extends AbstractService<User> implements IUserSer
     }
 
     @Override
-    public User getCurrentUser() {
+    public @Nullable User getCurrentUser() {
         return currentUser;
     }
 
     @Override
-    public void setCurrentUser(final User currentUser) {
+    public void setCurrentUser(final @Nullable User currentUser) {
         this.currentUser = currentUser;
     }
 
     @Override
-    public User createUser(final RoleType role) {
+    public @NotNull User createUser(final @Nullable RoleType role) {
         if (role == null) {
             throw new RoleTypeIsNullException();
         }
-        User user = new User();
+        @NotNull User user = new User();
         if (role == RoleType.ADMINISTRATOR) {
             user.setName("admin");
             user.setPassword(HashGenerator.getHash("MeG@$tr0nG@dmiN$p@$$w0rD"));
@@ -50,7 +52,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
     }
 
     @Override
-    public String getCurrentUserId() {
+    public @NotNull String getCurrentUserId() {
         if (currentUser == null) {
             throw new UserIsNullException();
         }

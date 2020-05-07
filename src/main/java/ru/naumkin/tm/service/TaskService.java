@@ -1,5 +1,7 @@
 package ru.naumkin.tm.service;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.ITaskRepository;
 import ru.naumkin.tm.api.service.ITaskService;
 import ru.naumkin.tm.entity.Task;
@@ -11,13 +13,13 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
 
     private final ITaskRepository taskRepository;
 
-    public TaskService(final ITaskRepository repository) {
+    public TaskService(final @NotNull ITaskRepository repository) {
         super(repository);
         this.taskRepository = repository;
     }
 
     @Override
-    public List<Task> findAll(final String currentUserId) {
+    public @Nullable List<Task> findAll(final @Nullable String currentUserId) {
         if (currentUserId == null) {
             throw new CurrentUserIdIsNullException();
         }
@@ -28,7 +30,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     }
 
     @Override
-    public Task findOne(final String name, final String currentUserId) {
+    public @NotNull Task findOne(final @Nullable String name, final @Nullable String currentUserId) {
         if (name == null) {
             throw new NameIsNullException();
         }
@@ -41,7 +43,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (currentUserId.isEmpty()) {
             throw new CurrentUserIdIsEmptyException();
         }
-        final Task task = taskRepository.findOne(name, currentUserId);
+        @Nullable final Task task = taskRepository.findOne(name, currentUserId);
         if (task == null) {
             throw new NoTaskWithSuchNameException(name);
         }
@@ -49,7 +51,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     }
 
     @Override
-    public Task remove(final Task task, final String currentUserId) {
+    public @NotNull Task remove(final @Nullable Task task, final @Nullable String currentUserId) {
         if (task == null) {
             throw new TaskIsNullException();
         }
@@ -59,7 +61,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (currentUserId.isEmpty()) {
             throw new CurrentUserIdIsEmptyException();
         }
-        final Task toRemove = taskRepository.remove(task, currentUserId);
+        @Nullable final Task toRemove = taskRepository.remove(task, currentUserId);
         if (toRemove == null) {
             throw new TaskIsNullException();
         }
@@ -67,7 +69,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     }
 
     @Override
-    public void removeAll(final String currentUserId) {
+    public void removeAll(final @Nullable String currentUserId) {
         if (currentUserId == null) {
             throw new CurrentUserIdIsNullException();
         }

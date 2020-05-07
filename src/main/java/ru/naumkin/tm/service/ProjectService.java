@@ -1,5 +1,7 @@
 package ru.naumkin.tm.service;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.IProjectRepository;
 import ru.naumkin.tm.api.service.IProjectService;
 import ru.naumkin.tm.entity.Project;
@@ -11,13 +13,13 @@ public final class ProjectService extends AbstractService<Project> implements IP
 
     private final IProjectRepository projectRepository;
 
-    public ProjectService(final IProjectRepository repository) {
+    public ProjectService(final @NotNull IProjectRepository repository) {
         super(repository);
         this.projectRepository = repository;
     }
 
     @Override
-    public List<Project> findAll(final String currentUserId) {
+    public @Nullable List<Project> findAll(final @Nullable String currentUserId) {
         if (currentUserId == null) {
             throw new CurrentUserIdIsNullException();
         }
@@ -28,7 +30,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
     }
 
     @Override
-    public Project findOne(final String name, final String currentUserId) {
+    public @NotNull Project findOne(final @Nullable String name, final @Nullable String currentUserId) {
         if (name == null) {
             throw new NameIsNullException();
         }
@@ -41,7 +43,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (currentUserId.isEmpty()) {
             throw new CurrentUserIdIsEmptyException();
         }
-        final Project project = projectRepository.findOne(name, currentUserId);
+        @Nullable final Project project = projectRepository.findOne(name, currentUserId);
         if (project == null) {
             throw new NoProjectWithSuchNameException(name);
         }
@@ -49,7 +51,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
     }
 
     @Override
-    public Project remove(final Project project,final String currentUserId) {
+    public @NotNull Project remove(final @Nullable Project project, final @Nullable String currentUserId) {
         if (project == null) {
             throw new ProjectIsNullException();
         }
@@ -59,7 +61,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (currentUserId.isEmpty()) {
             throw new CurrentUserIdIsEmptyException();
         }
-        final Project toRemove = projectRepository.remove(project, currentUserId);
+        @Nullable final Project toRemove = projectRepository.remove(project, currentUserId);
         if (toRemove == null) {
             throw new ProjectIsNullException();
         }
@@ -67,7 +69,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
     }
 
     @Override
-    public void removeAll(final String currentUserId) {
+    public void removeAll(final @Nullable String currentUserId) {
         if (currentUserId == null) {
             throw new CurrentUserIdIsNullException();
         }

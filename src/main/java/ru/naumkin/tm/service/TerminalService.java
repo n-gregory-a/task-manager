@@ -1,5 +1,7 @@
 package ru.naumkin.tm.service;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.service.ITerminalService;
 import ru.naumkin.tm.command.AbstractCommand;
 
@@ -15,23 +17,23 @@ public final class TerminalService implements ITerminalService {
 
     private final Map<String, AbstractCommand> commands;
 
-    public TerminalService(BufferedReader reader, Map<String, AbstractCommand> commands) {
+    public TerminalService(@NotNull BufferedReader reader, @NotNull Map<String, AbstractCommand> commands) {
         this.reader = reader;
         this.commands = commands;
     }
 
     @Override
-    public void showMessage(final String message) {
+    public void showMessage(final @Nullable String message) {
         System.out.println(message);
     }
 
     @Override
-    public String readLine() throws IOException {
+    public @NotNull String readLine() throws IOException {
         return reader.readLine();
     }
 
     @Override
-    public List<AbstractCommand> getCommand() {
+    public @NotNull List<AbstractCommand> getCommand() {
         return new ArrayList<>(commands.values());
     }
 
