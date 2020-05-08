@@ -1,5 +1,6 @@
 package ru.naumkin.tm.service;
 
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.ITaskRepository;
@@ -9,9 +10,10 @@ import ru.naumkin.tm.error.*;
 
 import java.util.List;
 
+@NoArgsConstructor
 public final class TaskService extends AbstractService<Task> implements ITaskService {
 
-    private final ITaskRepository taskRepository;
+    private ITaskRepository taskRepository;
 
     public TaskService(@NotNull final ITaskRepository repository) {
         super(repository);

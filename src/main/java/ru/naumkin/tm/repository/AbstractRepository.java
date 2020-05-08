@@ -1,5 +1,6 @@
 package ru.naumkin.tm.repository;
 
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.IRepository;
@@ -9,6 +10,7 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+@NoArgsConstructor
 public abstract class AbstractRepository<E extends AbstractEntity> implements IRepository<E> {
 
     protected final Map<String, E> map = new LinkedHashMap<>();

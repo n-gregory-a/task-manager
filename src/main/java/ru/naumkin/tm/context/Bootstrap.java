@@ -1,5 +1,6 @@
 package ru.naumkin.tm.context;
 
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.ServiceLocator;
@@ -26,6 +27,7 @@ import java.io.InputStreamReader;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+@NoArgsConstructor
 public final class Bootstrap implements ServiceLocator {
 
     @NotNull
@@ -50,9 +52,6 @@ public final class Bootstrap implements ServiceLocator {
     private final IUserService userService = new UserService(userRepository);
 
     private final ITerminalService terminalService = new TerminalService(reader, commands);
-
-    public Bootstrap() {
-    }
 
     @NotNull
     @Override

@@ -1,5 +1,6 @@
 package ru.naumkin.tm.service;
 
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.service.ITerminalService;
@@ -11,11 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@NoArgsConstructor
 public final class TerminalService implements ITerminalService {
 
-    private final BufferedReader reader;
+    private BufferedReader reader;
 
-    private final Map<String, AbstractCommand> commands;
+    private Map<String, AbstractCommand> commands;
 
     public TerminalService(
             @NotNull final BufferedReader reader,

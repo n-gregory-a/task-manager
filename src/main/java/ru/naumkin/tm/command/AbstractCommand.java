@@ -1,15 +1,17 @@
 package ru.naumkin.tm.command;
 
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.ServiceLocator;
 import ru.naumkin.tm.enumerated.RoleType;
 
+@NoArgsConstructor
 public abstract class AbstractCommand {
 
     protected ServiceLocator serviceLocator;
 
-    private final boolean isSecure;
+    private boolean isSecure;
 
     public AbstractCommand(final boolean isSecure) {
         this.isSecure = isSecure;

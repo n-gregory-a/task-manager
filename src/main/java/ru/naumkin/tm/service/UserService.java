@@ -1,5 +1,6 @@
 package ru.naumkin.tm.service;
 
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.IRepository;
@@ -10,6 +11,7 @@ import ru.naumkin.tm.error.RoleTypeIsNullException;
 import ru.naumkin.tm.error.UserIsNullException;
 import ru.naumkin.tm.util.HashGenerator;
 
+@NoArgsConstructor
 public final class UserService extends AbstractService<User> implements IUserService {
 
     private User currentUser;

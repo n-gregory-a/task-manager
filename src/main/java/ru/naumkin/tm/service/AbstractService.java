@@ -1,5 +1,6 @@
 package ru.naumkin.tm.service;
 
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.IRepository;
@@ -11,9 +12,10 @@ import ru.naumkin.tm.error.NameIsNullException;
 
 import java.util.Collection;
 
+@NoArgsConstructor
 public abstract class AbstractService<E extends AbstractEntity> implements IService<E> {
 
-    final protected IRepository<E> repository;
+    protected IRepository<E> repository;
 
     public AbstractService(final @NotNull IRepository<E> repository) {
         this.repository = repository;

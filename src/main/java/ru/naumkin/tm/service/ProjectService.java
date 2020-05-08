@@ -1,5 +1,6 @@
 package ru.naumkin.tm.service;
 
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.IProjectRepository;
@@ -9,9 +10,10 @@ import ru.naumkin.tm.error.*;
 
 import java.util.List;
 
+@NoArgsConstructor
 public final class ProjectService extends AbstractService<Project> implements IProjectService {
 
-    private final IProjectRepository projectRepository;
+    private IProjectRepository projectRepository;
 
     public ProjectService(@NotNull final IProjectRepository repository) {
         super(repository);

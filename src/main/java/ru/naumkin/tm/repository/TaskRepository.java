@@ -1,5 +1,6 @@
 package ru.naumkin.tm.repository;
 
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.ITaskRepository;
@@ -8,6 +9,7 @@ import ru.naumkin.tm.entity.Task;
 import java.util.LinkedList;
 import java.util.List;
 
+@NoArgsConstructor
 public final class TaskRepository extends AbstractRepository<Task> implements ITaskRepository {
 
     @NotNull
