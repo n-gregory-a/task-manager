@@ -18,18 +18,20 @@ public final class UserService extends AbstractService<User> implements IUserSer
         super(repository);
     }
 
+    @Nullable
     @Override
-    public @Nullable User getCurrentUser() {
+    public User getCurrentUser() {
         return currentUser;
     }
 
     @Override
-    public void setCurrentUser(final @Nullable User currentUser) {
+    public void setCurrentUser(@Nullable final User currentUser) {
         this.currentUser = currentUser;
     }
 
+    @NotNull
     @Override
-    public @NotNull User createUser(final @Nullable RoleType role) {
+    public User createUser(@Nullable final RoleType role) {
         if (role == null) {
             throw new RoleTypeIsNullException();
         }
@@ -51,8 +53,9 @@ public final class UserService extends AbstractService<User> implements IUserSer
         return currentUser.getRole() == RoleType.ADMINISTRATOR;
     }
 
+    @NotNull
     @Override
-    public @NotNull String getCurrentUserId() {
+    public String getCurrentUserId() {
         if (currentUser == null) {
             throw new UserIsNullException();
         }

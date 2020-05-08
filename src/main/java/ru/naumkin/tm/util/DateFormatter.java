@@ -7,7 +7,8 @@ import java.time.format.DateTimeFormatter;
 
 public final class DateFormatter {
 
-    @NotNull private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    @NotNull
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     public static String convertDateToString(@NotNull final LocalDate date) {
         return FORMATTER.format(date);

@@ -13,13 +13,14 @@ public final class ProjectService extends AbstractService<Project> implements IP
 
     private final IProjectRepository projectRepository;
 
-    public ProjectService(final @NotNull IProjectRepository repository) {
+    public ProjectService(@NotNull final IProjectRepository repository) {
         super(repository);
         this.projectRepository = repository;
     }
 
+    @Nullable
     @Override
-    public @Nullable List<Project> findAll(final @Nullable String currentUserId) {
+    public List<Project> findAll(@Nullable final String currentUserId) {
         if (currentUserId == null) {
             throw new CurrentUserIdIsNullException();
         }
@@ -29,8 +30,12 @@ public final class ProjectService extends AbstractService<Project> implements IP
         return projectRepository.findAll(currentUserId);
     }
 
+    @NotNull
     @Override
-    public @NotNull Project findOne(final @Nullable String name, final @Nullable String currentUserId) {
+    public Project findOne(
+            @Nullable final String name,
+            @Nullable final String currentUserId
+    ) {
         if (name == null) {
             throw new NameIsNullException();
         }
@@ -50,8 +55,12 @@ public final class ProjectService extends AbstractService<Project> implements IP
         return project;
     }
 
+    @NotNull
     @Override
-    public @NotNull Project remove(final @Nullable Project project, final @Nullable String currentUserId) {
+    public Project remove(
+            @Nullable final Project project,
+            @Nullable final String currentUserId
+    ) {
         if (project == null) {
             throw new ProjectIsNullException();
         }

@@ -13,13 +13,14 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
 
     private final ITaskRepository taskRepository;
 
-    public TaskService(final @NotNull ITaskRepository repository) {
+    public TaskService(@NotNull final ITaskRepository repository) {
         super(repository);
         this.taskRepository = repository;
     }
 
+    @Nullable
     @Override
-    public @Nullable List<Task> findAll(final @Nullable String currentUserId) {
+    public List<Task> findAll(@Nullable final String currentUserId) {
         if (currentUserId == null) {
             throw new CurrentUserIdIsNullException();
         }
@@ -29,8 +30,12 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         return taskRepository.findAll(currentUserId);
     }
 
+    @NotNull
     @Override
-    public @NotNull Task findOne(final @Nullable String name, final @Nullable String currentUserId) {
+    public Task findOne(
+            @Nullable final String name,
+            @Nullable final String currentUserId
+    ) {
         if (name == null) {
             throw new NameIsNullException();
         }
@@ -50,8 +55,12 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         return task;
     }
 
+    @NotNull
     @Override
-    public @NotNull Task remove(final @Nullable Task task, final @Nullable String currentUserId) {
+    public Task remove(
+            @Nullable final Task task,
+            @Nullable final String currentUserId
+    ) {
         if (task == null) {
             throw new TaskIsNullException();
         }
@@ -69,7 +78,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     }
 
     @Override
-    public void removeAll(final @Nullable String currentUserId) {
+    public void removeAll(@Nullable final String currentUserId) {
         if (currentUserId == null) {
             throw new CurrentUserIdIsNullException();
         }
@@ -78,4 +87,5 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         }
         taskRepository.removeAll(currentUserId);
     }
+
 }

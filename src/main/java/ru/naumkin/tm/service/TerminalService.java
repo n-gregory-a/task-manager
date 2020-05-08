@@ -17,23 +17,28 @@ public final class TerminalService implements ITerminalService {
 
     private final Map<String, AbstractCommand> commands;
 
-    public TerminalService(@NotNull BufferedReader reader, @NotNull Map<String, AbstractCommand> commands) {
+    public TerminalService(
+            @NotNull final BufferedReader reader,
+            @NotNull final Map<String, AbstractCommand> commands
+    ) {
         this.reader = reader;
         this.commands = commands;
     }
 
     @Override
-    public void showMessage(final @Nullable String message) {
+    public void showMessage(@Nullable final String message) {
         System.out.println(message);
     }
 
+    @Nullable
     @Override
-    public @Nullable String readLine() throws IOException {
+    public String readLine() throws IOException {
         return reader.readLine();
     }
 
+    @NotNull
     @Override
-    public @NotNull List<AbstractCommand> getCommand() {
+    public List<AbstractCommand> getCommand() {
         return new ArrayList<>(commands.values());
     }
 
