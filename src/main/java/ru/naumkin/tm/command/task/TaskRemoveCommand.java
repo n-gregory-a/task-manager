@@ -1,5 +1,7 @@
 package ru.naumkin.tm.command.task;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.service.ITaskService;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.Task;
@@ -14,11 +16,13 @@ public final class TaskRemoveCommand extends AbstractCommand {
         super(true);
     }
 
+    @NotNull
     @Override
     public String getName() {
         return "task-remove";
     }
 
+    @NotNull
     @Override
     public String getDescription() {
         return "Remove selected task.";
@@ -27,23 +31,24 @@ public final class TaskRemoveCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[TASK REMOVE]");
-        final ITaskService taskService = serviceLocator.getTaskService();
-        final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
+        @NotNull final ITaskService taskService = serviceLocator.getTaskService();
+        @Nullable final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
         if (taskService.findAll(currentUserId).isEmpty()) {
             serviceLocator.getTerminalService().showMessage("[Task list is empty]");
             return;
         }
-        Task task = getTaskByName();
+        @NotNull final Task task = getTaskByName();
         taskService.remove(task);
         serviceLocator.getTerminalService().showMessage("[OK]");
     }
 
+    @NotNull
     private Task getTaskByName() throws IOException {
         serviceLocator.getTerminalService().showMessage("Enter task name:");
-        final ITaskService taskService = serviceLocator.getTaskService();
-        Task task;
-        final String taskName = serviceLocator.getTerminalService().readLine();
-        final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
+        @NotNull final ITaskService taskService = serviceLocator.getTaskService();
+        @NotNull Task task;
+        @NotNull final String taskName = serviceLocator.getTerminalService().readLine();
+        @Nullable final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
         try {
             task = taskService.findOne(taskName, currentUserId);
         } catch (NameIsEmptyException | NoTaskWithSuchNameException e) {

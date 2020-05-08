@@ -1,5 +1,7 @@
 package ru.naumkin.tm.command.user;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.enumerated.RoleType;
@@ -13,11 +15,13 @@ public final class UserUpdateCommand extends AbstractCommand {
         super(true);
     }
 
+    @NotNull
     @Override
     public String getName() {
         return "user-update";
     }
 
+    @NotNull
     @Override
     public String getDescription() {
         return "Update user profile.";
@@ -27,10 +31,10 @@ public final class UserUpdateCommand extends AbstractCommand {
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[USER UPDATE PROFILE]");
         serviceLocator.getTerminalService().showMessage("Enter login:");
-        final String login = serviceLocator.getTerminalService().readLine();
-        User user = serviceLocator.getUserService().findOne(login);
+        @Nullable final String login = serviceLocator.getTerminalService().readLine();
+        @NotNull final User user = serviceLocator.getUserService().findOne(login);
         serviceLocator.getTerminalService().showMessage("Enter new login:");
-        final String newLogin = serviceLocator.getTerminalService().readLine();
+        @NotNull final String newLogin = serviceLocator.getTerminalService().readLine();
         user.setName(newLogin);
         try {
             serviceLocator.getUserService().merge(user, login);
@@ -41,6 +45,7 @@ public final class UserUpdateCommand extends AbstractCommand {
         serviceLocator.getTerminalService().showMessage("[OK]");
     }
 
+    @NotNull
     @Override
     public RoleType[] getRoles() {
         return new RoleType[] {RoleType.ADMINISTRATOR};

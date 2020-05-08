@@ -1,5 +1,6 @@
 package ru.naumkin.tm.command.user;
 
+import org.jetbrains.annotations.NotNull;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.error.NameIsEmptyException;
@@ -15,11 +16,13 @@ public final class UserLogInCommand extends AbstractCommand {
         super(false);
     }
 
+    @NotNull
     @Override
     public String getName() {
         return "log-in";
     }
 
+    @NotNull
     @Override
     public String getDescription() {
         return "Authorise user.";
@@ -28,9 +31,9 @@ public final class UserLogInCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[USER AUTHORISATION]");
-        User user = getUserByName();
+        @NotNull final User user = getUserByName();
         serviceLocator.getTerminalService().showMessage("Enter password:");
-        final String password = serviceLocator.getTerminalService().readLine();
+        @NotNull final String password = serviceLocator.getTerminalService().readLine();
         final boolean passwordIsCorrect = HashGenerator.getHash(password).equals(user.getPassword());
         if (!passwordIsCorrect) {
             serviceLocator.getTerminalService().showMessage("Password is incorrect. Authorisation failed.");
@@ -40,9 +43,10 @@ public final class UserLogInCommand extends AbstractCommand {
         serviceLocator.getTerminalService().showMessage("[OK]");
     }
 
+    @NotNull
     private User getUserByName() throws IOException {
         serviceLocator.getTerminalService().showMessage("Enter login:");
-        User user;
+        @NotNull User user;
         try {
             user = serviceLocator.getUserService().findOne(serviceLocator.getTerminalService().readLine());
         } catch (NameIsNullException | NameIsEmptyException | NoUserWithSuchLoginException e) {

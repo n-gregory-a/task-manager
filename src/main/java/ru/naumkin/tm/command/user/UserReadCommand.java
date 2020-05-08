@@ -1,5 +1,6 @@
 package ru.naumkin.tm.command.user;
 
+import org.jetbrains.annotations.NotNull;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.enumerated.RoleType;
@@ -10,11 +11,13 @@ public final class UserReadCommand extends AbstractCommand {
         super(true);
     }
 
+    @NotNull
     @Override
     public String getName() {
         return "user-read";
     }
 
+    @NotNull
     @Override
     public String getDescription() {
         return "Show user profile.";
@@ -24,8 +27,8 @@ public final class UserReadCommand extends AbstractCommand {
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[READ USER PROFILE]");
         serviceLocator.getTerminalService().showMessage("Enter login:");
-        final String login = serviceLocator.getTerminalService().readLine();
-        User user;
+        @NotNull final String login = serviceLocator.getTerminalService().readLine();
+        @NotNull final User user;
         try {
             user = serviceLocator.getUserService().findOne(login);
         } catch (RuntimeException e) {
@@ -35,6 +38,7 @@ public final class UserReadCommand extends AbstractCommand {
         serviceLocator.getTerminalService().showMessage(user.toString());
     }
 
+    @NotNull
     @Override
     public RoleType[] getRoles() {
         return new RoleType[] {RoleType.ADMINISTRATOR};

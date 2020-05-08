@@ -1,6 +1,8 @@
 package ru.naumkin.tm.command.system;
 
 import com.jcabi.manifests.Manifests;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.command.AbstractCommand;
 
 public final class AboutCommand extends AbstractCommand {
@@ -9,11 +11,13 @@ public final class AboutCommand extends AbstractCommand {
         super(false);
     }
 
+    @NotNull
     @Override
     public String getName() {
         return "about";
     }
 
+    @NotNull
     @Override
     public String getDescription() {
         return "Show application information";
@@ -21,9 +25,9 @@ public final class AboutCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        String buildNumber = Manifests.read("buildNumber");
-        String developer = Manifests.read("developer");
-        String title = Manifests.read("Implementation-Title");
+        @Nullable final String buildNumber = Manifests.read("buildNumber");
+        @Nullable final String developer = Manifests.read("developer");
+        @Nullable final String title = Manifests.read("Implementation-Title");
         serviceLocator.getTerminalService().showMessage("Title: " + title +
                 "\nDeveloper: " + developer + "\nBuild number: " + buildNumber);
     }

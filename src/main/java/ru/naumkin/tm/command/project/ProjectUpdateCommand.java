@@ -1,5 +1,7 @@
 package ru.naumkin.tm.command.project;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.service.IProjectService;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.Project;
@@ -16,11 +18,13 @@ public final class ProjectUpdateCommand extends AbstractCommand {
         super(true);
     }
 
+    @NotNull
     @Override
     public String getName() {
         return "project-update";
     }
 
+    @NotNull
     @Override
     public String getDescription() {
         return "Update selected project.";
@@ -29,18 +33,19 @@ public final class ProjectUpdateCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[PROJECT UPDATE]");
-        final IProjectService projectService = serviceLocator.getProjectService();
+        @NotNull final IProjectService projectService = serviceLocator.getProjectService();
         serviceLocator.getTerminalService().showMessage("Projects available to update:");
-        List<Project> list = new ArrayList<>();
+        @NotNull final List<Project> list = new ArrayList<>();
         int index = 1;
-        final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
-        for (Project project: projectService.findAll(currentUserId)) {
+        @Nullable final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
+        for (@NotNull final Project project: projectService.findAll(currentUserId)) {
             serviceLocator.getTerminalService().showMessage(index++ + ". " + project.toString());
             list.add(project);
         }
         serviceLocator.getTerminalService().showMessage("Choose project to update by number:");
-        Project project = list.get(Integer.parseInt(serviceLocator.getTerminalService().readLine()) - 1);
-        final String name = project.getName();
+        @NotNull final Project project = list.get(Integer
+                .parseInt(serviceLocator.getTerminalService().readLine()) - 1);
+        @NotNull final String name = project.getName();
         serviceLocator.getTerminalService().showMessage("Updating project:");
         serviceLocator.getTerminalService().showMessage("id: " + project.getId() +
                 ", name: " + project.getName());

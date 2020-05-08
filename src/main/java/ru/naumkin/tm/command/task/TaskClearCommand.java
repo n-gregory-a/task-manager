@@ -1,5 +1,6 @@
 package ru.naumkin.tm.command.task;
 
+import org.jetbrains.annotations.NotNull;
 import ru.naumkin.tm.api.service.ITaskService;
 import ru.naumkin.tm.command.AbstractCommand;
 
@@ -9,11 +10,13 @@ public final class TaskClearCommand extends AbstractCommand {
         super(true);
     }
 
+    @NotNull
     @Override
     public String getName() {
         return "task-clear";
     }
 
+    @NotNull
     @Override
     public String getDescription() {
         return "Remove all tasks.";
@@ -22,7 +25,7 @@ public final class TaskClearCommand extends AbstractCommand {
     @Override
     public void execute() {
         serviceLocator.getTerminalService().showMessage("[TASK LIST CLEAR]");
-        final ITaskService taskService = serviceLocator.getTaskService();
+        @NotNull final ITaskService taskService = serviceLocator.getTaskService();
         taskService.removeAll(serviceLocator.getUserService().getCurrentUserId());
         serviceLocator.getTerminalService().showMessage("[OK]");
     }

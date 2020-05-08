@@ -1,5 +1,6 @@
 package ru.naumkin.tm.command.user;
 
+import org.jetbrains.annotations.NotNull;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.error.UserIsNullException;
@@ -13,11 +14,13 @@ public final class UserRegisterCommand extends AbstractCommand {
         super(false);
     }
 
+    @NotNull
     @Override
     public String getName() {
         return "user-new";
     }
 
+    @NotNull
     @Override
     public String getDescription() {
         return "Register new user.";
@@ -26,9 +29,9 @@ public final class UserRegisterCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[REGISTER NEW USER]");
-        User user = createUniqueLoginUser();
+        @NotNull final User user = createUniqueLoginUser();
         serviceLocator.getTerminalService().showMessage("Enter password:");
-        final String password = serviceLocator.getTerminalService().readLine();
+        @NotNull final String password = serviceLocator.getTerminalService().readLine();
         user.setPassword(HashGenerator.getHash(password));
         try {
             serviceLocator.getUserService().persist(user);
@@ -38,12 +41,13 @@ public final class UserRegisterCommand extends AbstractCommand {
         serviceLocator.getTerminalService().showMessage("[OK]");
     }
 
+    @NotNull
     private User createUniqueLoginUser() throws IOException {
         serviceLocator.getTerminalService().showMessage("Enter login:");
-        final String login = serviceLocator.getTerminalService().readLine();
+        @NotNull final String login = serviceLocator.getTerminalService().readLine();
         User user = new User();
         user.setName(login);
-        for (User u: serviceLocator.getUserService().findAll()) {
+        for (@NotNull final User u: serviceLocator.getUserService().findAll()) {
             if (u.getName().equals(login)) {
                 serviceLocator.getTerminalService().showMessage("The login is occupied.");
                 createUniqueLoginUser();

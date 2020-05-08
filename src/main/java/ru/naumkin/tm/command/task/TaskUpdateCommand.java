@@ -1,5 +1,7 @@
 package ru.naumkin.tm.command.task;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.service.ITaskService;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.Task;
@@ -14,11 +16,13 @@ public final class TaskUpdateCommand extends AbstractCommand {
         super(true);
     }
 
+    @NotNull
     @Override
     public String getName() {
         return "task-update";
     }
 
+    @NotNull
     @Override
     public String getDescription() {
         return "Update task.";
@@ -28,9 +32,9 @@ public final class TaskUpdateCommand extends AbstractCommand {
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[TASK UPDATE]");
         serviceLocator.getTerminalService().showMessage("Enter task name:");
-        Task task = new Task(serviceLocator.getTerminalService().readLine());
-        final String name = task.getName();
-        final ITaskService taskService = serviceLocator.getTaskService();
+        @NotNull final Task task = new Task(serviceLocator.getTerminalService().readLine());
+        @Nullable final String name = task.getName();
+        @NotNull final ITaskService taskService = serviceLocator.getTaskService();
         serviceLocator.getTerminalService().showMessage("Enter new name: ");
         task.setName(serviceLocator.getTerminalService().readLine());
         serviceLocator.getTerminalService().showMessage("Enter new description: ");

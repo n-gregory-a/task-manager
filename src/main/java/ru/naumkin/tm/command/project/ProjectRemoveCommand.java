@@ -1,5 +1,7 @@
 package ru.naumkin.tm.command.project;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.service.IProjectService;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.Project;
@@ -13,11 +15,13 @@ public final class ProjectRemoveCommand extends AbstractCommand {
         super(true);
     }
 
+    @NotNull
     @Override
     public String getName() {
         return "project-remove";
     }
 
+    @NotNull
     @Override
     public String getDescription() {
         return "Remove selected project.";
@@ -26,15 +30,15 @@ public final class ProjectRemoveCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[PROJECT REMOVE]");
-        final IProjectService projectService = serviceLocator.getProjectService();
-        final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
+        @NotNull final IProjectService projectService = serviceLocator.getProjectService();
+        @Nullable final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
         if (projectService.findAll(currentUserId).isEmpty()) {
             serviceLocator.getTerminalService().showMessage("[Project list is empty.]");
             return;
         }
-        Project project;
+        @NotNull Project project;
         serviceLocator.getTerminalService().showMessage("Enter project name:");
-        final String projectName = serviceLocator.getTerminalService().readLine();
+        @NotNull final String projectName = serviceLocator.getTerminalService().readLine();
         try {
             project = projectService.findOne(projectName, currentUserId);
         } catch (NameIsEmptyException |
