@@ -1,33 +1,22 @@
 package ru.naumkin.tm.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import ru.naumkin.tm.enumerated.RoleType;
 import ru.naumkin.tm.util.HashGenerator;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public final class User extends AbstractEntity {
 
-    private @NotNull String password = HashGenerator.getHash("password");
+    @NotNull
+    private String password = HashGenerator.getHash("password");
 
-    private @NotNull RoleType role = RoleType.USER;
-
-    public User() {
-    }
-
-    public @NotNull String getPassword() {
-        return password;
-    }
-
-    public void setPassword(final @NotNull String password) {
-        this.password = password;
-    }
-
-    public @NotNull RoleType getRole() {
-        return role;
-    }
-
-    public void setRole(final @NotNull RoleType role) {
-        this.role = role;
-    }
+    @NotNull
+    private RoleType role = RoleType.USER;
 
     @Override
     public String toString() {

@@ -1,64 +1,35 @@
 package ru.naumkin.tm.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDate;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public final class Task extends AbstractEntity {
 
-    private @NotNull String description = "";
+    @NotNull
+    private String description = "";
 
-    private @NotNull LocalDate dateStart = LocalDate.now();
+    @NotNull
+    private LocalDate dateStart = LocalDate.now();
 
-    private @Nullable LocalDate dateFinish = null;
+    @Nullable
+    private LocalDate dateFinish = null;
 
-    private @Nullable String projectId = null;
+    @Nullable
+    private String projectId = null;
 
-    private @Nullable String userId = null;
+    @Nullable
+    private String userId = null;
 
-    public Task(final @NotNull String name) {
+    public Task(@NotNull final String name) {
         setName(name);
-    }
-
-    public @NotNull String getDescription() {
-        return description;
-    }
-
-    public void setDescription(final @NotNull String description) {
-        this.description = description;
-    }
-
-    public @NotNull LocalDate getDateStart() {
-        return dateStart;
-    }
-
-    public void setDateStart(final @NotNull LocalDate dateStart) {
-        this.dateStart = dateStart;
-    }
-
-    public @Nullable LocalDate getDateFinish() {
-        return dateFinish;
-    }
-
-    public void setDateFinish(final @Nullable LocalDate dateFinish) {
-        this.dateFinish = dateFinish;
-    }
-
-    public @Nullable String getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(final @Nullable String projectId) {
-        this.projectId = projectId;
-    }
-
-    public @Nullable String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(final @Nullable String userId) {
-        this.userId = userId;
     }
 
     @Override
@@ -73,4 +44,5 @@ public final class Task extends AbstractEntity {
                 ", userId='" + userId + '\'' +
                 '}';
     }
+
 }
