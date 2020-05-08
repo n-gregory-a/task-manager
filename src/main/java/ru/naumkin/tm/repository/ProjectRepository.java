@@ -58,8 +58,10 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
             }
         }
         for (@NotNull final String name: nameList) {
-            @NotNull final Task task = taskRepository.findOne(name);
-            taskRepository.remove(task);
+            @Nullable final Task task = taskRepository.findOne(name);
+            if (task != null) {
+                taskRepository.remove(task);
+            }
         }
         map.remove(project.getId());
         return project;
@@ -88,7 +90,9 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
         }
         for (@NotNull final String name: nameList) {
             @Nullable final Task task = taskRepository.findOne(name, currentUserId);
-            taskRepository.remove(task);
+            if (task != null) {
+                taskRepository.remove(task);
+            }
         }
         map.remove(project.getId());
         return toRemove;

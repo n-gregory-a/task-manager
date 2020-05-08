@@ -1,20 +1,27 @@
 package ru.naumkin.tm.api.service;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.entity.AbstractEntity;
 
 import java.util.Collection;
 
 public interface IService<E extends AbstractEntity> {
 
+    @Nullable
     Collection<E> findAll();
 
-    E findOne(final String name);
+    @NotNull
+    E findOne(@Nullable final String name);
 
-    E persist(final E entity);
+    @Nullable
+    E persist(@Nullable final E entity);
 
-    E merge(final E entity, final String name);
+    @Nullable
+    E merge(@Nullable final E entity,@Nullable final String name);
 
-    E remove(final E entity);
+    @Nullable
+    E remove(@Nullable final E entity);
 
     void removeAll();
 

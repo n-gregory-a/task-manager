@@ -1,17 +1,22 @@
 package ru.naumkin.tm.api.repository;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.entity.Project;
 
 import java.util.List;
 
 public interface IProjectRepository extends IRepository<Project> {
 
-    List<Project> findAll(final String currentUserId);
+    @NotNull
+    List<Project> findAll(@NotNull final String currentUserId);
 
-    Project findOne(final String name, final String currentUserId);
+    @Nullable
+    Project findOne(@NotNull final String name, @NotNull final String currentUserId);
 
-    Project remove(final Project project, final String currentUserId);
+    @Nullable
+    Project remove(@NotNull final Project project, @NotNull final String currentUserId);
 
-    void removeAll(final String currentUserId);
+    void removeAll(@NotNull final String currentUserId);
 
 }

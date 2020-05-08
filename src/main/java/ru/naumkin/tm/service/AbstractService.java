@@ -41,7 +41,7 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
         return entity;
     }
 
-    @NotNull
+    @Nullable
     @Override
     public E persist(@Nullable final E entity) {
         if (entity == null) {
@@ -50,7 +50,7 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
         return repository.persist(entity);
     }
 
-    @NotNull
+    @Nullable
     @Override
     public E merge(final @Nullable E entity, final @Nullable String name) {
         if (name == null) {
@@ -72,7 +72,7 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
         return repository.merge(entity);
     }
 
-    @NotNull
+    @Nullable
     @Override
     public E remove(final @Nullable E entity) {
         if (entity == null) {
