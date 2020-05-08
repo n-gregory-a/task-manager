@@ -28,50 +28,59 @@ import java.util.Map;
 
 public final class Bootstrap implements ServiceLocator {
 
-    private final @NotNull ITaskRepository taskRepository = new TaskRepository();
+    @NotNull
+    private final ITaskRepository taskRepository = new TaskRepository();
 
-    private final @NotNull IProjectRepository projectRepository = new ProjectRepository(taskRepository);
+    @NotNull
+    private final IProjectRepository projectRepository = new ProjectRepository(taskRepository);
+
+    @NotNull
+    private final IRepository<User> userRepository = new UserRepository();
+
+    @NotNull
+    private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+    @NotNull
+    private final  Map<String, AbstractCommand> commands = new LinkedHashMap<>();
 
     private final ITaskService taskService = new TaskService(taskRepository);
 
     private final IProjectService projectService = new ProjectService(projectRepository);
 
-    private final @NotNull IRepository<User> userRepository = new UserRepository();
-
     private final IUserService userService = new UserService(userRepository);
-
-    private final @NotNull BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-    private final @NotNull Map<String, AbstractCommand> commands = new LinkedHashMap<>();
 
     private final ITerminalService terminalService = new TerminalService(reader, commands);
 
     public Bootstrap() {
     }
 
+    @NotNull
     @Override
-    public @NotNull ITaskService getTaskService() {
+    public ITaskService getTaskService() {
         return taskService;
     }
 
+    @NotNull
     @Override
-    public @NotNull IProjectService getProjectService() {
+    public IProjectService getProjectService() {
         return projectService;
     }
 
+    @NotNull
     @Override
-    public @NotNull IUserService getUserService() {
+    public IUserService getUserService() {
         return userService;
     }
 
+    @NotNull
     @Override
-    public @NotNull ITerminalService getTerminalService() {
+    public ITerminalService getTerminalService() {
         return terminalService;
     }
 
-    public void registerCommand(final @NotNull AbstractCommand command) {
-        final @NotNull String cliCommand = command.getName();
-        final @NotNull String cliDescription = command.getDescription();
+    public void registerCommand(@NotNull final AbstractCommand command) {
+        @Nullable final String cliCommand = command.getName();
+        @Nullable final String cliDescription = command.getDescription();
         if (cliCommand == null || cliCommand.isEmpty()) {
             throw new IllegalArgumentException();
         }
@@ -86,9 +95,9 @@ public final class Bootstrap implements ServiceLocator {
         terminalService.showMessage("*** Welcome to task manager ***");
         createDefaultUser();
         Class abstractCommand = AbstractCommand.class;
-        for (final @NotNull Class clazz: classes) {
+        for (@NotNull final Class clazz: classes) {
             if (abstractCommand.isAssignableFrom(clazz)) {
-                final @NotNull AbstractCommand command = (AbstractCommand) clazz.newInstance();
+                @NotNull final AbstractCommand command = (AbstractCommand) clazz.newInstance();
                 registerCommand(command);
             }
         }
@@ -99,11 +108,11 @@ public final class Bootstrap implements ServiceLocator {
         }
     }
 
-    private void execute(final @Nullable String command) throws Exception {
+    private void execute(@Nullable final String command) throws Exception {
         if (command == null || command.isEmpty()) {
             return;
         }
-        final @Nullable AbstractCommand abstractCommand = commands.get(command);
+        @Nullable final AbstractCommand abstractCommand = commands.get(command);
         if (abstractCommand == null) {
             getTerminalService().showMessage("Unknown command");
             return;
