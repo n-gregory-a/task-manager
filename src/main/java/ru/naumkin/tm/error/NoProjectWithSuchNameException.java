@@ -6,7 +6,7 @@ public final class NoProjectWithSuchNameException extends RuntimeException {
 
     private final String name;
 
-    public NoProjectWithSuchNameException(final @NotNull String name) {
+    public NoProjectWithSuchNameException(@NotNull final String name) {
         this.name = name;
     }
 

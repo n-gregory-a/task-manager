@@ -9,11 +9,12 @@ public enum RoleType {
 
     private final String role;
 
-    RoleType(final @NotNull String role) {
+    RoleType(@NotNull final String role) {
         this.role = role;
     }
 
-    public @NotNull String displayName() {
+    @NotNull
+    public String displayName() {
         return role;
     }
 }

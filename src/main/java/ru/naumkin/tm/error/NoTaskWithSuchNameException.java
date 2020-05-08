@@ -6,7 +6,7 @@ public final class NoTaskWithSuchNameException extends RuntimeException {
 
     private final String name;
 
-    public NoTaskWithSuchNameException(final @NotNull String name) {
+    public NoTaskWithSuchNameException(@NotNull final String name) {
         this.name = name;
     }
 

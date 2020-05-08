@@ -6,7 +6,7 @@ public final class NoUserWithSuchLoginException extends RuntimeException {
 
     private final String login;
 
-    public NoUserWithSuchLoginException(final @NotNull String login) {
+    public NoUserWithSuchLoginException(@NotNull final String login) {
         this.login = login;
     }
 

@@ -13,15 +13,17 @@ public abstract class AbstractRepository<E extends AbstractEntity> implements IR
 
     protected final Map<String, E> map = new LinkedHashMap<>();
 
+    @NotNull
     @Override
-    public @NotNull Collection<E> findAll() {
+    public Collection<E> findAll() {
         return map.values();
     }
 
+    @Nullable
     @Override
-    public @Nullable E findOne(final @NotNull String name) {
+    public E findOne(@NotNull final String name) {
         String id = null;
-        for (final E entity: findAll()) {
+        for (@NotNull final E entity: findAll()) {
             if (name.equals(entity.getName())) {
                 id = entity.getId();
             }
@@ -29,21 +31,24 @@ public abstract class AbstractRepository<E extends AbstractEntity> implements IR
         return map.get(id);
     }
 
+    @Nullable
     @Override
-    public @Nullable E persist(final @NotNull E entity) {
+    public E persist(@NotNull final E entity) {
         return map.put(entity.getId(), entity);
     }
 
+    @Nullable
     @Override
-    public @Nullable E merge(final @Nullable E entity) {
+    public E merge(@Nullable final E entity) {
         if (entity == null) {
             return null;
         }
         return map.put(entity.getId(), entity);
     }
 
+    @Nullable
     @Override
-    public @Nullable E remove(final @NotNull E entity) {
+    public E remove(@NotNull final E entity) {
         return map.remove(entity.getId());
     }
 
