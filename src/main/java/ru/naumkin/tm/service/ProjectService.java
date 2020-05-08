@@ -18,7 +18,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         this.projectRepository = repository;
     }
 
-    @Nullable
+    @NotNull
     @Override
     public List<Project> findAll(@Nullable final String currentUserId) {
         if (currentUserId == null) {

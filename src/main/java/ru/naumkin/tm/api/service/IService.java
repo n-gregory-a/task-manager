@@ -8,7 +8,7 @@ import java.util.Collection;
 
 public interface IService<E extends AbstractEntity> {
 
-    @Nullable
+    @NotNull
     Collection<E> findAll();
 
     @NotNull

@@ -36,8 +36,10 @@ public final class TaskAttachCommand extends AbstractCommand {
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[TASK ATTACH]");
         @NotNull final Project project = getProjectByName();
-        @NotNull final Task task = getTaskByName();
-        task.setProjectId(project.getId());
+        @Nullable final Task task = getTaskByName();
+        if (task != null) {
+            task.setProjectId(project.getId());
+        }
         serviceLocator.getTerminalService().showMessage("[OK]");
     }
 
@@ -59,11 +61,11 @@ public final class TaskAttachCommand extends AbstractCommand {
         return project;
     }
 
-    @NotNull
+    @Nullable
     private Task getTaskByName() throws IOException {
         serviceLocator.getTerminalService().showMessage("Enter task name:");
         @NotNull final ITaskService taskService = serviceLocator.getTaskService();
-        @NotNull Task task;
+        @Nullable Task task;
         @NotNull final String taskName = serviceLocator.getTerminalService().readLine();
         @Nullable final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
         try {

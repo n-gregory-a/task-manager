@@ -37,16 +37,16 @@ public final class TaskRemoveCommand extends AbstractCommand {
             serviceLocator.getTerminalService().showMessage("[Task list is empty]");
             return;
         }
-        @NotNull final Task task = getTaskByName();
+        @Nullable final Task task = getTaskByName();
         taskService.remove(task);
         serviceLocator.getTerminalService().showMessage("[OK]");
     }
 
-    @NotNull
+    @Nullable
     private Task getTaskByName() throws IOException {
         serviceLocator.getTerminalService().showMessage("Enter task name:");
         @NotNull final ITaskService taskService = serviceLocator.getTaskService();
-        @NotNull Task task;
+        @Nullable Task task;
         @NotNull final String taskName = serviceLocator.getTerminalService().readLine();
         @Nullable final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
         try {

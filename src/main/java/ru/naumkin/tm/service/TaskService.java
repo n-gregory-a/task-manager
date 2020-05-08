@@ -18,7 +18,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         this.taskRepository = repository;
     }
 
-    @Nullable
+    @NotNull
     @Override
     public List<Task> findAll(@Nullable final String currentUserId) {
         if (currentUserId == null) {

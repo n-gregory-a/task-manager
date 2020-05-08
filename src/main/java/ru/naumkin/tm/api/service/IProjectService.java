@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IProjectService extends IService<Project> {
 
-    @Nullable
+    @NotNull
     List<Project> findAll(@Nullable final String currentUserId);
 
     @NotNull

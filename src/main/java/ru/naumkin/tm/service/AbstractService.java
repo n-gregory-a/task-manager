@@ -19,7 +19,7 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
         this.repository = repository;
     }
 
-    @Nullable
+    @NotNull
     @Override
     public Collection<E> findAll() {
         return repository.findAll();

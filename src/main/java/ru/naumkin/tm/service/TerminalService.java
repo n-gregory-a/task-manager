@@ -30,7 +30,7 @@ public final class TerminalService implements ITerminalService {
         System.out.println(message);
     }
 
-    @Nullable
+    @NotNull
     @Override
     public String readLine() throws IOException {
         return reader.readLine();

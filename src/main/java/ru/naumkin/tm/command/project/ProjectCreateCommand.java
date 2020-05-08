@@ -1,6 +1,7 @@
 package ru.naumkin.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.service.IProjectService;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.Project;
@@ -27,11 +28,13 @@ public final class ProjectCreateCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[PROJECT CREATE]");
-        @NotNull final User user = serviceLocator.getUserService().getCurrentUser();
+        @Nullable final User user = serviceLocator.getUserService().getCurrentUser();
         @NotNull final IProjectService projectService = serviceLocator.getProjectService();
         serviceLocator.getTerminalService().showMessage("Enter name:");
-        @NotNull final Project project = new Project(serviceLocator.getTerminalService().readLine());
-        project.setUserId(user.getId());
+        @Nullable final Project project = new Project(serviceLocator.getTerminalService().readLine());
+        if (user != null) {
+            project.setUserId(user.getId());
+        }
         projectService.persist(project);
         serviceLocator.getTerminalService().showMessage("[OK]");
     }

@@ -31,15 +31,17 @@ public final class TaskReadCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[TASK READ]");
-        @NotNull final Task task = getTaskByName();
-        serviceLocator.getTerminalService().showMessage(task.toString());
+        @Nullable final Task task = getTaskByName();
+        if (task != null) {
+            serviceLocator.getTerminalService().showMessage(task.toString());
+        }
     }
 
-    @NotNull
+    @Nullable
     private Task getTaskByName() throws IOException {
         serviceLocator.getTerminalService().showMessage("Enter task name:");
         @NotNull final ITaskService taskService = serviceLocator.getTaskService();
-        @NotNull Task task;
+        @Nullable Task task;
         @NotNull final String taskName = serviceLocator.getTerminalService().readLine();
         @Nullable final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
         try {

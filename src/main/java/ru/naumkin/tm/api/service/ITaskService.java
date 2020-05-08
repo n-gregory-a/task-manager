@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ITaskService extends IService<Task> {
 
-    @Nullable
+    @NotNull
     List<Task> findAll(@Nullable final String currentUserId);
 
     @Nullable
