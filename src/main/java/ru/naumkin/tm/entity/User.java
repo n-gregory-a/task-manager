@@ -6,11 +6,9 @@ import ru.naumkin.tm.util.HashGenerator;
 
 public final class User extends AbstractEntity {
 
-    @NotNull
-    private String password = HashGenerator.getHash("password");
+    private @NotNull String password = HashGenerator.getHash("password");
 
-    @NotNull
-    private RoleType role = RoleType.USER;
+    private @NotNull RoleType role = RoleType.USER;
 
     public User() {
     }

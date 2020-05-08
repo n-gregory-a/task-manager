@@ -28,7 +28,7 @@ public final class TerminalService implements ITerminalService {
     }
 
     @Override
-    public @NotNull String readLine() throws IOException {
+    public @Nullable String readLine() throws IOException {
         return reader.readLine();
     }
 

@@ -7,14 +7,11 @@ import java.time.LocalDate;
 
 public final class Project extends AbstractEntity {
 
-    @NotNull
-    private String description = "";
+    private @NotNull String description = "";
 
-    @NotNull
-    private LocalDate dateStart = LocalDate.now();
+    private @Nullable LocalDate dateStart = LocalDate.now();
 
-    @Nullable
-    private LocalDate dateFinish = null;
+    private @Nullable LocalDate dateFinish = null;
 
     @Nullable
     private String userId = null;
@@ -31,7 +28,7 @@ public final class Project extends AbstractEntity {
         this.description = description;
     }
 
-    public @NotNull LocalDate getDateStart() {
+    public @Nullable LocalDate getDateStart() {
         return dateStart;
     }
 

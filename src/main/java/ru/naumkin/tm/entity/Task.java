@@ -7,22 +7,17 @@ import java.time.LocalDate;
 
 public final class Task extends AbstractEntity {
 
-    @NotNull
-    private String description = "";
+    private @NotNull String description = "";
 
-    @NotNull
-    private LocalDate dateStart = LocalDate.now();
+    private @NotNull LocalDate dateStart = LocalDate.now();
 
-    @Nullable
-    private LocalDate dateFinish = null;
+    private @Nullable LocalDate dateFinish = null;
 
-    @Nullable
-    private String projectId = null;
+    private @Nullable String projectId = null;
 
-    @Nullable
-    private String userId = null;
+    private @Nullable String userId = null;
 
-    public Task(final String name) {
+    public Task(final @NotNull String name) {
         setName(name);
     }
 

@@ -6,11 +6,9 @@ import java.util.UUID;
 
 public abstract class AbstractEntity {
 
-    @NotNull
-    private String id = UUID.randomUUID().toString();
+    private @NotNull String id = UUID.randomUUID().toString();
 
-    @NotNull
-    private String name = "";
+    private @NotNull String name = "";
 
     public @NotNull String getId() {
         return id;
