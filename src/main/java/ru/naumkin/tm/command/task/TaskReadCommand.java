@@ -5,10 +5,6 @@ import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.service.ITaskService;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.Task;
-import ru.naumkin.tm.error.NameIsEmptyException;
-import ru.naumkin.tm.error.NoTaskWithSuchNameException;
-
-import java.io.IOException;
 
 public final class TaskReadCommand extends AbstractCommand {
 
@@ -31,26 +27,14 @@ public final class TaskReadCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[TASK READ]");
-        @Nullable final Task task = getTaskByName();
+        serviceLocator.getTerminalService().showMessage("Enter task name:");
+        @NotNull final String taskName = serviceLocator.getTerminalService().readLine();
+        @NotNull final ITaskService taskService = serviceLocator.getTaskService();
+        @Nullable final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
+        @Nullable final Task task = taskService.findOne(taskName, currentUserId);
         if (task != null) {
             serviceLocator.getTerminalService().showMessage(task.toString());
         }
-    }
-
-    @Nullable
-    private Task getTaskByName() throws IOException {
-        serviceLocator.getTerminalService().showMessage("Enter task name:");
-        @NotNull final ITaskService taskService = serviceLocator.getTaskService();
-        @Nullable Task task;
-        @NotNull final String taskName = serviceLocator.getTerminalService().readLine();
-        @Nullable final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
-        try {
-            task = taskService.findOne(taskName, currentUserId);
-        } catch (NameIsEmptyException | NoTaskWithSuchNameException e) {
-            serviceLocator.getTerminalService().showMessage(e.toString());
-            task = getTaskByName();
-        }
-        return task;
     }
 
 }

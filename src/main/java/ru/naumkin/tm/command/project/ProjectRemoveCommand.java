@@ -5,9 +5,6 @@ import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.service.IProjectService;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.Project;
-import ru.naumkin.tm.error.NameIsEmptyException;
-import ru.naumkin.tm.error.NoProjectWithSuchNameException;
-import ru.naumkin.tm.error.ProjectIsNullException;
 
 public final class ProjectRemoveCommand extends AbstractCommand {
 
@@ -32,26 +29,10 @@ public final class ProjectRemoveCommand extends AbstractCommand {
         serviceLocator.getTerminalService().showMessage("[PROJECT REMOVE]");
         @NotNull final IProjectService projectService = serviceLocator.getProjectService();
         @Nullable final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
-        if (projectService.findAll(currentUserId).isEmpty()) {
-            serviceLocator.getTerminalService().showMessage("[Project list is empty.]");
-            return;
-        }
-        @NotNull Project project;
         serviceLocator.getTerminalService().showMessage("Enter project name:");
         @NotNull final String projectName = serviceLocator.getTerminalService().readLine();
-        try {
-            project = projectService.findOne(projectName, currentUserId);
-        } catch (NameIsEmptyException |
-                NoProjectWithSuchNameException |
-                ProjectIsNullException e) {
-            serviceLocator.getTerminalService().showMessage(e.toString());
-            return;
-        }
-        try {
-            projectService.remove(project, currentUserId);
-        } catch (ProjectIsNullException e) {
-            serviceLocator.getTerminalService().showMessage(e.toString());
-        }
+        @NotNull final Project project = projectService.findOne(projectName, currentUserId);
+        projectService.remove(project, currentUserId);
         serviceLocator.getTerminalService().showMessage("[OK]");
     }
 

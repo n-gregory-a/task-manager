@@ -7,8 +7,6 @@ import ru.naumkin.tm.api.repository.IRepository;
 import ru.naumkin.tm.api.service.IUserService;
 import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.enumerated.RoleType;
-import ru.naumkin.tm.error.RoleTypeIsNullException;
-import ru.naumkin.tm.error.UserIsNullException;
 import ru.naumkin.tm.util.HashGenerator;
 
 @NoArgsConstructor
@@ -35,7 +33,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
     @Override
     public User createUser(@Nullable final RoleType role) {
         if (role == null) {
-            throw new RoleTypeIsNullException();
+            throw new RuntimeException();
         }
         @NotNull User user = new User();
         if (role == RoleType.ADMINISTRATOR) {
@@ -59,7 +57,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
     @Override
     public String getCurrentUserId() {
         if (currentUser == null) {
-            throw new UserIsNullException();
+            throw new RuntimeException();
         }
         return getCurrentUser().getId();
     }

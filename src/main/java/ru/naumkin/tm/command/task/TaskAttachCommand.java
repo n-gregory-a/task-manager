@@ -7,12 +7,6 @@ import ru.naumkin.tm.api.service.ITaskService;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.Project;
 import ru.naumkin.tm.entity.Task;
-import ru.naumkin.tm.error.NameIsEmptyException;
-import ru.naumkin.tm.error.NoProjectWithSuchNameException;
-import ru.naumkin.tm.error.NoTaskWithSuchNameException;
-import ru.naumkin.tm.error.ProjectIsNullException;
-
-import java.io.IOException;
 
 public final class TaskAttachCommand extends AbstractCommand {
 
@@ -35,46 +29,21 @@ public final class TaskAttachCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[TASK ATTACH]");
-        @NotNull final Project project = getProjectByName();
-        @Nullable final Task task = getTaskByName();
+        @NotNull final IProjectService projectService = serviceLocator.getProjectService();
+        serviceLocator.getTerminalService().showMessage("Enter project name:");
+        @NotNull Project project;
+        @NotNull final String projectName = serviceLocator.getTerminalService().readLine();
+        @Nullable final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
+        project = projectService.findOne(projectName, currentUserId);
+        serviceLocator.getTerminalService().showMessage("Enter task name:");
+        @NotNull final String taskName = serviceLocator.getTerminalService().readLine();
+        @NotNull final ITaskService taskService = serviceLocator.getTaskService();
+        @Nullable final Task task;
+        task = taskService.findOne(taskName, currentUserId);
         if (task != null) {
             task.setProjectId(project.getId());
         }
         serviceLocator.getTerminalService().showMessage("[OK]");
-    }
-
-    @NotNull
-    private Project getProjectByName() throws IOException {
-        serviceLocator.getTerminalService().showMessage("Enter project name:");
-        @NotNull final IProjectService projectService = serviceLocator.getProjectService();
-        @NotNull Project project;
-        @NotNull final String projectName = serviceLocator.getTerminalService().readLine();
-        @Nullable final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
-        try {
-            project = projectService.findOne(projectName, currentUserId);
-        } catch (NameIsEmptyException |
-                NoProjectWithSuchNameException |
-                ProjectIsNullException e) {
-            serviceLocator.getTerminalService().showMessage(e.toString());
-            project = getProjectByName();
-        }
-        return project;
-    }
-
-    @Nullable
-    private Task getTaskByName() throws IOException {
-        serviceLocator.getTerminalService().showMessage("Enter task name:");
-        @NotNull final ITaskService taskService = serviceLocator.getTaskService();
-        @Nullable Task task;
-        @NotNull final String taskName = serviceLocator.getTerminalService().readLine();
-        @Nullable final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
-        try {
-            task = taskService.findOne(taskName, currentUserId);
-        } catch (NameIsEmptyException | NoTaskWithSuchNameException e) {
-            serviceLocator.getTerminalService().showMessage(e.toString());
-            task = getTaskByName();
-        }
-        return task;
     }
 
 }

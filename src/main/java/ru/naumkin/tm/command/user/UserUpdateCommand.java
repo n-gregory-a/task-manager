@@ -5,9 +5,6 @@ import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.enumerated.RoleType;
-import ru.naumkin.tm.error.NameIsEmptyException;
-import ru.naumkin.tm.error.NameIsNullException;
-import ru.naumkin.tm.error.UserIsNullException;
 
 public final class UserUpdateCommand extends AbstractCommand {
 
@@ -36,12 +33,7 @@ public final class UserUpdateCommand extends AbstractCommand {
         serviceLocator.getTerminalService().showMessage("Enter new login:");
         @NotNull final String newLogin = serviceLocator.getTerminalService().readLine();
         user.setName(newLogin);
-        try {
-            serviceLocator.getUserService().merge(user, login);
-        } catch (NameIsNullException | NameIsEmptyException | UserIsNullException e) {
-            serviceLocator.getTerminalService().showMessage(e.toString());
-            return;
-        }
+        serviceLocator.getUserService().merge(user, login);
         serviceLocator.getTerminalService().showMessage("[OK]");
     }
 

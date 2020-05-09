@@ -5,9 +5,6 @@ import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.service.IProjectService;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.Project;
-import ru.naumkin.tm.error.NameIsEmptyException;
-import ru.naumkin.tm.error.NoProjectWithSuchNameException;
-import ru.naumkin.tm.error.ProjectIsNullException;
 
 public final class ProjectReadCommand extends AbstractCommand {
 
@@ -35,14 +32,7 @@ public final class ProjectReadCommand extends AbstractCommand {
         @NotNull final IProjectService projectService = serviceLocator.getProjectService();
         @NotNull Project project;
         @Nullable final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
-        try {
-            project = projectService.findOne(projectName, currentUserId);
-        } catch (NameIsEmptyException |
-                NoProjectWithSuchNameException |
-                ProjectIsNullException e) {
-            serviceLocator.getTerminalService().showMessage(e.toString());
-            return;
-        }
+        project = projectService.findOne(projectName, currentUserId);
         serviceLocator.getTerminalService().showMessage(project.toString());
     }
 

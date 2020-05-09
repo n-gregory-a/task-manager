@@ -3,7 +3,6 @@ package ru.naumkin.tm.command.user;
 import org.jetbrains.annotations.NotNull;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.User;
-import ru.naumkin.tm.error.UserIsNullException;
 import ru.naumkin.tm.util.HashGenerator;
 
 import java.io.IOException;
@@ -33,11 +32,7 @@ public final class UserRegisterCommand extends AbstractCommand {
         serviceLocator.getTerminalService().showMessage("Enter password:");
         @NotNull final String password = serviceLocator.getTerminalService().readLine();
         user.setPassword(HashGenerator.getHash(password));
-        try {
-            serviceLocator.getUserService().persist(user);
-        } catch (UserIsNullException e) {
-            serviceLocator.getTerminalService().showMessage(e.toString());
-        }
+        serviceLocator.getUserService().persist(user);
         serviceLocator.getTerminalService().showMessage("[OK]");
     }
 

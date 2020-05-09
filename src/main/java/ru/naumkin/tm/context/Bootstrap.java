@@ -103,7 +103,11 @@ public final class Bootstrap implements ServiceLocator {
         @Nullable String command;
         while (true) {
             command = terminalService.readLine();
-            execute(command);
+            try {
+                execute(command);
+            } catch (Exception e) {
+                terminalService.showMessage("Something went wrong. Please try again.");
+            }
         }
     }
 

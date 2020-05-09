@@ -28,13 +28,7 @@ public final class UserReadCommand extends AbstractCommand {
         serviceLocator.getTerminalService().showMessage("[READ USER PROFILE]");
         serviceLocator.getTerminalService().showMessage("Enter login:");
         @NotNull final String login = serviceLocator.getTerminalService().readLine();
-        @NotNull final User user;
-        try {
-            user = serviceLocator.getUserService().findOne(login);
-        } catch (RuntimeException e) {
-            serviceLocator.getTerminalService().showMessage(e.toString());
-            return;
-        }
+        @NotNull final User user = serviceLocator.getUserService().findOne(login);
         serviceLocator.getTerminalService().showMessage(user.toString());
     }
 

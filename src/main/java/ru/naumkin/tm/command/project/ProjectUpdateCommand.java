@@ -5,8 +5,6 @@ import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.service.IProjectService;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.Project;
-import ru.naumkin.tm.error.NameIsEmptyException;
-import ru.naumkin.tm.error.ProjectIsNullException;
 import ru.naumkin.tm.util.DateFormatter;
 
 import java.util.ArrayList;
@@ -54,15 +52,12 @@ public final class ProjectUpdateCommand extends AbstractCommand {
         serviceLocator.getTerminalService().showMessage("Enter new description:");
         project.setDescription(serviceLocator.getTerminalService().readLine());
         serviceLocator.getTerminalService().showMessage("Enter new start date(dd.mm.yyyy):");
-        project.setDateStart(DateFormatter.convertStringToDate(serviceLocator.getTerminalService().readLine()));
+        String startDate = serviceLocator.getTerminalService().readLine();
+        project.setDateStart(DateFormatter.convertStringToDate(startDate));
         serviceLocator.getTerminalService().showMessage("Enter new finish date(dd.mm.yyyy):");
-        project.setDateFinish(DateFormatter.convertStringToDate(serviceLocator.getTerminalService().readLine()));
-        try {
-            projectService.merge(project, name);
-        } catch (NameIsEmptyException | ProjectIsNullException e) {
-            serviceLocator.getTerminalService().showMessage(e.toString());
-            return;
-        }
+        String finishDate = serviceLocator.getTerminalService().readLine();
+        project.setDateFinish(DateFormatter.convertStringToDate(finishDate));
+        projectService.merge(project, name);
         serviceLocator.getTerminalService().showMessage("[OK]");
     }
 

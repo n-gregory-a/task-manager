@@ -7,10 +7,6 @@ import ru.naumkin.tm.api.service.ITaskService;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.Project;
 import ru.naumkin.tm.entity.Task;
-import ru.naumkin.tm.error.NameIsEmptyException;
-import ru.naumkin.tm.error.NoProjectWithSuchNameException;
-
-import java.io.IOException;
 
 public final class TaskViewCommand extends AbstractCommand {
 
@@ -34,8 +30,12 @@ public final class TaskViewCommand extends AbstractCommand {
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[VIEW TASKS ATTACHED TO THE PROJECT]");
         @NotNull final ITaskService taskService = serviceLocator.getTaskService();
-        @NotNull final Project project = getProjectByName();
-        for (@NotNull final Task task: taskService.findAll()) {
+        @NotNull final IProjectService projectService = serviceLocator.getProjectService();
+        serviceLocator.getTerminalService().showMessage("Enter project name:");
+        @NotNull final String projectName = serviceLocator.getTerminalService().readLine();
+        @Nullable final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
+        @NotNull final Project project = projectService.findOne(projectName, currentUserId);
+        for (@NotNull final Task task: taskService.findAll(currentUserId)) {
             @Nullable final String projectId = task.getProjectId();
             if (projectId == null) {
                 continue;
@@ -45,22 +45,6 @@ public final class TaskViewCommand extends AbstractCommand {
                 serviceLocator.getTerminalService().showMessage(task.toString());
             }
         }
-    }
-
-    @NotNull
-    private Project getProjectByName() throws IOException {
-        serviceLocator.getTerminalService().showMessage("Enter project name:");
-        @NotNull final IProjectService projectService = serviceLocator.getProjectService();
-        @NotNull Project project;
-        @NotNull final String projectName = serviceLocator.getTerminalService().readLine();
-        @Nullable final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
-        try {
-            project = projectService.findOne(projectName, currentUserId);
-        } catch (NameIsEmptyException | NoProjectWithSuchNameException e) {
-            serviceLocator.getTerminalService().showMessage(e.toString());
-            project = getProjectByName();
-        }
-        return project;
     }
 
 }

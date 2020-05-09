@@ -5,9 +5,6 @@ import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.service.ITaskService;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.Task;
-import ru.naumkin.tm.error.NameIsEmptyException;
-import ru.naumkin.tm.error.NameIsNullException;
-import ru.naumkin.tm.error.TaskIsNullException;
 import ru.naumkin.tm.util.DateFormatter;
 
 public final class TaskUpdateCommand extends AbstractCommand {
@@ -43,12 +40,7 @@ public final class TaskUpdateCommand extends AbstractCommand {
         task.setDateStart(DateFormatter.convertStringToDate(serviceLocator.getTerminalService().readLine()));
         serviceLocator.getTerminalService().showMessage("Enter new finish date(dd.mm.yyyy): ");
         task.setDateFinish(DateFormatter.convertStringToDate(serviceLocator.getTerminalService().readLine()));
-        try {
             taskService.merge(task, name);
-        } catch (NameIsNullException | NameIsEmptyException | TaskIsNullException e) {
-            serviceLocator.getTerminalService().showMessage(e.toString());
-            return;
-        }
         serviceLocator.getTerminalService().showMessage("[OK]");
     }
 
