@@ -1,6 +1,8 @@
 package ru.naumkin.tm.service;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.IRepository;
@@ -12,21 +14,13 @@ import ru.naumkin.tm.util.HashGenerator;
 @NoArgsConstructor
 public final class UserService extends AbstractService<User> implements IUserService {
 
+    @Getter
+    @Setter
+    @NotNull
     private User currentUser;
 
-    public UserService(final IRepository<User> repository) {
+    public UserService(@NotNull final IRepository<User> repository) {
         super(repository);
-    }
-
-    @Nullable
-    @Override
-    public User getCurrentUser() {
-        return currentUser;
-    }
-
-    @Override
-    public void setCurrentUser(@Nullable final User currentUser) {
-        this.currentUser = currentUser;
     }
 
     @NotNull
@@ -56,9 +50,6 @@ public final class UserService extends AbstractService<User> implements IUserSer
     @NotNull
     @Override
     public String getCurrentUserId() {
-        if (currentUser == null) {
-            throw new RuntimeException();
-        }
         return getCurrentUser().getId();
     }
 

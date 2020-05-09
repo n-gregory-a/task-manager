@@ -13,6 +13,7 @@ import java.util.Map;
 @NoArgsConstructor
 public abstract class AbstractRepository<E extends AbstractEntity> implements IRepository<E> {
 
+    @NotNull
     protected final Map<String, E> map = new LinkedHashMap<>();
 
     @NotNull

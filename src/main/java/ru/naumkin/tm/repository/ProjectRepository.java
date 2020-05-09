@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public final class ProjectRepository extends AbstractRepository<Project> implements IProjectRepository {
 
+    @NotNull
     private ITaskRepository taskRepository;
 
     public ProjectRepository(@NotNull final ITaskRepository taskRepository) {

@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 public final class TaskService extends AbstractService<Task> implements ITaskService {
 
+    @NotNull
     private ITaskRepository taskRepository;
 
     public TaskService(@NotNull final ITaskRepository repository) {

@@ -15,8 +15,10 @@ import java.util.Map;
 @NoArgsConstructor
 public final class TerminalService implements ITerminalService {
 
+    @NotNull
     private BufferedReader reader;
 
+    @NotNull
     private Map<String, AbstractCommand> commands;
 
     public TerminalService(

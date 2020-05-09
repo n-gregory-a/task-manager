@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 public final class ProjectService extends AbstractService<Project> implements IProjectService {
 
+    @NotNull
     private IProjectRepository projectRepository;
 
     public ProjectService(@NotNull final IProjectRepository repository) {

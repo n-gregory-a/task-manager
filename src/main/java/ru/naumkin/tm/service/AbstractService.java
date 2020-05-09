@@ -12,9 +12,10 @@ import java.util.Collection;
 @NoArgsConstructor
 public abstract class AbstractService<E extends AbstractEntity> implements IService<E> {
 
+    @NotNull
     protected IRepository<E> repository;
 
-    public AbstractService(final @NotNull IRepository<E> repository) {
+    public AbstractService(@NotNull final IRepository<E> repository) {
         this.repository = repository;
     }
 
