@@ -1,5 +1,6 @@
 package ru.naumkin.tm.context;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -45,37 +46,21 @@ public final class Bootstrap implements ServiceLocator {
     @NotNull
     private final  Map<String, AbstractCommand> commands = new LinkedHashMap<>();
 
+    @Getter
+    @NotNull
     private final ITaskService taskService = new TaskService(taskRepository);
 
+    @Getter
+    @NotNull
     private final IProjectService projectService = new ProjectService(projectRepository);
 
+    @Getter
+    @NotNull
     private final IUserService userService = new UserService(userRepository);
 
+    @Getter
+    @NotNull
     private final ITerminalService terminalService = new TerminalService(reader, commands);
-
-    @NotNull
-    @Override
-    public ITaskService getTaskService() {
-        return taskService;
-    }
-
-    @NotNull
-    @Override
-    public IProjectService getProjectService() {
-        return projectService;
-    }
-
-    @NotNull
-    @Override
-    public IUserService getUserService() {
-        return userService;
-    }
-
-    @NotNull
-    @Override
-    public ITerminalService getTerminalService() {
-        return terminalService;
-    }
 
     public void registerCommand(@NotNull final AbstractCommand command) {
         @Nullable final String cliCommand = command.getName();
