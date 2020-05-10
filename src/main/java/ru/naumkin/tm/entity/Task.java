@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.naumkin.tm.enumerated.Status;
 
 import java.time.LocalDate;
 
@@ -27,6 +28,9 @@ public final class Task extends AbstractEntity {
 
     @Nullable
     private String userId = null;
+
+    @NotNull
+    private Status status = Status.PLANNED;
 
     public Task(@NotNull final String name) {
         setName(name);
