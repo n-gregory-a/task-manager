@@ -19,4 +19,7 @@ public interface IProjectService extends IService<Project> {
 
     void removeAll(@Nullable final String currentUserId);
 
+    @NotNull
+    List<Project> sortByDateStart(@Nullable final String currentUserId);
+
 }

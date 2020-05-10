@@ -19,4 +19,7 @@ public interface IProjectRepository extends IRepository<Project> {
 
     void removeAll(@NotNull final String currentUserId);
 
+    @NotNull
+    List<Project> sortByDateStart(@NotNull final String currentUserId);
+
 }

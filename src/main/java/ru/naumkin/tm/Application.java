@@ -21,6 +21,7 @@ public final class Application {
                 ProjectReadCommand.class,
                 ProjectRemoveCommand.class,
                 ProjectUpdateCommand.class,
+                ProjectDateStartSortedListCommand.class,
                 TaskAttachCommand.class,
                 TaskClearCommand.class,
                 TaskCreateCommand.class,

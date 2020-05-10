@@ -7,9 +7,9 @@ import ru.naumkin.tm.api.repository.IProjectRepository;
 import ru.naumkin.tm.api.repository.ITaskRepository;
 import ru.naumkin.tm.entity.Project;
 import ru.naumkin.tm.entity.Task;
+import ru.naumkin.tm.util.ProjectDateStartComparator;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @NoArgsConstructor
 public final class ProjectRepository extends AbstractRepository<Project> implements IProjectRepository {
@@ -107,6 +107,15 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
         for (@NotNull final Project project: toRemove) {
             map.remove(project.getId());
         }
+    }
+
+    @NotNull
+    @Override
+    public List<Project> sortByDateStart(@NotNull final String currentUserId) {
+        @Nullable final List<Project> result = findAll(currentUserId);
+        @NotNull final Comparator<Project> dateStartComparator = new ProjectDateStartComparator();
+        result.sort(dateStartComparator);
+        return result;
     }
 
 }

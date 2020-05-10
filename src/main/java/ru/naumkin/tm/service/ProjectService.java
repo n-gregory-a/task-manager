@@ -90,4 +90,16 @@ public final class ProjectService extends AbstractService<Project> implements IP
         projectRepository.removeAll(currentUserId);
     }
 
+    @NotNull
+    @Override
+    public List<Project> sortByDateStart(@Nullable final String currentUserId) {
+        if (currentUserId == null) {
+            throw new RuntimeException();
+        }
+        if (currentUserId.isEmpty()) {
+            throw new RuntimeException();
+        }
+        return projectRepository.sortByDateStart(currentUserId);
+    }
+
 }
