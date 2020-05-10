@@ -112,7 +112,7 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
     @NotNull
     @Override
     public List<Project> sortByDateStart(@NotNull final String currentUserId) {
-        @Nullable final List<Project> result = findAll(currentUserId);
+        @NotNull final List<Project> result = findAll(currentUserId);
         @NotNull final Comparator<Project> dateStartComparator = new ProjectDateStartComparator();
         result.sort(dateStartComparator);
         return result;

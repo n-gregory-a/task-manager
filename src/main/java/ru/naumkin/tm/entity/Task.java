@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.enumerated.Status;
+import ru.naumkin.tm.util.DateFormatter;
 
 import java.util.Date;
 
@@ -42,8 +43,8 @@ public final class Task extends AbstractEntity {
                 "ID='" + getId() + '\'' +
                 ", name='" + getName() + '\'' +
                 ", description='" + description + '\'' +
-                ", dateStart=" + dateStart +
-                ", dateFinish=" + dateFinish +
+                ", dateStart=" + DateFormatter.convertDateToString(dateStart) +
+                ", dateFinish=" + DateFormatter.convertDateToString(dateFinish) +
                 ", projectId='" + projectId + '\'' +
                 ", userId='" + userId + '\'' +
                 '}';

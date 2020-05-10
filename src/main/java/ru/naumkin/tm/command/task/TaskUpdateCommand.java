@@ -7,6 +7,9 @@ import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.Task;
 import ru.naumkin.tm.util.DateFormatter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public final class TaskUpdateCommand extends AbstractCommand {
 
     public TaskUpdateCommand() {
@@ -28,10 +31,22 @@ public final class TaskUpdateCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[TASK UPDATE]");
-        serviceLocator.getTerminalService().showMessage("Enter task name:");
-        @NotNull final Task task = new Task(serviceLocator.getTerminalService().readLine());
-        @Nullable final String name = task.getName();
         @NotNull final ITaskService taskService = serviceLocator.getTaskService();
+        serviceLocator.getTerminalService().showMessage("Tasks available to update:");
+        @NotNull final List<Task> list = new ArrayList<>();
+        int index = 1;
+        @Nullable final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
+        for (@NotNull final Task task: taskService.findAll(currentUserId)) {
+            serviceLocator.getTerminalService().showMessage(index++ + ". " + task.toString());
+            list.add(task);
+        }
+        serviceLocator.getTerminalService().showMessage("Choose task to update by number:");
+        @NotNull final Task task = list.get(Integer
+                .parseInt(serviceLocator.getTerminalService().readLine()) - 1);
+        @Nullable final String name = task.getName();
+        serviceLocator.getTerminalService().showMessage("Updating task:");
+        serviceLocator.getTerminalService().showMessage("id: " + task.getId() +
+                ", name: " + task.getName());
         serviceLocator.getTerminalService().showMessage("Enter new name: ");
         task.setName(serviceLocator.getTerminalService().readLine());
         serviceLocator.getTerminalService().showMessage("Enter new description: ");
