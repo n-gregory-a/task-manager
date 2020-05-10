@@ -1,47 +1,18 @@
 package ru.naumkin.tm;
 
 import org.jetbrains.annotations.NotNull;
-import ru.naumkin.tm.command.project.*;
-import ru.naumkin.tm.command.system.AboutCommand;
-import ru.naumkin.tm.command.system.ExitCommand;
-import ru.naumkin.tm.command.system.HelpCommand;
-import ru.naumkin.tm.command.task.*;
-import ru.naumkin.tm.command.user.*;
+import org.reflections.Reflections;
+import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.context.Bootstrap;
+
+import java.util.Set;
 
 public final class Application {
 
     public static void main(String[] args) throws Exception {
         @NotNull final Bootstrap bootstrap = new Bootstrap();
-        @NotNull final Class[] classes = new Class[] {
-                HelpCommand.class,
-                ProjectClearCommand.class,
-                ProjectCreateCommand.class,
-                ProjectListCommand.class,
-                ProjectReadCommand.class,
-                ProjectRemoveCommand.class,
-                ProjectUpdateCommand.class,
-                ProjectDateStartSortedListCommand.class,
-                ProjectDateFinishSortedListCommand.class,
-                TaskAttachCommand.class,
-                TaskClearCommand.class,
-                TaskCreateCommand.class,
-                TaskListCommand.class,
-                TaskReadCommand.class,
-                TaskRemoveCommand.class,
-                TaskUpdateCommand.class,
-                TaskViewCommand.class,
-                TaskDateStartSortedListCommand.class,
-                TaskDateFinishSortedListCommand.class,
-                ExitCommand.class,
-                UserChangePasswordCommand.class,
-                UserLogInCommand.class,
-                UserLogOutCommand.class,
-                UserReadCommand.class,
-                UserRegisterCommand.class,
-                UserUpdateCommand.class,
-                AboutCommand.class
-        };
+        final Set<Class<? extends AbstractCommand>> classes =
+                new Reflections("ru.naumkin.tm").getSubTypesOf(AbstractCommand.class);
         bootstrap.init(classes);
     }
 

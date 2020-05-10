@@ -27,6 +27,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 @NoArgsConstructor
 public final class Bootstrap implements ServiceLocator {
@@ -75,10 +76,10 @@ public final class Bootstrap implements ServiceLocator {
         commands.put(cliCommand, command);
     }
 
-    public void init(@NotNull Class[] classes) throws Exception {
+    public void init(@NotNull final Set<Class<? extends AbstractCommand>> classes) throws Exception {
         terminalService.showMessage("*** Welcome to task manager ***");
         createDefaultUser();
-        Class abstractCommand = AbstractCommand.class;
+        @NotNull final Class abstractCommand = AbstractCommand.class;
         for (@NotNull final Class clazz: classes) {
             if (abstractCommand.isAssignableFrom(clazz)) {
                 @NotNull final AbstractCommand command = (AbstractCommand) clazz.newInstance();
