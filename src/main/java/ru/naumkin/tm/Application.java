@@ -30,6 +30,7 @@ public final class Application {
                 TaskRemoveCommand.class,
                 TaskUpdateCommand.class,
                 TaskViewCommand.class,
+                TaskDateStartSortedListCommand.class,
                 ExitCommand.class,
                 UserChangePasswordCommand.class,
                 UserLogInCommand.class,

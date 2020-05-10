@@ -19,4 +19,7 @@ public interface ITaskService extends IService<Task> {
 
     void removeAll(@Nullable final String currentUserId);
 
+    @NotNull
+    List<Task> sortByDateStart(@Nullable final String currentUserId);
+
 }

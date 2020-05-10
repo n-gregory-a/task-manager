@@ -90,4 +90,16 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         taskRepository.removeAll(currentUserId);
     }
 
+    @NotNull
+    @Override
+    public List<Task> sortByDateStart(@Nullable final String currentUserId) {
+        if (currentUserId == null) {
+            throw new RuntimeException();
+        }
+        if (currentUserId.isEmpty()) {
+            throw new RuntimeException();
+        }
+        return taskRepository.sortByDateStart(currentUserId);
+    }
+
 }

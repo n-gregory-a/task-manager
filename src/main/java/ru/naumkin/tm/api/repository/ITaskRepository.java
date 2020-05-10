@@ -19,4 +19,7 @@ public interface ITaskRepository extends IRepository<Task> {
 
     void removeAll(@NotNull final String currentUserId);
 
+    @NotNull
+    List<Task> sortByDateStart(@NotNull final String currentUserId);
+
 }
