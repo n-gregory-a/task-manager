@@ -14,6 +14,9 @@ public final class ProjectDateStartComparator implements Comparator<Project> {
         if (projectOne.getDateStart() == null) {
             throw new RuntimeException();
         }
+        if (projectTwo.getDateStart() == null) {
+            throw new RuntimeException();
+        }
         return projectOne.getDateStart().compareTo(projectTwo.getDateStart());
     }
 
