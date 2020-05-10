@@ -22,4 +22,7 @@ public interface ITaskService extends IService<Task> {
     @NotNull
     List<Task> sortByDateStart(@Nullable final String currentUserId);
 
+    @NotNull
+    List<Task> sortByDateFinish(@Nullable final String currentUserId);
+
 }

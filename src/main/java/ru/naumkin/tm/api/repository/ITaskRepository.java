@@ -22,4 +22,7 @@ public interface ITaskRepository extends IRepository<Task> {
     @NotNull
     List<Task> sortByDateStart(@NotNull final String currentUserId);
 
+    @NotNull
+    List<Task> sortByDateFinish(@NotNull final String currentUserId);
+
 }

@@ -22,4 +22,7 @@ public interface IProjectRepository extends IRepository<Project> {
     @NotNull
     List<Project> sortByDateStart(@NotNull final String currentUserId);
 
+    @NotNull
+    List<Project> sortByDateFinish(@NotNull final String currentUserId);
+
 }

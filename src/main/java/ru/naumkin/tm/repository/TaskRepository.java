@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.ITaskRepository;
 import ru.naumkin.tm.entity.Task;
+import ru.naumkin.tm.util.TaskDateFinishComparator;
 import ru.naumkin.tm.util.TaskDateStartComparator;
 
 import java.util.Comparator;
@@ -71,6 +72,15 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
         @NotNull List<Task> result = findAll(currentUserId);
         @NotNull Comparator<Task> dateStartComparator = new TaskDateStartComparator();
         result.sort(dateStartComparator);
+        return result;
+    }
+
+    @NotNull
+    @Override
+    public List<Task> sortByDateFinish(@NotNull final String currentUserId) {
+        @NotNull List<Task> result = findAll(currentUserId);
+        @NotNull Comparator<Task> dateFinishComparator = new TaskDateFinishComparator();
+        result.sort(dateFinishComparator);
         return result;
     }
 
