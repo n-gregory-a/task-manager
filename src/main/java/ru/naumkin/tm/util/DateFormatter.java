@@ -1,21 +1,26 @@
 package ru.naumkin.tm.util;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public final class DateFormatter {
 
     @NotNull
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    private static final SimpleDateFormat FORMATTER = new SimpleDateFormat("dd.MM.yyyy");
 
-    public static String convertDateToString(@NotNull final LocalDate date) {
+    public static String convertDateToString(@Nullable final Date date) {
+        if (date == null) {
+            return "not assigned";
+        }
         return FORMATTER.format(date);
     }
 
-    public static LocalDate convertStringToDate(@NotNull final String date) {
-        return LocalDate.parse(date, FORMATTER);
+    public static Date convertStringToDate(@NotNull final String date) throws ParseException {
+        return FORMATTER.parse(date);
     }
 
 }

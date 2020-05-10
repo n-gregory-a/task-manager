@@ -6,8 +6,9 @@ import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.enumerated.Status;
+import ru.naumkin.tm.util.DateFormatter;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -18,10 +19,10 @@ public final class Project extends AbstractEntity {
     private String description = "";
 
     @Nullable
-    private LocalDate dateStart = LocalDate.now();
+    private Date dateStart = null;
 
     @Nullable
-    private LocalDate dateFinish = null;
+    private Date dateFinish = null;
 
     @Nullable
     private String userId = null;
@@ -39,8 +40,8 @@ public final class Project extends AbstractEntity {
                 "id='" + getId() + '\'' +
                 ", name='" + getName() + '\'' +
                 ", description='" + description + '\'' +
-                ", dateStart=" + dateStart +
-                ", dateFinish=" + dateFinish +
+                ", dateStart=" + DateFormatter.convertDateToString(dateStart) +
+                ", dateFinish=" + DateFormatter.convertDateToString(dateFinish) +
                 ", userId='" + userId + '\'' +
                 '}';
     }

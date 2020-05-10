@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.enumerated.Status;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -17,11 +17,11 @@ public final class Task extends AbstractEntity {
     @NotNull
     private String description = "";
 
-    @NotNull
-    private LocalDate dateStart = LocalDate.now();
+    @Nullable
+    private Date dateStart = null;
 
     @Nullable
-    private LocalDate dateFinish = null;
+    private Date dateFinish = null;
 
     @Nullable
     private String projectId = null;
