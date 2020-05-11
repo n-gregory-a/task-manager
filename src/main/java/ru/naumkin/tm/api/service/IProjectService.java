@@ -25,4 +25,7 @@ public interface IProjectService extends IService<Project> {
     @NotNull
     List<Project> sortByDateFinish(@Nullable final String currentUserId);
 
+    @NotNull
+    List<Project> sortByStatus(@NotNull final String currentUserId);
+
 }

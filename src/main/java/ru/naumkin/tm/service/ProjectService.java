@@ -114,4 +114,16 @@ public final class ProjectService extends AbstractService<Project> implements IP
         return projectRepository.sortByDateFinish(currentUserId);
     }
 
+    @NotNull
+    @Override
+    public List<Project> sortByStatus(@Nullable final String currentUserId) {
+        if (currentUserId == null) {
+            throw new RuntimeException();
+        }
+        if (currentUserId.isEmpty()) {
+            throw new RuntimeException();
+        }
+        return projectRepository.sortByStatus(currentUserId);
+    }
+
 }

@@ -7,6 +7,7 @@ import ru.naumkin.tm.api.repository.ITaskRepository;
 import ru.naumkin.tm.entity.Task;
 import ru.naumkin.tm.util.TaskDateFinishComparator;
 import ru.naumkin.tm.util.TaskDateStartComparator;
+import ru.naumkin.tm.util.TaskStatusComparator;
 
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -78,9 +79,18 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
     @NotNull
     @Override
     public List<Task> sortByDateFinish(@NotNull final String currentUserId) {
-        @NotNull List<Task> result = findAll(currentUserId);
-        @NotNull Comparator<Task> dateFinishComparator = new TaskDateFinishComparator();
+        @NotNull final List<Task> result = findAll(currentUserId);
+        @NotNull final Comparator<Task> dateFinishComparator = new TaskDateFinishComparator();
         result.sort(dateFinishComparator);
+        return result;
+    }
+
+    @NotNull
+    @Override
+    public List<Task> sortByStatus(@NotNull final String currentUserId) {
+        @NotNull final List<Task> result = findAll(currentUserId);
+        @NotNull final Comparator<Task> statusComparator = new TaskStatusComparator();
+        result.sort(statusComparator);
         return result;
     }
 

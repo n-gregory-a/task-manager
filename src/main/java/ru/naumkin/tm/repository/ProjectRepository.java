@@ -9,6 +9,7 @@ import ru.naumkin.tm.entity.Project;
 import ru.naumkin.tm.entity.Task;
 import ru.naumkin.tm.util.ProjectDateFinishComparator;
 import ru.naumkin.tm.util.ProjectDateStartComparator;
+import ru.naumkin.tm.util.ProjectStatusComparator;
 
 import java.util.*;
 
@@ -125,6 +126,15 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
         @NotNull final List<Project> result = findAll(currentUserId);
         @NotNull final Comparator<Project> dateFinishComparator = new ProjectDateFinishComparator();
         result.sort(dateFinishComparator);
+        return result;
+    }
+
+    @NotNull
+    @Override
+    public List<Project> sortByStatus(@NotNull final String currentUserId) {
+        @NotNull final List<Project> result = findAll(currentUserId);
+        @NotNull final Comparator<Project> statusComparator = new ProjectStatusComparator();
+        result.sort(statusComparator);
         return result;
     }
 
