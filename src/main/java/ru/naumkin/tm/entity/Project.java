@@ -37,12 +37,13 @@ public final class Project extends AbstractEntity {
     @Override
     public String toString() {
         return "Project{" +
-                "id='" + getId() + '\'' +
-                ", name='" + getName() + '\'' +
-                ", description='" + description + '\'' +
-                ", dateStart=" + DateFormatter.convertDateToString(dateStart) +
-                ", dateFinish=" + DateFormatter.convertDateToString(dateFinish) +
-                ", userId='" + userId + '\'' +
+                "id: '" + getId() + '\'' +
+                ", name: '" + getName() + '\'' +
+                ", description: '" + description + '\'' +
+                ", dateStart: " + DateFormatter.convertDateToString(dateStart) +
+                ", dateFinish: " + DateFormatter.convertDateToString(dateFinish) +
+                ", userId: '" + userId + '\'' +
+                ", status: " + status.displayStatus() +
                 '}';
     }
 }

@@ -40,13 +40,14 @@ public final class Task extends AbstractEntity {
     @Override
     public String toString() {
         return "Task{" +
-                "ID='" + getId() + '\'' +
-                ", name='" + getName() + '\'' +
-                ", description='" + description + '\'' +
-                ", dateStart=" + DateFormatter.convertDateToString(dateStart) +
-                ", dateFinish=" + DateFormatter.convertDateToString(dateFinish) +
-                ", projectId='" + projectId + '\'' +
-                ", userId='" + userId + '\'' +
+                "id: '" + getId() + '\'' +
+                ", name: '" + getName() + '\'' +
+                ", description: '" + description + '\'' +
+                ", dateStart: " + DateFormatter.convertDateToString(dateStart) +
+                ", dateFinish: " + DateFormatter.convertDateToString(dateFinish) +
+                ", projectId: '" + projectId + '\'' +
+                ", userId: '" + userId + '\'' +
+                ", status: " + status.displayStatus() +
                 '}';
     }
 
