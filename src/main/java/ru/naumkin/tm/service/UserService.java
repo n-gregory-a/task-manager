@@ -16,7 +16,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
 
     @Getter
     @Setter
-    @NotNull
+    @Nullable
     private User currentUser;
 
     public UserService(@NotNull final IRepository<User> repository) {
@@ -44,13 +44,19 @@ public final class UserService extends AbstractService<User> implements IUserSer
 
     @Override
     public boolean isRoleAdmin() {
+        if (currentUser == null) {
+            throw new RuntimeException();
+        }
         return currentUser.getRole() == RoleType.ADMINISTRATOR;
     }
 
     @NotNull
     @Override
     public String getCurrentUserId() {
-        return getCurrentUser().getId();
+        if (currentUser == null) {
+            throw new RuntimeException();
+        }
+        return currentUser.getId();
     }
 
 }
