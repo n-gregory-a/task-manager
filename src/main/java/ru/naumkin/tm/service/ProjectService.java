@@ -126,4 +126,45 @@ public final class ProjectService extends AbstractService<Project> implements IP
         return projectRepository.sortByStatus(currentUserId);
     }
 
+    @NotNull
+    @Override
+    public List<Project> sortByName(
+            @Nullable final String currentUserId,
+            @Nullable final String name
+    ) {
+        if (name == null) {
+            throw new RuntimeException();
+        }
+        if (currentUserId == null) {
+            throw new RuntimeException();
+        }
+        if (name.isEmpty()) {
+            throw new RuntimeException();
+        }
+        if (currentUserId.isEmpty()) {
+            throw new RuntimeException();
+        }
+        return projectRepository.sortByName(currentUserId, name);
+    }
+
+    @Override
+    public @NotNull List<Project> sortByDescription(
+            @Nullable final String currentUserId,
+            @Nullable final String description
+    ) {
+        if (description == null) {
+            throw new RuntimeException();
+        }
+        if (currentUserId == null) {
+            throw new RuntimeException();
+        }
+        if (description.isEmpty()) {
+            throw new RuntimeException();
+        }
+        if (currentUserId.isEmpty()) {
+            throw new RuntimeException();
+        }
+        return projectRepository.sortByDescription(currentUserId, description);
+    }
+
 }

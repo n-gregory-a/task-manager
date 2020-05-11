@@ -138,4 +138,35 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
         return result;
     }
 
+    @NotNull
+    @Override
+    public List<Project> sortByName(
+            @NotNull final String currentUserId,
+            @NotNull final String name
+    ) {
+        @NotNull final List<Project> all = findAll(currentUserId);
+        @NotNull final List<Project> result = new LinkedList<>();
+        for (@NotNull final Project project: all) {
+            if (project.getName().contains(name)) {
+                result.add(project);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public @NotNull List<Project> sortByDescription(
+            @NotNull final String currentUserId,
+            @NotNull final String description
+    ) {
+        @NotNull final List<Project> all = findAll(currentUserId);
+        @NotNull final List<Project> result = new LinkedList<>();
+        for (@NotNull final Project project: all) {
+            if (project.getDescription().contains(description)) {
+                result.add(project);
+            }
+        }
+        return result;
+    }
+
 }

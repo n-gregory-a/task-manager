@@ -28,4 +28,10 @@ public interface ITaskRepository extends IRepository<Task> {
     @NotNull
     List<Task> sortByStatus(@NotNull final String currentUserId);
 
+    @NotNull
+    List<Task> sortByName(@NotNull final String currentUserId, @NotNull final String name);
+
+    @NotNull
+    List<Task> sortByDescription(@NotNull final String currentUserId, @NotNull final String description);
+
 }

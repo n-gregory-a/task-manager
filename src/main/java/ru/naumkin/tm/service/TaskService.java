@@ -126,4 +126,46 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         return taskRepository.sortByStatus(currentUserId);
     }
 
+    @NotNull
+    @Override
+    public List<Task> sortByName(
+            @Nullable final String currentUserId,
+            @Nullable final String name
+    ) {
+        if (name == null) {
+            throw new RuntimeException();
+        }
+        if (currentUserId == null) {
+            throw new RuntimeException();
+        }
+        if (name.isEmpty()) {
+            throw new RuntimeException();
+        }
+        if (currentUserId.isEmpty()) {
+            throw new RuntimeException();
+        }
+        return taskRepository.sortByName(currentUserId, name);
+    }
+
+    @NotNull
+    @Override
+    public List<Task> sortByDescription(
+            @Nullable final String currentUserId,
+            @Nullable final String description
+    ) {
+        if (description == null) {
+            throw new RuntimeException();
+        }
+        if (currentUserId == null) {
+            throw new RuntimeException();
+        }
+        if (description.isEmpty()) {
+            throw new RuntimeException();
+        }
+        if (currentUserId.isEmpty()) {
+            throw new RuntimeException();
+        }
+        return taskRepository.sortByDescription(currentUserId, description);
+    }
+
 }

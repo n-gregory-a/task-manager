@@ -94,4 +94,36 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
         return result;
     }
 
+    @NotNull
+    @Override
+    public List<Task> sortByName(
+            @NotNull final String currentUserId,
+            @NotNull final String name
+    ) {
+        @NotNull final List<Task> all = findAll(currentUserId);
+        @NotNull final List<Task> result = new LinkedList<>();
+        for (@NotNull final Task task: all) {
+            if (task.getName().contains(name)) {
+                result.add(task);
+            }
+        }
+        return result;
+    }
+
+    @NotNull
+    @Override
+    public List<Task> sortByDescription(
+            @NotNull final String currentUserId,
+            @NotNull final String description
+    ) {
+        @NotNull final List<Task> all = findAll(currentUserId);
+        @NotNull final List<Task> result = new LinkedList<>();
+        for (@NotNull final Task task: all) {
+            if (task.getDescription().contains(description)) {
+                result.add(task);
+            }
+        }
+        return result;
+    }
+
 }
