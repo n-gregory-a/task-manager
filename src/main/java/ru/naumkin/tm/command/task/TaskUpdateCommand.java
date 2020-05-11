@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.service.ITaskService;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.Task;
+import ru.naumkin.tm.enumerated.Status;
 import ru.naumkin.tm.util.DateFormatter;
 
 import java.util.ArrayList;
@@ -55,6 +56,10 @@ public final class TaskUpdateCommand extends AbstractCommand {
         task.setDateStart(DateFormatter.convertStringToDate(serviceLocator.getTerminalService().readLine()));
         serviceLocator.getTerminalService().showMessage("Enter new finish date(dd.mm.yyyy): ");
         task.setDateFinish(DateFormatter.convertStringToDate(serviceLocator.getTerminalService().readLine()));
+        serviceLocator.getTerminalService()
+                .showMessage("Enter new status (\"planned\", \"in progress\", \"completed\"):");
+        String status = serviceLocator.getTerminalService().readLine();
+        task.setStatus(Status.getStatus(status));
             taskService.merge(task, name);
         serviceLocator.getTerminalService().showMessage("[OK]");
     }

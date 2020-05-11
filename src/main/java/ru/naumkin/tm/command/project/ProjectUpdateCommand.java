@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.service.IProjectService;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.Project;
+import ru.naumkin.tm.enumerated.Status;
 import ru.naumkin.tm.util.DateFormatter;
 
 import java.util.ArrayList;
@@ -57,6 +58,10 @@ public final class ProjectUpdateCommand extends AbstractCommand {
         serviceLocator.getTerminalService().showMessage("Enter new finish date(dd.mm.yyyy):");
         String finishDate = serviceLocator.getTerminalService().readLine();
         project.setDateFinish(DateFormatter.convertStringToDate(finishDate));
+        serviceLocator.getTerminalService()
+                .showMessage("Enter new status (\"planned\", \"in progress\", \"completed\"):");
+        String status = serviceLocator.getTerminalService().readLine();
+        project.setStatus(Status.getStatus(status));
         projectService.merge(project, name);
         serviceLocator.getTerminalService().showMessage("[OK]");
     }
