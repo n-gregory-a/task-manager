@@ -1,4 +1,4 @@
-package ru.naumkin.tm.command.data;
+package ru.naumkin.tm.command.data.bin;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -41,7 +41,8 @@ public class DataBinarySaveCommand extends AbstractCommand {
         Files.deleteIfExists(file.toPath());
         Files.createFile(file.toPath());
         @NotNull final FileOutputStream fileOutputStream = new FileOutputStream(file);
-        @NotNull final ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        @NotNull final ObjectOutputStream objectOutputStream
+                = new ObjectOutputStream(fileOutputStream);
         objectOutputStream.writeObject(projects);
         objectOutputStream.writeObject(tasks);
         objectOutputStream.close();
