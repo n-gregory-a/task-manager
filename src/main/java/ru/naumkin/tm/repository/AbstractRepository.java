@@ -60,4 +60,10 @@ public abstract class AbstractRepository<E extends AbstractEntity> implements IR
         map.clear();
     }
 
+    @Override
+    public void load(E[] entities) {
+        for (E entity: entities) {
+            map.put(entity.getId(), entity);
+        }
+    }
 }

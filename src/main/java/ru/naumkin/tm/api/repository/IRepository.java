@@ -25,4 +25,6 @@ public interface IRepository<E extends AbstractEntity> {
 
     void removeAll();
 
+    void load(E[] entities);
+
 }

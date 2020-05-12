@@ -86,4 +86,11 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
         repository.removeAll();
     }
 
+    @Override
+    public void load(E[] entities) {
+        if (entities == null) {
+            throw new RuntimeException();
+        }
+        repository.load(entities);
+    }
 }
