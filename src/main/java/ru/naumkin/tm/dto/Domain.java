@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 @XmlRootElement
 @NoArgsConstructor
-public class Domain implements Serializable {
+public final class Domain implements Serializable {
 
     @Nullable
     @XmlElement(name = "project")
