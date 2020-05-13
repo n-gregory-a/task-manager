@@ -15,7 +15,7 @@ public interface IUserService extends IService<User> {
     @NotNull
     User createUser(@NotNull final RoleType role);
 
-    boolean isRoleAdmin();
+    boolean isRoleAdmin(User user);
 
     @Nullable
     String getCurrentUserId();

@@ -90,8 +90,7 @@ public final class Bootstrap implements ServiceLocator {
             try {
                 execute(command);
             } catch (Exception e) {
-//                terminalService.showMessage("Something went wrong. Please try again.");
-                e.printStackTrace();
+                terminalService.showMessage("Something went wrong. Please try again.");
             }
         }
     }
@@ -109,7 +108,7 @@ public final class Bootstrap implements ServiceLocator {
                 (abstractCommand.isSecure() && userService.getCurrentUser() != null);
         final boolean roleCheck = (abstractCommand.getRoles() == null) ||
                 (abstractCommand.getRoles() != null &&
-                        userService.isRoleAdmin());
+                        userService.isRoleAdmin(userService.getCurrentUser()));
         if (secureCheck && roleCheck) {
             abstractCommand.execute();
             return;
