@@ -1,10 +1,7 @@
 package ru.naumkin.tm.api;
 
 import org.jetbrains.annotations.NotNull;
-import ru.naumkin.tm.api.service.IProjectService;
-import ru.naumkin.tm.api.service.ITaskService;
-import ru.naumkin.tm.api.service.ITerminalService;
-import ru.naumkin.tm.api.service.IUserService;
+import ru.naumkin.tm.api.service.*;
 
 public interface ServiceLocator {
 
@@ -19,5 +16,8 @@ public interface ServiceLocator {
 
     @NotNull
     ITerminalService getTerminalService();
+
+    @NotNull
+    IDomainService getDomainService();
 
 }

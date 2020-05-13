@@ -8,20 +8,14 @@ import ru.naumkin.tm.api.ServiceLocator;
 import ru.naumkin.tm.api.repository.IProjectRepository;
 import ru.naumkin.tm.api.repository.IRepository;
 import ru.naumkin.tm.api.repository.ITaskRepository;
-import ru.naumkin.tm.api.service.IProjectService;
-import ru.naumkin.tm.api.service.ITaskService;
-import ru.naumkin.tm.api.service.ITerminalService;
-import ru.naumkin.tm.api.service.IUserService;
+import ru.naumkin.tm.api.service.*;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.enumerated.RoleType;
 import ru.naumkin.tm.repository.ProjectRepository;
 import ru.naumkin.tm.repository.TaskRepository;
 import ru.naumkin.tm.repository.UserRepository;
-import ru.naumkin.tm.service.ProjectService;
-import ru.naumkin.tm.service.TaskService;
-import ru.naumkin.tm.service.TerminalService;
-import ru.naumkin.tm.service.UserService;
+import ru.naumkin.tm.service.*;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -63,6 +57,10 @@ public final class Bootstrap implements ServiceLocator {
     @NotNull
     private final ITerminalService terminalService = new TerminalService(reader, commands);
 
+    @Getter
+    @NotNull
+    private final IDomainService domainService = new DomainService();
+
     public void registerCommand(@NotNull final AbstractCommand command) {
         @Nullable final String cliCommand = command.getName();
         @Nullable final String cliDescription = command.getDescription();
@@ -92,7 +90,8 @@ public final class Bootstrap implements ServiceLocator {
             try {
                 execute(command);
             } catch (Exception e) {
-                terminalService.showMessage("Something went wrong. Please try again.");
+//                terminalService.showMessage("Something went wrong. Please try again.");
+                e.printStackTrace();
             }
         }
     }
