@@ -2,12 +2,11 @@ package ru.naumkin.tm.command.data.bin;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.naumkin.tm.api.service.IProjectService;
-import ru.naumkin.tm.api.service.ITaskService;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.constant.DataConstant;
 import ru.naumkin.tm.entity.Project;
 import ru.naumkin.tm.entity.Task;
+import ru.naumkin.tm.entity.User;
 
 import java.io.*;
 
@@ -30,32 +29,43 @@ public class DataBinaryLoadCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         serviceLocator.getTerminalService().showMessage("[LOAD DATA FROM BINARY FILE]");
-        @NotNull final IProjectService projectService = serviceLocator.getProjectService();
-        @NotNull final ITaskService taskService = serviceLocator.getTaskService();
         @NotNull final File file = new File(DataConstant.BINARY_FILE);
         @NotNull final FileInputStream fileInputStream = new FileInputStream(file);
         @NotNull final ObjectInputStream objectInputStream
                 = new ObjectInputStream(fileInputStream);
-        loadProjects(objectInputStream.readObject());
-        loadTasks(objectInputStream.readObject());
+        loadProject(objectInputStream.readObject());
+        loadTask(objectInputStream.readObject());
         objectInputStream.close();
         serviceLocator.getTerminalService().showMessage("[OK]");
     }
 
-    private void loadTasks(Object object) {
+    private void loadTask(@NotNull final Object object) {
         if (!(object instanceof Task[])) {
             return;
         }
-        final Task[] tasks = (Task[]) object;
+        @NotNull final Task[] tasks = (Task[]) object;
         serviceLocator.getTaskService().load(tasks);
     }
 
-    private void loadProjects(final Object object) {
+    private void loadProject(@NotNull final Object object) {
         if (!(object instanceof Project[])) {
             return;
         }
-        final Project[] projects = (Project[]) object;
+        @NotNull final Project[] projects = (Project[]) object;
         serviceLocator.getProjectService().load(projects);
+    }
+
+    private void loadUser(@NotNull final Object object) {
+        if (!(object instanceof User[])) {
+            return;
+        }
+        @NotNull final User[] users = (User[]) object;
+        for (User user: users) {
+            if (serviceLocator.getUserService().isRoleAdmin(user)) {
+                continue;
+            }
+            serviceLocator.getUserService().persist(user);
+        }
     }
 
 }
