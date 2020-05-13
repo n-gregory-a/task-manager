@@ -8,13 +8,12 @@ import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.enumerated.Status;
 import ru.naumkin.tm.util.DateFormatter;
 
-import java.io.Serializable;
 import java.util.Date;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public final class Project extends AbstractEntity implements Serializable {
+public final class Project extends AbstractEntity {
 
     @NotNull
     private String description = "";
