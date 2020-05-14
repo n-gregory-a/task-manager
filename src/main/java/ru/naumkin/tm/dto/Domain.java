@@ -14,8 +14,8 @@ import java.io.Serializable;
 import java.util.List;
 
 @Setter
-@XmlRootElement
 @NoArgsConstructor
+@XmlRootElement(name = "domain")
 public final class Domain implements Serializable {
 
     @Nullable
