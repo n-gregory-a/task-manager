@@ -1,12 +1,14 @@
 package ru.naumkin.tm.api.service;
 
+import org.jetbrains.annotations.NotNull;
 import ru.naumkin.tm.api.ServiceLocator;
 import ru.naumkin.tm.dto.Domain;
 
 public interface IDomainService {
 
-    Domain load(ServiceLocator serviceLocator);
+    @NotNull
+    Domain load(@NotNull final ServiceLocator serviceLocator);
 
-    void save(ServiceLocator serviceLocator, Domain domain);
+    void save(@NotNull final ServiceLocator serviceLocator, Domain domain);
 
 }
