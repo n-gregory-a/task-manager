@@ -12,9 +12,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 
-public class DataXmlLoadCommand extends AbstractCommand {
+public class DataXmlJBLoadCommand extends AbstractCommand {
 
-    public DataXmlLoadCommand() {
+    public DataXmlJBLoadCommand() {
         super(true);
     }
 

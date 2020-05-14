@@ -14,9 +14,9 @@ import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 
-public class DataXmlSaveCommand extends AbstractCommand {
+public class DataXmlJBSaveCommand extends AbstractCommand {
 
-    public DataXmlSaveCommand() {
+    public DataXmlJBSaveCommand() {
         super(true);
     }
 
