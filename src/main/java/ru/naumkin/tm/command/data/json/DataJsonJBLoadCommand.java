@@ -27,7 +27,7 @@ public class DataJsonJBLoadCommand extends AbstractCommand {
 
     @Override
     public @Nullable String getDescription() {
-        return "Load data to json file.";
+        return "Load data from json file.";
     }
 
     @Override
