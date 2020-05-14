@@ -7,6 +7,7 @@ import ru.naumkin.tm.api.service.IDomainService;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.constant.DataConstant;
 import ru.naumkin.tm.dto.Domain;
+import ru.naumkin.tm.enumerated.RoleType;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -28,7 +29,7 @@ public class DataJsonJBSaveCommand extends AbstractCommand {
 
     @Override
     public @Nullable String getDescription() {
-        return "Save data to json file.";
+        return "Save data to json file by JAXB.";
     }
 
     @Override
@@ -52,4 +53,11 @@ public class DataJsonJBSaveCommand extends AbstractCommand {
         objectOutputStream.close();
         serviceLocator.getTerminalService().showMessage("[OK]");
     }
+
+    @NotNull
+    @Override
+    public RoleType[] getRoles() {
+        return new RoleType[] {RoleType.ADMINISTRATOR};
+    }
+
 }

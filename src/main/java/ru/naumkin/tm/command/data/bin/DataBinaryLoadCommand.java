@@ -7,6 +7,7 @@ import ru.naumkin.tm.constant.DataConstant;
 import ru.naumkin.tm.entity.Project;
 import ru.naumkin.tm.entity.Task;
 import ru.naumkin.tm.entity.User;
+import ru.naumkin.tm.enumerated.RoleType;
 
 import java.io.*;
 
@@ -66,6 +67,12 @@ public class DataBinaryLoadCommand extends AbstractCommand {
             }
             serviceLocator.getUserService().persist(user);
         }
+    }
+
+    @NotNull
+    @Override
+    public RoleType[] getRoles() {
+        return new RoleType[] {RoleType.ADMINISTRATOR};
     }
 
 }

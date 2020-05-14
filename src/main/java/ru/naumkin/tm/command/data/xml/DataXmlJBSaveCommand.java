@@ -6,6 +6,7 @@ import ru.naumkin.tm.api.service.IDomainService;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.constant.DataConstant;
 import ru.naumkin.tm.dto.Domain;
+import ru.naumkin.tm.enumerated.RoleType;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -27,12 +28,12 @@ public class DataXmlJBSaveCommand extends AbstractCommand {
 
     @Override
     public @Nullable String getDescription() {
-        return "Save data to xml file.";
+        return "Save data to xml file by JAXB.";
     }
 
     @Override
     public void execute() throws Exception {
-        serviceLocator.getTerminalService().showMessage("[SAVE DATA TO XML FILE]");
+        serviceLocator.getTerminalService().showMessage("[SAVE DATA TO XML FILE BY JAXB]");
         @NotNull final IDomainService domainService = serviceLocator.getDomainService();
         @NotNull final Domain domain = domainService.load(serviceLocator);
         @NotNull final File file = new File(DataConstant.XML_FILE);
@@ -47,6 +48,12 @@ public class DataXmlJBSaveCommand extends AbstractCommand {
         marshaller.marshal(domain, objectOutputStream);
         objectOutputStream.close();
         serviceLocator.getTerminalService().showMessage("[OK]");
+    }
+
+    @NotNull
+    @Override
+    public RoleType[] getRoles() {
+        return new RoleType[] {RoleType.ADMINISTRATOR};
     }
 
 }

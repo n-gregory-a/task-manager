@@ -26,13 +26,13 @@ public class DataJsonJBLoadCommand extends AbstractCommand {
 
     @Override
     public @Nullable String getDescription() {
-        return "Load data from json file.";
+        return "Load data from json file by JAXB.";
     }
 
     @Override
     public void execute() throws Exception {
-        serviceLocator.getTerminalService().showMessage("[LOAD DATA FROM XML FILE]");
-        @NotNull final File file = new File(DataConstant.XML_FILE);
+        serviceLocator.getTerminalService().showMessage("[LOAD DATA FROM JSON FILE BY JAXB]");
+        @NotNull final File file = new File(DataConstant.JSON_FILE);
         @NotNull final FileInputStream fileInputStream = new FileInputStream(file);
         @NotNull final ObjectInputStream objectInputStream =
                 new ObjectInputStream(fileInputStream);
@@ -46,4 +46,5 @@ public class DataJsonJBLoadCommand extends AbstractCommand {
         serviceLocator.getDomainService().save(serviceLocator, domain);
         serviceLocator.getTerminalService().showMessage("[OK]");
     }
+
 }

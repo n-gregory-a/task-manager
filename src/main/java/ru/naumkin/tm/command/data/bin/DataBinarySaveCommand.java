@@ -10,6 +10,7 @@ import ru.naumkin.tm.constant.DataConstant;
 import ru.naumkin.tm.entity.Project;
 import ru.naumkin.tm.entity.Task;
 import ru.naumkin.tm.entity.User;
+import ru.naumkin.tm.enumerated.RoleType;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -52,6 +53,12 @@ public class DataBinarySaveCommand extends AbstractCommand {
         objectOutputStream.writeObject(users);
         objectOutputStream.close();
         serviceLocator.getTerminalService().showMessage("[OK]");
+    }
+
+    @NotNull
+    @Override
+    public RoleType[] getRoles() {
+        return new RoleType[] {RoleType.ADMINISTRATOR};
     }
 
 }
