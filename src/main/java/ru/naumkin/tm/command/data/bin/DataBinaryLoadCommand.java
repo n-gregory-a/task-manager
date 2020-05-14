@@ -36,6 +36,7 @@ public class DataBinaryLoadCommand extends AbstractCommand {
                 = new ObjectInputStream(fileInputStream);
         loadProject(objectInputStream.readObject());
         loadTask(objectInputStream.readObject());
+        loadUser(objectInputStream.readObject());
         objectInputStream.close();
         serviceLocator.getTerminalService().showMessage("[OK]");
     }
