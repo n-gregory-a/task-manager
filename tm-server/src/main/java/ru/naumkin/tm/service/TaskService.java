@@ -35,8 +35,8 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     @NotNull
     @Override
     public Task findOne(
-            @Nullable final String name,
-            @Nullable final String currentUserId
+            @Nullable final String currentUserId,
+            @Nullable final String name
     ) {
         if (name == null) {
             throw new RuntimeException();
@@ -60,8 +60,8 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     @NotNull
     @Override
     public Task remove(
-            @Nullable final Task task,
-            @Nullable final String currentUserId
+            @Nullable final String currentUserId,
+            @Nullable final Task task
     ) {
         if (task == null) {
             throw new RuntimeException();
@@ -72,7 +72,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (currentUserId.isEmpty()) {
             throw new RuntimeException();
         }
-        @Nullable final Task toRemove = taskRepository.remove(task, currentUserId);
+        @Nullable final Task toRemove = taskRepository.remove(currentUserId, task);
         if (toRemove == null) {
             throw new RuntimeException();
         }

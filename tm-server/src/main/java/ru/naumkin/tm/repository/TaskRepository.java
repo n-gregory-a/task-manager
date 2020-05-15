@@ -33,8 +33,8 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
     @Nullable
     @Override
     public Task findOne(
-            @NotNull final String name,
-            @NotNull final String currentUserId
+            @NotNull final String currentUserId,
+            @NotNull final String name
     ) {
         Task result = null;
         for (@NotNull final Task task: findAll(currentUserId)) {
@@ -48,8 +48,8 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
     @Nullable
     @Override
     public Task remove(
-            @NotNull final Task task,
-            @NotNull final String currentUserId
+            @NotNull final String currentUserId,
+            @NotNull final Task task
     ) {
         @Nullable final Task toRemove = findOne(task.getName(), currentUserId);
         if (toRemove == null) {

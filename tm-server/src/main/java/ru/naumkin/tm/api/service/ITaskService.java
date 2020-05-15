@@ -12,10 +12,10 @@ public interface ITaskService extends IService<Task> {
     List<Task> findAll(@Nullable final String currentUserId);
 
     @Nullable
-    Task findOne(@Nullable final String name, @Nullable final String currentUserId);
+    Task findOne(@Nullable final String currentUserId, @Nullable final String name);
 
     @NotNull
-    Task remove(@Nullable final Task task, @Nullable final String currentUserId);
+    Task remove(@Nullable final String currentUserId, @Nullable final Task task);
 
     void removeAll(@Nullable final String currentUserId);
 

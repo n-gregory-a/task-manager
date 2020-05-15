@@ -12,10 +12,10 @@ public interface ITaskRepository extends IRepository<Task> {
     List<Task> findAll(@NotNull final String currentUserId);
 
     @Nullable
-    Task findOne(@NotNull final String name, @NotNull final String currentUserId);
+    Task findOne(@NotNull final String currentUserId, @NotNull final String name);
 
     @Nullable
-    Task remove(@NotNull final Task task, @NotNull final String currentUserId);
+    Task remove(@NotNull final String currentUserId, @NotNull final Task task);
 
     void removeAll(@NotNull final String currentUserId);
 
