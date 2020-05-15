@@ -25,6 +25,11 @@
     <developerName>Grigory Naumkin</developerName>
   </properties>
 
+  <modules>
+    <module>tm-client</module>
+    <module>tm-server</module>
+  </modules>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
