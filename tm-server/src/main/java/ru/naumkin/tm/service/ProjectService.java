@@ -35,8 +35,8 @@ public final class ProjectService extends AbstractService<Project> implements IP
     @NotNull
     @Override
     public Project findOne(
-            @Nullable final String name,
-            @Nullable final String currentUserId
+            @Nullable final String currentUserId,
+            @Nullable final String name
     ) {
         if (name == null) {
             throw new RuntimeException();
@@ -50,7 +50,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (currentUserId.isEmpty()) {
             throw new RuntimeException();
         }
-        @Nullable final Project project = projectRepository.findOne(name, currentUserId);
+        @Nullable final Project project = projectRepository.findOne(currentUserId, name);
         if (project == null) {
             throw new RuntimeException();
         }
@@ -60,8 +60,8 @@ public final class ProjectService extends AbstractService<Project> implements IP
     @NotNull
     @Override
     public Project remove(
-            @Nullable final Project project,
-            @Nullable final String currentUserId
+            @Nullable final String currentUserId,
+            @Nullable final Project project
     ) {
         if (project == null) {
             throw new RuntimeException();
@@ -72,7 +72,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (currentUserId.isEmpty()) {
             throw new RuntimeException();
         }
-        @Nullable final Project toRemove = projectRepository.remove(project, currentUserId);
+        @Nullable final Project toRemove = projectRepository.remove(currentUserId, project);
         if (toRemove == null) {
             throw new RuntimeException();
         }

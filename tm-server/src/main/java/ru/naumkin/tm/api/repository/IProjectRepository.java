@@ -12,10 +12,10 @@ public interface IProjectRepository extends IRepository<Project> {
     List<Project> findAll(@NotNull final String currentUserId);
 
     @Nullable
-    Project findOne(@NotNull final String name, @NotNull final String currentUserId);
+    Project findOne(@NotNull final String currentUserId, @NotNull final String name);
 
     @Nullable
-    Project remove(@NotNull final Project project, @NotNull final String currentUserId);
+    Project remove(@NotNull final String currentUserId, @NotNull final Project project);
 
     void removeAll(@NotNull final String currentUserId);
 

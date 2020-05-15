@@ -40,8 +40,8 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
     @Nullable
     @Override
     public Project findOne(
-            @NotNull final String name,
-            @NotNull final String currentUserId
+            @NotNull final String currentUserId,
+            @NotNull final String name
     ) {
         Project result = null;
         for (@NotNull final Project project: findAll(currentUserId)) {
@@ -75,8 +75,8 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
     @Nullable
     @Override
     public Project remove(
-            @NotNull final Project project,
-            @NotNull final String currentUserId
+            @NotNull final String currentUserId,
+            @NotNull final Project project
     ) {
         @Nullable final Project toRemove = findOne(project.getName(), currentUserId);
         if (toRemove == null) {

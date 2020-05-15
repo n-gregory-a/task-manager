@@ -12,10 +12,10 @@ public interface IProjectService extends IService<Project> {
     List<Project> findAll(@Nullable final String currentUserId);
 
     @NotNull
-    Project findOne(@Nullable final String name, @Nullable final String currentUserId);
+    Project findOne(@Nullable final String currentUserId, @Nullable final String name);
 
     @NotNull
-    Project remove(final Project project, final String currentUserId);
+    Project remove(@NotNull final String currentUserId, @NotNull final Project project);
 
     void removeAll(@Nullable final String currentUserId);
 
