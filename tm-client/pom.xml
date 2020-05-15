@@ -7,4 +7,10 @@
     <groupId>ru.naumkin.tm</groupId>
     <artifactId>tm-client</artifactId>
     <version>1.0.0</version>
+
+    <parent>
+        <groupId>ru.naumkin.tm</groupId>
+        <artifactId>task-manager</artifactId>
+        <version>1.0.0</version>
+    </parent>
 </project>
