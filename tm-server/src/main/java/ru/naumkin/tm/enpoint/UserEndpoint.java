@@ -14,7 +14,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @WebService(endpointInterface = "ru.naumkin.tm.api.endpoint.IUserEndpoint")
-public class UserEndpoint implements IUserEndpoint {
+public final class UserEndpoint implements IUserEndpoint {
 
     @NotNull private IUserService userService;
 

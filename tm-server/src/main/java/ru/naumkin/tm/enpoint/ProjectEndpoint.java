@@ -13,7 +13,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @WebService(endpointInterface = "ru.naumkin.tm.api.endpoint.IProjectEndpoint")
-public class ProjectEndpoint implements IProjectEndpoint {
+public final class ProjectEndpoint implements IProjectEndpoint {
 
     @NotNull private IProjectService projectService;
 
