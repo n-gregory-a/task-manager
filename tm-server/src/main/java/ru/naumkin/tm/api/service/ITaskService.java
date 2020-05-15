@@ -11,7 +11,7 @@ public interface ITaskService extends IService<Task> {
     @NotNull
     List<Task> findAll(@Nullable final String currentUserId);
 
-    @Nullable
+    @NotNull
     Task findOne(@Nullable final String currentUserId, @Nullable final String name);
 
     @NotNull

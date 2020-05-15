@@ -50,7 +50,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (currentUserId.isEmpty()) {
             throw new RuntimeException();
         }
-        @Nullable final Task task = taskRepository.findOne(name, currentUserId);
+        @Nullable final Task task = taskRepository.findOne(currentUserId, name);
         if (task == null) {
             throw new RuntimeException();
         }

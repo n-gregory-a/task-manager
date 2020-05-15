@@ -94,7 +94,7 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
             }
         }
         for (@NotNull final String name: nameList) {
-            @Nullable final Task task = taskRepository.findOne(name, currentUserId);
+            @Nullable final Task task = taskRepository.findOne(currentUserId, name);
             if (task != null) {
                 taskRepository.remove(task);
             }
