@@ -4,18 +4,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.naumkin.tm.api.ServiceLocator;
-import ru.naumkin.tm.api.repository.IProjectRepository;
-import ru.naumkin.tm.api.repository.IRepository;
-import ru.naumkin.tm.api.repository.ITaskRepository;
-import ru.naumkin.tm.api.service.*;
+import ru.naumkin.tm.api.endpoint.*;
+import ru.naumkin.tm.api.service.ITerminalService;
 import ru.naumkin.tm.command.AbstractCommand;
-import ru.naumkin.tm.entity.User;
-import ru.naumkin.tm.enumerated.RoleType;
-import ru.naumkin.tm.repository.ProjectRepository;
-import ru.naumkin.tm.repository.TaskRepository;
-import ru.naumkin.tm.repository.UserRepository;
-import ru.naumkin.tm.service.*;
+import ru.naumkin.tm.enpoint.ProjectEndpointService;
+import ru.naumkin.tm.enpoint.TaskEndpointService;
+import ru.naumkin.tm.enpoint.UserEndpointService;
+import ru.naumkin.tm.service.TerminalService;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -24,16 +19,8 @@ import java.util.Map;
 import java.util.Set;
 
 @NoArgsConstructor
-public final class Bootstrap implements ServiceLocator {
+public final class Bootstrap {
 
-    @NotNull
-    private final ITaskRepository taskRepository = new TaskRepository();
-
-    @NotNull
-    private final IProjectRepository projectRepository = new ProjectRepository(taskRepository);
-
-    @NotNull
-    private final IRepository<User> userRepository = new UserRepository();
 
     @NotNull
     private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -43,23 +30,19 @@ public final class Bootstrap implements ServiceLocator {
 
     @Getter
     @NotNull
-    private final ITaskService taskService = new TaskService(taskRepository);
-
-    @Getter
-    @NotNull
-    private final IProjectService projectService = new ProjectService(projectRepository);
-
-    @Getter
-    @NotNull
-    private final IUserService userService = new UserService(userRepository);
-
-    @Getter
-    @NotNull
     private final ITerminalService terminalService = new TerminalService(reader, commands);
 
     @Getter
     @NotNull
-    private final IDomainService domainService = new DomainService();
+    private final IProjectEndpoint projectEndpoint = new ProjectEndpointService().getProjectEndpointPort();
+
+    @Getter
+    @NotNull
+    private final ITaskEndpoint taskEndpoint = new TaskEndpointService().getTaskEndpointPort();
+
+    @Getter
+    @NotNull
+    private final IUserEndpoint userEndpoint = new UserEndpointService().getUserEndpointPort();
 
     public void registerCommand(@NotNull final AbstractCommand command) {
         @Nullable final String cliCommand = command.getName();
@@ -70,7 +53,7 @@ public final class Bootstrap implements ServiceLocator {
         if (cliDescription == null || cliDescription.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        command.setServiceLocator(this);
+        command.setBootstrap(this);
         commands.put(cliCommand, command);
     }
 
@@ -105,10 +88,10 @@ public final class Bootstrap implements ServiceLocator {
             return;
         }
         final boolean secureCheck = !abstractCommand.isSecure() ||
-                (abstractCommand.isSecure() && userService.getCurrentUser() != null);
+                (abstractCommand.isSecure() && userEndpoint.getCurrentUser() != null);
         final boolean roleCheck = (abstractCommand.getRoles() == null) ||
                 (abstractCommand.getRoles() != null &&
-                        userService.isRoleAdmin(userService.getCurrentUser()));
+                        userEndpoint.isRoleAdmin(userEndpoint.getCurrentUser()));
         if (secureCheck && roleCheck) {
             abstractCommand.execute();
             return;
@@ -117,9 +100,9 @@ public final class Bootstrap implements ServiceLocator {
     }
 
     public void createDefaultUser() {
-        User user = userService.createUser(RoleType.USER);
-        User administrator = userService.createUser(RoleType.ADMINISTRATOR);
-        userService.setCurrentUser(user);
+        User user = userEndpoint.createUser(RoleType.USER);
+        User administrator = userEndpoint.createUser(RoleType.ADMINISTRATOR);
+        userEndpoint.setCurrentUser(user);
     }
 
 }
