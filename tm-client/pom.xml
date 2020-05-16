@@ -12,4 +12,72 @@
         <artifactId>task-manager</artifactId>
         <version>1.0.0</version>
     </parent>
+
+<!--    <build>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>com.webcohesion.enunciate</groupId>-->
+<!--                <artifactId>enunciate-core</artifactId>-->
+<!--                <version>2.13.0</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>docs</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <docDir>${project.build.directory}/docs</docDir>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
+
+    <profiles>
+        <profile>
+            <id>wsdlCodegen</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.cxf</groupId>
+                        <artifactId>cxf-codegen-plugin</artifactId>
+                        <version>3.3.6</version>
+                        <executions>
+                            <execution>
+                                <id>generate-sources</id>
+                                <phase>generate-sources</phase>
+                                <configuration>
+                                    <sourceRoot>
+                                        ${project.basedir}/src/main/java
+                                    </sourceRoot>
+                                    <wsdlOptions>
+                                        <wsdlOption>
+                                            <wsdl>
+                                                http://localhost:8080/ProjectEndpoint?wsdl
+                                            </wsdl>
+                                        </wsdlOption>
+                                        <wsdlOption>
+                                            <wsdl>
+                                                http://localhost:8080/TaskEndpoint?wsdl
+                                            </wsdl>
+                                        </wsdlOption>
+                                        <wsdlOption>
+                                            <wsdl>
+                                                http://localhost:8080/UserEndpoint?wsdl
+                                            </wsdl>
+                                        </wsdlOption>
+                                    </wsdlOptions>
+                                </configuration>
+                                <goals><goal>wsdl2java</goal></goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
 </project>
