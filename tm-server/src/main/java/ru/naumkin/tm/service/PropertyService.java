@@ -1,12 +1,14 @@
 package ru.naumkin.tm.service;
 
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.naumkin.tm.api.service.IPropertyService;
 
 import java.io.InputStream;
 import java.util.Properties;
 
-public class PropertyService implements IPropertyService {
+@NoArgsConstructor
+public final class PropertyService implements IPropertyService {
 
     @NotNull
     private final String PROPERTIES_FILE = "/application.properties";
