@@ -9,6 +9,7 @@ import ru.naumkin.tm.entity.Project;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import java.util.LinkedList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -25,7 +26,7 @@ public final class ProjectEndpoint implements IProjectEndpoint {
     @Override
     @WebMethod
     public List<Project> findAllProjects() {
-        return (List<Project>) projectService.findAll();
+        return new LinkedList<>(projectService.findAll());
     }
 
     @NotNull

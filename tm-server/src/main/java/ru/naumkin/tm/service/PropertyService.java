@@ -10,16 +10,13 @@ import java.util.Properties;
 @NoArgsConstructor
 public final class PropertyService implements IPropertyService {
 
-    @NotNull
-    private final String PROPERTIES_FILE = "/application.properties";
-
     @NotNull private final Properties properties = new Properties();
-
 
     @Override
     public void init() throws Exception {
+        @NotNull String PROPERTIES_FILE = "/application.properties";
         @NotNull final InputStream inputStream =
-                ProjectService.class.getResourceAsStream(PROPERTIES_FILE);
+                PropertyService.class.getResourceAsStream(PROPERTIES_FILE);
         properties.load(inputStream);
     }
 

@@ -64,7 +64,8 @@ public final class Bootstrap implements ServiceLocator {
     @NotNull
     private final IUserEndpoint userEndpoint = new UserEndpoint(userService);
 
-    public void init() {
+    public void init() throws Exception {
+        propertyService.init();
         registerEndpoint(projectEndpoint);
         registerEndpoint(taskEndpoint);
         registerEndpoint(userEndpoint);
