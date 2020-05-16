@@ -5,23 +5,23 @@ import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.ServiceLocator;
+import ru.naumkin.tm.api.endpoint.IProjectEndpoint;
+import ru.naumkin.tm.api.endpoint.ITaskEndpoint;
+import ru.naumkin.tm.api.endpoint.IUserEndpoint;
 import ru.naumkin.tm.api.repository.IProjectRepository;
 import ru.naumkin.tm.api.repository.IRepository;
 import ru.naumkin.tm.api.repository.ITaskRepository;
 import ru.naumkin.tm.api.service.*;
-import ru.naumkin.tm.command.AbstractCommand;
+import ru.naumkin.tm.enpoint.ProjectEndpoint;
+import ru.naumkin.tm.enpoint.TaskEndpoint;
+import ru.naumkin.tm.enpoint.UserEndpoint;
 import ru.naumkin.tm.entity.User;
-import ru.naumkin.tm.enumerated.RoleType;
 import ru.naumkin.tm.repository.ProjectRepository;
 import ru.naumkin.tm.repository.TaskRepository;
 import ru.naumkin.tm.repository.UserRepository;
 import ru.naumkin.tm.service.*;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import javax.xml.ws.Endpoint;
 
 @NoArgsConstructor
 public final class Bootstrap implements ServiceLocator {
@@ -34,12 +34,6 @@ public final class Bootstrap implements ServiceLocator {
 
     @NotNull
     private final IRepository<User> userRepository = new UserRepository();
-
-    @NotNull
-    private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-    @NotNull
-    private final  Map<String, AbstractCommand> commands = new LinkedHashMap<>();
 
     @Getter
     @NotNull
@@ -55,71 +49,37 @@ public final class Bootstrap implements ServiceLocator {
 
     @Getter
     @NotNull
-    private final ITerminalService terminalService = new TerminalService(reader, commands);
+    private final IDomainService domainService = new DomainService();
 
     @Getter
     @NotNull
-    private final IDomainService domainService = new DomainService();
+    private final IPropertyService propertyService = new PropertyService();
 
-    public void registerCommand(@NotNull final AbstractCommand command) {
-        @Nullable final String cliCommand = command.getName();
-        @Nullable final String cliDescription = command.getDescription();
-        if (cliCommand == null || cliCommand.isEmpty()) {
-            throw new IllegalArgumentException();
-        }
-        if (cliDescription == null || cliDescription.isEmpty()) {
-            throw new IllegalArgumentException();
-        }
-        command.setServiceLocator(this);
-        commands.put(cliCommand, command);
+    @NotNull
+    private final IProjectEndpoint projectEndpoint = new ProjectEndpoint(projectService);
+
+    @NotNull
+    private final ITaskEndpoint taskEndpoint = new TaskEndpoint(taskService);
+
+    @NotNull
+    private final IUserEndpoint userEndpoint = new UserEndpoint(userService);
+
+    public void init() {
+        registerEndpoint(projectEndpoint);
+        registerEndpoint(taskEndpoint);
+        registerEndpoint(userEndpoint);
     }
 
-    public void init(@NotNull final Set<Class<? extends AbstractCommand>> classes) throws Exception {
-        terminalService.showMessage("*** Welcome to task manager ***");
-        createDefaultUser();
-        @NotNull final Class abstractCommand = AbstractCommand.class;
-        for (@NotNull final Class clazz: classes) {
-            if (abstractCommand.isAssignableFrom(clazz)) {
-                @NotNull final AbstractCommand command = (AbstractCommand) clazz.newInstance();
-                registerCommand(command);
-            }
-        }
-        @Nullable String command;
-        while (true) {
-            command = terminalService.readLine();
-            try {
-                execute(command);
-            } catch (Exception e) {
-                terminalService.showMessage("Something went wrong. Please try again.");
-            }
-        }
-    }
-
-    private void execute(@Nullable final String command) throws Exception {
-        if (command == null || command.isEmpty()) {
+    private void registerEndpoint(@Nullable final Object endpoint) {
+        if (endpoint == null) {
             return;
         }
-        @Nullable final AbstractCommand abstractCommand = commands.get(command);
-        if (abstractCommand == null) {
-            getTerminalService().showMessage("Unknown command");
-            return;
-        }
-        final boolean secureCheck = !abstractCommand.isSecure() ||
-                (abstractCommand.isSecure() && userService.getCurrentUser() != null);
-        final boolean roleCheck = (abstractCommand.getRoles() == null) ||
-                (abstractCommand.getRoles() != null &&
-                        userService.isRoleAdmin(userService.getCurrentUser()));
-        if (secureCheck && roleCheck) {
-            abstractCommand.execute();
-            return;
-        }
-        getTerminalService().showMessage("This command is not allowed.");
-    }
-
-    public void createDefaultUser() {
-        User user = userService.createUser(RoleType.USER);
-        User administrator = userService.createUser(RoleType.ADMINISTRATOR);
-        userService.setCurrentUser(user);
+        @NotNull final String host = propertyService.getServerHost();
+        @NotNull final Integer port = propertyService.getServerPort();
+        @NotNull final String endpointName = endpoint.getClass().getSimpleName();
+        @NotNull final String wsdl = "http://" + host +
+                ":" + port + "/" + endpointName + "?WSDL";
+        Endpoint.publish(wsdl, endpoint);
     }
 
 }

@@ -15,7 +15,7 @@ public interface ServiceLocator {
     IUserService getUserService();
 
     @NotNull
-    ITerminalService getTerminalService();
+    IPropertyService getPropertyService();
 
     @NotNull
     IDomainService getDomainService();
