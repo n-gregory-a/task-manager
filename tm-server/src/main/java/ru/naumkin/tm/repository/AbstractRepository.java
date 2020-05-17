@@ -61,7 +61,7 @@ public abstract class AbstractRepository<E extends AbstractEntity> implements IR
     }
 
     @Override
-    public void load(E[] entities) {
+    public void persist(E[] entities) {
         for (E entity: entities) {
             map.put(entity.getId(), entity);
         }

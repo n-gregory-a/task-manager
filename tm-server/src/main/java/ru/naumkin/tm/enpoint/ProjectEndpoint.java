@@ -69,7 +69,7 @@ public final class ProjectEndpoint implements IProjectEndpoint {
     @Override
     @WebMethod
     public void loadProject(@NotNull final Project[] projects) {
-        projectService.load(projects);
+        projectService.persist(projects);
     }
 
     @NotNull

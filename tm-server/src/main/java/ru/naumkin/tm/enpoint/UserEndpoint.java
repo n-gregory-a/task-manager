@@ -69,7 +69,7 @@ public final class UserEndpoint implements IUserEndpoint {
     @Override
     @WebMethod
     public void loadUser(@NotNull final User[] users) {
-        userService.load(users);
+        userService.persist(users);
     }
 
     @Nullable

@@ -87,10 +87,10 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
     }
 
     @Override
-    public void load(E[] entities) {
+    public void persist(E[] entities) {
         if (entities == null) {
             throw new RuntimeException();
         }
-        repository.load(entities);
+        repository.persist(entities);
     }
 }

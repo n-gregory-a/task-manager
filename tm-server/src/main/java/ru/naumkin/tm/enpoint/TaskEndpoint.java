@@ -68,7 +68,7 @@ public final class TaskEndpoint implements ITaskEndpoint {
     @Override
     @WebMethod
     public void loadTask(@NotNull final Task[] tasks) {
-        taskService.load(tasks);
+        taskService.persist(tasks);
     }
 
     @NotNull
