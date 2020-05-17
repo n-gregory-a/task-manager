@@ -17,7 +17,7 @@ public final class TaskEndpoint implements ITaskEndpoint {
 
     @NotNull private ITaskService taskService;
 
-    public TaskEndpoint(@NotNull ITaskService taskService) {
+    public TaskEndpoint(@NotNull final ITaskService taskService) {
         this.taskService = taskService;
     }
 

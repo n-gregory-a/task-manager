@@ -18,7 +18,7 @@ public final class ProjectEndpoint implements IProjectEndpoint {
 
     @NotNull private IProjectService projectService;
 
-    public ProjectEndpoint(@NotNull IProjectService projectService) {
+    public ProjectEndpoint(@NotNull final IProjectService projectService) {
         this.projectService = projectService;
     }
 

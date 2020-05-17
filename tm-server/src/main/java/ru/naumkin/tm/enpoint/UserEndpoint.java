@@ -18,7 +18,7 @@ public final class UserEndpoint implements IUserEndpoint {
 
     @NotNull private IUserService userService;
 
-    public UserEndpoint(@NotNull IUserService userService) {
+    public UserEndpoint(@NotNull final IUserService userService) {
         this.userService = userService;
     }
 
