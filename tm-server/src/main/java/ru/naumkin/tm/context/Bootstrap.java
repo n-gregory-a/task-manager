@@ -87,6 +87,7 @@ public final class Bootstrap implements ServiceLocator {
         @NotNull final String wsdl = "http://" + host +
                 ":" + port + "/" + endpointName + "?WSDL";
         Endpoint.publish(wsdl, endpoint);
+        System.out.println(wsdl);
     }
 
 }
