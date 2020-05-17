@@ -28,7 +28,7 @@ public final class AboutCommand extends AbstractCommand {
         @Nullable final String buildNumber = Manifests.read("buildNumber");
         @Nullable final String developer = Manifests.read("developer");
         @Nullable final String title = Manifests.read("Implementation-Title");
-        serviceLocator.getTerminalService().showMessage("Title: " + title +
+        bootstrap.getTerminalService().showMessage("Title: " + title +
                 "\nDeveloper: " + developer + "\nBuild number: " + buildNumber);
     }
 
