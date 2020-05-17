@@ -2,9 +2,9 @@ package ru.naumkin.tm.command.user;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.naumkin.tm.api.endpoint.RoleType;
+import ru.naumkin.tm.api.endpoint.User;
 import ru.naumkin.tm.command.AbstractCommand;
-import ru.naumkin.tm.entity.User;
-import ru.naumkin.tm.enumerated.RoleType;
 
 public final class UserUpdateCommand extends AbstractCommand {
 
@@ -26,15 +26,15 @@ public final class UserUpdateCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        serviceLocator.getTerminalService().showMessage("[USER UPDATE PROFILE]");
-        serviceLocator.getTerminalService().showMessage("Enter login:");
-        @Nullable final String login = serviceLocator.getTerminalService().readLine();
-        @NotNull final User user = serviceLocator.getUserService().findOne(login);
-        serviceLocator.getTerminalService().showMessage("Enter new login:");
-        @NotNull final String newLogin = serviceLocator.getTerminalService().readLine();
+        bootstrap.getTerminalService().showMessage("[USER UPDATE PROFILE]");
+        bootstrap.getTerminalService().showMessage("Enter login:");
+        @Nullable final String login = bootstrap.getTerminalService().readLine();
+        @NotNull final User user = bootstrap.getUserEndpoint().findOneUser(login);
+        bootstrap.getTerminalService().showMessage("Enter new login:");
+        @NotNull final String newLogin = bootstrap.getTerminalService().readLine();
         user.setName(newLogin);
-        serviceLocator.getUserService().merge(user, login);
-        serviceLocator.getTerminalService().showMessage("[OK]");
+        bootstrap.getUserEndpoint().mergeUser(user, login);
+        bootstrap.getTerminalService().showMessage("[OK]");
     }
 
     @NotNull

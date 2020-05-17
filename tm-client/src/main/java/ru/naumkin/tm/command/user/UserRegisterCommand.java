@@ -1,8 +1,8 @@
 package ru.naumkin.tm.command.user;
 
 import org.jetbrains.annotations.NotNull;
+import ru.naumkin.tm.api.endpoint.User;
 import ru.naumkin.tm.command.AbstractCommand;
-import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.util.HashGenerator;
 
 import java.io.IOException;
@@ -27,24 +27,24 @@ public final class UserRegisterCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        serviceLocator.getTerminalService().showMessage("[REGISTER NEW USER]");
+        bootstrap.getTerminalService().showMessage("[REGISTER NEW USER]");
         @NotNull final User user = createUniqueLoginUser();
-        serviceLocator.getTerminalService().showMessage("Enter password:");
-        @NotNull final String password = serviceLocator.getTerminalService().readLine();
+        bootstrap.getTerminalService().showMessage("Enter password:");
+        @NotNull final String password = bootstrap.getTerminalService().readLine();
         user.setPassword(HashGenerator.getHash(password));
-        serviceLocator.getUserService().persist(user);
-        serviceLocator.getTerminalService().showMessage("[OK]");
+        bootstrap.getUserEndpoint().persistUser(user);
+        bootstrap.getTerminalService().showMessage("[OK]");
     }
 
     @NotNull
     private User createUniqueLoginUser() throws IOException {
-        serviceLocator.getTerminalService().showMessage("Enter login:");
-        @NotNull final String login = serviceLocator.getTerminalService().readLine();
+        bootstrap.getTerminalService().showMessage("Enter login:");
+        @NotNull final String login = bootstrap.getTerminalService().readLine();
         User user = new User();
         user.setName(login);
-        for (@NotNull final User u: serviceLocator.getUserService().findAll()) {
+        for (@NotNull final User u: bootstrap.getUserEndpoint().findAllUsers()) {
             if (u.getName().equals(login)) {
-                serviceLocator.getTerminalService().showMessage("The login is occupied.");
+                bootstrap.getTerminalService().showMessage("The login is occupied.");
                 createUniqueLoginUser();
             }
         }

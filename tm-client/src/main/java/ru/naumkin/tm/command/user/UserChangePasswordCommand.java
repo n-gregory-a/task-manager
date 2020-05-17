@@ -1,9 +1,9 @@
 package ru.naumkin.tm.command.user;
 
 import org.jetbrains.annotations.NotNull;
+import ru.naumkin.tm.api.endpoint.RoleType;
+import ru.naumkin.tm.api.endpoint.User;
 import ru.naumkin.tm.command.AbstractCommand;
-import ru.naumkin.tm.entity.User;
-import ru.naumkin.tm.enumerated.RoleType;
 import ru.naumkin.tm.util.HashGenerator;
 
 public final class UserChangePasswordCommand extends AbstractCommand {
@@ -26,14 +26,14 @@ public final class UserChangePasswordCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        serviceLocator.getTerminalService().showMessage("[PASSWORD CHANGE]");
-        serviceLocator.getTerminalService().showMessage("Enter login:");
-        @NotNull final String login = serviceLocator.getTerminalService().readLine();
-        @NotNull final User user = serviceLocator.getUserService().findOne(login);
-        serviceLocator.getTerminalService().showMessage("Enter new password:");
-        @NotNull final String password = serviceLocator.getTerminalService().readLine();
+        bootstrap.getTerminalService().showMessage("[PASSWORD CHANGE]");
+        bootstrap.getTerminalService().showMessage("Enter login:");
+        @NotNull final String login = bootstrap.getTerminalService().readLine();
+        @NotNull final User user = bootstrap.getUserEndpoint().findOneUser(login);
+        bootstrap.getTerminalService().showMessage("Enter new password:");
+        @NotNull final String password = bootstrap.getTerminalService().readLine();
         user.setPassword(HashGenerator.getHash(password));
-        serviceLocator.getTerminalService().showMessage("[OK]");
+        bootstrap.getTerminalService().showMessage("[OK]");
     }
 
     @NotNull
