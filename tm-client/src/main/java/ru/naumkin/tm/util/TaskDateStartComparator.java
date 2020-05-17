@@ -2,9 +2,11 @@ package ru.naumkin.tm.util;
 
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import ru.naumkin.tm.entity.Task;
+import ru.naumkin.tm.api.endpoint.Task;
 
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.Comparator;
+import java.util.Date;
 
 @NoArgsConstructor
 public final class TaskDateStartComparator implements Comparator<Task> {
@@ -17,7 +19,11 @@ public final class TaskDateStartComparator implements Comparator<Task> {
         if (taskTwo.getDateStart() == null) {
             throw new RuntimeException();
         }
-        return taskOne.getDateStart().compareTo(taskTwo.getDateStart());
+        @NotNull final XMLGregorianCalendar taskOneXmlStartDate = taskOne.getDateStart();
+        @NotNull final XMLGregorianCalendar taskTwoXmlStartDate = taskTwo.getDateStart();
+        @NotNull final Date taskOneStartDate = DateFormatter.convertToDate(taskOneXmlStartDate);
+        @NotNull final Date taskTwoStartDate = DateFormatter.convertToDate(taskTwoXmlStartDate);
+        return taskOneStartDate.compareTo(taskTwoStartDate);
     }
 
 }

@@ -2,7 +2,7 @@ package ru.naumkin.tm.util;
 
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import ru.naumkin.tm.entity.Project;
+import ru.naumkin.tm.api.endpoint.Project;
 
 import java.util.Comparator;
 
