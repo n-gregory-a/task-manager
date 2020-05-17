@@ -1,14 +1,33 @@
 package ru.naumkin.tm.api.service;
 
 import org.jetbrains.annotations.NotNull;
-import ru.naumkin.tm.api.ServiceLocator;
 import ru.naumkin.tm.dto.Domain;
 
 public interface IDomainService {
 
-    @NotNull
-    Domain load(@NotNull final ServiceLocator serviceLocator);
+    void loadBinaryData() throws Exception;
 
-    void save(@NotNull final ServiceLocator serviceLocator, Domain domain);
+    void saveBinaryData() throws Exception;
+
+    void loadJsonDataFasterXml() throws Exception;
+
+    void saveJsonDataFasterXml() throws Exception;
+
+    void loadJsonDataJaxb() throws Exception;
+
+    void saveJsonDataJaxb() throws Exception;
+
+    void loadXmlDataFasterXml() throws Exception;
+
+    void saveXmlDataFasterXml() throws Exception;
+
+    void loadXmlDataJaxb() throws Exception;
+
+    void saveXmlDataJaxb() throws Exception;
+
+    @NotNull
+    Domain load();
+
+    void save(@NotNull final Domain domain);
 
 }

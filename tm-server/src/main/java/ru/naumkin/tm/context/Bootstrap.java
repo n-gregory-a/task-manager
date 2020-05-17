@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.ServiceLocator;
+import ru.naumkin.tm.api.endpoint.IDomainEndpoint;
 import ru.naumkin.tm.api.endpoint.IProjectEndpoint;
 import ru.naumkin.tm.api.endpoint.ITaskEndpoint;
 import ru.naumkin.tm.api.endpoint.IUserEndpoint;
@@ -12,6 +13,7 @@ import ru.naumkin.tm.api.repository.IProjectRepository;
 import ru.naumkin.tm.api.repository.IRepository;
 import ru.naumkin.tm.api.repository.ITaskRepository;
 import ru.naumkin.tm.api.service.*;
+import ru.naumkin.tm.enpoint.DomainEndpoint;
 import ru.naumkin.tm.enpoint.ProjectEndpoint;
 import ru.naumkin.tm.enpoint.TaskEndpoint;
 import ru.naumkin.tm.enpoint.UserEndpoint;
@@ -49,7 +51,7 @@ public final class Bootstrap implements ServiceLocator {
 
     @Getter
     @NotNull
-    private final IDomainService domainService = new DomainService();
+    private final IDomainService domainService = new DomainService(projectService, taskService, userService);
 
     @Getter
     @NotNull
@@ -64,11 +66,15 @@ public final class Bootstrap implements ServiceLocator {
     @NotNull
     private final IUserEndpoint userEndpoint = new UserEndpoint(userService);
 
+    @NotNull
+    private final IDomainEndpoint domainEndpoint = new DomainEndpoint(domainService);
+
     public void init() throws Exception {
         propertyService.init();
         registerEndpoint(projectEndpoint);
         registerEndpoint(taskEndpoint);
         registerEndpoint(userEndpoint);
+        registerEndpoint(domainEndpoint);
     }
 
     private void registerEndpoint(@Nullable final Object endpoint) {

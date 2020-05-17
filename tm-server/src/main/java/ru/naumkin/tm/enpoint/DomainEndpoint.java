@@ -2,7 +2,6 @@ package ru.naumkin.tm.enpoint;
 
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import ru.naumkin.tm.api.ServiceLocator;
 import ru.naumkin.tm.api.endpoint.IDomainEndpoint;
 import ru.naumkin.tm.api.service.IDomainService;
 import ru.naumkin.tm.dto.Domain;
@@ -20,17 +19,76 @@ public final class DomainEndpoint implements IDomainEndpoint {
         this.domainService = domainService;
     }
 
-    @NotNull
     @Override
     @WebMethod
-    public Domain load(@NotNull final ServiceLocator serviceLocator) {
-        return domainService.load(serviceLocator);
+    public void loadBinaryData() throws Exception {
+        domainService.loadBinaryData();
     }
 
     @Override
     @WebMethod
-    public void save(@NotNull final ServiceLocator serviceLocator, @NotNull final Domain domain) {
-        domainService.save(serviceLocator, domain);
+    public void saveBinaryData() throws Exception {
+        domainService.saveBinaryData();
+    }
+
+    @Override
+    @WebMethod
+    public void loadJsonDataFasterXml() throws Exception {
+        domainService.loadJsonDataFasterXml();
+    }
+
+    @Override
+    @WebMethod
+    public void saveJsonDataFasterXml() throws Exception {
+        domainService.saveJsonDataFasterXml();
+    }
+
+    @Override
+    @WebMethod
+    public void loadJsonDataJaxb() throws Exception {
+        domainService.loadJsonDataJaxb();
+    }
+
+    @Override
+    @WebMethod
+    public void saveJsonDataJaxb() throws Exception {
+        domainService.saveJsonDataJaxb();
+    }
+
+    @Override
+    @WebMethod
+    public void loadXmlDataFasterXml() throws Exception {
+        domainService.loadXmlDataFasterXml();
+    }
+
+    @Override
+    public void saveXmlDataFasterXml() throws Exception {
+        domainService.saveXmlDataFasterXml();
+    }
+
+    @Override
+    @WebMethod
+    public void loadXmlDataJaxb() throws Exception {
+        domainService.loadXmlDataJaxb();
+    }
+
+    @Override
+    @WebMethod
+    public void saveXmlDataJaxb() throws Exception {
+        domainService.saveXmlDataJaxb();
+    }
+
+    @NotNull
+    @Override
+    @WebMethod
+    public Domain load() {
+        return domainService.load();
+    }
+
+    @Override
+    @WebMethod
+    public void save(@NotNull Domain domain) {
+        domainService.save(domain);
     }
 
 }
