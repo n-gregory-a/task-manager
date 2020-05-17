@@ -2,10 +2,10 @@ package ru.naumkin.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.naumkin.tm.api.service.ITaskService;
+import ru.naumkin.tm.api.endpoint.ITaskEndpoint;
+import ru.naumkin.tm.api.endpoint.Task;
+import ru.naumkin.tm.api.endpoint.User;
 import ru.naumkin.tm.command.AbstractCommand;
-import ru.naumkin.tm.entity.Task;
-import ru.naumkin.tm.entity.User;
 
 public final class TaskCreateCommand extends AbstractCommand {
 
@@ -27,16 +27,18 @@ public final class TaskCreateCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        serviceLocator.getTerminalService().showMessage("[TASK CREATE]");
-        @Nullable final User user = serviceLocator.getUserService().getCurrentUser();
-        @NotNull final ITaskService taskService = serviceLocator.getTaskService();
-        serviceLocator.getTerminalService().showMessage("Enter name:");
-        @NotNull Task task = new Task(serviceLocator.getTerminalService().readLine());
+        bootstrap.getTerminalService().showMessage("[TASK CREATE]");
+        @Nullable final User user = bootstrap.getUserEndpoint().getCurrentUser();
+        @NotNull final ITaskEndpoint taskEndpoint = bootstrap.getTaskEndpoint();
+        bootstrap.getTerminalService().showMessage("Enter name:");
+        @NotNull final String name = bootstrap.getTerminalService().readLine();
+        @NotNull Task task = new Task();
+        task.setName(name);
         if (user != null) {
             task.setUserId(user.getId());
         }
-        taskService.persist(task);
-        serviceLocator.getTerminalService().showMessage("[OK]");
+        taskEndpoint.persistTask(task);
+        bootstrap.getTerminalService().showMessage("[OK]");
     }
 
 }

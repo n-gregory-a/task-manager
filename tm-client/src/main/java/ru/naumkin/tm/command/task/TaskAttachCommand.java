@@ -2,11 +2,11 @@ package ru.naumkin.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.naumkin.tm.api.service.IProjectService;
-import ru.naumkin.tm.api.service.ITaskService;
+import ru.naumkin.tm.api.endpoint.IProjectEndpoint;
+import ru.naumkin.tm.api.endpoint.ITaskEndpoint;
+import ru.naumkin.tm.api.endpoint.Project;
+import ru.naumkin.tm.api.endpoint.Task;
 import ru.naumkin.tm.command.AbstractCommand;
-import ru.naumkin.tm.entity.Project;
-import ru.naumkin.tm.entity.Task;
 
 public final class TaskAttachCommand extends AbstractCommand {
 
@@ -28,22 +28,22 @@ public final class TaskAttachCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        serviceLocator.getTerminalService().showMessage("[TASK ATTACH]");
-        @NotNull final IProjectService projectService = serviceLocator.getProjectService();
-        serviceLocator.getTerminalService().showMessage("Enter project name:");
+        bootstrap.getTerminalService().showMessage("[TASK ATTACH]");
+        @NotNull final IProjectEndpoint projectEndpoint = bootstrap.getProjectEndpoint();
+        bootstrap.getTerminalService().showMessage("Enter project name:");
         @NotNull Project project;
-        @NotNull final String projectName = serviceLocator.getTerminalService().readLine();
-        @Nullable final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
-        project = projectService.findOne(projectName, currentUserId);
-        serviceLocator.getTerminalService().showMessage("Enter task name:");
-        @NotNull final String taskName = serviceLocator.getTerminalService().readLine();
-        @NotNull final ITaskService taskService = serviceLocator.getTaskService();
+        @NotNull final String projectName = bootstrap.getTerminalService().readLine();
+        @Nullable final String currentUserId = bootstrap.getUserEndpoint().getCurrentUserId();
+        project = projectEndpoint.findOneProjectByUserId(currentUserId, projectName);
+        bootstrap.getTerminalService().showMessage("Enter task name:");
+        @NotNull final String taskName = bootstrap.getTerminalService().readLine();
+        @NotNull final ITaskEndpoint taskEndpoint = bootstrap.getTaskEndpoint();
         @Nullable final Task task;
-        task = taskService.findOne(taskName, currentUserId);
+        task = taskEndpoint.findOneTaskByUserId(currentUserId, taskName);
         if (task != null) {
             task.setProjectId(project.getId());
         }
-        serviceLocator.getTerminalService().showMessage("[OK]");
+        bootstrap.getTerminalService().showMessage("[OK]");
     }
 
 }

@@ -2,11 +2,11 @@ package ru.naumkin.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.naumkin.tm.api.service.IProjectService;
-import ru.naumkin.tm.api.service.ITaskService;
+import ru.naumkin.tm.api.endpoint.IProjectEndpoint;
+import ru.naumkin.tm.api.endpoint.ITaskEndpoint;
+import ru.naumkin.tm.api.endpoint.Project;
+import ru.naumkin.tm.api.endpoint.Task;
 import ru.naumkin.tm.command.AbstractCommand;
-import ru.naumkin.tm.entity.Project;
-import ru.naumkin.tm.entity.Task;
 
 public final class TaskViewCommand extends AbstractCommand {
 
@@ -28,21 +28,21 @@ public final class TaskViewCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        serviceLocator.getTerminalService().showMessage("[VIEW TASKS ATTACHED TO THE PROJECT]");
-        @NotNull final ITaskService taskService = serviceLocator.getTaskService();
-        @NotNull final IProjectService projectService = serviceLocator.getProjectService();
-        serviceLocator.getTerminalService().showMessage("Enter project name:");
-        @NotNull final String projectName = serviceLocator.getTerminalService().readLine();
-        @Nullable final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
-        @NotNull final Project project = projectService.findOne(projectName, currentUserId);
-        for (@NotNull final Task task: taskService.findAll(currentUserId)) {
+        bootstrap.getTerminalService().showMessage("[VIEW TASKS ATTACHED TO THE PROJECT]");
+        @NotNull final ITaskEndpoint taskEndpoint = bootstrap.getTaskEndpoint();
+        @NotNull final IProjectEndpoint projectEndpoint = bootstrap.getProjectEndpoint();
+        bootstrap.getTerminalService().showMessage("Enter project name:");
+        @NotNull final String projectName = bootstrap.getTerminalService().readLine();
+        @Nullable final String currentUserId = bootstrap.getUserEndpoint().getCurrentUserId();
+        @NotNull final Project project = projectEndpoint.findOneProjectByUserId(currentUserId, projectName);
+        for (@NotNull final Task task: taskEndpoint.findAllTasksByUserId(currentUserId)) {
             @Nullable final String projectId = task.getProjectId();
             if (projectId == null) {
                 continue;
             }
             final boolean taskAttachedToProject = projectId.equals(project.getId());
             if (taskAttachedToProject) {
-                serviceLocator.getTerminalService().showMessage(task.toString());
+                bootstrap.getTerminalService().showMessage(task.toString());
             }
         }
     }

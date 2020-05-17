@@ -2,9 +2,9 @@ package ru.naumkin.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.naumkin.tm.api.service.ITaskService;
+import ru.naumkin.tm.api.endpoint.ITaskEndpoint;
+import ru.naumkin.tm.api.endpoint.Task;
 import ru.naumkin.tm.command.AbstractCommand;
-import ru.naumkin.tm.entity.Task;
 
 public final class TaskListCommand extends AbstractCommand {
 
@@ -26,12 +26,12 @@ public final class TaskListCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        serviceLocator.getTerminalService().showMessage("[TASK LIST]");
-        @NotNull final ITaskService taskService = serviceLocator.getTaskService();
+        bootstrap.getTerminalService().showMessage("[TASK LIST]");
+        @NotNull final ITaskEndpoint taskService = bootstrap.getTaskEndpoint();
         int index = 1;
-        @Nullable final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
-        for (@NotNull final Task task: taskService.findAll(currentUserId)) {
-            serviceLocator.getTerminalService().showMessage(index++ + ". " + task.toString());
+        @Nullable final String currentUserId = bootstrap.getUserEndpoint().getCurrentUserId();
+        for (@NotNull final Task task: taskService.findAllTasksByUserId(currentUserId)) {
+            bootstrap.getTerminalService().showMessage(index++ + ". " + task.toString());
         }
     }
 

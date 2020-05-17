@@ -2,9 +2,9 @@ package ru.naumkin.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.naumkin.tm.api.service.ITaskService;
+import ru.naumkin.tm.api.endpoint.ITaskEndpoint;
+import ru.naumkin.tm.api.endpoint.Task;
 import ru.naumkin.tm.command.AbstractCommand;
-import ru.naumkin.tm.entity.Task;
 
 public final class TaskRemoveCommand extends AbstractCommand {
 
@@ -26,14 +26,14 @@ public final class TaskRemoveCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        serviceLocator.getTerminalService().showMessage("[TASK REMOVE]");
-        @NotNull final ITaskService taskService = serviceLocator.getTaskService();
-        @Nullable final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
-        serviceLocator.getTerminalService().showMessage("Enter task name:");
-        @NotNull final String taskName = serviceLocator.getTerminalService().readLine();
-        @Nullable final Task task = taskService.findOne(taskName, currentUserId);
-        taskService.remove(task);
-        serviceLocator.getTerminalService().showMessage("[OK]");
+        bootstrap.getTerminalService().showMessage("[TASK REMOVE]");
+        @NotNull final ITaskEndpoint taskEndpoint = bootstrap.getTaskEndpoint();
+        @Nullable final String currentUserId = bootstrap.getUserEndpoint().getCurrentUserId();
+        bootstrap.getTerminalService().showMessage("Enter task name:");
+        @NotNull final String taskName = bootstrap.getTerminalService().readLine();
+        @Nullable final Task task = taskEndpoint.findOneTaskByUserId(currentUserId, taskName);
+        taskEndpoint.removeTask(task);
+        bootstrap.getTerminalService().showMessage("[OK]");
     }
 
 }

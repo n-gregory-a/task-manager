@@ -2,9 +2,9 @@ package ru.naumkin.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.naumkin.tm.api.service.ITaskService;
+import ru.naumkin.tm.api.endpoint.ITaskEndpoint;
+import ru.naumkin.tm.api.endpoint.Task;
 import ru.naumkin.tm.command.AbstractCommand;
-import ru.naumkin.tm.entity.Task;
 
 public final class TaskReadCommand extends AbstractCommand {
 
@@ -26,14 +26,14 @@ public final class TaskReadCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        serviceLocator.getTerminalService().showMessage("[TASK READ]");
-        serviceLocator.getTerminalService().showMessage("Enter task name:");
-        @NotNull final String taskName = serviceLocator.getTerminalService().readLine();
-        @NotNull final ITaskService taskService = serviceLocator.getTaskService();
-        @Nullable final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
-        @Nullable final Task task = taskService.findOne(taskName, currentUserId);
+        bootstrap.getTerminalService().showMessage("[TASK READ]");
+        bootstrap.getTerminalService().showMessage("Enter task name:");
+        @NotNull final String taskName = bootstrap.getTerminalService().readLine();
+        @NotNull final ITaskEndpoint taskEndpoint = bootstrap.getTaskEndpoint();
+        @Nullable final String currentUserId = bootstrap.getUserEndpoint().getCurrentUserId();
+        @Nullable final Task task = taskEndpoint.findOneTaskByUserId(currentUserId, taskName);
         if (task != null) {
-            serviceLocator.getTerminalService().showMessage(task.toString());
+            bootstrap.getTerminalService().showMessage(task.toString());
         }
     }
 

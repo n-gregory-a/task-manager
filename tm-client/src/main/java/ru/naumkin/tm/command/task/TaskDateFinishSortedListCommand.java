@@ -2,9 +2,9 @@ package ru.naumkin.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.naumkin.tm.api.service.ITaskService;
+import ru.naumkin.tm.api.endpoint.ITaskEndpoint;
+import ru.naumkin.tm.api.endpoint.Task;
 import ru.naumkin.tm.command.AbstractCommand;
-import ru.naumkin.tm.entity.Task;
 
 public class TaskDateFinishSortedListCommand extends AbstractCommand {
 
@@ -26,13 +26,13 @@ public class TaskDateFinishSortedListCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        serviceLocator.getTerminalService()
+        bootstrap.getTerminalService()
                 .showMessage("[TASK LIST SORTED BY FINISH DATE]");
-        @NotNull final ITaskService taskService = serviceLocator.getTaskService();
+        @NotNull final ITaskEndpoint taskEndpoint = bootstrap.getTaskEndpoint();
         int index = 1;
-        @Nullable final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
-        for (@NotNull final Task task: taskService.sortByDateFinish(currentUserId)) {
-            serviceLocator.getTerminalService().showMessage(index++ + ". " + task.toString());
+        @Nullable final String currentUserId = bootstrap.getUserEndpoint().getCurrentUserId();
+        for (@NotNull final Task task: taskEndpoint.sortTasksByDateFinish(currentUserId)) {
+            bootstrap.getTerminalService().showMessage(index++ + ". " + task.toString());
         }
     }
 
