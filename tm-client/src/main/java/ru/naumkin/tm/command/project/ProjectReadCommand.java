@@ -32,7 +32,7 @@ public final class ProjectReadCommand extends AbstractCommand {
         @NotNull final IProjectEndpoint projectService = bootstrap.getProjectEndpoint();
         @NotNull Project project;
         @Nullable final String currentUserId = bootstrap.getUserEndpoint().getCurrentUserId();
-        project = projectService.findOneProjectByUserId(projectName, currentUserId);
+        project = projectService.findOneProjectByUserId(currentUserId, projectName);
         bootstrap.getTerminalService().showMessage(project.toString());
     }
 

@@ -31,7 +31,7 @@ public final class ProjectRemoveCommand extends AbstractCommand {
         @Nullable final String currentUserId = bootstrap.getUserEndpoint().getCurrentUserId();
         bootstrap.getTerminalService().showMessage("Enter project name:");
         @NotNull final String projectName = bootstrap.getTerminalService().readLine();
-        @NotNull final Project project = projectEndpoint.findOneProjectByUserId(projectName, currentUserId);
+        @NotNull final Project project = projectEndpoint.findOneProjectByUserId(currentUserId, projectName);
         projectEndpoint.removeProjectByUserId(currentUserId, project);
         bootstrap.getTerminalService().showMessage("[OK]");
     }
