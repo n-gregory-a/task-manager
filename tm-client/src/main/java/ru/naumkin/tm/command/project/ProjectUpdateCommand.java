@@ -54,8 +54,8 @@ public final class ProjectUpdateCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("Enter new description:");
         project.setDescription(bootstrap.getTerminalService().readLine());
         bootstrap.getTerminalService().showMessage("Enter new start date(dd.mm.yyyy):");
-        String startDate = bootstrap.getTerminalService().readLine();
-        Date date = DateFormatter.convertStringToDate(startDate);
+        @NotNull final String startDate = bootstrap.getTerminalService().readLine();
+        @NotNull Date date = DateFormatter.convertStringToDate(startDate);
         project.setDateStart(DateFormatter.convertToXmlGregorianCalendar(date));
         bootstrap.getTerminalService().showMessage("Enter new finish date(dd.mm.yyyy):");
         String finishDate = bootstrap.getTerminalService().readLine();
