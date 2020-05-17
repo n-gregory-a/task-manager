@@ -14,6 +14,7 @@ import ru.naumkin.tm.service.TerminalService;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.lang.Exception;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;

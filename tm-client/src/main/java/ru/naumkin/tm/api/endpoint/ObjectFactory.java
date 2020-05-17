@@ -24,30 +24,32 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _CreateUser_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "createUser");
-    private final static QName _CreateUserResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "createUserResponse");
-    private final static QName _FindAllUsers_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "findAllUsers");
-    private final static QName _FindAllUsersResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "findAllUsersResponse");
-    private final static QName _FindOneUser_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "findOneUser");
-    private final static QName _FindOneUserResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "findOneUserResponse");
-    private final static QName _GetCurrentUser_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "getCurrentUser");
-    private final static QName _GetCurrentUserId_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "getCurrentUserId");
-    private final static QName _GetCurrentUserIdResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "getCurrentUserIdResponse");
-    private final static QName _GetCurrentUserResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "getCurrentUserResponse");
-    private final static QName _IsRoleAdmin_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "isRoleAdmin");
-    private final static QName _IsRoleAdminResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "isRoleAdminResponse");
-    private final static QName _LoadUser_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "loadUser");
-    private final static QName _LoadUserResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "loadUserResponse");
-    private final static QName _MergeUser_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "mergeUser");
-    private final static QName _MergeUserResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "mergeUserResponse");
-    private final static QName _PersistUser_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "persistUser");
-    private final static QName _PersistUserResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "persistUserResponse");
-    private final static QName _RemoveAllUser_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "removeAllUser");
-    private final static QName _RemoveAllUserResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "removeAllUserResponse");
-    private final static QName _RemoveUser_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "removeUser");
-    private final static QName _RemoveUserResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "removeUserResponse");
-    private final static QName _SetCurrentUser_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "setCurrentUser");
-    private final static QName _SetCurrentUserResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "setCurrentUserResponse");
+    private final static QName _Exception_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "Exception");
+    private final static QName _Domain_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "domain");
+    private final static QName _Load_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "load");
+    private final static QName _LoadBinaryData_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "loadBinaryData");
+    private final static QName _LoadBinaryDataResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "loadBinaryDataResponse");
+    private final static QName _LoadJsonDataFasterXml_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "loadJsonDataFasterXml");
+    private final static QName _LoadJsonDataFasterXmlResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "loadJsonDataFasterXmlResponse");
+    private final static QName _LoadJsonDataJaxb_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "loadJsonDataJaxb");
+    private final static QName _LoadJsonDataJaxbResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "loadJsonDataJaxbResponse");
+    private final static QName _LoadResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "loadResponse");
+    private final static QName _LoadXmlDataFasterXml_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "loadXmlDataFasterXml");
+    private final static QName _LoadXmlDataFasterXmlResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "loadXmlDataFasterXmlResponse");
+    private final static QName _LoadXmlDataJaxb_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "loadXmlDataJaxb");
+    private final static QName _LoadXmlDataJaxbResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "loadXmlDataJaxbResponse");
+    private final static QName _Save_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "save");
+    private final static QName _SaveBinaryData_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "saveBinaryData");
+    private final static QName _SaveBinaryDataResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "saveBinaryDataResponse");
+    private final static QName _SaveJsonDataFasterXml_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "saveJsonDataFasterXml");
+    private final static QName _SaveJsonDataFasterXmlResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "saveJsonDataFasterXmlResponse");
+    private final static QName _SaveJsonDataJaxb_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "saveJsonDataJaxb");
+    private final static QName _SaveJsonDataJaxbResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "saveJsonDataJaxbResponse");
+    private final static QName _SaveResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "saveResponse");
+    private final static QName _SaveXmlDataFasterXml_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "saveXmlDataFasterXml");
+    private final static QName _SaveXmlDataFasterXmlResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "saveXmlDataFasterXmlResponse");
+    private final static QName _SaveXmlDataJaxb_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "saveXmlDataJaxb");
+    private final static QName _SaveXmlDataJaxbResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "saveXmlDataJaxbResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: ru.naumkin.tm.api.endpoint
@@ -57,195 +59,227 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CreateUser }
+     * Create an instance of {@link Exception }
      * 
      */
-    public CreateUser createCreateUser() {
-        return new CreateUser();
+    public Exception createException() {
+        return new Exception();
     }
 
     /**
-     * Create an instance of {@link CreateUserResponse }
+     * Create an instance of {@link Domain }
      * 
      */
-    public CreateUserResponse createCreateUserResponse() {
-        return new CreateUserResponse();
+    public Domain createDomain() {
+        return new Domain();
     }
 
     /**
-     * Create an instance of {@link FindAllUsers }
+     * Create an instance of {@link Load }
      * 
      */
-    public FindAllUsers createFindAllUsers() {
-        return new FindAllUsers();
+    public Load createLoad() {
+        return new Load();
     }
 
     /**
-     * Create an instance of {@link FindAllUsersResponse }
+     * Create an instance of {@link LoadBinaryData }
      * 
      */
-    public FindAllUsersResponse createFindAllUsersResponse() {
-        return new FindAllUsersResponse();
+    public LoadBinaryData createLoadBinaryData() {
+        return new LoadBinaryData();
     }
 
     /**
-     * Create an instance of {@link FindOneUser }
+     * Create an instance of {@link LoadBinaryDataResponse }
      * 
      */
-    public FindOneUser createFindOneUser() {
-        return new FindOneUser();
+    public LoadBinaryDataResponse createLoadBinaryDataResponse() {
+        return new LoadBinaryDataResponse();
     }
 
     /**
-     * Create an instance of {@link FindOneUserResponse }
+     * Create an instance of {@link LoadJsonDataFasterXml }
      * 
      */
-    public FindOneUserResponse createFindOneUserResponse() {
-        return new FindOneUserResponse();
+    public LoadJsonDataFasterXml createLoadJsonDataFasterXml() {
+        return new LoadJsonDataFasterXml();
     }
 
     /**
-     * Create an instance of {@link GetCurrentUser }
+     * Create an instance of {@link LoadJsonDataFasterXmlResponse }
      * 
      */
-    public GetCurrentUser createGetCurrentUser() {
-        return new GetCurrentUser();
+    public LoadJsonDataFasterXmlResponse createLoadJsonDataFasterXmlResponse() {
+        return new LoadJsonDataFasterXmlResponse();
     }
 
     /**
-     * Create an instance of {@link GetCurrentUserId }
+     * Create an instance of {@link LoadJsonDataJaxb }
      * 
      */
-    public GetCurrentUserId createGetCurrentUserId() {
-        return new GetCurrentUserId();
+    public LoadJsonDataJaxb createLoadJsonDataJaxb() {
+        return new LoadJsonDataJaxb();
     }
 
     /**
-     * Create an instance of {@link GetCurrentUserIdResponse }
+     * Create an instance of {@link LoadJsonDataJaxbResponse }
      * 
      */
-    public GetCurrentUserIdResponse createGetCurrentUserIdResponse() {
-        return new GetCurrentUserIdResponse();
+    public LoadJsonDataJaxbResponse createLoadJsonDataJaxbResponse() {
+        return new LoadJsonDataJaxbResponse();
     }
 
     /**
-     * Create an instance of {@link GetCurrentUserResponse }
+     * Create an instance of {@link LoadResponse }
      * 
      */
-    public GetCurrentUserResponse createGetCurrentUserResponse() {
-        return new GetCurrentUserResponse();
+    public LoadResponse createLoadResponse() {
+        return new LoadResponse();
     }
 
     /**
-     * Create an instance of {@link IsRoleAdmin }
+     * Create an instance of {@link LoadXmlDataFasterXml }
      * 
      */
-    public IsRoleAdmin createIsRoleAdmin() {
-        return new IsRoleAdmin();
+    public LoadXmlDataFasterXml createLoadXmlDataFasterXml() {
+        return new LoadXmlDataFasterXml();
     }
 
     /**
-     * Create an instance of {@link IsRoleAdminResponse }
+     * Create an instance of {@link LoadXmlDataFasterXmlResponse }
      * 
      */
-    public IsRoleAdminResponse createIsRoleAdminResponse() {
-        return new IsRoleAdminResponse();
+    public LoadXmlDataFasterXmlResponse createLoadXmlDataFasterXmlResponse() {
+        return new LoadXmlDataFasterXmlResponse();
     }
 
     /**
-     * Create an instance of {@link LoadUser }
+     * Create an instance of {@link LoadXmlDataJaxb }
      * 
      */
-    public LoadUser createLoadUser() {
-        return new LoadUser();
+    public LoadXmlDataJaxb createLoadXmlDataJaxb() {
+        return new LoadXmlDataJaxb();
     }
 
     /**
-     * Create an instance of {@link LoadUserResponse }
+     * Create an instance of {@link LoadXmlDataJaxbResponse }
      * 
      */
-    public LoadUserResponse createLoadUserResponse() {
-        return new LoadUserResponse();
+    public LoadXmlDataJaxbResponse createLoadXmlDataJaxbResponse() {
+        return new LoadXmlDataJaxbResponse();
     }
 
     /**
-     * Create an instance of {@link MergeUser }
+     * Create an instance of {@link Save }
      * 
      */
-    public MergeUser createMergeUser() {
-        return new MergeUser();
+    public Save createSave() {
+        return new Save();
     }
 
     /**
-     * Create an instance of {@link MergeUserResponse }
+     * Create an instance of {@link SaveBinaryData }
      * 
      */
-    public MergeUserResponse createMergeUserResponse() {
-        return new MergeUserResponse();
+    public SaveBinaryData createSaveBinaryData() {
+        return new SaveBinaryData();
     }
 
     /**
-     * Create an instance of {@link PersistUser }
+     * Create an instance of {@link SaveBinaryDataResponse }
      * 
      */
-    public PersistUser createPersistUser() {
-        return new PersistUser();
+    public SaveBinaryDataResponse createSaveBinaryDataResponse() {
+        return new SaveBinaryDataResponse();
     }
 
     /**
-     * Create an instance of {@link PersistUserResponse }
+     * Create an instance of {@link SaveJsonDataFasterXml }
      * 
      */
-    public PersistUserResponse createPersistUserResponse() {
-        return new PersistUserResponse();
+    public SaveJsonDataFasterXml createSaveJsonDataFasterXml() {
+        return new SaveJsonDataFasterXml();
     }
 
     /**
-     * Create an instance of {@link RemoveAllUser }
+     * Create an instance of {@link SaveJsonDataFasterXmlResponse }
      * 
      */
-    public RemoveAllUser createRemoveAllUser() {
-        return new RemoveAllUser();
+    public SaveJsonDataFasterXmlResponse createSaveJsonDataFasterXmlResponse() {
+        return new SaveJsonDataFasterXmlResponse();
     }
 
     /**
-     * Create an instance of {@link RemoveAllUserResponse }
+     * Create an instance of {@link SaveJsonDataJaxb }
      * 
      */
-    public RemoveAllUserResponse createRemoveAllUserResponse() {
-        return new RemoveAllUserResponse();
+    public SaveJsonDataJaxb createSaveJsonDataJaxb() {
+        return new SaveJsonDataJaxb();
     }
 
     /**
-     * Create an instance of {@link RemoveUser }
+     * Create an instance of {@link SaveJsonDataJaxbResponse }
      * 
      */
-    public RemoveUser createRemoveUser() {
-        return new RemoveUser();
+    public SaveJsonDataJaxbResponse createSaveJsonDataJaxbResponse() {
+        return new SaveJsonDataJaxbResponse();
     }
 
     /**
-     * Create an instance of {@link RemoveUserResponse }
+     * Create an instance of {@link SaveResponse }
      * 
      */
-    public RemoveUserResponse createRemoveUserResponse() {
-        return new RemoveUserResponse();
+    public SaveResponse createSaveResponse() {
+        return new SaveResponse();
     }
 
     /**
-     * Create an instance of {@link SetCurrentUser }
+     * Create an instance of {@link SaveXmlDataFasterXml }
      * 
      */
-    public SetCurrentUser createSetCurrentUser() {
-        return new SetCurrentUser();
+    public SaveXmlDataFasterXml createSaveXmlDataFasterXml() {
+        return new SaveXmlDataFasterXml();
     }
 
     /**
-     * Create an instance of {@link SetCurrentUserResponse }
+     * Create an instance of {@link SaveXmlDataFasterXmlResponse }
      * 
      */
-    public SetCurrentUserResponse createSetCurrentUserResponse() {
-        return new SetCurrentUserResponse();
+    public SaveXmlDataFasterXmlResponse createSaveXmlDataFasterXmlResponse() {
+        return new SaveXmlDataFasterXmlResponse();
+    }
+
+    /**
+     * Create an instance of {@link SaveXmlDataJaxb }
+     * 
+     */
+    public SaveXmlDataJaxb createSaveXmlDataJaxb() {
+        return new SaveXmlDataJaxb();
+    }
+
+    /**
+     * Create an instance of {@link SaveXmlDataJaxbResponse }
+     * 
+     */
+    public SaveXmlDataJaxbResponse createSaveXmlDataJaxbResponse() {
+        return new SaveXmlDataJaxbResponse();
+    }
+
+    /**
+     * Create an instance of {@link Project }
+     * 
+     */
+    public Project createProject() {
+        return new Project();
+    }
+
+    /**
+     * Create an instance of {@link Task }
+     * 
+     */
+    public Task createTask() {
+        return new Task();
     }
 
     /**
@@ -257,315 +291,341 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link CreateUser }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Exception }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link CreateUser }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link Exception }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "createUser")
-    public JAXBElement<CreateUser> createCreateUser(CreateUser value) {
-        return new JAXBElement<CreateUser>(_CreateUser_QNAME, CreateUser.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "Exception")
+    public JAXBElement<Exception> createException(Exception value) {
+        return new JAXBElement<Exception>(_Exception_QNAME, Exception.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link CreateUserResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Domain }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link CreateUserResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link Domain }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "createUserResponse")
-    public JAXBElement<CreateUserResponse> createCreateUserResponse(CreateUserResponse value) {
-        return new JAXBElement<CreateUserResponse>(_CreateUserResponse_QNAME, CreateUserResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "domain")
+    public JAXBElement<Domain> createDomain(Domain value) {
+        return new JAXBElement<Domain>(_Domain_QNAME, Domain.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link FindAllUsers }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Load }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link FindAllUsers }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link Load }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "findAllUsers")
-    public JAXBElement<FindAllUsers> createFindAllUsers(FindAllUsers value) {
-        return new JAXBElement<FindAllUsers>(_FindAllUsers_QNAME, FindAllUsers.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "load")
+    public JAXBElement<Load> createLoad(Load value) {
+        return new JAXBElement<Load>(_Load_QNAME, Load.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link FindAllUsersResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link LoadBinaryData }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link FindAllUsersResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link LoadBinaryData }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "findAllUsersResponse")
-    public JAXBElement<FindAllUsersResponse> createFindAllUsersResponse(FindAllUsersResponse value) {
-        return new JAXBElement<FindAllUsersResponse>(_FindAllUsersResponse_QNAME, FindAllUsersResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "loadBinaryData")
+    public JAXBElement<LoadBinaryData> createLoadBinaryData(LoadBinaryData value) {
+        return new JAXBElement<LoadBinaryData>(_LoadBinaryData_QNAME, LoadBinaryData.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link FindOneUser }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link LoadBinaryDataResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link FindOneUser }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link LoadBinaryDataResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "findOneUser")
-    public JAXBElement<FindOneUser> createFindOneUser(FindOneUser value) {
-        return new JAXBElement<FindOneUser>(_FindOneUser_QNAME, FindOneUser.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "loadBinaryDataResponse")
+    public JAXBElement<LoadBinaryDataResponse> createLoadBinaryDataResponse(LoadBinaryDataResponse value) {
+        return new JAXBElement<LoadBinaryDataResponse>(_LoadBinaryDataResponse_QNAME, LoadBinaryDataResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link FindOneUserResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link LoadJsonDataFasterXml }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link FindOneUserResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link LoadJsonDataFasterXml }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "findOneUserResponse")
-    public JAXBElement<FindOneUserResponse> createFindOneUserResponse(FindOneUserResponse value) {
-        return new JAXBElement<FindOneUserResponse>(_FindOneUserResponse_QNAME, FindOneUserResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "loadJsonDataFasterXml")
+    public JAXBElement<LoadJsonDataFasterXml> createLoadJsonDataFasterXml(LoadJsonDataFasterXml value) {
+        return new JAXBElement<LoadJsonDataFasterXml>(_LoadJsonDataFasterXml_QNAME, LoadJsonDataFasterXml.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetCurrentUser }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link LoadJsonDataFasterXmlResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link GetCurrentUser }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link LoadJsonDataFasterXmlResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "getCurrentUser")
-    public JAXBElement<GetCurrentUser> createGetCurrentUser(GetCurrentUser value) {
-        return new JAXBElement<GetCurrentUser>(_GetCurrentUser_QNAME, GetCurrentUser.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "loadJsonDataFasterXmlResponse")
+    public JAXBElement<LoadJsonDataFasterXmlResponse> createLoadJsonDataFasterXmlResponse(LoadJsonDataFasterXmlResponse value) {
+        return new JAXBElement<LoadJsonDataFasterXmlResponse>(_LoadJsonDataFasterXmlResponse_QNAME, LoadJsonDataFasterXmlResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetCurrentUserId }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link LoadJsonDataJaxb }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link GetCurrentUserId }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link LoadJsonDataJaxb }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "getCurrentUserId")
-    public JAXBElement<GetCurrentUserId> createGetCurrentUserId(GetCurrentUserId value) {
-        return new JAXBElement<GetCurrentUserId>(_GetCurrentUserId_QNAME, GetCurrentUserId.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "loadJsonDataJaxb")
+    public JAXBElement<LoadJsonDataJaxb> createLoadJsonDataJaxb(LoadJsonDataJaxb value) {
+        return new JAXBElement<LoadJsonDataJaxb>(_LoadJsonDataJaxb_QNAME, LoadJsonDataJaxb.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetCurrentUserIdResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link LoadJsonDataJaxbResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link GetCurrentUserIdResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link LoadJsonDataJaxbResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "getCurrentUserIdResponse")
-    public JAXBElement<GetCurrentUserIdResponse> createGetCurrentUserIdResponse(GetCurrentUserIdResponse value) {
-        return new JAXBElement<GetCurrentUserIdResponse>(_GetCurrentUserIdResponse_QNAME, GetCurrentUserIdResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "loadJsonDataJaxbResponse")
+    public JAXBElement<LoadJsonDataJaxbResponse> createLoadJsonDataJaxbResponse(LoadJsonDataJaxbResponse value) {
+        return new JAXBElement<LoadJsonDataJaxbResponse>(_LoadJsonDataJaxbResponse_QNAME, LoadJsonDataJaxbResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetCurrentUserResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link LoadResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link GetCurrentUserResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link LoadResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "getCurrentUserResponse")
-    public JAXBElement<GetCurrentUserResponse> createGetCurrentUserResponse(GetCurrentUserResponse value) {
-        return new JAXBElement<GetCurrentUserResponse>(_GetCurrentUserResponse_QNAME, GetCurrentUserResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "loadResponse")
+    public JAXBElement<LoadResponse> createLoadResponse(LoadResponse value) {
+        return new JAXBElement<LoadResponse>(_LoadResponse_QNAME, LoadResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link IsRoleAdmin }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link LoadXmlDataFasterXml }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link IsRoleAdmin }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link LoadXmlDataFasterXml }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "isRoleAdmin")
-    public JAXBElement<IsRoleAdmin> createIsRoleAdmin(IsRoleAdmin value) {
-        return new JAXBElement<IsRoleAdmin>(_IsRoleAdmin_QNAME, IsRoleAdmin.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "loadXmlDataFasterXml")
+    public JAXBElement<LoadXmlDataFasterXml> createLoadXmlDataFasterXml(LoadXmlDataFasterXml value) {
+        return new JAXBElement<LoadXmlDataFasterXml>(_LoadXmlDataFasterXml_QNAME, LoadXmlDataFasterXml.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link IsRoleAdminResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link LoadXmlDataFasterXmlResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link IsRoleAdminResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link LoadXmlDataFasterXmlResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "isRoleAdminResponse")
-    public JAXBElement<IsRoleAdminResponse> createIsRoleAdminResponse(IsRoleAdminResponse value) {
-        return new JAXBElement<IsRoleAdminResponse>(_IsRoleAdminResponse_QNAME, IsRoleAdminResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "loadXmlDataFasterXmlResponse")
+    public JAXBElement<LoadXmlDataFasterXmlResponse> createLoadXmlDataFasterXmlResponse(LoadXmlDataFasterXmlResponse value) {
+        return new JAXBElement<LoadXmlDataFasterXmlResponse>(_LoadXmlDataFasterXmlResponse_QNAME, LoadXmlDataFasterXmlResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link LoadUser }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link LoadXmlDataJaxb }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link LoadUser }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link LoadXmlDataJaxb }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "loadUser")
-    public JAXBElement<LoadUser> createLoadUser(LoadUser value) {
-        return new JAXBElement<LoadUser>(_LoadUser_QNAME, LoadUser.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "loadXmlDataJaxb")
+    public JAXBElement<LoadXmlDataJaxb> createLoadXmlDataJaxb(LoadXmlDataJaxb value) {
+        return new JAXBElement<LoadXmlDataJaxb>(_LoadXmlDataJaxb_QNAME, LoadXmlDataJaxb.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link LoadUserResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link LoadXmlDataJaxbResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link LoadUserResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link LoadXmlDataJaxbResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "loadUserResponse")
-    public JAXBElement<LoadUserResponse> createLoadUserResponse(LoadUserResponse value) {
-        return new JAXBElement<LoadUserResponse>(_LoadUserResponse_QNAME, LoadUserResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "loadXmlDataJaxbResponse")
+    public JAXBElement<LoadXmlDataJaxbResponse> createLoadXmlDataJaxbResponse(LoadXmlDataJaxbResponse value) {
+        return new JAXBElement<LoadXmlDataJaxbResponse>(_LoadXmlDataJaxbResponse_QNAME, LoadXmlDataJaxbResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link MergeUser }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Save }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link MergeUser }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link Save }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "mergeUser")
-    public JAXBElement<MergeUser> createMergeUser(MergeUser value) {
-        return new JAXBElement<MergeUser>(_MergeUser_QNAME, MergeUser.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "save")
+    public JAXBElement<Save> createSave(Save value) {
+        return new JAXBElement<Save>(_Save_QNAME, Save.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link MergeUserResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link SaveBinaryData }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link MergeUserResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link SaveBinaryData }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "mergeUserResponse")
-    public JAXBElement<MergeUserResponse> createMergeUserResponse(MergeUserResponse value) {
-        return new JAXBElement<MergeUserResponse>(_MergeUserResponse_QNAME, MergeUserResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "saveBinaryData")
+    public JAXBElement<SaveBinaryData> createSaveBinaryData(SaveBinaryData value) {
+        return new JAXBElement<SaveBinaryData>(_SaveBinaryData_QNAME, SaveBinaryData.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link PersistUser }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link SaveBinaryDataResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link PersistUser }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link SaveBinaryDataResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "persistUser")
-    public JAXBElement<PersistUser> createPersistUser(PersistUser value) {
-        return new JAXBElement<PersistUser>(_PersistUser_QNAME, PersistUser.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "saveBinaryDataResponse")
+    public JAXBElement<SaveBinaryDataResponse> createSaveBinaryDataResponse(SaveBinaryDataResponse value) {
+        return new JAXBElement<SaveBinaryDataResponse>(_SaveBinaryDataResponse_QNAME, SaveBinaryDataResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link PersistUserResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link SaveJsonDataFasterXml }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link PersistUserResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link SaveJsonDataFasterXml }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "persistUserResponse")
-    public JAXBElement<PersistUserResponse> createPersistUserResponse(PersistUserResponse value) {
-        return new JAXBElement<PersistUserResponse>(_PersistUserResponse_QNAME, PersistUserResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "saveJsonDataFasterXml")
+    public JAXBElement<SaveJsonDataFasterXml> createSaveJsonDataFasterXml(SaveJsonDataFasterXml value) {
+        return new JAXBElement<SaveJsonDataFasterXml>(_SaveJsonDataFasterXml_QNAME, SaveJsonDataFasterXml.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link RemoveAllUser }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link SaveJsonDataFasterXmlResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link RemoveAllUser }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link SaveJsonDataFasterXmlResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "removeAllUser")
-    public JAXBElement<RemoveAllUser> createRemoveAllUser(RemoveAllUser value) {
-        return new JAXBElement<RemoveAllUser>(_RemoveAllUser_QNAME, RemoveAllUser.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "saveJsonDataFasterXmlResponse")
+    public JAXBElement<SaveJsonDataFasterXmlResponse> createSaveJsonDataFasterXmlResponse(SaveJsonDataFasterXmlResponse value) {
+        return new JAXBElement<SaveJsonDataFasterXmlResponse>(_SaveJsonDataFasterXmlResponse_QNAME, SaveJsonDataFasterXmlResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link RemoveAllUserResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link SaveJsonDataJaxb }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link RemoveAllUserResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link SaveJsonDataJaxb }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "removeAllUserResponse")
-    public JAXBElement<RemoveAllUserResponse> createRemoveAllUserResponse(RemoveAllUserResponse value) {
-        return new JAXBElement<RemoveAllUserResponse>(_RemoveAllUserResponse_QNAME, RemoveAllUserResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "saveJsonDataJaxb")
+    public JAXBElement<SaveJsonDataJaxb> createSaveJsonDataJaxb(SaveJsonDataJaxb value) {
+        return new JAXBElement<SaveJsonDataJaxb>(_SaveJsonDataJaxb_QNAME, SaveJsonDataJaxb.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link RemoveUser }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link SaveJsonDataJaxbResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link RemoveUser }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link SaveJsonDataJaxbResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "removeUser")
-    public JAXBElement<RemoveUser> createRemoveUser(RemoveUser value) {
-        return new JAXBElement<RemoveUser>(_RemoveUser_QNAME, RemoveUser.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "saveJsonDataJaxbResponse")
+    public JAXBElement<SaveJsonDataJaxbResponse> createSaveJsonDataJaxbResponse(SaveJsonDataJaxbResponse value) {
+        return new JAXBElement<SaveJsonDataJaxbResponse>(_SaveJsonDataJaxbResponse_QNAME, SaveJsonDataJaxbResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link RemoveUserResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link SaveResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link RemoveUserResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link SaveResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "removeUserResponse")
-    public JAXBElement<RemoveUserResponse> createRemoveUserResponse(RemoveUserResponse value) {
-        return new JAXBElement<RemoveUserResponse>(_RemoveUserResponse_QNAME, RemoveUserResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "saveResponse")
+    public JAXBElement<SaveResponse> createSaveResponse(SaveResponse value) {
+        return new JAXBElement<SaveResponse>(_SaveResponse_QNAME, SaveResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SetCurrentUser }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link SaveXmlDataFasterXml }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link SetCurrentUser }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link SaveXmlDataFasterXml }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "setCurrentUser")
-    public JAXBElement<SetCurrentUser> createSetCurrentUser(SetCurrentUser value) {
-        return new JAXBElement<SetCurrentUser>(_SetCurrentUser_QNAME, SetCurrentUser.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "saveXmlDataFasterXml")
+    public JAXBElement<SaveXmlDataFasterXml> createSaveXmlDataFasterXml(SaveXmlDataFasterXml value) {
+        return new JAXBElement<SaveXmlDataFasterXml>(_SaveXmlDataFasterXml_QNAME, SaveXmlDataFasterXml.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SetCurrentUserResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link SaveXmlDataFasterXmlResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link SetCurrentUserResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link SaveXmlDataFasterXmlResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "setCurrentUserResponse")
-    public JAXBElement<SetCurrentUserResponse> createSetCurrentUserResponse(SetCurrentUserResponse value) {
-        return new JAXBElement<SetCurrentUserResponse>(_SetCurrentUserResponse_QNAME, SetCurrentUserResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "saveXmlDataFasterXmlResponse")
+    public JAXBElement<SaveXmlDataFasterXmlResponse> createSaveXmlDataFasterXmlResponse(SaveXmlDataFasterXmlResponse value) {
+        return new JAXBElement<SaveXmlDataFasterXmlResponse>(_SaveXmlDataFasterXmlResponse_QNAME, SaveXmlDataFasterXmlResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SaveXmlDataJaxb }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link SaveXmlDataJaxb }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "saveXmlDataJaxb")
+    public JAXBElement<SaveXmlDataJaxb> createSaveXmlDataJaxb(SaveXmlDataJaxb value) {
+        return new JAXBElement<SaveXmlDataJaxb>(_SaveXmlDataJaxb_QNAME, SaveXmlDataJaxb.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SaveXmlDataJaxbResponse }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link SaveXmlDataJaxbResponse }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "saveXmlDataJaxbResponse")
+    public JAXBElement<SaveXmlDataJaxbResponse> createSaveXmlDataJaxbResponse(SaveXmlDataJaxbResponse value) {
+        return new JAXBElement<SaveXmlDataJaxbResponse>(_SaveXmlDataJaxbResponse_QNAME, SaveXmlDataJaxbResponse.class, null, value);
     }
 
 }
