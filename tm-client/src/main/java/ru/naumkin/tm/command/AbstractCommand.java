@@ -3,13 +3,13 @@ package ru.naumkin.tm.command;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.naumkin.tm.api.ServiceLocator;
-import ru.naumkin.tm.enumerated.RoleType;
+import ru.naumkin.tm.api.endpoint.RoleType;
+import ru.naumkin.tm.context.Bootstrap;
 
 @NoArgsConstructor
 public abstract class AbstractCommand {
 
-    protected ServiceLocator serviceLocator;
+    protected Bootstrap bootstrap;
 
     private boolean isSecure;
 
@@ -17,8 +17,8 @@ public abstract class AbstractCommand {
         this.isSecure = isSecure;
     }
 
-    public void setServiceLocator(@NotNull final ServiceLocator serviceLocator) {
-        this.serviceLocator = serviceLocator;
+    public void setBootstrap(@NotNull final Bootstrap bootstrap) {
+        this.bootstrap = bootstrap;
     }
 
     public boolean isSecure() {
@@ -34,7 +34,7 @@ public abstract class AbstractCommand {
     public abstract void execute() throws Exception;
 
     @Nullable
-    public RoleType[] getRoles() {
+    public RoleType getRoles() {
         return null;
     }
 
