@@ -2,9 +2,9 @@ package ru.naumkin.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.naumkin.tm.api.service.IProjectService;
+import ru.naumkin.tm.api.endpoint.IProjectEndpoint;
+import ru.naumkin.tm.api.endpoint.Project;
 import ru.naumkin.tm.command.AbstractCommand;
-import ru.naumkin.tm.entity.Project;
 
 public class ProjectNameFindListCommand extends AbstractCommand {
 
@@ -24,14 +24,14 @@ public class ProjectNameFindListCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        serviceLocator.getTerminalService().showMessage("[FIND PROJECTS BY PART OF NAME]");
-        @NotNull final IProjectService projectService = serviceLocator.getProjectService();
+        bootstrap.getTerminalService().showMessage("[FIND PROJECTS BY PART OF NAME]");
+        @NotNull final IProjectEndpoint projectEndpoint = bootstrap.getProjectEndpoint();
         int index = 1;
-        @Nullable final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
-        serviceLocator.getTerminalService().showMessage("Enter part of name:");
-        @NotNull final String name = serviceLocator.getTerminalService().readLine();
-        for (@NotNull final Project project: projectService.sortByName(currentUserId, name)) {
-            serviceLocator.getTerminalService().showMessage(index++ + ". " + project.toString());
+        @Nullable final String currentUserId = bootstrap.getUserEndpoint().getCurrentUserId();
+        bootstrap.getTerminalService().showMessage("Enter part of name:");
+        @NotNull final String name = bootstrap.getTerminalService().readLine();
+        for (@NotNull final Project project: projectEndpoint.sortProjectsByName(currentUserId, name)) {
+            bootstrap.getTerminalService().showMessage(index++ + ". " + project.toString());
         }
     }
 

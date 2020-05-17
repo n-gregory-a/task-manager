@@ -2,13 +2,14 @@ package ru.naumkin.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.naumkin.tm.api.service.IProjectService;
+import ru.naumkin.tm.api.endpoint.IProjectEndpoint;
+import ru.naumkin.tm.api.endpoint.Project;
+import ru.naumkin.tm.api.endpoint.Status;
 import ru.naumkin.tm.command.AbstractCommand;
-import ru.naumkin.tm.entity.Project;
-import ru.naumkin.tm.enumerated.Status;
 import ru.naumkin.tm.util.DateFormatter;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public final class ProjectUpdateCommand extends AbstractCommand {
@@ -31,39 +32,41 @@ public final class ProjectUpdateCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        serviceLocator.getTerminalService().showMessage("[PROJECT UPDATE]");
-        @NotNull final IProjectService projectService = serviceLocator.getProjectService();
-        serviceLocator.getTerminalService().showMessage("Projects available to update:");
+        bootstrap.getTerminalService().showMessage("[PROJECT UPDATE]");
+        @NotNull final IProjectEndpoint projectService = bootstrap.getProjectEndpoint();
+        bootstrap.getTerminalService().showMessage("Projects available to update:");
         @NotNull final List<Project> list = new ArrayList<>();
         int index = 1;
-        @Nullable final String currentUserId = serviceLocator.getUserService().getCurrentUserId();
-        for (@NotNull final Project project: projectService.findAll(currentUserId)) {
-            serviceLocator.getTerminalService().showMessage(index++ + ". " + project.toString());
+        @Nullable final String currentUserId = bootstrap.getUserEndpoint().getCurrentUserId();
+        for (@NotNull final Project project: projectService.findAllProjectsByUserId(currentUserId)) {
+            bootstrap.getTerminalService().showMessage(index++ + ". " + project.toString());
             list.add(project);
         }
-        serviceLocator.getTerminalService().showMessage("Choose project to update by number:");
+        bootstrap.getTerminalService().showMessage("Choose project to update by number:");
         @NotNull final Project project = list.get(Integer
-                .parseInt(serviceLocator.getTerminalService().readLine()) - 1);
+                .parseInt(bootstrap.getTerminalService().readLine()) - 1);
         @NotNull final String name = project.getName();
-        serviceLocator.getTerminalService().showMessage("Updating project:");
-        serviceLocator.getTerminalService().showMessage("id: " + project.getId() +
+        bootstrap.getTerminalService().showMessage("Updating project:");
+        bootstrap.getTerminalService().showMessage("id: " + project.getId() +
                 ", name: " + project.getName());
-        serviceLocator.getTerminalService().showMessage("Enter new name:");
-        project.setName(serviceLocator.getTerminalService().readLine());
-        serviceLocator.getTerminalService().showMessage("Enter new description:");
-        project.setDescription(serviceLocator.getTerminalService().readLine());
-        serviceLocator.getTerminalService().showMessage("Enter new start date(dd.mm.yyyy):");
-        String startDate = serviceLocator.getTerminalService().readLine();
-        project.setDateStart(DateFormatter.convertStringToDate(startDate));
-        serviceLocator.getTerminalService().showMessage("Enter new finish date(dd.mm.yyyy):");
-        String finishDate = serviceLocator.getTerminalService().readLine();
-        project.setDateFinish(DateFormatter.convertStringToDate(finishDate));
-        serviceLocator.getTerminalService()
+        bootstrap.getTerminalService().showMessage("Enter new name:");
+        project.setName(bootstrap.getTerminalService().readLine());
+        bootstrap.getTerminalService().showMessage("Enter new description:");
+        project.setDescription(bootstrap.getTerminalService().readLine());
+        bootstrap.getTerminalService().showMessage("Enter new start date(dd.mm.yyyy):");
+        String startDate = bootstrap.getTerminalService().readLine();
+        Date date = DateFormatter.convertStringToDate(startDate);
+        project.setDateStart(DateFormatter.convertToXmlGregorianCalendar(date));
+        bootstrap.getTerminalService().showMessage("Enter new finish date(dd.mm.yyyy):");
+        String finishDate = bootstrap.getTerminalService().readLine();
+        date = DateFormatter.convertStringToDate(finishDate);
+        project.setDateFinish(DateFormatter.convertToXmlGregorianCalendar(date));
+        bootstrap.getTerminalService()
                 .showMessage("Enter new status (\"planned\", \"in progress\", \"completed\"):");
-        String status = serviceLocator.getTerminalService().readLine();
-        project.setStatus(Status.getStatus(status));
-        projectService.merge(project, name);
-        serviceLocator.getTerminalService().showMessage("[OK]");
+        String status = bootstrap.getTerminalService().readLine();
+        project.setStatus(Status.fromValue(status));
+        projectService.mergeProject(project, name);
+        bootstrap.getTerminalService().showMessage("[OK]");
     }
 
 }

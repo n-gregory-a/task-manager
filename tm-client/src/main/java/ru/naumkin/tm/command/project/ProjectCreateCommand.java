@@ -2,10 +2,10 @@ package ru.naumkin.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.naumkin.tm.api.service.IProjectService;
+import ru.naumkin.tm.api.endpoint.IProjectEndpoint;
+import ru.naumkin.tm.api.endpoint.Project;
+import ru.naumkin.tm.api.endpoint.User;
 import ru.naumkin.tm.command.AbstractCommand;
-import ru.naumkin.tm.entity.Project;
-import ru.naumkin.tm.entity.User;
 
 public final class ProjectCreateCommand extends AbstractCommand {
 
@@ -27,16 +27,18 @@ public final class ProjectCreateCommand extends AbstractCommand {
 
     @Override
     public void execute() throws Exception {
-        serviceLocator.getTerminalService().showMessage("[PROJECT CREATE]");
-        @Nullable final User user = serviceLocator.getUserService().getCurrentUser();
-        @NotNull final IProjectService projectService = serviceLocator.getProjectService();
-        serviceLocator.getTerminalService().showMessage("Enter name:");
-        @Nullable final Project project = new Project(serviceLocator.getTerminalService().readLine());
+        bootstrap.getTerminalService().showMessage("[PROJECT CREATE]");
+        @Nullable final User user = bootstrap.getUserEndpoint().getCurrentUser();
+        @NotNull final IProjectEndpoint projectEndpoint = bootstrap.getProjectEndpoint();
+        bootstrap.getTerminalService().showMessage("Enter name:");
+        @NotNull final String name = bootstrap.getTerminalService().readLine();
+        @Nullable final Project project = new Project();
+        project.setName(name);
         if (user != null) {
             project.setUserId(user.getId());
         }
-        projectService.persist(project);
-        serviceLocator.getTerminalService().showMessage("[OK]");
+        projectEndpoint.persistProject(project);
+        bootstrap.getTerminalService().showMessage("[OK]");
     }
 
 }

@@ -1,7 +1,7 @@
 package ru.naumkin.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
-import ru.naumkin.tm.api.service.IProjectService;
+import ru.naumkin.tm.api.endpoint.IProjectEndpoint;
 import ru.naumkin.tm.command.AbstractCommand;
 
 public final class ProjectClearCommand extends AbstractCommand {
@@ -24,10 +24,10 @@ public final class ProjectClearCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        serviceLocator.getTerminalService().showMessage("[PROJECT CLEAR]");
-        @NotNull final IProjectService projectService = serviceLocator.getProjectService();
-        projectService.removeAll(serviceLocator.getUserService().getCurrentUserId());
-        serviceLocator.getTerminalService().showMessage("[OK]");
+        bootstrap.getTerminalService().showMessage("[PROJECT CLEAR]");
+        @NotNull final IProjectEndpoint projectEndpoint = bootstrap.getProjectEndpoint();
+        projectEndpoint.removeAllProjectsByUserId(bootstrap.getUserEndpoint().getCurrentUserId());
+        bootstrap.getTerminalService().showMessage("[OK]");
     }
 
 }
