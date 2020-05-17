@@ -34,7 +34,7 @@ public abstract class AbstractCommand {
     public abstract void execute() throws Exception;
 
     @Nullable
-    public RoleType getRoles() {
+    public RoleType[] getRoles() {
         return null;
     }
 
