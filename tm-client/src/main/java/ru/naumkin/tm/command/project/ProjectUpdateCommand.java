@@ -63,7 +63,7 @@ public final class ProjectUpdateCommand extends AbstractCommand {
         project.setDateFinish(DateFormatter.convertToXmlGregorianCalendar(date));
         bootstrap.getTerminalService()
                 .showMessage("Enter new status (\"planned\", \"in progress\", \"completed\"):");
-        String status = bootstrap.getTerminalService().readLine();
+        @NotNull final String status = bootstrap.getTerminalService().readLine();
         project.setStatus(Status.fromValue(status));
         projectService.mergeProject(project, name);
         bootstrap.getTerminalService().showMessage("[OK]");
