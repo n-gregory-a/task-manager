@@ -32,7 +32,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
         @NotNull User user = new User();
         if (role == RoleType.ADMINISTRATOR) {
             user.setName("admin");
-            user.setPassword(HashGenerator.getHash("MeG@$tr0nG@dmiN$p@$$w0rD"));
+            user.setPassword(HashGenerator.getHash("admin"));
             user.setRole(role);
             persist(user);
             return user;
