@@ -36,6 +36,12 @@ public abstract class AbstractRepository<E extends AbstractEntity> implements IR
 
     @Nullable
     @Override
+    public E findOneById(@NotNull final String id) {
+        return map.get(id);
+    }
+
+    @Nullable
+    @Override
     public E persist(@NotNull final E entity) {
         return map.put(entity.getId(), entity);
     }

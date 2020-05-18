@@ -15,6 +15,9 @@ public interface IRepository<E extends AbstractEntity> {
     E findOne(@NotNull final String name);
 
     @Nullable
+    E findOneById(@NotNull final String id);
+
+    @Nullable
     E persist(@NotNull final E entity);
 
     @Nullable

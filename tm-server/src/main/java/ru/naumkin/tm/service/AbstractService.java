@@ -43,6 +43,18 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
 
     @Nullable
     @Override
+    public E findOneById(@Nullable String id) {
+        if (id == null) {
+            throw new RuntimeException();
+        }
+        if (id.isEmpty()) {
+            throw new RuntimeException();
+        }
+        return repository.findOneById(id);
+    }
+
+    @Nullable
+    @Override
     public E persist(@Nullable final E entity) {
         if (entity == null) {
             throw new RuntimeException();
