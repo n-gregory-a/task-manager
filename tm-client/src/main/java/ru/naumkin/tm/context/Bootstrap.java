@@ -7,6 +7,7 @@ import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.endpoint.*;
 import ru.naumkin.tm.api.service.ITerminalService;
 import ru.naumkin.tm.command.AbstractCommand;
+import ru.naumkin.tm.enpoint.DomainEndpointService;
 import ru.naumkin.tm.enpoint.ProjectEndpointService;
 import ru.naumkin.tm.enpoint.TaskEndpointService;
 import ru.naumkin.tm.enpoint.UserEndpointService;
@@ -44,6 +45,10 @@ public final class Bootstrap {
     @Getter
     @NotNull
     private final IUserEndpoint userEndpoint = new UserEndpointService().getUserEndpointPort();
+
+    @Getter
+    @NotNull
+    private final IDomainEndpoint domainEndpoint = new DomainEndpointService().getDomainEndpointPort();
 
     public void registerCommand(@NotNull final AbstractCommand command) {
         @Nullable final String cliCommand = command.getName();
