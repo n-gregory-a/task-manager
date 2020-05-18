@@ -10,6 +10,7 @@ import ru.naumkin.tm.enumerated.RoleType;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import java.util.LinkedList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -26,7 +27,7 @@ public final class UserEndpoint implements IUserEndpoint {
     @Override
     @WebMethod
     public List<User> findAllUsers() {
-        return (List<User>) userService.findAll();
+        return new LinkedList<>(userService.findAll());
     }
 
     @NotNull

@@ -9,6 +9,7 @@ import ru.naumkin.tm.entity.Task;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import java.util.LinkedList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -25,7 +26,7 @@ public final class TaskEndpoint implements ITaskEndpoint {
     @Override
     @WebMethod
     public List<Task> findAllTasks() {
-        return (List<Task>) taskService.findAll();
+        return new LinkedList<>(taskService.findAll());
     }
 
     @NotNull
