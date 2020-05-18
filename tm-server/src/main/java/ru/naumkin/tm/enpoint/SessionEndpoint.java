@@ -12,7 +12,7 @@ import java.util.List;
 public class SessionEndpoint implements ISessionEndpoint {
 
     @NotNull
-    private ISessionService sessionService;
+    private final ISessionService sessionService;
 
     public SessionEndpoint(@NotNull final ISessionService sessionService) {
         this.sessionService = sessionService;
