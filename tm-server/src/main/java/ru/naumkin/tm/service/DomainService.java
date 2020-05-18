@@ -181,8 +181,8 @@ public final class DomainService implements IDomainService {
             throw new RuntimeException();
         }
         @NotNull Domain domain = new Domain();
-        @NotNull final List<Project> projects = projectService.findAll(currentUserId);
-        @NotNull final List<Task> tasks = taskService.findAll(currentUserId);
+        @NotNull final List<Project> projects = new LinkedList<>(projectService.findAll());
+        @NotNull final List<Task> tasks = new LinkedList<>(taskService.findAll());
         @NotNull final List<User> users = new LinkedList<>(userService.findAll());
         domain.setProjects(projects);
         domain.setTasks(tasks);
