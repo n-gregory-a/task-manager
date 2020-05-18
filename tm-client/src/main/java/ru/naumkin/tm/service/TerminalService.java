@@ -1,5 +1,7 @@
 package ru.naumkin.tm.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -46,4 +48,10 @@ public final class TerminalService implements ITerminalService {
         return new ArrayList<>(commands.values());
     }
 
+    @Override
+    public void printEntity(@NotNull Object object) throws JsonProcessingException {
+        @NotNull final ObjectMapper objectMapper = new ObjectMapper();
+        @NotNull final String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(object);
+        showMessage(json);
+    }
 }

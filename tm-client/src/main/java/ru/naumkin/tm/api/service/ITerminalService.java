@@ -1,5 +1,6 @@
 package ru.naumkin.tm.api.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.jetbrains.annotations.NotNull;
 import ru.naumkin.tm.command.AbstractCommand;
 
@@ -15,5 +16,7 @@ public interface ITerminalService {
 
     @NotNull
     List<AbstractCommand> getCommand();
+
+    void printEntity(@NotNull final Object object) throws JsonProcessingException;
 
 }
