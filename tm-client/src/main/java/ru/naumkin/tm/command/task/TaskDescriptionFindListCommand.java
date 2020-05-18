@@ -31,7 +31,8 @@ public class TaskDescriptionFindListCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("Enter part of description:");
         @NotNull final String description = bootstrap.getTerminalService().readLine();
         for (@NotNull final Task task: taskEndpoint.sortTasksByDescription(currentUserId, description)) {
-            bootstrap.getTerminalService().showMessage(index++ + ". " + task.toString());
+            bootstrap.getTerminalService().showMessage(index++ + ". ");
+            bootstrap.getTerminalService().printEntity(task);
         }
     }
 

@@ -1,5 +1,6 @@
 package ru.naumkin.tm.command.project;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.endpoint.IProjectEndpoint;
@@ -25,13 +26,14 @@ public final class ProjectListCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws JsonProcessingException {
         bootstrap.getTerminalService().showMessage("[PROJECT LIST]");
         @NotNull final IProjectEndpoint projectEndpoint = bootstrap.getProjectEndpoint();
         int index = 1;
         @Nullable final String currentUserId = bootstrap.getUserEndpoint().getCurrentUserId();
         for (@NotNull final Project project: projectEndpoint.findAllProjectsByUserId(currentUserId)) {
-            bootstrap.getTerminalService().showMessage(index++ + ". " + project.toString());
+            bootstrap.getTerminalService().showMessage(index++ + ". ");
+            bootstrap.getTerminalService().printEntity(project);
         }
     }
 

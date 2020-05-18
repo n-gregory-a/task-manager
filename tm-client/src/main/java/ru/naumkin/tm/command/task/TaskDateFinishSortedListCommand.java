@@ -32,7 +32,8 @@ public class TaskDateFinishSortedListCommand extends AbstractCommand {
         int index = 1;
         @Nullable final String currentUserId = bootstrap.getUserEndpoint().getCurrentUserId();
         for (@NotNull final Task task: taskEndpoint.sortTasksByDateFinish(currentUserId)) {
-            bootstrap.getTerminalService().showMessage(index++ + ". " + task.toString());
+            bootstrap.getTerminalService().showMessage(index++ + ". ");
+            bootstrap.getTerminalService().printEntity(task);
         }
     }
 

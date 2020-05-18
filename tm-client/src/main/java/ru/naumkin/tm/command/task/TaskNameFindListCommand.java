@@ -31,7 +31,8 @@ public class TaskNameFindListCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("Enter part of name:");
         @NotNull final String name = bootstrap.getTerminalService().readLine();
         for (@NotNull final Task task: taskEndpoint.sortTasksByName(currentUserId, name)) {
-            bootstrap.getTerminalService().showMessage(index++ + ". " + task.toString());
+            bootstrap.getTerminalService().showMessage(index++ + ". ");
+            bootstrap.getTerminalService().printEntity(task);
         }
     }
 

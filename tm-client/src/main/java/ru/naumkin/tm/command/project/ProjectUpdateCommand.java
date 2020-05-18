@@ -39,7 +39,8 @@ public final class ProjectUpdateCommand extends AbstractCommand {
         int index = 1;
         @Nullable final String currentUserId = bootstrap.getUserEndpoint().getCurrentUserId();
         for (@NotNull final Project project: projectService.findAllProjectsByUserId(currentUserId)) {
-            bootstrap.getTerminalService().showMessage(index++ + ". " + project.toString());
+            bootstrap.getTerminalService().showMessage(index++ + ". ");
+            bootstrap.getTerminalService().printEntity(project);
             list.add(project);
         }
         bootstrap.getTerminalService().showMessage("Choose project to update by number:");

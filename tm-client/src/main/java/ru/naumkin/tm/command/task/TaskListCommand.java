@@ -1,5 +1,6 @@
 package ru.naumkin.tm.command.task;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.endpoint.ITaskEndpoint;
@@ -25,13 +26,14 @@ public final class TaskListCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws JsonProcessingException {
         bootstrap.getTerminalService().showMessage("[TASK LIST]");
         @NotNull final ITaskEndpoint taskService = bootstrap.getTaskEndpoint();
         int index = 1;
         @Nullable final String currentUserId = bootstrap.getUserEndpoint().getCurrentUserId();
         for (@NotNull final Task task: taskService.findAllTasksByUserId(currentUserId)) {
-            bootstrap.getTerminalService().showMessage(index++ + ". " + task.toString());
+            bootstrap.getTerminalService().showMessage(index++ + ". ");
+            bootstrap.getTerminalService().printEntity(task);
         }
     }
 

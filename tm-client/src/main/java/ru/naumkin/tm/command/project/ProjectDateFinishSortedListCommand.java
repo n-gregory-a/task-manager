@@ -32,7 +32,8 @@ public class ProjectDateFinishSortedListCommand extends AbstractCommand {
         int index = 1;
         @Nullable final String currentUserId = bootstrap.getUserEndpoint().getCurrentUserId();
         for (@NotNull final Project project: projectEndpoint.sortProjectsByDateFinish(currentUserId)) {
-            bootstrap.getTerminalService().showMessage(index++ + ". " + project.toString());
+            bootstrap.getTerminalService().showMessage(index++ + ". ");
+            bootstrap.getTerminalService().printEntity(project);
         }
     }
 

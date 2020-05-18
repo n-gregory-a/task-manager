@@ -42,7 +42,7 @@ public final class TaskViewCommand extends AbstractCommand {
             }
             final boolean taskAttachedToProject = projectId.equals(project.getId());
             if (taskAttachedToProject) {
-                bootstrap.getTerminalService().showMessage(task.toString());
+                bootstrap.getTerminalService().printEntity(task);
             }
         }
     }
