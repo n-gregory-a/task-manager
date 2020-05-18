@@ -43,6 +43,7 @@ public final class TaskAttachCommand extends AbstractCommand {
         if (task != null) {
             task.setProjectId(project.getId());
         }
+        taskEndpoint.mergeTask(task, taskName);
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 
