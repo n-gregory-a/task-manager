@@ -37,8 +37,11 @@ public final class ProjectUpdateCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("Projects available to update:");
         @NotNull final List<Project> list = new ArrayList<>();
         int index = 1;
-        @Nullable final String currentUserId = bootstrap.getUserEndpoint().getCurrentUserId();
-        for (@NotNull final Project project: projectService.findAllProjectsByUserId(currentUserId)) {
+        @Nullable final String currentUserId =
+                bootstrap.getUserEndpoint().getCurrentUserId(bootstrap.getCurrentSession());
+        for (@NotNull final Project project:
+                projectService.findAllProjectsByUserId(bootstrap.getCurrentSession(), currentUserId)
+        ) {
             bootstrap.getTerminalService().showMessage(index++ + ". ");
             bootstrap.getTerminalService().printEntity(project);
             list.add(project);
@@ -66,7 +69,7 @@ public final class ProjectUpdateCommand extends AbstractCommand {
                 .showMessage("Enter new status (\"planned\", \"in progress\", \"completed\"):");
         @NotNull final String status = bootstrap.getTerminalService().readLine();
         project.setStatus(Status.fromValue(status));
-        projectService.mergeProject(project, name);
+        projectService.mergeProject(bootstrap.getCurrentSession(), project, name);
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 

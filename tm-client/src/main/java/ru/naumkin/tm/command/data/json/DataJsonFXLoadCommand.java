@@ -26,7 +26,7 @@ public class DataJsonFXLoadCommand extends AbstractCommand {
     public void execute() throws Exception {
         bootstrap.getTerminalService().showMessage("[LOAD DATA FROM JSON FILE BY FASTERXML]");
         @NotNull final IDomainEndpoint domainEndpoint = bootstrap.getDomainEndpoint();
-        domainEndpoint.loadJsonDataFasterXml();
+        domainEndpoint.loadJsonDataFasterXml(bootstrap.getCurrentSession());
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 

@@ -26,7 +26,7 @@ public class DataBinaryLoadCommand extends AbstractCommand {
     public void execute() throws Exception {
         bootstrap.getTerminalService().showMessage("[LOAD DATA FROM BINARY FILE]");
         @NotNull final IDomainEndpoint domainEndpoint = bootstrap.getDomainEndpoint();
-        domainEndpoint.loadBinaryData();
+        domainEndpoint.loadBinaryData(bootstrap.getCurrentSession());
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 

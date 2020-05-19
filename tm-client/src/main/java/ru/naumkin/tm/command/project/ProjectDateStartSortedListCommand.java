@@ -30,8 +30,11 @@ public final class ProjectDateStartSortedListCommand extends AbstractCommand {
                 .showMessage("[PROJECT LIST SORTED BY START DATE]");
         @NotNull final IProjectEndpoint projectEndpoint = bootstrap.getProjectEndpoint();
         int index = 1;
-        @Nullable final String currentUserId = bootstrap.getUserEndpoint().getCurrentUserId();
-        for (@NotNull final Project project: projectEndpoint.sortProjectsByDateStart(currentUserId)) {
+        @Nullable final String currentUserId =
+                bootstrap.getUserEndpoint().getCurrentUserId(bootstrap.getCurrentSession());
+        for (@NotNull final Project project:
+                projectEndpoint.sortProjectsByDateStart(bootstrap.getCurrentSession(), currentUserId)
+        ) {
             bootstrap.getTerminalService().showMessage(index++ + ". ");
             bootstrap.getTerminalService().printEntity(project);
         }

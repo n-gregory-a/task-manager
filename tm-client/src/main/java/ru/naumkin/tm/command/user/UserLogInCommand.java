@@ -28,7 +28,8 @@ public final class UserLogInCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("[USER AUTHORISATION]");
         bootstrap.getTerminalService().showMessage("Enter login:");
         @NotNull final String userName = bootstrap.getTerminalService().readLine();
-        @NotNull final User user = bootstrap.getUserEndpoint().findOneUser(userName);
+        @NotNull final User user =
+                bootstrap.getUserEndpoint().findOneUser(bootstrap.getCurrentSession(), userName);
         bootstrap.getTerminalService().showMessage("Enter password:");
         @NotNull final String password = bootstrap.getTerminalService().readLine();
         final boolean passwordIsCorrect = HashGenerator.getHash(password).equals(user.getPassword());
@@ -37,7 +38,7 @@ public final class UserLogInCommand extends AbstractCommand {
                     .showMessage("Password is incorrect. Authorisation failed.");
             return;
         }
-        bootstrap.getUserEndpoint().setCurrentUser(user);
+        bootstrap.getUserEndpoint().setCurrentUser(bootstrap.getCurrentSession(), user);
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 

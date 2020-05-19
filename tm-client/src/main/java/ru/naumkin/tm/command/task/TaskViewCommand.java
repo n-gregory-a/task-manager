@@ -33,9 +33,14 @@ public final class TaskViewCommand extends AbstractCommand {
         @NotNull final IProjectEndpoint projectEndpoint = bootstrap.getProjectEndpoint();
         bootstrap.getTerminalService().showMessage("Enter project name:");
         @NotNull final String projectName = bootstrap.getTerminalService().readLine();
-        @Nullable final String currentUserId = bootstrap.getUserEndpoint().getCurrentUserId();
-        @NotNull final Project project = projectEndpoint.findOneProjectByUserId(currentUserId, projectName);
-        for (@NotNull final Task task: taskEndpoint.findAllTasksByUserId(currentUserId)) {
+        @Nullable final String currentUserId =
+                bootstrap.getUserEndpoint().getCurrentUserId(bootstrap.getCurrentSession());
+        @NotNull final Project project = projectEndpoint.findOneProjectByUserId(
+                bootstrap.getCurrentSession(), currentUserId, projectName
+        );
+        for (@NotNull final Task task:
+                taskEndpoint.findAllTasksByUserId(bootstrap.getCurrentSession(), currentUserId)
+        ) {
             @Nullable final String projectId = task.getProjectId();
             if (projectId == null) {
                 continue;

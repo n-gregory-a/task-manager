@@ -30,8 +30,11 @@ public final class TaskListCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("[TASK LIST]");
         @NotNull final ITaskEndpoint taskService = bootstrap.getTaskEndpoint();
         int index = 1;
-        @Nullable final String currentUserId = bootstrap.getUserEndpoint().getCurrentUserId();
-        for (@NotNull final Task task: taskService.findAllTasksByUserId(currentUserId)) {
+        @Nullable final String currentUserId =
+                bootstrap.getUserEndpoint().getCurrentUserId(bootstrap.getCurrentSession());
+        for (@NotNull final Task task:
+                taskService.findAllTasksByUserId(bootstrap.getCurrentSession(), currentUserId)
+        ) {
             bootstrap.getTerminalService().showMessage(index++ + ". ");
             bootstrap.getTerminalService().printEntity(task);
         }

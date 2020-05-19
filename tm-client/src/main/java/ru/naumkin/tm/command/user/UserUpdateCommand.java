@@ -29,11 +29,12 @@ public final class UserUpdateCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("[USER UPDATE PROFILE]");
         bootstrap.getTerminalService().showMessage("Enter login:");
         @Nullable final String login = bootstrap.getTerminalService().readLine();
-        @NotNull final User user = bootstrap.getUserEndpoint().findOneUser(login);
+        @NotNull final User user =
+                bootstrap.getUserEndpoint().findOneUser(bootstrap.getCurrentSession(), login);
         bootstrap.getTerminalService().showMessage("Enter new login:");
         @NotNull final String newLogin = bootstrap.getTerminalService().readLine();
         user.setName(newLogin);
-        bootstrap.getUserEndpoint().mergeUser(user, login);
+        bootstrap.getUserEndpoint().mergeUser(bootstrap.getCurrentSession(), user, login);
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 

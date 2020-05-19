@@ -30,8 +30,11 @@ public final class TaskReadCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("Enter task name:");
         @NotNull final String taskName = bootstrap.getTerminalService().readLine();
         @NotNull final ITaskEndpoint taskEndpoint = bootstrap.getTaskEndpoint();
-        @Nullable final String currentUserId = bootstrap.getUserEndpoint().getCurrentUserId();
-        @Nullable final Task task = taskEndpoint.findOneTaskByUserId(currentUserId, taskName);
+        @Nullable final String currentUserId =
+                bootstrap.getUserEndpoint().getCurrentUserId(bootstrap.getCurrentSession());
+        @Nullable final Task task = taskEndpoint.findOneTaskByUserId(
+                bootstrap.getCurrentSession(), currentUserId, taskName
+        );
         if (task != null) {
             bootstrap.getTerminalService().printEntity(task);
         }

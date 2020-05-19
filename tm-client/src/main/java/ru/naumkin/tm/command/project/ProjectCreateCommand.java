@@ -28,7 +28,8 @@ public final class ProjectCreateCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         bootstrap.getTerminalService().showMessage("[PROJECT CREATE]");
-        @Nullable final User user = bootstrap.getUserEndpoint().getCurrentUser();
+        @Nullable final User user
+                = bootstrap.getUserEndpoint().getCurrentUser(bootstrap.getCurrentSession());
         @NotNull final IProjectEndpoint projectEndpoint = bootstrap.getProjectEndpoint();
         bootstrap.getTerminalService().showMessage("Enter name:");
         @NotNull final String name = bootstrap.getTerminalService().readLine();
@@ -37,7 +38,7 @@ public final class ProjectCreateCommand extends AbstractCommand {
         if (user != null) {
             project.setUserId(user.getId());
         }
-        projectEndpoint.persistProject(project);
+        projectEndpoint.persistProject(bootstrap.getCurrentSession(), project);
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 

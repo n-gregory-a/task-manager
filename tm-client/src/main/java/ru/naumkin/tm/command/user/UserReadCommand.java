@@ -28,7 +28,8 @@ public final class UserReadCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("[READ USER PROFILE]");
         bootstrap.getTerminalService().showMessage("Enter login:");
         @NotNull final String login = bootstrap.getTerminalService().readLine();
-        @NotNull final User user = bootstrap.getUserEndpoint().findOneUser(login);
+        @NotNull final User user =
+                bootstrap.getUserEndpoint().findOneUser(bootstrap.getCurrentSession(), login);
         bootstrap.getTerminalService().printEntity(user);
     }
 

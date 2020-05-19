@@ -28,7 +28,8 @@ public final class TaskCreateCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         bootstrap.getTerminalService().showMessage("[TASK CREATE]");
-        @Nullable final User user = bootstrap.getUserEndpoint().getCurrentUser();
+        @Nullable final User user =
+                bootstrap.getUserEndpoint().getCurrentUser(bootstrap.getCurrentSession());
         @NotNull final ITaskEndpoint taskEndpoint = bootstrap.getTaskEndpoint();
         bootstrap.getTerminalService().showMessage("Enter name:");
         @NotNull final String name = bootstrap.getTerminalService().readLine();
@@ -37,7 +38,7 @@ public final class TaskCreateCommand extends AbstractCommand {
         if (user != null) {
             task.setUserId(user.getId());
         }
-        taskEndpoint.persistTask(task);
+        taskEndpoint.persistTask(bootstrap.getCurrentSession(), task);
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 

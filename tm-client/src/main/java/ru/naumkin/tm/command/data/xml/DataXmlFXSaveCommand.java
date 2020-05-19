@@ -26,7 +26,7 @@ public class DataXmlFXSaveCommand extends AbstractCommand {
     public void execute() throws Exception {
         bootstrap.getTerminalService().showMessage("[SAVE DATA TO XML FILE BY FASTERXML]");
         @NotNull final IDomainEndpoint domainEndpoint = bootstrap.getDomainEndpoint();
-        domainEndpoint.saveXmlDataFasterXml();
+        domainEndpoint.saveXmlDataFasterXml(bootstrap.getCurrentSession());
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 

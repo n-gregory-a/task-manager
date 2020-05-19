@@ -37,8 +37,11 @@ public final class TaskUpdateCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("Tasks available to update:");
         @NotNull final List<Task> list = new ArrayList<>();
         int index = 1;
-        @Nullable final String currentUserId = bootstrap.getUserEndpoint().getCurrentUserId();
-        for (@NotNull final Task task: taskEndpoint.findAllTasksByUserId(currentUserId)) {
+        @Nullable final String currentUserId =
+                bootstrap.getUserEndpoint().getCurrentUserId(bootstrap.getCurrentSession());
+        for (@NotNull final Task task:
+                taskEndpoint.findAllTasksByUserId(bootstrap.getCurrentSession(), currentUserId)
+        ) {
             bootstrap.getTerminalService().showMessage(index++ + ". ");
             bootstrap.getTerminalService().printEntity(task);
             list.add(task);
@@ -66,7 +69,7 @@ public final class TaskUpdateCommand extends AbstractCommand {
                 .showMessage("Enter new status (\"planned\", \"in progress\", \"completed\"):");
         @NotNull final String status = bootstrap.getTerminalService().readLine();
         task.setStatus(Status.fromValue(status));
-            taskEndpoint.mergeTask(task, name);
+            taskEndpoint.mergeTask(bootstrap.getCurrentSession(), task, name);
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 

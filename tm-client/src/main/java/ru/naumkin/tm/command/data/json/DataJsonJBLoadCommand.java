@@ -26,7 +26,7 @@ public class DataJsonJBLoadCommand extends AbstractCommand {
     public void execute() throws Exception {
         bootstrap.getTerminalService().showMessage("[LOAD DATA FROM JSON FILE BY JAXB]");
         @NotNull final IDomainEndpoint domainEndpoint = bootstrap.getDomainEndpoint();
-        domainEndpoint.loadJsonDataJaxb();
+        domainEndpoint.loadJsonDataJaxb(bootstrap.getCurrentSession());
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 

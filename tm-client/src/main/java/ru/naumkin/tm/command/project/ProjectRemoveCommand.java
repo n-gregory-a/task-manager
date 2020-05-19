@@ -28,11 +28,15 @@ public final class ProjectRemoveCommand extends AbstractCommand {
     public void execute() throws Exception {
         bootstrap.getTerminalService().showMessage("[PROJECT REMOVE]");
         @NotNull final IProjectEndpoint projectEndpoint = bootstrap.getProjectEndpoint();
-        @Nullable final String currentUserId = bootstrap.getUserEndpoint().getCurrentUserId();
+        @Nullable final String currentUserId =
+                bootstrap.getUserEndpoint().getCurrentUserId(bootstrap.getCurrentSession());
         bootstrap.getTerminalService().showMessage("Enter project name:");
         @NotNull final String projectName = bootstrap.getTerminalService().readLine();
-        @NotNull final Project project = projectEndpoint.findOneProjectByUserId(currentUserId, projectName);
-        projectEndpoint.removeProjectByUserId(currentUserId, project);
+        @NotNull final Project project =
+                projectEndpoint.findOneProjectByUserId(
+                        bootstrap.getCurrentSession(), currentUserId, projectName
+                );
+        projectEndpoint.removeProjectByUserId(bootstrap.getCurrentSession(), currentUserId, project);
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 

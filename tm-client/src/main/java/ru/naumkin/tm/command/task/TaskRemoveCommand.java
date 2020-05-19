@@ -28,11 +28,14 @@ public final class TaskRemoveCommand extends AbstractCommand {
     public void execute() throws Exception {
         bootstrap.getTerminalService().showMessage("[TASK REMOVE]");
         @NotNull final ITaskEndpoint taskEndpoint = bootstrap.getTaskEndpoint();
-        @Nullable final String currentUserId = bootstrap.getUserEndpoint().getCurrentUserId();
+        @Nullable final String currentUserId =
+                bootstrap.getUserEndpoint().getCurrentUserId(bootstrap.getCurrentSession());
         bootstrap.getTerminalService().showMessage("Enter task name:");
         @NotNull final String taskName = bootstrap.getTerminalService().readLine();
-        @Nullable final Task task = taskEndpoint.findOneTaskByUserId(currentUserId, taskName);
-        taskEndpoint.removeTask(task);
+        @Nullable final Task task = taskEndpoint.findOneTaskByUserId(
+                bootstrap.getCurrentSession(), currentUserId, taskName
+        );
+        taskEndpoint.removeTask(bootstrap.getCurrentSession(), task);
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 

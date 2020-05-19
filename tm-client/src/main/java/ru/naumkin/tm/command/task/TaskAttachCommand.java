@@ -33,17 +33,22 @@ public final class TaskAttachCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("Enter project name:");
         @NotNull Project project;
         @NotNull final String projectName = bootstrap.getTerminalService().readLine();
-        @Nullable final String currentUserId = bootstrap.getUserEndpoint().getCurrentUserId();
-        project = projectEndpoint.findOneProjectByUserId(currentUserId, projectName);
+        @Nullable final String currentUserId =
+                bootstrap.getUserEndpoint().getCurrentUserId(bootstrap.getCurrentSession());
+        project = projectEndpoint.findOneProjectByUserId(
+                bootstrap.getCurrentSession(), currentUserId, projectName
+        );
         bootstrap.getTerminalService().showMessage("Enter task name:");
         @NotNull final String taskName = bootstrap.getTerminalService().readLine();
         @NotNull final ITaskEndpoint taskEndpoint = bootstrap.getTaskEndpoint();
         @Nullable final Task task;
-        task = taskEndpoint.findOneTaskByUserId(currentUserId, taskName);
+        task = taskEndpoint.findOneTaskByUserId(
+                bootstrap.getCurrentSession(), currentUserId, taskName
+        );
         if (task != null) {
             task.setProjectId(project.getId());
         }
-        taskEndpoint.mergeTask(task, taskName);
+        taskEndpoint.mergeTask(bootstrap.getCurrentSession(), task, taskName);
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 

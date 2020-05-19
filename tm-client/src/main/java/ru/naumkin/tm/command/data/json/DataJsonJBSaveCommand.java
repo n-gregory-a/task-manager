@@ -26,7 +26,7 @@ public class DataJsonJBSaveCommand extends AbstractCommand {
     public void execute() throws Exception {
         bootstrap.getTerminalService().showMessage("[SAVE DATA TO JSON FILE BY JAXB]");
         @NotNull final IDomainEndpoint domainEndpoint = bootstrap.getDomainEndpoint();
-        domainEndpoint.saveJsonDataJaxb();
+        domainEndpoint.saveJsonDataJaxb(bootstrap.getCurrentSession());
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 

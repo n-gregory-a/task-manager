@@ -26,7 +26,7 @@ public class DataXmlJBLoadCommand extends AbstractCommand {
     public void execute() throws Exception {
         bootstrap.getTerminalService().showMessage("[LOAD DATA FROM XML FILE BY JAXB]");
         @NotNull final IDomainEndpoint domainEndpoint = bootstrap.getDomainEndpoint();
-        domainEndpoint.loadXmlDataJaxb();
+        domainEndpoint.loadXmlDataJaxb(bootstrap.getCurrentSession());
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 
