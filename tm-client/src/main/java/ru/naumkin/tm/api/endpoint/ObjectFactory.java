@@ -291,6 +291,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Session }
+     * 
+     */
+    public Session createSession() {
+        return new Session();
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Exception }{@code >}
      * 
      * @param value

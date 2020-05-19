@@ -16,8 +16,9 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="arg0" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="arg1" type="{http://endpoint.api.tm.naumkin.ru/}project" minOccurs="0"/&gt;
+ *         &lt;element name="arg0" type="{http://endpoint.api.tm.naumkin.ru/}session" minOccurs="0"/&gt;
+ *         &lt;element name="arg1" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="arg2" type="{http://endpoint.api.tm.naumkin.ru/}project" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -29,22 +30,24 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "removeProjectByUserId", propOrder = {
     "arg0",
-    "arg1"
+    "arg1",
+    "arg2"
 })
 public class RemoveProjectByUserId {
 
-    protected String arg0;
-    protected Project arg1;
+    protected Session arg0;
+    protected String arg1;
+    protected Project arg2;
 
     /**
      * Gets the value of the arg0 property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Session }
      *     
      */
-    public String getArg0() {
+    public Session getArg0() {
         return arg0;
     }
 
@@ -53,10 +56,10 @@ public class RemoveProjectByUserId {
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Session }
      *     
      */
-    public void setArg0(String value) {
+    public void setArg0(Session value) {
         this.arg0 = value;
     }
 
@@ -65,10 +68,10 @@ public class RemoveProjectByUserId {
      * 
      * @return
      *     possible object is
-     *     {@link Project }
+     *     {@link String }
      *     
      */
-    public Project getArg1() {
+    public String getArg1() {
         return arg1;
     }
 
@@ -77,11 +80,35 @@ public class RemoveProjectByUserId {
      * 
      * @param value
      *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setArg1(String value) {
+        this.arg1 = value;
+    }
+
+    /**
+     * Gets the value of the arg2 property.
+     * 
+     * @return
+     *     possible object is
      *     {@link Project }
      *     
      */
-    public void setArg1(Project value) {
-        this.arg1 = value;
+    public Project getArg2() {
+        return arg2;
+    }
+
+    /**
+     * Sets the value of the arg2 property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Project }
+     *     
+     */
+    public void setArg2(Project value) {
+        this.arg2 = value;
     }
 
 }
