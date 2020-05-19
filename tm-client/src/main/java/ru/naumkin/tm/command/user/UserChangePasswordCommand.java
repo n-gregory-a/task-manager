@@ -30,7 +30,7 @@ public final class UserChangePasswordCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("Enter login:");
         @NotNull final String login = bootstrap.getTerminalService().readLine();
         @NotNull final User user =
-                bootstrap.getUserEndpoint().findOneUser(bootstrap.getCurrentSession(), login);
+                bootstrap.getUserEndpoint().findOneUser(login);
         bootstrap.getTerminalService().showMessage("Enter new password:");
         @NotNull final String password = bootstrap.getTerminalService().readLine();
         user.setPassword(HashGenerator.getHash(password));

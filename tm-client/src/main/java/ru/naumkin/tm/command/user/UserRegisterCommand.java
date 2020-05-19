@@ -32,7 +32,7 @@ public final class UserRegisterCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("Enter password:");
         @NotNull final String password = bootstrap.getTerminalService().readLine();
         user.setPassword(HashGenerator.getHash(password));
-        bootstrap.getUserEndpoint().persistUser(bootstrap.getCurrentSession(), user);
+        bootstrap.getUserEndpoint().persistUser(user);
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 
@@ -43,7 +43,7 @@ public final class UserRegisterCommand extends AbstractCommand {
         User user = new User();
         user.setName(login);
         for (@NotNull final User u:
-                bootstrap.getUserEndpoint().findAllUsers(bootstrap.getCurrentSession())
+                bootstrap.getUserEndpoint().findAllUsers()
         ) {
             if (u.getName().equals(login)) {
                 bootstrap.getTerminalService().showMessage("The login is occupied.");

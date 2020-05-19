@@ -29,7 +29,7 @@ public final class ProjectCreateCommand extends AbstractCommand {
     public void execute() throws Exception {
         bootstrap.getTerminalService().showMessage("[PROJECT CREATE]");
         @Nullable final User user
-                = bootstrap.getUserEndpoint().getCurrentUser(bootstrap.getCurrentSession());
+                = bootstrap.getUserEndpoint().getCurrentUser();
         @NotNull final IProjectEndpoint projectEndpoint = bootstrap.getProjectEndpoint();
         bootstrap.getTerminalService().showMessage("Enter name:");
         @NotNull final String name = bootstrap.getTerminalService().readLine();
