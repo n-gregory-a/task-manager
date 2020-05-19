@@ -51,7 +51,7 @@ public interface IUserEndpoint {
 
     @NotNull
     @WebMethod
-    User createUser(@Nullable final Session session, @NotNull final RoleType role);
+    User createUser(@NotNull final RoleType role);
 
     @WebMethod
     boolean isRoleAdmin(@Nullable final Session session, @NotNull final User user);

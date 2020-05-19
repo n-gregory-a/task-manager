@@ -120,10 +120,8 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
     @Override
     @WebMethod
     public User createUser(
-            @Nullable final Session session,
             @NotNull final RoleType role
     ) {
-        validate(session);
         return userService.createUser(role);
     }
 
