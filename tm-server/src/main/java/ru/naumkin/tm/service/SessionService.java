@@ -18,12 +18,6 @@ import java.util.List;
 public class SessionService extends AbstractService<Session> implements ISessionService {
 
     @NotNull
-    private final IProjectService projectService;
-
-    @NotNull
-    private final ITaskService taskService;
-
-    @NotNull
     private final IUserService userService;
 
     @NotNull
@@ -31,13 +25,9 @@ public class SessionService extends AbstractService<Session> implements ISession
 
     public SessionService(
             @NotNull final IRepository<Session> repository,
-            @NotNull final IProjectService projectService,
-            @NotNull final ITaskService taskService,
             @NotNull final IUserService userService,
             @NotNull IPropertyService propertyService) {
         super(repository);
-        this.projectService = projectService;
-        this.taskService = taskService;
         this.userService = userService;
         this.propertyService = propertyService;
     }
