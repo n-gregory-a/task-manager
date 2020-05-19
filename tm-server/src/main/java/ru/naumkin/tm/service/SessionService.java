@@ -3,15 +3,20 @@ package ru.naumkin.tm.service;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.IRepository;
-import ru.naumkin.tm.api.service.*;
+import ru.naumkin.tm.api.service.IPropertyService;
+import ru.naumkin.tm.api.service.ISessionService;
+import ru.naumkin.tm.api.service.IUserService;
+import ru.naumkin.tm.constant.ValidationConstant;
 import ru.naumkin.tm.entity.Session;
 import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.enumerated.RoleType;
 import ru.naumkin.tm.error.RoleTypeIsNullException;
 import ru.naumkin.tm.error.SessionIsNullException;
+import ru.naumkin.tm.error.SessionTimeOutException;
 import ru.naumkin.tm.error.SessionValidationException;
 import ru.naumkin.tm.util.SignatureUtil;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -97,6 +102,11 @@ public class SessionService extends AbstractService<Session> implements ISession
         final boolean sessionNotExists = repository.findOne(session.getName()) == null;
         if (sessionNotExists) {
             throw new SessionIsNullException();
+        }
+        final long now = new Date().getTime();
+        final boolean timeIsOut = now - session.getTimestamp() > ValidationConstant.SESSION_TIME_OUT;
+        if (timeIsOut) {
+            throw new SessionTimeOutException();
         }
     }
 
