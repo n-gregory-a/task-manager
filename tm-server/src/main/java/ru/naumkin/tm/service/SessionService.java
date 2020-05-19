@@ -7,6 +7,9 @@ import ru.naumkin.tm.api.service.*;
 import ru.naumkin.tm.entity.Session;
 import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.enumerated.RoleType;
+import ru.naumkin.tm.error.RoleTypeIsNullException;
+import ru.naumkin.tm.error.SessionIsNullException;
+import ru.naumkin.tm.error.SessionValidationException;
 import ru.naumkin.tm.util.SignatureUtil;
 
 import java.util.LinkedList;
@@ -82,28 +85,28 @@ public class SessionService extends AbstractService<Session> implements ISession
     @Override
     public void validate(@NotNull final Session session) {
         if (session.getUserId() == null || session.getUserId().isEmpty()) {
-            throw new RuntimeException();
+            throw new SessionValidationException();
         }
         if (session.getSignature() == null || session.getSignature().isEmpty()) {
-            throw new RuntimeException();
+            throw new SessionValidationException();
         }
         if (session.getTimestamp() == null) {
-            throw new RuntimeException();
+            throw new SessionValidationException();
         }
         @Nullable final Session tempSession = session.clone();
         if (tempSession == null) {
-            throw new RuntimeException();
+            throw new SessionIsNullException();
         }
         @NotNull final String signatureSource = session.getSignature();
         tempSession.setSignature(null);
         @Nullable final String signatureTarget = sign(tempSession).getSignature();
         final boolean signatureEquals = signatureSource.equals(signatureTarget);
         if (!signatureEquals) {
-            throw new RuntimeException();
+            throw new SessionValidationException();
         }
         final boolean sessionNotExists = repository.findOne(session.getName()) == null;
         if (sessionNotExists) {
-            throw new RuntimeException();
+            throw new SessionIsNullException();
         }
     }
 
@@ -112,11 +115,11 @@ public class SessionService extends AbstractService<Session> implements ISession
         validate(session);
         @Nullable final User sessionUser = getUser(session);
         if (sessionUser == null) {
-            throw new RuntimeException();
+            throw new SessionValidationException();
         }
         final boolean roleIsAdmin = userService.isRoleAdmin(sessionUser);
         if (!roleIsAdmin) {
-            throw new RuntimeException();
+            throw new RoleTypeIsNullException();
         }
     }
 

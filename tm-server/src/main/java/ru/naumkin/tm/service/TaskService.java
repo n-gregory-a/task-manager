@@ -6,6 +6,7 @@ import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.ITaskRepository;
 import ru.naumkin.tm.api.service.ITaskService;
 import ru.naumkin.tm.entity.Task;
+import ru.naumkin.tm.error.*;
 
 import java.util.List;
 
@@ -24,10 +25,10 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     @Override
     public List<Task> findAll(@Nullable final String currentUserId) {
         if (currentUserId == null) {
-            throw new RuntimeException();
+            throw new CurrentUserIdIsNullException();
         }
         if (currentUserId.isEmpty()) {
-            throw new RuntimeException();
+            throw new CurrentUserIdIsEmptyException();
         }
         return taskRepository.findAll(currentUserId);
     }
@@ -39,20 +40,20 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
             @Nullable final String name
     ) {
         if (name == null) {
-            throw new RuntimeException();
+            throw new NameIsNullException();
         }
         if (currentUserId == null) {
-            throw new RuntimeException();
+            throw new CurrentUserIdIsNullException();
         }
         if (name.isEmpty()) {
-            throw new RuntimeException();
+            throw new NameIsEmptyException();
         }
         if (currentUserId.isEmpty()) {
-            throw new RuntimeException();
+            throw new CurrentUserIdIsEmptyException();
         }
         @Nullable final Task task = taskRepository.findOne(currentUserId, name);
         if (task == null) {
-            throw new RuntimeException();
+            throw new NoTaskWithSuchNameException(name);
         }
         return task;
     }
@@ -64,17 +65,17 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
             @Nullable final Task task
     ) {
         if (task == null) {
-            throw new RuntimeException();
+            throw new TaskIsNullException();
         }
         if (currentUserId == null) {
-            throw new RuntimeException();
+            throw new CurrentUserIdIsNullException();
         }
         if (currentUserId.isEmpty()) {
-            throw new RuntimeException();
+            throw new CurrentUserIdIsEmptyException();
         }
         @Nullable final Task toRemove = taskRepository.remove(currentUserId, task);
         if (toRemove == null) {
-            throw new RuntimeException();
+            throw new TaskIsNullException();
         }
         return toRemove;
     }
@@ -82,10 +83,10 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     @Override
     public void removeAll(@Nullable final String currentUserId) {
         if (currentUserId == null) {
-            throw new RuntimeException();
+            throw new CurrentUserIdIsNullException();
         }
         if (currentUserId.isEmpty()) {
-            throw new RuntimeException();
+            throw new CurrentUserIdIsEmptyException();
         }
         taskRepository.removeAll(currentUserId);
     }
@@ -94,10 +95,10 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     @Override
     public List<Task> sortByDateStart(@Nullable final String currentUserId) {
         if (currentUserId == null) {
-            throw new RuntimeException();
+            throw new CurrentUserIdIsNullException();
         }
         if (currentUserId.isEmpty()) {
-            throw new RuntimeException();
+            throw new CurrentUserIdIsEmptyException();
         }
         return taskRepository.sortByDateStart(currentUserId);
     }
@@ -106,10 +107,10 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     @Override
     public List<Task> sortByDateFinish(@Nullable final String currentUserId) {
         if (currentUserId == null) {
-            throw new RuntimeException();
+            throw new CurrentUserIdIsNullException();
         }
         if (currentUserId.isEmpty()) {
-            throw new RuntimeException();
+            throw new CurrentUserIdIsEmptyException();
         }
         return taskRepository.sortByDateFinish(currentUserId);
     }
@@ -118,10 +119,10 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     @Override
     public List<Task> sortByStatus(@Nullable final String currentUserId) {
         if (currentUserId == null) {
-            throw new RuntimeException();
+            throw new CurrentUserIdIsNullException();
         }
         if (currentUserId.isEmpty()) {
-            throw new RuntimeException();
+            throw new CurrentUserIdIsEmptyException();
         }
         return taskRepository.sortByStatus(currentUserId);
     }
@@ -133,16 +134,16 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
             @Nullable final String name
     ) {
         if (name == null) {
-            throw new RuntimeException();
+            throw new NameIsNullException();
         }
         if (currentUserId == null) {
-            throw new RuntimeException();
+            throw new CurrentUserIdIsNullException();
         }
         if (name.isEmpty()) {
-            throw new RuntimeException();
+            throw new NameIsEmptyException();
         }
         if (currentUserId.isEmpty()) {
-            throw new RuntimeException();
+            throw new CurrentUserIdIsEmptyException();
         }
         return taskRepository.sortByName(currentUserId, name);
     }
@@ -154,16 +155,16 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
             @Nullable final String description
     ) {
         if (description == null) {
-            throw new RuntimeException();
+            throw new DescriptionIsNullException();
         }
         if (currentUserId == null) {
-            throw new RuntimeException();
+            throw new CurrentUserIdIsNullException();
         }
         if (description.isEmpty()) {
-            throw new RuntimeException();
+            throw new DescriptionIsEmptyException();
         }
         if (currentUserId.isEmpty()) {
-            throw new RuntimeException();
+            throw new CurrentUserIdIsEmptyException();
         }
         return taskRepository.sortByDescription(currentUserId, description);
     }

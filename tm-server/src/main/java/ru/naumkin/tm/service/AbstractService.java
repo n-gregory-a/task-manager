@@ -6,6 +6,7 @@ import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.IRepository;
 import ru.naumkin.tm.api.service.IService;
 import ru.naumkin.tm.entity.AbstractEntity;
+import ru.naumkin.tm.error.*;
 
 import java.util.Collection;
 
@@ -36,19 +37,19 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
         }
         @Nullable E entity = repository.findOne(name);
         if (entity == null) {
-            throw new RuntimeException();
+            throw new EntityIsNullException();
         }
         return entity;
     }
 
     @Nullable
     @Override
-    public E findOneById(@Nullable String id) {
+    public E findOneById(@Nullable final String id) {
         if (id == null) {
-            throw new RuntimeException();
+            throw new IdIsNullException();
         }
         if (id.isEmpty()) {
-            throw new RuntimeException();
+            throw new IdIsEmptyException();
         }
         return repository.findOneById(id);
     }
@@ -57,7 +58,7 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
     @Override
     public E persist(@Nullable final E entity) {
         if (entity == null) {
-            throw new RuntimeException();
+            throw new EntityIsNullException();
         }
         return repository.persist(entity);
     }
@@ -66,16 +67,16 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
     @Override
     public E merge(final @Nullable E entity, final @Nullable String name) {
         if (name == null) {
-            throw new RuntimeException();
+            throw new NameIsNullException();
         }
         if (name.isEmpty()) {
-            throw new RuntimeException();
+            throw new NameIsEmptyException();
         }
         if (entity == null) {
-            throw new RuntimeException();
+            throw new EntityIsNullException();
         }
         if (entity.getName().isEmpty()) {
-            throw new RuntimeException();
+            throw new NameIsEmptyException();
         }
         @Nullable final E updatingEntity = repository.findOne(name);
         if (updatingEntity == null) {
@@ -88,7 +89,7 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
     @Override
     public E remove(final @Nullable E entity) {
         if (entity == null) {
-            throw new RuntimeException();
+            throw new EntityIsNullException();
         }
         return repository.remove(entity);
     }
@@ -101,7 +102,7 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
     @Override
     public void persist(E[] entities) {
         if (entities == null) {
-            throw new RuntimeException();
+            throw new EntityIsNullException();
         }
         repository.persist(entities);
     }

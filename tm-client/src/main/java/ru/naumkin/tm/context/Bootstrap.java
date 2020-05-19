@@ -86,7 +86,7 @@ public final class Bootstrap {
             try {
                 execute(command);
             } catch (Exception e) {
-                terminalService.showMessage("Something went wrong. Please try again.");
+                terminalService.showMessage(e.getMessage());
             }
         }
     }
