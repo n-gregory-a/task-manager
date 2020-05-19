@@ -17,8 +17,10 @@ import ru.naumkin.tm.enpoint.DomainEndpoint;
 import ru.naumkin.tm.enpoint.ProjectEndpoint;
 import ru.naumkin.tm.enpoint.TaskEndpoint;
 import ru.naumkin.tm.enpoint.UserEndpoint;
+import ru.naumkin.tm.entity.Session;
 import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.repository.ProjectRepository;
+import ru.naumkin.tm.repository.SessionRepository;
 import ru.naumkin.tm.repository.TaskRepository;
 import ru.naumkin.tm.repository.UserRepository;
 import ru.naumkin.tm.service.*;
@@ -37,6 +39,9 @@ public final class Bootstrap implements ServiceLocator {
     @NotNull
     private final IRepository<User> userRepository = new UserRepository();
 
+    @NotNull
+    private final IRepository<Session> sessionIRepository = new SessionRepository();
+
     @Getter
     @NotNull
     private final ITaskService taskService = new TaskService(taskRepository);
@@ -51,23 +56,33 @@ public final class Bootstrap implements ServiceLocator {
 
     @Getter
     @NotNull
-    private final IDomainService domainService = new DomainService(projectService, taskService, userService);
+    private final IDomainService domainService =
+            new DomainService(projectService, taskService, userService);
 
     @Getter
     @NotNull
     private final IPropertyService propertyService = new PropertyService();
 
+    @Getter
     @NotNull
-    private final IProjectEndpoint projectEndpoint = new ProjectEndpoint(projectService);
+    private final ISessionService sessionService = new SessionService(
+            sessionIRepository, projectService, taskService, userService, propertyService);
 
     @NotNull
-    private final ITaskEndpoint taskEndpoint = new TaskEndpoint(taskService);
+    private final IProjectEndpoint projectEndpoint =
+            new ProjectEndpoint(sessionService, projectService);
 
     @NotNull
-    private final IUserEndpoint userEndpoint = new UserEndpoint(userService);
+    private final ITaskEndpoint taskEndpoint =
+            new TaskEndpoint(sessionService, taskService);
 
     @NotNull
-    private final IDomainEndpoint domainEndpoint = new DomainEndpoint(domainService);
+    private final IUserEndpoint userEndpoint =
+            new UserEndpoint(sessionService, userService);
+
+    @NotNull
+    private final IDomainEndpoint domainEndpoint =
+            new DomainEndpoint(sessionService, domainService);
 
     public void init() throws Exception {
         propertyService.init();
