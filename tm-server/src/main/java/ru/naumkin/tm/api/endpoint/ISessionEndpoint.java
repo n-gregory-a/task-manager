@@ -39,7 +39,7 @@ public interface ISessionEndpoint {
     void persistSessions(@Nullable final Session session, @NotNull final Session[] sessions);
 
     @WebMethod
-    void open(
+    Session open(
             @NotNull final String login,
             @NotNull final String password);
 

@@ -40,8 +40,9 @@ public class SessionService extends AbstractService<Session> implements ISession
         this.propertyService = propertyService;
     }
 
+    @NotNull
     @Override
-    public void open(@NotNull final String login, @NotNull final String password) {
+    public Session open(@NotNull final String login, @NotNull final String password) {
         @NotNull Session session = new Session();
         session.setName("Session" + System.currentTimeMillis());
         session.setTimestamp(System.currentTimeMillis());
@@ -53,6 +54,7 @@ public class SessionService extends AbstractService<Session> implements ISession
         session.setUserId(user.getId());
         sign(session);
         repository.persist(session);
+        return session;
     }
 
     @Override

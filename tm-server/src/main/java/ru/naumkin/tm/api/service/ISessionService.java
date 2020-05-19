@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ISessionService extends IService<Session> {
 
-    void open(@NotNull final String login, @NotNull final String password);
+    Session open(@NotNull final String login, @NotNull final String password);
 
     void close(@NotNull final Session session);
 

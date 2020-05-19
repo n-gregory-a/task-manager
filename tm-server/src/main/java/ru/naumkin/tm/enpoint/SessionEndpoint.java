@@ -90,13 +90,14 @@ public class SessionEndpoint implements ISessionEndpoint {
         sessionService.persist(sessions);
     }
 
+    @NotNull
     @Override
     @WebMethod
-    public void open(
+    public Session open(
             @NotNull final String login,
             @NotNull final String password
     ) {
-        sessionService.open(login, password);
+        return sessionService.open(login, password);
     }
 
     @Override

@@ -113,8 +113,8 @@ public final class Bootstrap {
     }
 
     public void createDefaultUser() {
-        User user = userEndpoint.createUser(RoleType.USER);
-        sessionEndpoint.open(user.getName(), user.getPassword());
+        @NotNull final User user = userEndpoint.createUser(RoleType.USER);
+        @NotNull final Session session = sessionEndpoint.open(user.getName(), user.getPassword());
         User administrator = userEndpoint.createUser(RoleType.ADMINISTRATOR);
         userEndpoint.setCurrentUser(session, user);
     }
