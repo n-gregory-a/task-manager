@@ -3,6 +3,7 @@ package ru.naumkin.tm.api.endpoint;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.entity.Session;
+import ru.naumkin.tm.enumerated.RoleType;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -13,11 +14,11 @@ public interface ISessionEndpoint {
 
     @NotNull
     @WebMethod
-    List<Session> findAllSessions();
+    List<Session> findAllSessions(@Nullable final Session session);
 
     @NotNull
     @WebMethod
-    Session findOneSession(@Nullable final String name);
+    Session findOneSession(@Nullable final Session session, @Nullable final String name);
 
     @Nullable
     @WebMethod
@@ -32,13 +33,16 @@ public interface ISessionEndpoint {
     Session removeSession(@Nullable final Session session);
 
     @WebMethod
-    void removeAllSessions();
+    void removeAllSessions(@Nullable final Session session);
 
     @WebMethod
-    void persistSession(Session[] sessions);
+    void persistSession(@Nullable final Session session, @NotNull final Session[] sessions);
 
     @WebMethod
-    void open(@NotNull final String login, @NotNull final String password);
+    void open(
+            @Nullable final Session session,
+            @NotNull final String login,
+            @NotNull final String password);
 
     @WebMethod
     void close(@NotNull final Session session);
@@ -52,6 +56,9 @@ public interface ISessionEndpoint {
 
     @WebMethod
     void validate(@NotNull final Session session);
+
+    @WebMethod
+    void validate(@NotNull final Session session, @NotNull final RoleType role);
 
     @NotNull
     @WebMethod
