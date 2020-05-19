@@ -2,10 +2,8 @@ package ru.naumkin.tm.service;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.naumkin.tm.api.ServiceLocator;
 import ru.naumkin.tm.api.repository.IRepository;
-import ru.naumkin.tm.api.service.IPropertyService;
-import ru.naumkin.tm.api.service.ISessionService;
+import ru.naumkin.tm.api.service.*;
 import ru.naumkin.tm.entity.Session;
 import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.enumerated.RoleType;
@@ -18,14 +16,28 @@ import java.util.List;
 public class SessionService extends AbstractService<Session> implements ISessionService {
 
     @NotNull
-    private final ServiceLocator serviceLocator;
+    private final IProjectService projectService;
+
+    @NotNull
+    private final ITaskService taskService;
+
+    @NotNull
+    private final IUserService userService;
+
+    @NotNull
+    private final IPropertyService propertyService;
 
     public SessionService(
             @NotNull final IRepository<Session> repository,
-            @NotNull final ServiceLocator serviceLocator
-    ) {
+            @NotNull final IProjectService projectService,
+            @NotNull final ITaskService taskService,
+            @NotNull final IUserService userService,
+            @NotNull IPropertyService propertyService) {
         super(repository);
-        this.serviceLocator = serviceLocator;
+        this.projectService = projectService;
+        this.taskService = taskService;
+        this.userService = userService;
+        this.propertyService = propertyService;
     }
 
     @Override
@@ -33,37 +45,37 @@ public class SessionService extends AbstractService<Session> implements ISession
         @NotNull Session session = new Session();
         session.setName("Session" + System.currentTimeMillis());
         session.setTimestamp(System.currentTimeMillis());
-        @NotNull User user = serviceLocator.getUserService().findOne(login);
+        @NotNull User user = userService.findOne(login);
         final boolean passwordIsCorrect = HashGenerator.getHash(password).equals(user.getPassword());
         if (!passwordIsCorrect) {
             throw new RuntimeException();
         }
         session.setUserId(user.getId());
         sign(session);
-        serviceLocator.getSessionService().persist(session);
+        repository.persist(session);
     }
 
     @Override
     public void close(@NotNull final Session session) {
-        serviceLocator.getSessionService().remove(session);
+        repository.remove(session);
     }
 
     @Override
     public void closeAll(@NotNull final Session session) {
-        serviceLocator.getSessionService().removeAll();
+        repository.removeAll();
     }
 
     @NotNull
     @Override
     public List<Session> getListSession(@NotNull final Session session) {
-        return new LinkedList<>(serviceLocator.getSessionService().findAll());
+        return new LinkedList<>(repository.findAll());
     }
 
     @Nullable
     @Override
     public User getUser(@NotNull final Session session) {
         @NotNull final String userId = session.getUserId();
-        return serviceLocator.getUserService().findOneById(userId);
+        return userService.findOneById(userId);
     }
 
     @Override
@@ -96,11 +108,11 @@ public class SessionService extends AbstractService<Session> implements ISession
     @Override
     public void validate(@NotNull final Session session, @NotNull final RoleType role) {
         validate(session);
-        @Nullable final User sessionUser = serviceLocator.getSessionService().getUser(session);
+        @Nullable final User sessionUser = getUser(session);
         if (sessionUser == null) {
             throw new RuntimeException();
         }
-        final boolean roleIsAdmin = serviceLocator.getUserService().isRoleAdmin(sessionUser);
+        final boolean roleIsAdmin = userService.isRoleAdmin(sessionUser);
         if (!roleIsAdmin) {
             throw new RuntimeException();
         }
@@ -109,7 +121,6 @@ public class SessionService extends AbstractService<Session> implements ISession
     @NotNull
     @Override
     public Session sign(@NotNull final Session session) {
-        @NotNull final IPropertyService propertyService = serviceLocator.getPropertyService();
         @NotNull final String salt = propertyService.getSessionSalt();
         @NotNull final Integer cycle = propertyService.getSessionCycle();
         @Nullable final String signature = SignatureUtil.sign(session, salt, cycle);
