@@ -31,8 +31,7 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
     @NotNull
     @Override
     @WebMethod
-    public List<User> findAllUsers(@Nullable final Session session) {
-        validate(session);
+    public List<User> findAllUsers() {
         return new LinkedList<>(userService.findAll());
     }
 
@@ -40,10 +39,8 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
     @Override
     @WebMethod
     public User findOneUser(
-            @Nullable final Session session,
             @Nullable final String name
     ) {
-        validate(session);
         return userService.findOne(name);
     }
 
@@ -51,10 +48,8 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
     @Override
     @WebMethod
     public User persistUser(
-            @Nullable final Session session,
             @Nullable final User user
     ) {
-        validate(session);
         return userService.persist(user);
     }
 
@@ -101,18 +96,15 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
     @Nullable
     @Override
     @WebMethod
-    public User getCurrentUser(@Nullable final Session session) {
-        validate(session);
+    public User getCurrentUser() {
         return userService.getCurrentUser();
     }
 
     @Override
     @WebMethod
     public void setCurrentUser(
-            @Nullable final Session session,
             @Nullable final User currentUser
     ) {
-        validate(session);
         userService.setCurrentUser(currentUser);
     }
 

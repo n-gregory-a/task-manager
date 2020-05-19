@@ -15,15 +15,15 @@ public interface IUserEndpoint {
 
     @NotNull
     @WebMethod
-    List<User> findAllUsers(@Nullable final Session session);
+    List<User> findAllUsers();
 
     @NotNull
     @WebMethod
-    User findOneUser(@Nullable final Session session, @Nullable final String name);
+    User findOneUser(@Nullable final String name);
 
     @Nullable
     @WebMethod
-    User persistUser(@Nullable final Session session, @Nullable final User user);
+    User persistUser(@Nullable final User user);
 
     @Nullable
     @WebMethod
@@ -44,10 +44,10 @@ public interface IUserEndpoint {
 
     @Nullable
     @WebMethod
-    User getCurrentUser(@Nullable final Session session);
+    User getCurrentUser();
 
     @WebMethod
-    void setCurrentUser(@Nullable final Session session, @Nullable final User currentUser);
+    void setCurrentUser(@Nullable final User currentUser);
 
     @NotNull
     @WebMethod
