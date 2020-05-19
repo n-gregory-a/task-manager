@@ -24,32 +24,36 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _Exception_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "Exception");
-    private final static QName _Domain_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "domain");
-    private final static QName _Load_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "load");
-    private final static QName _LoadBinaryData_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "loadBinaryData");
-    private final static QName _LoadBinaryDataResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "loadBinaryDataResponse");
-    private final static QName _LoadJsonDataFasterXml_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "loadJsonDataFasterXml");
-    private final static QName _LoadJsonDataFasterXmlResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "loadJsonDataFasterXmlResponse");
-    private final static QName _LoadJsonDataJaxb_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "loadJsonDataJaxb");
-    private final static QName _LoadJsonDataJaxbResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "loadJsonDataJaxbResponse");
-    private final static QName _LoadResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "loadResponse");
-    private final static QName _LoadXmlDataFasterXml_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "loadXmlDataFasterXml");
-    private final static QName _LoadXmlDataFasterXmlResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "loadXmlDataFasterXmlResponse");
-    private final static QName _LoadXmlDataJaxb_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "loadXmlDataJaxb");
-    private final static QName _LoadXmlDataJaxbResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "loadXmlDataJaxbResponse");
-    private final static QName _Save_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "save");
-    private final static QName _SaveBinaryData_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "saveBinaryData");
-    private final static QName _SaveBinaryDataResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "saveBinaryDataResponse");
-    private final static QName _SaveJsonDataFasterXml_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "saveJsonDataFasterXml");
-    private final static QName _SaveJsonDataFasterXmlResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "saveJsonDataFasterXmlResponse");
-    private final static QName _SaveJsonDataJaxb_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "saveJsonDataJaxb");
-    private final static QName _SaveJsonDataJaxbResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "saveJsonDataJaxbResponse");
-    private final static QName _SaveResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "saveResponse");
-    private final static QName _SaveXmlDataFasterXml_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "saveXmlDataFasterXml");
-    private final static QName _SaveXmlDataFasterXmlResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "saveXmlDataFasterXmlResponse");
-    private final static QName _SaveXmlDataJaxb_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "saveXmlDataJaxb");
-    private final static QName _SaveXmlDataJaxbResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "saveXmlDataJaxbResponse");
+    private final static QName _Close_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "close");
+    private final static QName _CloseAll_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "closeAll");
+    private final static QName _CloseAllResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "closeAllResponse");
+    private final static QName _CloseResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "closeResponse");
+    private final static QName _FindAllSessions_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "findAllSessions");
+    private final static QName _FindAllSessionsResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "findAllSessionsResponse");
+    private final static QName _FindOneSession_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "findOneSession");
+    private final static QName _FindOneSessionResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "findOneSessionResponse");
+    private final static QName _GetListSession_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "getListSession");
+    private final static QName _GetListSessionResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "getListSessionResponse");
+    private final static QName _IsValid_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "isValid");
+    private final static QName _IsValidResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "isValidResponse");
+    private final static QName _MergeSession_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "mergeSession");
+    private final static QName _MergeSessionResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "mergeSessionResponse");
+    private final static QName _Open_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "open");
+    private final static QName _OpenResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "openResponse");
+    private final static QName _PersistSession_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "persistSession");
+    private final static QName _PersistSessionResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "persistSessionResponse");
+    private final static QName _PersistSessions_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "persistSessions");
+    private final static QName _PersistSessionsResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "persistSessionsResponse");
+    private final static QName _RemoveAllSessions_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "removeAllSessions");
+    private final static QName _RemoveAllSessionsResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "removeAllSessionsResponse");
+    private final static QName _RemoveSession_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "removeSession");
+    private final static QName _RemoveSessionResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "removeSessionResponse");
+    private final static QName _Sign_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "sign");
+    private final static QName _SignResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "signResponse");
+    private final static QName _Validate_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "validate");
+    private final static QName _ValidateAdmin_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "validateAdmin");
+    private final static QName _ValidateAdminResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "validateAdminResponse");
+    private final static QName _ValidateResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "validateResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: ru.naumkin.tm.api.endpoint
@@ -59,235 +63,243 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Exception }
+     * Create an instance of {@link Close }
      * 
      */
-    public Exception createException() {
-        return new Exception();
+    public Close createClose() {
+        return new Close();
     }
 
     /**
-     * Create an instance of {@link Domain }
+     * Create an instance of {@link CloseAll }
      * 
      */
-    public Domain createDomain() {
-        return new Domain();
+    public CloseAll createCloseAll() {
+        return new CloseAll();
     }
 
     /**
-     * Create an instance of {@link Load }
+     * Create an instance of {@link CloseAllResponse }
      * 
      */
-    public Load createLoad() {
-        return new Load();
+    public CloseAllResponse createCloseAllResponse() {
+        return new CloseAllResponse();
     }
 
     /**
-     * Create an instance of {@link LoadBinaryData }
+     * Create an instance of {@link CloseResponse }
      * 
      */
-    public LoadBinaryData createLoadBinaryData() {
-        return new LoadBinaryData();
+    public CloseResponse createCloseResponse() {
+        return new CloseResponse();
     }
 
     /**
-     * Create an instance of {@link LoadBinaryDataResponse }
+     * Create an instance of {@link FindAllSessions }
      * 
      */
-    public LoadBinaryDataResponse createLoadBinaryDataResponse() {
-        return new LoadBinaryDataResponse();
+    public FindAllSessions createFindAllSessions() {
+        return new FindAllSessions();
     }
 
     /**
-     * Create an instance of {@link LoadJsonDataFasterXml }
+     * Create an instance of {@link FindAllSessionsResponse }
      * 
      */
-    public LoadJsonDataFasterXml createLoadJsonDataFasterXml() {
-        return new LoadJsonDataFasterXml();
+    public FindAllSessionsResponse createFindAllSessionsResponse() {
+        return new FindAllSessionsResponse();
     }
 
     /**
-     * Create an instance of {@link LoadJsonDataFasterXmlResponse }
+     * Create an instance of {@link FindOneSession }
      * 
      */
-    public LoadJsonDataFasterXmlResponse createLoadJsonDataFasterXmlResponse() {
-        return new LoadJsonDataFasterXmlResponse();
+    public FindOneSession createFindOneSession() {
+        return new FindOneSession();
     }
 
     /**
-     * Create an instance of {@link LoadJsonDataJaxb }
+     * Create an instance of {@link FindOneSessionResponse }
      * 
      */
-    public LoadJsonDataJaxb createLoadJsonDataJaxb() {
-        return new LoadJsonDataJaxb();
+    public FindOneSessionResponse createFindOneSessionResponse() {
+        return new FindOneSessionResponse();
     }
 
     /**
-     * Create an instance of {@link LoadJsonDataJaxbResponse }
+     * Create an instance of {@link GetListSession }
      * 
      */
-    public LoadJsonDataJaxbResponse createLoadJsonDataJaxbResponse() {
-        return new LoadJsonDataJaxbResponse();
+    public GetListSession createGetListSession() {
+        return new GetListSession();
     }
 
     /**
-     * Create an instance of {@link LoadResponse }
+     * Create an instance of {@link GetListSessionResponse }
      * 
      */
-    public LoadResponse createLoadResponse() {
-        return new LoadResponse();
+    public GetListSessionResponse createGetListSessionResponse() {
+        return new GetListSessionResponse();
     }
 
     /**
-     * Create an instance of {@link LoadXmlDataFasterXml }
+     * Create an instance of {@link IsValid }
      * 
      */
-    public LoadXmlDataFasterXml createLoadXmlDataFasterXml() {
-        return new LoadXmlDataFasterXml();
+    public IsValid createIsValid() {
+        return new IsValid();
     }
 
     /**
-     * Create an instance of {@link LoadXmlDataFasterXmlResponse }
+     * Create an instance of {@link IsValidResponse }
      * 
      */
-    public LoadXmlDataFasterXmlResponse createLoadXmlDataFasterXmlResponse() {
-        return new LoadXmlDataFasterXmlResponse();
+    public IsValidResponse createIsValidResponse() {
+        return new IsValidResponse();
     }
 
     /**
-     * Create an instance of {@link LoadXmlDataJaxb }
+     * Create an instance of {@link MergeSession }
      * 
      */
-    public LoadXmlDataJaxb createLoadXmlDataJaxb() {
-        return new LoadXmlDataJaxb();
+    public MergeSession createMergeSession() {
+        return new MergeSession();
     }
 
     /**
-     * Create an instance of {@link LoadXmlDataJaxbResponse }
+     * Create an instance of {@link MergeSessionResponse }
      * 
      */
-    public LoadXmlDataJaxbResponse createLoadXmlDataJaxbResponse() {
-        return new LoadXmlDataJaxbResponse();
+    public MergeSessionResponse createMergeSessionResponse() {
+        return new MergeSessionResponse();
     }
 
     /**
-     * Create an instance of {@link Save }
+     * Create an instance of {@link Open }
      * 
      */
-    public Save createSave() {
-        return new Save();
+    public Open createOpen() {
+        return new Open();
     }
 
     /**
-     * Create an instance of {@link SaveBinaryData }
+     * Create an instance of {@link OpenResponse }
      * 
      */
-    public SaveBinaryData createSaveBinaryData() {
-        return new SaveBinaryData();
+    public OpenResponse createOpenResponse() {
+        return new OpenResponse();
     }
 
     /**
-     * Create an instance of {@link SaveBinaryDataResponse }
+     * Create an instance of {@link PersistSession }
      * 
      */
-    public SaveBinaryDataResponse createSaveBinaryDataResponse() {
-        return new SaveBinaryDataResponse();
+    public PersistSession createPersistSession() {
+        return new PersistSession();
     }
 
     /**
-     * Create an instance of {@link SaveJsonDataFasterXml }
+     * Create an instance of {@link PersistSessionResponse }
      * 
      */
-    public SaveJsonDataFasterXml createSaveJsonDataFasterXml() {
-        return new SaveJsonDataFasterXml();
+    public PersistSessionResponse createPersistSessionResponse() {
+        return new PersistSessionResponse();
     }
 
     /**
-     * Create an instance of {@link SaveJsonDataFasterXmlResponse }
+     * Create an instance of {@link PersistSessions }
      * 
      */
-    public SaveJsonDataFasterXmlResponse createSaveJsonDataFasterXmlResponse() {
-        return new SaveJsonDataFasterXmlResponse();
+    public PersistSessions createPersistSessions() {
+        return new PersistSessions();
     }
 
     /**
-     * Create an instance of {@link SaveJsonDataJaxb }
+     * Create an instance of {@link PersistSessionsResponse }
      * 
      */
-    public SaveJsonDataJaxb createSaveJsonDataJaxb() {
-        return new SaveJsonDataJaxb();
+    public PersistSessionsResponse createPersistSessionsResponse() {
+        return new PersistSessionsResponse();
     }
 
     /**
-     * Create an instance of {@link SaveJsonDataJaxbResponse }
+     * Create an instance of {@link RemoveAllSessions }
      * 
      */
-    public SaveJsonDataJaxbResponse createSaveJsonDataJaxbResponse() {
-        return new SaveJsonDataJaxbResponse();
+    public RemoveAllSessions createRemoveAllSessions() {
+        return new RemoveAllSessions();
     }
 
     /**
-     * Create an instance of {@link SaveResponse }
+     * Create an instance of {@link RemoveAllSessionsResponse }
      * 
      */
-    public SaveResponse createSaveResponse() {
-        return new SaveResponse();
+    public RemoveAllSessionsResponse createRemoveAllSessionsResponse() {
+        return new RemoveAllSessionsResponse();
     }
 
     /**
-     * Create an instance of {@link SaveXmlDataFasterXml }
+     * Create an instance of {@link RemoveSession }
      * 
      */
-    public SaveXmlDataFasterXml createSaveXmlDataFasterXml() {
-        return new SaveXmlDataFasterXml();
+    public RemoveSession createRemoveSession() {
+        return new RemoveSession();
     }
 
     /**
-     * Create an instance of {@link SaveXmlDataFasterXmlResponse }
+     * Create an instance of {@link RemoveSessionResponse }
      * 
      */
-    public SaveXmlDataFasterXmlResponse createSaveXmlDataFasterXmlResponse() {
-        return new SaveXmlDataFasterXmlResponse();
+    public RemoveSessionResponse createRemoveSessionResponse() {
+        return new RemoveSessionResponse();
     }
 
     /**
-     * Create an instance of {@link SaveXmlDataJaxb }
+     * Create an instance of {@link Sign }
      * 
      */
-    public SaveXmlDataJaxb createSaveXmlDataJaxb() {
-        return new SaveXmlDataJaxb();
+    public Sign createSign() {
+        return new Sign();
     }
 
     /**
-     * Create an instance of {@link SaveXmlDataJaxbResponse }
+     * Create an instance of {@link SignResponse }
      * 
      */
-    public SaveXmlDataJaxbResponse createSaveXmlDataJaxbResponse() {
-        return new SaveXmlDataJaxbResponse();
+    public SignResponse createSignResponse() {
+        return new SignResponse();
     }
 
     /**
-     * Create an instance of {@link Project }
+     * Create an instance of {@link Validate }
      * 
      */
-    public Project createProject() {
-        return new Project();
+    public Validate createValidate() {
+        return new Validate();
     }
 
     /**
-     * Create an instance of {@link Task }
+     * Create an instance of {@link ValidateAdmin }
      * 
      */
-    public Task createTask() {
-        return new Task();
+    public ValidateAdmin createValidateAdmin() {
+        return new ValidateAdmin();
     }
 
     /**
-     * Create an instance of {@link User }
+     * Create an instance of {@link ValidateAdminResponse }
      * 
      */
-    public User createUser() {
-        return new User();
+    public ValidateAdminResponse createValidateAdminResponse() {
+        return new ValidateAdminResponse();
+    }
+
+    /**
+     * Create an instance of {@link ValidateResponse }
+     * 
+     */
+    public ValidateResponse createValidateResponse() {
+        return new ValidateResponse();
     }
 
     /**
@@ -299,341 +311,393 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Exception }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Close }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link Exception }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link Close }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "Exception")
-    public JAXBElement<Exception> createException(Exception value) {
-        return new JAXBElement<Exception>(_Exception_QNAME, Exception.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "close")
+    public JAXBElement<Close> createClose(Close value) {
+        return new JAXBElement<Close>(_Close_QNAME, Close.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Domain }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link CloseAll }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link Domain }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link CloseAll }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "domain")
-    public JAXBElement<Domain> createDomain(Domain value) {
-        return new JAXBElement<Domain>(_Domain_QNAME, Domain.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "closeAll")
+    public JAXBElement<CloseAll> createCloseAll(CloseAll value) {
+        return new JAXBElement<CloseAll>(_CloseAll_QNAME, CloseAll.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Load }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link CloseAllResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link Load }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link CloseAllResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "load")
-    public JAXBElement<Load> createLoad(Load value) {
-        return new JAXBElement<Load>(_Load_QNAME, Load.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "closeAllResponse")
+    public JAXBElement<CloseAllResponse> createCloseAllResponse(CloseAllResponse value) {
+        return new JAXBElement<CloseAllResponse>(_CloseAllResponse_QNAME, CloseAllResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link LoadBinaryData }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link CloseResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link LoadBinaryData }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link CloseResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "loadBinaryData")
-    public JAXBElement<LoadBinaryData> createLoadBinaryData(LoadBinaryData value) {
-        return new JAXBElement<LoadBinaryData>(_LoadBinaryData_QNAME, LoadBinaryData.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "closeResponse")
+    public JAXBElement<CloseResponse> createCloseResponse(CloseResponse value) {
+        return new JAXBElement<CloseResponse>(_CloseResponse_QNAME, CloseResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link LoadBinaryDataResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link FindAllSessions }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link LoadBinaryDataResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link FindAllSessions }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "loadBinaryDataResponse")
-    public JAXBElement<LoadBinaryDataResponse> createLoadBinaryDataResponse(LoadBinaryDataResponse value) {
-        return new JAXBElement<LoadBinaryDataResponse>(_LoadBinaryDataResponse_QNAME, LoadBinaryDataResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "findAllSessions")
+    public JAXBElement<FindAllSessions> createFindAllSessions(FindAllSessions value) {
+        return new JAXBElement<FindAllSessions>(_FindAllSessions_QNAME, FindAllSessions.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link LoadJsonDataFasterXml }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link FindAllSessionsResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link LoadJsonDataFasterXml }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link FindAllSessionsResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "loadJsonDataFasterXml")
-    public JAXBElement<LoadJsonDataFasterXml> createLoadJsonDataFasterXml(LoadJsonDataFasterXml value) {
-        return new JAXBElement<LoadJsonDataFasterXml>(_LoadJsonDataFasterXml_QNAME, LoadJsonDataFasterXml.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "findAllSessionsResponse")
+    public JAXBElement<FindAllSessionsResponse> createFindAllSessionsResponse(FindAllSessionsResponse value) {
+        return new JAXBElement<FindAllSessionsResponse>(_FindAllSessionsResponse_QNAME, FindAllSessionsResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link LoadJsonDataFasterXmlResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link FindOneSession }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link LoadJsonDataFasterXmlResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link FindOneSession }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "loadJsonDataFasterXmlResponse")
-    public JAXBElement<LoadJsonDataFasterXmlResponse> createLoadJsonDataFasterXmlResponse(LoadJsonDataFasterXmlResponse value) {
-        return new JAXBElement<LoadJsonDataFasterXmlResponse>(_LoadJsonDataFasterXmlResponse_QNAME, LoadJsonDataFasterXmlResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "findOneSession")
+    public JAXBElement<FindOneSession> createFindOneSession(FindOneSession value) {
+        return new JAXBElement<FindOneSession>(_FindOneSession_QNAME, FindOneSession.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link LoadJsonDataJaxb }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link FindOneSessionResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link LoadJsonDataJaxb }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link FindOneSessionResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "loadJsonDataJaxb")
-    public JAXBElement<LoadJsonDataJaxb> createLoadJsonDataJaxb(LoadJsonDataJaxb value) {
-        return new JAXBElement<LoadJsonDataJaxb>(_LoadJsonDataJaxb_QNAME, LoadJsonDataJaxb.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "findOneSessionResponse")
+    public JAXBElement<FindOneSessionResponse> createFindOneSessionResponse(FindOneSessionResponse value) {
+        return new JAXBElement<FindOneSessionResponse>(_FindOneSessionResponse_QNAME, FindOneSessionResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link LoadJsonDataJaxbResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetListSession }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link LoadJsonDataJaxbResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetListSession }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "loadJsonDataJaxbResponse")
-    public JAXBElement<LoadJsonDataJaxbResponse> createLoadJsonDataJaxbResponse(LoadJsonDataJaxbResponse value) {
-        return new JAXBElement<LoadJsonDataJaxbResponse>(_LoadJsonDataJaxbResponse_QNAME, LoadJsonDataJaxbResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "getListSession")
+    public JAXBElement<GetListSession> createGetListSession(GetListSession value) {
+        return new JAXBElement<GetListSession>(_GetListSession_QNAME, GetListSession.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link LoadResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetListSessionResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link LoadResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetListSessionResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "loadResponse")
-    public JAXBElement<LoadResponse> createLoadResponse(LoadResponse value) {
-        return new JAXBElement<LoadResponse>(_LoadResponse_QNAME, LoadResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "getListSessionResponse")
+    public JAXBElement<GetListSessionResponse> createGetListSessionResponse(GetListSessionResponse value) {
+        return new JAXBElement<GetListSessionResponse>(_GetListSessionResponse_QNAME, GetListSessionResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link LoadXmlDataFasterXml }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link IsValid }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link LoadXmlDataFasterXml }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link IsValid }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "loadXmlDataFasterXml")
-    public JAXBElement<LoadXmlDataFasterXml> createLoadXmlDataFasterXml(LoadXmlDataFasterXml value) {
-        return new JAXBElement<LoadXmlDataFasterXml>(_LoadXmlDataFasterXml_QNAME, LoadXmlDataFasterXml.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "isValid")
+    public JAXBElement<IsValid> createIsValid(IsValid value) {
+        return new JAXBElement<IsValid>(_IsValid_QNAME, IsValid.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link LoadXmlDataFasterXmlResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link IsValidResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link LoadXmlDataFasterXmlResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link IsValidResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "loadXmlDataFasterXmlResponse")
-    public JAXBElement<LoadXmlDataFasterXmlResponse> createLoadXmlDataFasterXmlResponse(LoadXmlDataFasterXmlResponse value) {
-        return new JAXBElement<LoadXmlDataFasterXmlResponse>(_LoadXmlDataFasterXmlResponse_QNAME, LoadXmlDataFasterXmlResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "isValidResponse")
+    public JAXBElement<IsValidResponse> createIsValidResponse(IsValidResponse value) {
+        return new JAXBElement<IsValidResponse>(_IsValidResponse_QNAME, IsValidResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link LoadXmlDataJaxb }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link MergeSession }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link LoadXmlDataJaxb }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link MergeSession }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "loadXmlDataJaxb")
-    public JAXBElement<LoadXmlDataJaxb> createLoadXmlDataJaxb(LoadXmlDataJaxb value) {
-        return new JAXBElement<LoadXmlDataJaxb>(_LoadXmlDataJaxb_QNAME, LoadXmlDataJaxb.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "mergeSession")
+    public JAXBElement<MergeSession> createMergeSession(MergeSession value) {
+        return new JAXBElement<MergeSession>(_MergeSession_QNAME, MergeSession.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link LoadXmlDataJaxbResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link MergeSessionResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link LoadXmlDataJaxbResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link MergeSessionResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "loadXmlDataJaxbResponse")
-    public JAXBElement<LoadXmlDataJaxbResponse> createLoadXmlDataJaxbResponse(LoadXmlDataJaxbResponse value) {
-        return new JAXBElement<LoadXmlDataJaxbResponse>(_LoadXmlDataJaxbResponse_QNAME, LoadXmlDataJaxbResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "mergeSessionResponse")
+    public JAXBElement<MergeSessionResponse> createMergeSessionResponse(MergeSessionResponse value) {
+        return new JAXBElement<MergeSessionResponse>(_MergeSessionResponse_QNAME, MergeSessionResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Save }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Open }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link Save }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link Open }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "save")
-    public JAXBElement<Save> createSave(Save value) {
-        return new JAXBElement<Save>(_Save_QNAME, Save.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "open")
+    public JAXBElement<Open> createOpen(Open value) {
+        return new JAXBElement<Open>(_Open_QNAME, Open.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SaveBinaryData }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link OpenResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link SaveBinaryData }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link OpenResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "saveBinaryData")
-    public JAXBElement<SaveBinaryData> createSaveBinaryData(SaveBinaryData value) {
-        return new JAXBElement<SaveBinaryData>(_SaveBinaryData_QNAME, SaveBinaryData.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "openResponse")
+    public JAXBElement<OpenResponse> createOpenResponse(OpenResponse value) {
+        return new JAXBElement<OpenResponse>(_OpenResponse_QNAME, OpenResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SaveBinaryDataResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link PersistSession }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link SaveBinaryDataResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link PersistSession }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "saveBinaryDataResponse")
-    public JAXBElement<SaveBinaryDataResponse> createSaveBinaryDataResponse(SaveBinaryDataResponse value) {
-        return new JAXBElement<SaveBinaryDataResponse>(_SaveBinaryDataResponse_QNAME, SaveBinaryDataResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "persistSession")
+    public JAXBElement<PersistSession> createPersistSession(PersistSession value) {
+        return new JAXBElement<PersistSession>(_PersistSession_QNAME, PersistSession.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SaveJsonDataFasterXml }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link PersistSessionResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link SaveJsonDataFasterXml }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link PersistSessionResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "saveJsonDataFasterXml")
-    public JAXBElement<SaveJsonDataFasterXml> createSaveJsonDataFasterXml(SaveJsonDataFasterXml value) {
-        return new JAXBElement<SaveJsonDataFasterXml>(_SaveJsonDataFasterXml_QNAME, SaveJsonDataFasterXml.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "persistSessionResponse")
+    public JAXBElement<PersistSessionResponse> createPersistSessionResponse(PersistSessionResponse value) {
+        return new JAXBElement<PersistSessionResponse>(_PersistSessionResponse_QNAME, PersistSessionResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SaveJsonDataFasterXmlResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link PersistSessions }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link SaveJsonDataFasterXmlResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link PersistSessions }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "saveJsonDataFasterXmlResponse")
-    public JAXBElement<SaveJsonDataFasterXmlResponse> createSaveJsonDataFasterXmlResponse(SaveJsonDataFasterXmlResponse value) {
-        return new JAXBElement<SaveJsonDataFasterXmlResponse>(_SaveJsonDataFasterXmlResponse_QNAME, SaveJsonDataFasterXmlResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "persistSessions")
+    public JAXBElement<PersistSessions> createPersistSessions(PersistSessions value) {
+        return new JAXBElement<PersistSessions>(_PersistSessions_QNAME, PersistSessions.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SaveJsonDataJaxb }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link PersistSessionsResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link SaveJsonDataJaxb }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link PersistSessionsResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "saveJsonDataJaxb")
-    public JAXBElement<SaveJsonDataJaxb> createSaveJsonDataJaxb(SaveJsonDataJaxb value) {
-        return new JAXBElement<SaveJsonDataJaxb>(_SaveJsonDataJaxb_QNAME, SaveJsonDataJaxb.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "persistSessionsResponse")
+    public JAXBElement<PersistSessionsResponse> createPersistSessionsResponse(PersistSessionsResponse value) {
+        return new JAXBElement<PersistSessionsResponse>(_PersistSessionsResponse_QNAME, PersistSessionsResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SaveJsonDataJaxbResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link RemoveAllSessions }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link SaveJsonDataJaxbResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link RemoveAllSessions }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "saveJsonDataJaxbResponse")
-    public JAXBElement<SaveJsonDataJaxbResponse> createSaveJsonDataJaxbResponse(SaveJsonDataJaxbResponse value) {
-        return new JAXBElement<SaveJsonDataJaxbResponse>(_SaveJsonDataJaxbResponse_QNAME, SaveJsonDataJaxbResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "removeAllSessions")
+    public JAXBElement<RemoveAllSessions> createRemoveAllSessions(RemoveAllSessions value) {
+        return new JAXBElement<RemoveAllSessions>(_RemoveAllSessions_QNAME, RemoveAllSessions.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SaveResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link RemoveAllSessionsResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link SaveResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link RemoveAllSessionsResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "saveResponse")
-    public JAXBElement<SaveResponse> createSaveResponse(SaveResponse value) {
-        return new JAXBElement<SaveResponse>(_SaveResponse_QNAME, SaveResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "removeAllSessionsResponse")
+    public JAXBElement<RemoveAllSessionsResponse> createRemoveAllSessionsResponse(RemoveAllSessionsResponse value) {
+        return new JAXBElement<RemoveAllSessionsResponse>(_RemoveAllSessionsResponse_QNAME, RemoveAllSessionsResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SaveXmlDataFasterXml }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link RemoveSession }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link SaveXmlDataFasterXml }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link RemoveSession }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "saveXmlDataFasterXml")
-    public JAXBElement<SaveXmlDataFasterXml> createSaveXmlDataFasterXml(SaveXmlDataFasterXml value) {
-        return new JAXBElement<SaveXmlDataFasterXml>(_SaveXmlDataFasterXml_QNAME, SaveXmlDataFasterXml.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "removeSession")
+    public JAXBElement<RemoveSession> createRemoveSession(RemoveSession value) {
+        return new JAXBElement<RemoveSession>(_RemoveSession_QNAME, RemoveSession.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SaveXmlDataFasterXmlResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link RemoveSessionResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link SaveXmlDataFasterXmlResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link RemoveSessionResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "saveXmlDataFasterXmlResponse")
-    public JAXBElement<SaveXmlDataFasterXmlResponse> createSaveXmlDataFasterXmlResponse(SaveXmlDataFasterXmlResponse value) {
-        return new JAXBElement<SaveXmlDataFasterXmlResponse>(_SaveXmlDataFasterXmlResponse_QNAME, SaveXmlDataFasterXmlResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "removeSessionResponse")
+    public JAXBElement<RemoveSessionResponse> createRemoveSessionResponse(RemoveSessionResponse value) {
+        return new JAXBElement<RemoveSessionResponse>(_RemoveSessionResponse_QNAME, RemoveSessionResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SaveXmlDataJaxb }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Sign }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link SaveXmlDataJaxb }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link Sign }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "saveXmlDataJaxb")
-    public JAXBElement<SaveXmlDataJaxb> createSaveXmlDataJaxb(SaveXmlDataJaxb value) {
-        return new JAXBElement<SaveXmlDataJaxb>(_SaveXmlDataJaxb_QNAME, SaveXmlDataJaxb.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "sign")
+    public JAXBElement<Sign> createSign(Sign value) {
+        return new JAXBElement<Sign>(_Sign_QNAME, Sign.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SaveXmlDataJaxbResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link SignResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link SaveXmlDataJaxbResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link SignResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "saveXmlDataJaxbResponse")
-    public JAXBElement<SaveXmlDataJaxbResponse> createSaveXmlDataJaxbResponse(SaveXmlDataJaxbResponse value) {
-        return new JAXBElement<SaveXmlDataJaxbResponse>(_SaveXmlDataJaxbResponse_QNAME, SaveXmlDataJaxbResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "signResponse")
+    public JAXBElement<SignResponse> createSignResponse(SignResponse value) {
+        return new JAXBElement<SignResponse>(_SignResponse_QNAME, SignResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Validate }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link Validate }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "validate")
+    public JAXBElement<Validate> createValidate(Validate value) {
+        return new JAXBElement<Validate>(_Validate_QNAME, Validate.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ValidateAdmin }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link ValidateAdmin }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "validateAdmin")
+    public JAXBElement<ValidateAdmin> createValidateAdmin(ValidateAdmin value) {
+        return new JAXBElement<ValidateAdmin>(_ValidateAdmin_QNAME, ValidateAdmin.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ValidateAdminResponse }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link ValidateAdminResponse }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "validateAdminResponse")
+    public JAXBElement<ValidateAdminResponse> createValidateAdminResponse(ValidateAdminResponse value) {
+        return new JAXBElement<ValidateAdminResponse>(_ValidateAdminResponse_QNAME, ValidateAdminResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ValidateResponse }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link ValidateResponse }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "validateResponse")
+    public JAXBElement<ValidateResponse> createValidateResponse(ValidateResponse value) {
+        return new JAXBElement<ValidateResponse>(_ValidateResponse_QNAME, ValidateResponse.class, null, value);
     }
 
 }
