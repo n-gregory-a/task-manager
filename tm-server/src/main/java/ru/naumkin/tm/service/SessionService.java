@@ -96,14 +96,12 @@ public class SessionService extends AbstractService<Session> implements ISession
     @Override
     public void validate(@NotNull final Session session, @NotNull final RoleType role) {
         validate(session);
-        @NotNull final String userId = session.getUserId();
-        @Nullable final User user = serviceLocator.getUserService().findOneById(userId);
         @Nullable final User sessionUser = serviceLocator.getSessionService().getUser(session);
-        if (user == null || sessionUser == null) {
+        if (sessionUser == null) {
             throw new RuntimeException();
         }
-        final boolean rolesEquals = user.getRole().equals(sessionUser.getRole());
-        if (!rolesEquals) {
+        final boolean roleIsAdmin = serviceLocator.getUserService().isRoleAdmin(sessionUser);
+        if (!roleIsAdmin) {
             throw new RuntimeException();
         }
     }
