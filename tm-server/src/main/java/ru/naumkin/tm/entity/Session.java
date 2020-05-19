@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -31,7 +32,7 @@ public final class Session extends AbstractEntity implements Cloneable {
 
     @Getter
     @Setter
-    @NotNull
+    @Nullable
     private String signature;
 
 }

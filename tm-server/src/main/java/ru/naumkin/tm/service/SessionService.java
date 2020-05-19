@@ -7,7 +7,6 @@ import ru.naumkin.tm.api.service.*;
 import ru.naumkin.tm.entity.Session;
 import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.enumerated.RoleType;
-import ru.naumkin.tm.util.HashGenerator;
 import ru.naumkin.tm.util.SignatureUtil;
 
 import java.util.LinkedList;
@@ -46,8 +45,8 @@ public class SessionService extends AbstractService<Session> implements ISession
         @NotNull Session session = new Session();
         session.setName("Session" + System.currentTimeMillis());
         session.setTimestamp(System.currentTimeMillis());
-        @NotNull User user = userService.findOne(login);
-        final boolean passwordIsCorrect = HashGenerator.getHash(password).equals(user.getPassword());
+        @NotNull final User user = userService.findOne(login);
+        final boolean passwordIsCorrect = password.equals(user.getPassword());
         if (!passwordIsCorrect) {
             throw new RuntimeException();
         }
@@ -96,7 +95,8 @@ public class SessionService extends AbstractService<Session> implements ISession
             throw new RuntimeException();
         }
         @NotNull final String signatureSource = session.getSignature();
-        @NotNull final String signatureTarget = sign(tempSession).getSignature();
+        tempSession.setSignature(null);
+        @Nullable final String signatureTarget = sign(tempSession).getSignature();
         final boolean signatureEquals = signatureSource.equals(signatureTarget);
         if (!signatureEquals) {
             throw new RuntimeException();
