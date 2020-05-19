@@ -36,7 +36,7 @@ public interface ISessionEndpoint {
     void removeAllSessions(@Nullable final Session session);
 
     @WebMethod
-    void persistSession(@Nullable final Session session, @NotNull final Session[] sessions);
+    void persistSessions(@Nullable final Session session, @NotNull final Session[] sessions);
 
     @WebMethod
     void open(
@@ -58,7 +58,7 @@ public interface ISessionEndpoint {
     void validate(@NotNull final Session session);
 
     @WebMethod
-    void validate(@NotNull final Session session, @NotNull final RoleType role);
+    void validateAdmin(@NotNull final Session session, @NotNull final RoleType role);
 
     @NotNull
     @WebMethod
