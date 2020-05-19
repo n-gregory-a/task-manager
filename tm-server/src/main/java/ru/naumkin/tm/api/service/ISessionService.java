@@ -1,7 +1,10 @@
 package ru.naumkin.tm.api.service;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.entity.Session;
+import ru.naumkin.tm.entity.User;
+import ru.naumkin.tm.enumerated.RoleType;
 
 import java.util.List;
 
@@ -16,7 +19,12 @@ public interface ISessionService extends IService<Session> {
     @NotNull
     List<Session> getListSession(@NotNull final Session session);
 
+    @Nullable
+    User getUser(@NotNull final Session session);
+
     void validate(@NotNull final Session session);
+
+    void validate(@NotNull final Session session, @NotNull final RoleType role);
 
     Session sign(@NotNull final Session session);
 

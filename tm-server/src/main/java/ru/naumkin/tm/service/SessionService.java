@@ -8,6 +8,7 @@ import ru.naumkin.tm.api.service.IPropertyService;
 import ru.naumkin.tm.api.service.ISessionService;
 import ru.naumkin.tm.entity.Session;
 import ru.naumkin.tm.entity.User;
+import ru.naumkin.tm.enumerated.RoleType;
 import ru.naumkin.tm.util.HashGenerator;
 import ru.naumkin.tm.util.SignatureUtil;
 
@@ -58,6 +59,13 @@ public class SessionService extends AbstractService<Session> implements ISession
         return new LinkedList<>(serviceLocator.getSessionService().findAll());
     }
 
+    @Nullable
+    @Override
+    public User getUser(@NotNull final Session session) {
+        @NotNull final String userId = session.getUserId();
+        return serviceLocator.getUserService().findOneById(userId);
+    }
+
     @Override
     public void validate(@NotNull final Session session) {
         if (session.getUserId() == null || session.getUserId().isEmpty()) {
@@ -81,6 +89,21 @@ public class SessionService extends AbstractService<Session> implements ISession
         }
         final boolean sessionNotExists = repository.findOne(session.getName()) == null;
         if (sessionNotExists) {
+            throw new RuntimeException();
+        }
+    }
+
+    @Override
+    public void validate(@NotNull final Session session, @NotNull final RoleType role) {
+        validate(session);
+        @NotNull final String userId = session.getUserId();
+        @Nullable final User user = serviceLocator.getUserService().findOneById(userId);
+        @Nullable final User sessionUser = serviceLocator.getSessionService().getUser(session);
+        if (user == null || sessionUser == null) {
+            throw new RuntimeException();
+        }
+        final boolean rolesEquals = user.getRole().equals(sessionUser.getRole());
+        if (!rolesEquals) {
             throw new RuntimeException();
         }
     }
