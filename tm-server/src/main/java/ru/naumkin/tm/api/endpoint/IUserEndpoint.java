@@ -2,6 +2,7 @@ package ru.naumkin.tm.api.endpoint;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.naumkin.tm.entity.Session;
 import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.enumerated.RoleType;
 
@@ -14,46 +15,49 @@ public interface IUserEndpoint {
 
     @NotNull
     @WebMethod
-    List<User> findAllUsers();
+    List<User> findAllUsers(@Nullable final Session session);
 
     @NotNull
     @WebMethod
-    User findOneUser(@Nullable final String name);
+    User findOneUser(@Nullable final Session session, @Nullable final String name);
 
     @Nullable
     @WebMethod
-    User persistUser(@Nullable final User user);
+    User persistUser(@Nullable final Session session, @Nullable final User user);
 
     @Nullable
     @WebMethod
-    User mergeUser(@Nullable final User user, @Nullable final String name);
+    User mergeUser(
+            @Nullable final Session session,
+            @Nullable final User user,
+            @Nullable final String name);
 
     @Nullable
     @WebMethod
-    User removeUser(@Nullable final User user);
+    User removeUser(@Nullable final Session session, @Nullable final User user);
 
     @WebMethod
-    void removeAllUser();
+    void removeAllUser(@Nullable final Session session);
 
     @WebMethod
-    void loadUser(@NotNull final User[] users);
+    void loadUser(@Nullable final Session session, @NotNull final User[] users);
 
     @Nullable
     @WebMethod
-    User getCurrentUser();
+    User getCurrentUser(@Nullable final Session session);
 
     @WebMethod
-    void setCurrentUser(@Nullable final User currentUser);
+    void setCurrentUser(@Nullable final Session session, @Nullable final User currentUser);
 
     @NotNull
     @WebMethod
-    User createUser(@NotNull final RoleType role);
+    User createUser(@Nullable final Session session, @NotNull final RoleType role);
 
     @WebMethod
-    boolean isRoleAdmin(@NotNull final User user);
+    boolean isRoleAdmin(@Nullable final Session session, @NotNull final User user);
 
     @Nullable
     @WebMethod
-    String getCurrentUserId();
+    String getCurrentUserId(@Nullable final Session session);
 
 }
