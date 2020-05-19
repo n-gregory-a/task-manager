@@ -101,10 +101,10 @@ public final class Bootstrap {
             return;
         }
         final boolean secureCheck = !abstractCommand.isSecure() ||
-                (abstractCommand.isSecure() && userEndpoint.getCurrentUser(currentSession) != null);
+                (abstractCommand.isSecure() && userEndpoint.getCurrentUser() != null);
         final boolean roleCheck = (abstractCommand.getRoles() == null) ||
                 (abstractCommand.getRoles() != null &&
-                        userEndpoint.isRoleAdmin(currentSession, userEndpoint.getCurrentUser(currentSession)));
+                        userEndpoint.isRoleAdmin(currentSession, userEndpoint.getCurrentUser()));
         if (secureCheck && roleCheck) {
             abstractCommand.execute();
             return;
@@ -116,7 +116,7 @@ public final class Bootstrap {
         @NotNull final User user = userEndpoint.createUser(RoleType.USER);
         @NotNull final Session session = sessionEndpoint.open(user.getName(), user.getPassword());
         setCurrentSession(session);
-        userEndpoint.setCurrentUser(session, user);
+        userEndpoint.setCurrentUser(user);
         @NotNull final User administrator = userEndpoint.createUser(RoleType.ADMINISTRATOR);
     }
 
