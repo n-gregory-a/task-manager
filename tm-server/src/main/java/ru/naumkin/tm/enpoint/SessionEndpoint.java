@@ -93,7 +93,6 @@ public class SessionEndpoint implements ISessionEndpoint {
     @Override
     @WebMethod
     public void open(
-            @Nullable final Session session,
             @NotNull final String login,
             @NotNull final String password
     ) {

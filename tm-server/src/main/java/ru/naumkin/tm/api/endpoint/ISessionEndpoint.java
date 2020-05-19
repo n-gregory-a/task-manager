@@ -40,7 +40,6 @@ public interface ISessionEndpoint {
 
     @WebMethod
     void open(
-            @Nullable final Session session,
             @NotNull final String login,
             @NotNull final String password);
 
