@@ -2,15 +2,13 @@ package ru.naumkin.tm.context;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.endpoint.*;
 import ru.naumkin.tm.api.service.ITerminalService;
 import ru.naumkin.tm.command.AbstractCommand;
-import ru.naumkin.tm.enpoint.DomainEndpointService;
-import ru.naumkin.tm.enpoint.ProjectEndpointService;
-import ru.naumkin.tm.enpoint.TaskEndpointService;
-import ru.naumkin.tm.enpoint.UserEndpointService;
+import ru.naumkin.tm.enpoint.*;
 import ru.naumkin.tm.service.TerminalService;
 
 import java.io.BufferedReader;
@@ -31,6 +29,11 @@ public final class Bootstrap {
     private final  Map<String, AbstractCommand> commands = new LinkedHashMap<>();
 
     @Getter
+    @Setter
+    @NotNull
+    private Session session;
+
+    @Getter
     @NotNull
     private final ITerminalService terminalService = new TerminalService(reader, commands);
 
@@ -49,6 +52,10 @@ public final class Bootstrap {
     @Getter
     @NotNull
     private final IDomainEndpoint domainEndpoint = new DomainEndpointService().getDomainEndpointPort();
+
+    @Getter
+    @NotNull
+    private final ISessionEndpoint sessionEndpoint= new SessionEndpointService().getSessionEndpointPort();
 
     public void registerCommand(@NotNull final AbstractCommand command) {
         @Nullable final String cliCommand = command.getName();
@@ -94,10 +101,10 @@ public final class Bootstrap {
             return;
         }
         final boolean secureCheck = !abstractCommand.isSecure() ||
-                (abstractCommand.isSecure() && userEndpoint.getCurrentUser() != null);
+                (abstractCommand.isSecure() && userEndpoint.getCurrentUser(session) != null);
         final boolean roleCheck = (abstractCommand.getRoles() == null) ||
                 (abstractCommand.getRoles() != null &&
-                        userEndpoint.isRoleAdmin(userEndpoint.getCurrentUser()));
+                        userEndpoint.isRoleAdmin(session, userEndpoint.getCurrentUser(session)));
         if (secureCheck && roleCheck) {
             abstractCommand.execute();
             return;
@@ -107,8 +114,9 @@ public final class Bootstrap {
 
     public void createDefaultUser() {
         User user = userEndpoint.createUser(RoleType.USER);
+        sessionEndpoint.open(user.getName(), user.getPassword());
         User administrator = userEndpoint.createUser(RoleType.ADMINISTRATOR);
-        userEndpoint.setCurrentUser(user);
+        userEndpoint.setCurrentUser(session, user);
     }
 
 }
