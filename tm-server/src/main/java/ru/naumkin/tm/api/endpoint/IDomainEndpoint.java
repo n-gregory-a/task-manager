@@ -1,7 +1,9 @@
 package ru.naumkin.tm.api.endpoint;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.dto.Domain;
+import ru.naumkin.tm.entity.Session;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -10,34 +12,34 @@ import javax.jws.WebService;
 public interface IDomainEndpoint {
 
     @WebMethod
-    void loadBinaryData() throws Exception;
+    void loadBinaryData(@Nullable final Session session) throws Exception;
 
     @WebMethod
-    void saveBinaryData() throws Exception;
+    void saveBinaryData(@Nullable final Session session) throws Exception;
 
     @WebMethod
-    void loadJsonDataFasterXml() throws Exception;
+    void loadJsonDataFasterXml(@Nullable final Session session) throws Exception;
 
     @WebMethod
-    void saveJsonDataFasterXml() throws Exception;
+    void saveJsonDataFasterXml(@Nullable final Session session) throws Exception;
 
     @WebMethod
-    void loadJsonDataJaxb() throws Exception;
+    void loadJsonDataJaxb(@Nullable final Session session) throws Exception;
 
     @WebMethod
-    void saveJsonDataJaxb() throws Exception;
+    void saveJsonDataJaxb(@Nullable final Session session) throws Exception;
 
     @WebMethod
-    void loadXmlDataFasterXml() throws Exception;
+    void loadXmlDataFasterXml(@Nullable final Session session) throws Exception;
 
     @WebMethod
-    void saveXmlDataFasterXml() throws Exception;
+    void saveXmlDataFasterXml(@Nullable final Session session) throws Exception;
 
     @WebMethod
-    void loadXmlDataJaxb() throws Exception;
+    void loadXmlDataJaxb(@Nullable final Session session) throws Exception;
 
     @WebMethod
-    void saveXmlDataJaxb() throws Exception;
+    void saveXmlDataJaxb(@Nullable final Session session) throws Exception;
 
     @NotNull
     @WebMethod
