@@ -78,7 +78,7 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
             @NotNull final String currentUserId,
             @NotNull final Project project
     ) {
-        @Nullable final Project toRemove = findOne(project.getName(), currentUserId);
+        @Nullable final Project toRemove = findOne(currentUserId, project.getName());
         if (toRemove == null) {
             return null;
         }
