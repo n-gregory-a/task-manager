@@ -27,13 +27,11 @@ public class TaskDescriptionFindListCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("[FIND TASKS BY PART OF DESCRIPTION]");
         @NotNull final ITaskEndpoint taskEndpoint = bootstrap.getTaskEndpoint();
         int index = 1;
-        @Nullable final String currentUserId =
-                bootstrap.getUserEndpoint().getCurrentUserId(bootstrap.getCurrentSession());
         bootstrap.getTerminalService().showMessage("Enter part of description:");
         @NotNull final String description = bootstrap.getTerminalService().readLine();
         for (@NotNull final Task task:
                 taskEndpoint.sortTasksByDescription(
-                        bootstrap.getCurrentSession(), currentUserId, description)
+                        bootstrap.getCurrentSession(), description)
         ) {
             bootstrap.getTerminalService().showMessage(index++ + ". ");
             bootstrap.getTerminalService().printEntity(task);

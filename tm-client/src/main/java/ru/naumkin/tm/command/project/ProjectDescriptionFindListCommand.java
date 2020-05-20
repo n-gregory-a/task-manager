@@ -27,13 +27,11 @@ public class ProjectDescriptionFindListCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("[FIND PROJECTS BY PART OF DESCRIPTION]");
         @NotNull final IProjectEndpoint projectEndpoint = bootstrap.getProjectEndpoint();
         int index = 1;
-        @Nullable final String currentUserId =
-                bootstrap.getUserEndpoint().getCurrentUserId(bootstrap.getCurrentSession());
         bootstrap.getTerminalService().showMessage("Enter part of description:");
         @NotNull final String description = bootstrap.getTerminalService().readLine();
         for (@NotNull final Project project:
                 projectEndpoint.sortProjectsByDescription(
-                        bootstrap.getCurrentSession(), currentUserId, description
+                        bootstrap.getCurrentSession(), description
                 )
         ) {
             bootstrap.getTerminalService().showMessage(index++ + ". ");

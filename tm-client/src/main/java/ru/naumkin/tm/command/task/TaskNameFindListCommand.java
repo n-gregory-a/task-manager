@@ -27,13 +27,10 @@ public class TaskNameFindListCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("[FIND TASKS BY PART OF NAME]");
         @NotNull final ITaskEndpoint taskEndpoint = bootstrap.getTaskEndpoint();
         int index = 1;
-        @Nullable final String currentUserId =
-                bootstrap.getUserEndpoint().getCurrentUserId(bootstrap.getCurrentSession());
         bootstrap.getTerminalService().showMessage("Enter part of name:");
         @NotNull final String name = bootstrap.getTerminalService().readLine();
         for (@NotNull final Task task:
-                taskEndpoint.sortTasksByName(
-                        bootstrap.getCurrentSession(), currentUserId, name)
+                taskEndpoint.sortTasksByName(bootstrap.getCurrentSession(), name)
         ) {
             bootstrap.getTerminalService().showMessage(index++ + ". ");
             bootstrap.getTerminalService().printEntity(task);

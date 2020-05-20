@@ -37,10 +37,8 @@ public final class TaskUpdateCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("Tasks available to update:");
         @NotNull final List<Task> list = new ArrayList<>();
         int index = 1;
-        @Nullable final String currentUserId =
-                bootstrap.getUserEndpoint().getCurrentUserId(bootstrap.getCurrentSession());
         for (@NotNull final Task task:
-                taskEndpoint.findAllTasksByUserId(bootstrap.getCurrentSession(), currentUserId)
+                taskEndpoint.findAllTasksByUserId(bootstrap.getCurrentSession())
         ) {
             bootstrap.getTerminalService().showMessage(index++ + ". ");
             bootstrap.getTerminalService().printEntity(task);

@@ -1,7 +1,6 @@
 package ru.naumkin.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.endpoint.IProjectEndpoint;
 import ru.naumkin.tm.api.endpoint.Project;
 import ru.naumkin.tm.api.endpoint.Status;
@@ -37,10 +36,8 @@ public final class ProjectUpdateCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("Projects available to update:");
         @NotNull final List<Project> list = new ArrayList<>();
         int index = 1;
-        @Nullable final String currentUserId =
-                bootstrap.getUserEndpoint().getCurrentUserId(bootstrap.getCurrentSession());
         for (@NotNull final Project project:
-                projectService.findAllProjectsByUserId(bootstrap.getCurrentSession(), currentUserId)
+                projectService.findAllProjectsByUserId(bootstrap.getCurrentSession())
         ) {
             bootstrap.getTerminalService().showMessage(index++ + ". ");
             bootstrap.getTerminalService().printEntity(project);

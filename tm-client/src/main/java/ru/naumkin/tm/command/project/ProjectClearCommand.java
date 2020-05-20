@@ -26,10 +26,7 @@ public final class ProjectClearCommand extends AbstractCommand {
     public void execute() {
         bootstrap.getTerminalService().showMessage("[PROJECT CLEAR]");
         @NotNull final IProjectEndpoint projectEndpoint = bootstrap.getProjectEndpoint();
-        projectEndpoint.removeAllProjectsByUserId(
-                bootstrap.getCurrentSession(),
-                bootstrap.getUserEndpoint().getCurrentUserId(bootstrap.getCurrentSession())
-        );
+        projectEndpoint.removeAllProjectsByUserId(bootstrap.getCurrentSession());
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 

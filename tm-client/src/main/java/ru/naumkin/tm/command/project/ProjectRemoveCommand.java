@@ -1,7 +1,6 @@
 package ru.naumkin.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.endpoint.IProjectEndpoint;
 import ru.naumkin.tm.api.endpoint.Project;
 import ru.naumkin.tm.command.AbstractCommand;
@@ -28,15 +27,13 @@ public final class ProjectRemoveCommand extends AbstractCommand {
     public void execute() throws Exception {
         bootstrap.getTerminalService().showMessage("[PROJECT REMOVE]");
         @NotNull final IProjectEndpoint projectEndpoint = bootstrap.getProjectEndpoint();
-        @Nullable final String currentUserId =
-                bootstrap.getUserEndpoint().getCurrentUserId(bootstrap.getCurrentSession());
         bootstrap.getTerminalService().showMessage("Enter project name:");
         @NotNull final String projectName = bootstrap.getTerminalService().readLine();
         @NotNull final Project project =
                 projectEndpoint.findOneProjectByUserId(
-                        bootstrap.getCurrentSession(), currentUserId, projectName
+                        bootstrap.getCurrentSession(), projectName
                 );
-        projectEndpoint.removeProjectByUserId(bootstrap.getCurrentSession(), currentUserId, project);
+        projectEndpoint.removeProjectByUserId(bootstrap.getCurrentSession(), project);
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 

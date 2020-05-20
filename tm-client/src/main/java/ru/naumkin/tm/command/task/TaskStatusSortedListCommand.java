@@ -30,10 +30,8 @@ public class TaskStatusSortedListCommand extends AbstractCommand {
                 .showMessage("[TASK LIST SORTED BY STATUS]");
         @NotNull final ITaskEndpoint taskEndpoint = bootstrap.getTaskEndpoint();
         int index = 1;
-        @Nullable final String currentUserId =
-                bootstrap.getUserEndpoint().getCurrentUserId(bootstrap.getCurrentSession());
         for (@NotNull final Task task:
-                taskEndpoint.sortTasksByStatus(bootstrap.getCurrentSession(), currentUserId)
+                taskEndpoint.sortTasksByStatus(bootstrap.getCurrentSession())
         ) {
             bootstrap.getTerminalService().showMessage(index++ + ". ");
             bootstrap.getTerminalService().printEntity(task);
