@@ -2,7 +2,6 @@ package ru.naumkin.tm.enpoint;
 
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.service.ISessionService;
 import ru.naumkin.tm.entity.Session;
 
@@ -15,10 +14,7 @@ public class AbstractEndpoint {
         this.sessionService = sessionService;
     }
 
-    protected void validate(@Nullable final Session session) {
-        if (session == null) {
-            throw new RuntimeException();
-        }
+    protected void validate(@NotNull final Session session) {
         sessionService.validate(session);
     }
 

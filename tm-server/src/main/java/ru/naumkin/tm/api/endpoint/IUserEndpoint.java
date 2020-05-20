@@ -19,45 +19,45 @@ public interface IUserEndpoint {
 
     @NotNull
     @WebMethod
-    User findOneUser(@Nullable final String name);
+    User findOneUser(@NotNull final String name);
 
-    @Nullable
+    @NotNull
     @WebMethod
-    User persistUser(@Nullable final User user);
+    User persistUser(@NotNull final User user);
 
     @Nullable
     @WebMethod
     User mergeUser(
-            @Nullable final Session session,
-            @Nullable final User user,
-            @Nullable final String name);
+            @NotNull final Session session,
+            @NotNull final User user,
+            @NotNull final String name);
 
-    @Nullable
+    @NotNull
     @WebMethod
-    User removeUser(@Nullable final Session session, @Nullable final User user);
-
-    @WebMethod
-    void removeAllUser(@Nullable final Session session);
+    User removeUser(@NotNull final Session session, @NotNull final User user);
 
     @WebMethod
-    void loadUser(@Nullable final Session session, @NotNull final User[] users);
+    void removeAllUser(@NotNull final Session session);
+
+    @WebMethod
+    void loadUser(@NotNull final Session session, @NotNull final User[] users);
 
     @Nullable
     @WebMethod
     User getCurrentUser();
 
     @WebMethod
-    void setCurrentUser(@Nullable final User currentUser);
+    void setCurrentUser(@NotNull final User currentUser);
 
     @NotNull
     @WebMethod
     User createUser(@NotNull final RoleType role);
 
     @WebMethod
-    boolean isRoleAdmin(@Nullable final Session session, @NotNull final User user);
+    boolean isRoleAdmin(@NotNull final Session session, @NotNull final User user);
 
     @Nullable
     @WebMethod
-    String getCurrentUserId(@Nullable final Session session);
+    String getCurrentUserId(@NotNull final Session session);
 
 }

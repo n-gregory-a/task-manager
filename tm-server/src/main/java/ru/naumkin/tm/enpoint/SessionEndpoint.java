@@ -26,7 +26,7 @@ public class SessionEndpoint implements ISessionEndpoint {
     @NotNull
     @Override
     @WebMethod
-    public List<Session> findAllSessions(@Nullable final Session session) {
+    public List<Session> findAllSessions(@NotNull final Session session) {
         RoleType role = sessionService.getUser(session).getRole();
         validateAdmin(session, role);
         return new LinkedList<>(sessionService.findAll());
@@ -36,8 +36,8 @@ public class SessionEndpoint implements ISessionEndpoint {
     @Override
     @WebMethod
     public Session findOneSession(
-            @Nullable final Session session,
-            @Nullable final String name
+            @NotNull final Session session,
+            @NotNull final String name
     ) {
         RoleType role = sessionService.getUser(session).getRole();
         validateAdmin(session, role);
@@ -47,7 +47,7 @@ public class SessionEndpoint implements ISessionEndpoint {
     @Nullable
     @Override
     @WebMethod
-    public Session persistSession(@Nullable final Session session) {
+    public Session persistSession(@NotNull final Session session) {
         RoleType role = sessionService.getUser(session).getRole();
         validateAdmin(session, role);
         return sessionService.persist(session);
@@ -56,7 +56,7 @@ public class SessionEndpoint implements ISessionEndpoint {
     @Nullable
     @Override
     @WebMethod
-    public Session mergeSession(@Nullable final Session session, @Nullable final String name) {
+    public Session mergeSession(@NotNull final Session session, @NotNull final String name) {
         RoleType role = sessionService.getUser(session).getRole();
         validateAdmin(session, role);
         return sessionService.merge(session, name);
@@ -65,7 +65,7 @@ public class SessionEndpoint implements ISessionEndpoint {
     @Nullable
     @Override
     @WebMethod
-    public Session removeSession(@Nullable final Session session) {
+    public Session removeSession(@NotNull final Session session) {
         RoleType role = sessionService.getUser(session).getRole();
         validateAdmin(session, role);
         return sessionService.remove(session);
@@ -73,7 +73,7 @@ public class SessionEndpoint implements ISessionEndpoint {
 
     @Override
     @WebMethod
-    public void removeAllSessions(@Nullable final Session session) {
+    public void removeAllSessions(@NotNull final Session session) {
         RoleType role = sessionService.getUser(session).getRole();
         validateAdmin(session, role);
         sessionService.removeAll();
@@ -82,8 +82,8 @@ public class SessionEndpoint implements ISessionEndpoint {
     @Override
     @WebMethod
     public void persistSessions(
-            @Nullable final Session session,
-            @Nullable final Session[] sessions
+            @NotNull final Session session,
+            @NotNull final Session[] sessions
     ) {
         RoleType role = sessionService.getUser(session).getRole();
         validateAdmin(session, role);

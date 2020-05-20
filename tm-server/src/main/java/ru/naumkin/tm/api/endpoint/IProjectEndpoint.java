@@ -14,81 +14,81 @@ public interface IProjectEndpoint {
 
     @NotNull
     @WebMethod
-    List<Project> findAllProjects(@Nullable final Session session);
+    List<Project> findAllProjects(@NotNull final Session session);
 
     @NotNull
     @WebMethod
-    Project findOneProject(@Nullable final Session session,
-                           @Nullable final String name);
+    Project findOneProject(@NotNull final Session session,
+                           @NotNull final String name);
 
     @Nullable
     @WebMethod
-    Project persistProject(@Nullable final Session session,
-                           @Nullable final Project project);
+    Project persistProject(@NotNull final Session session,
+                           @NotNull final Project project);
 
     @Nullable
     @WebMethod
-    Project mergeProject(@Nullable final Session session,
-                         @Nullable final Project project,
-                         @Nullable final String name);
+    Project mergeProject(@NotNull final Session session,
+                         @NotNull final Project project,
+                         @NotNull final String name);
 
     @Nullable
     @WebMethod
-    Project removeProject(@Nullable final Session session,
-                          @Nullable final Project project);
+    Project removeProject(@NotNull final Session session,
+                          @NotNull final Project project);
 
     @WebMethod
-    void removeAllProjects(@Nullable final Session session);
+    void removeAllProjects(@NotNull final Session session);
 
     @WebMethod
-    void loadProject(@Nullable final Session session,
+    void loadProject(@NotNull final Session session,
                      @NotNull final Project[] projects);
 
     @NotNull
     @WebMethod
-    List<Project> findAllProjectsByUserId(@Nullable final Session session,
-                                          @Nullable final String currentUserId);
+    List<Project> findAllProjectsByUserId(@NotNull final Session session,
+                                          @NotNull final String currentUserId);
 
     @NotNull
     @WebMethod
-    Project findOneProjectByUserId(@Nullable final Session session,
-                                   @Nullable final String currentUserId,
-                                   @Nullable final String name);
+    Project findOneProjectByUserId(@NotNull final Session session,
+                                   @NotNull final String currentUserId,
+                                   @NotNull final String name);
 
     @NotNull
     @WebMethod
-    Project removeProjectByUserId(@Nullable final Session session,
+    Project removeProjectByUserId(@NotNull final Session session,
                                   @NotNull final String currentUserId,
                                   @NotNull final Project project);
 
     @WebMethod
-    void removeAllProjectsByUserId(@Nullable final Session session,
-                                   @Nullable final String currentUserId);
+    void removeAllProjectsByUserId(@NotNull final Session session,
+                                   @NotNull final String currentUserId);
 
     @NotNull
     @WebMethod
-    List<Project> sortProjectsByDateStart(@Nullable final Session session,
-                                          @Nullable final String currentUserId);
+    List<Project> sortProjectsByDateStart(@NotNull final Session session,
+                                          @NotNull final String currentUserId);
 
     @NotNull
     @WebMethod
-    List<Project> sortProjectsByDateFinish(@Nullable final Session session,
-                                           @Nullable final String currentUserId);
+    List<Project> sortProjectsByDateFinish(@NotNull final Session session,
+                                           @NotNull final String currentUserId);
 
     @NotNull
     @WebMethod
-    List<Project> sortProjectsByStatus(@Nullable final Session session,
+    List<Project> sortProjectsByStatus(@NotNull final Session session,
                                        @NotNull final String currentUserId);
 
     @NotNull
     @WebMethod
-    List<Project> sortProjectsByName(@Nullable final Session session,
+    List<Project> sortProjectsByName(@NotNull final Session session,
                                      @NotNull final String currentUserId,
                                      @NotNull final String name);
 
     @NotNull
     @WebMethod
-    List<Project> sortProjectsByDescription(@Nullable final Session session,
+    List<Project> sortProjectsByDescription(@NotNull final Session session,
                                             @NotNull final String currentUserId,
                                             @NotNull final String description);
 

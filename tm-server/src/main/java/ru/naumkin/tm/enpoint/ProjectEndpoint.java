@@ -31,7 +31,7 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     @NotNull
     @Override
     @WebMethod
-    public List<Project> findAllProjects(@Nullable final Session session) {
+    public List<Project> findAllProjects(@NotNull final Session session) {
         validate(session);
         return new LinkedList<>(projectService.findAll());
     }
@@ -39,8 +39,8 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     @NotNull
     @Override
     @WebMethod
-    public Project findOneProject(@Nullable final Session session,
-                                  @Nullable final String name) {
+    public Project findOneProject(@NotNull final Session session,
+                                  @NotNull final String name) {
         validate(session);
         return projectService.findOne(name);
     }
@@ -48,8 +48,8 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     @Nullable
     @Override
     @WebMethod
-    public Project persistProject(@Nullable final Session session,
-                                  @Nullable final Project project) {
+    public Project persistProject(@NotNull final Session session,
+                                  @NotNull final Project project) {
         validate(session);
         return projectService.persist(project);
     }
@@ -58,9 +58,9 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     @Override
     @WebMethod
     public Project mergeProject(
-            @Nullable final Session session,
-            @Nullable final Project project,
-            @Nullable final String name
+            @NotNull final Session session,
+            @NotNull final Project project,
+            @NotNull final String name
     ) {
         validate(session);
         return projectService.merge(project, name);
@@ -69,8 +69,8 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     @Nullable
     @Override
     @WebMethod
-    public Project removeProject(@Nullable final Session session,
-                                 @Nullable final Project project
+    public Project removeProject(@NotNull final Session session,
+                                 @NotNull final Project project
     ) {
         validate(session);
         return projectService.remove(project);
@@ -78,14 +78,14 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
 
     @Override
     @WebMethod
-    public void removeAllProjects(@Nullable final Session session) {
+    public void removeAllProjects(@NotNull final Session session) {
         validate(session);
         projectService.removeAll();
     }
 
     @Override
     @WebMethod
-    public void loadProject(@Nullable final Session session,
+    public void loadProject(@NotNull final Session session,
                             @NotNull final Project[] projects) {
         validate(session);
         projectService.persist(projects);
@@ -95,8 +95,8 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     @Override
     @WebMethod
     public List<Project> findAllProjectsByUserId(
-            @Nullable final Session session,
-            @Nullable final String currentUserId
+            @NotNull final Session session,
+            @NotNull final String currentUserId
     ) {
         validate(session);
         return projectService.findAll(currentUserId);
@@ -106,9 +106,9 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     @Override
     @WebMethod
     public Project findOneProjectByUserId(
-            @Nullable final Session session,
-            @Nullable final String currentUserId,
-            @Nullable final String name
+            @NotNull final Session session,
+            @NotNull final String currentUserId,
+            @NotNull final String name
     ) {
         validate(session);
         return projectService.findOne(currentUserId, name);
@@ -118,7 +118,7 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     @Override
     @WebMethod
     public Project removeProjectByUserId(
-            @Nullable final Session session,
+            @NotNull final Session session,
             @NotNull final String currentUserId,
             @NotNull final Project project
     ) {
@@ -129,8 +129,8 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     @Override
     @WebMethod
     public void removeAllProjectsByUserId(
-            @Nullable final Session session,
-            @Nullable final String currentUserId
+            @NotNull final Session session,
+            @NotNull final String currentUserId
     ) {
         validate(session);
         projectService.findAll(currentUserId);
@@ -140,8 +140,8 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     @Override
     @WebMethod
     public List<Project> sortProjectsByDateStart(
-            @Nullable final Session session,
-            @Nullable final String currentUserId
+            @NotNull final Session session,
+            @NotNull final String currentUserId
     ) {
         validate(session);
         return projectService.sortByDateStart(currentUserId);
@@ -151,8 +151,8 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     @Override
     @WebMethod
     public List<Project> sortProjectsByDateFinish(
-            @Nullable final Session session,
-            @Nullable final String currentUserId
+            @NotNull final Session session,
+            @NotNull final String currentUserId
     ) {
         validate(session);
         return projectService.sortByDateFinish(currentUserId);
@@ -162,8 +162,8 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     @Override
     @WebMethod
     public List<Project> sortProjectsByStatus(
-            @Nullable final Session session,
-            @Nullable final String currentUserId
+            @NotNull final Session session,
+            @NotNull final String currentUserId
     ) {
         validate(session);
         return projectService.sortByStatus(currentUserId);
@@ -173,9 +173,9 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     @Override
     @WebMethod
     public List<Project> sortProjectsByName(
-            @Nullable final Session session,
-            @Nullable final String currentUserId,
-            @Nullable final String name
+            @NotNull final Session session,
+            @NotNull final String currentUserId,
+            @NotNull final String name
     ) {
         validate(session);
         return projectService.sortByName(currentUserId, name);
@@ -185,9 +185,9 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     @Override
     @WebMethod
     public List<Project> sortProjectsByDescription(
-            @Nullable final Session session,
-            @Nullable final String currentUserId,
-            @Nullable final String description
+            @NotNull final Session session,
+            @NotNull final String currentUserId,
+            @NotNull final String description
     ) {
         validate(session);
         return projectService.sortByDescription(currentUserId, description);

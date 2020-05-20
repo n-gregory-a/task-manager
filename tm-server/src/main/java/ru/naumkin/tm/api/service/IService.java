@@ -14,7 +14,7 @@ public interface IService<E extends AbstractEntity> {
     @NotNull
     E findOne(@Nullable final String name);
 
-    @Nullable
+    @NotNull
     E findOneById(@Nullable final String id);
 
     @Nullable

@@ -44,10 +44,9 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
         return userService.findOne(name);
     }
 
-    @Nullable
     @Override
     @WebMethod
-    public User persistUser(
+    public @NotNull User persistUser(
             @Nullable final User user
     ) {
         return userService.persist(user);
@@ -65,10 +64,9 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
         return userService.merge(user, name);
     }
 
-    @Nullable
     @Override
     @WebMethod
-    public User removeUser(
+    public @NotNull User removeUser(
             @Nullable final Session session,
             @Nullable final User user
     ) {

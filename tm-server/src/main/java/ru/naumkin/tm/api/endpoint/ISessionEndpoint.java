@@ -14,29 +14,29 @@ public interface ISessionEndpoint {
 
     @NotNull
     @WebMethod
-    List<Session> findAllSessions(@Nullable final Session session);
+    List<Session> findAllSessions(@NotNull final Session session);
 
     @NotNull
     @WebMethod
-    Session findOneSession(@Nullable final Session session, @Nullable final String name);
+    Session findOneSession(@NotNull final Session session, @NotNull final String name);
 
     @Nullable
     @WebMethod
-    Session persistSession(@Nullable final Session session);
+    Session persistSession(@NotNull final Session session);
 
     @Nullable
     @WebMethod
-    Session mergeSession(@Nullable final Session session, @Nullable final String name);
+    Session mergeSession(@NotNull final Session session, @NotNull final String name);
 
     @Nullable
     @WebMethod
-    Session removeSession(@Nullable final Session session);
+    Session removeSession(@NotNull final Session session);
 
     @WebMethod
-    void removeAllSessions(@Nullable final Session session);
+    void removeAllSessions(@NotNull final Session session);
 
     @WebMethod
-    void persistSessions(@Nullable final Session session, @NotNull final Session[] sessions);
+    void persistSessions(@NotNull final Session session, @NotNull final Session[] sessions);
 
     @WebMethod
     Session open(

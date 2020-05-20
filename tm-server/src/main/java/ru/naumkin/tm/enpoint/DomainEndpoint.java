@@ -2,7 +2,6 @@ package ru.naumkin.tm.enpoint;
 
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.endpoint.IDomainEndpoint;
 import ru.naumkin.tm.api.service.IDomainService;
 import ru.naumkin.tm.api.service.ISessionService;
@@ -28,69 +27,69 @@ public final class DomainEndpoint extends AbstractEndpoint implements IDomainEnd
 
     @Override
     @WebMethod
-    public void loadBinaryData(@Nullable final Session session) throws Exception {
+    public void loadBinaryData(@NotNull final Session session) throws Exception {
         validate(session);
         domainService.loadBinaryData();
     }
 
     @Override
     @WebMethod
-    public void saveBinaryData(@Nullable final Session session) throws Exception {
+    public void saveBinaryData(@NotNull final Session session) throws Exception {
         validate(session);
         domainService.saveBinaryData();
     }
 
     @Override
     @WebMethod
-    public void loadJsonDataFasterXml(@Nullable final Session session) throws Exception {
+    public void loadJsonDataFasterXml(@NotNull final Session session) throws Exception {
         validate(session);
         domainService.loadJsonDataFasterXml();
     }
 
     @Override
     @WebMethod
-    public void saveJsonDataFasterXml(@Nullable final Session session) throws Exception {
+    public void saveJsonDataFasterXml(@NotNull final Session session) throws Exception {
         validate(session);
         domainService.saveJsonDataFasterXml();
     }
 
     @Override
     @WebMethod
-    public void loadJsonDataJaxb(@Nullable final Session session) throws Exception {
+    public void loadJsonDataJaxb(@NotNull final Session session) throws Exception {
         validate(session);
         domainService.loadJsonDataJaxb();
     }
 
     @Override
     @WebMethod
-    public void saveJsonDataJaxb(@Nullable final Session session) throws Exception {
+    public void saveJsonDataJaxb(@NotNull final Session session) throws Exception {
         validate(session);
         domainService.saveJsonDataJaxb();
     }
 
     @Override
     @WebMethod
-    public void loadXmlDataFasterXml(@Nullable final Session session) throws Exception {
+    public void loadXmlDataFasterXml(@NotNull final Session session) throws Exception {
         validate(session);
         domainService.loadXmlDataFasterXml();
     }
 
     @Override
-    public void saveXmlDataFasterXml(@Nullable final Session session) throws Exception {
+    public void saveXmlDataFasterXml(@NotNull final Session session) throws Exception {
         validate(session);
         domainService.saveXmlDataFasterXml();
     }
 
     @Override
     @WebMethod
-    public void loadXmlDataJaxb(@Nullable final Session session) throws Exception {
+    public void loadXmlDataJaxb(@NotNull final Session session) throws Exception {
         validate(session);
         domainService.loadXmlDataJaxb();
     }
 
     @Override
     @WebMethod
-    public void saveXmlDataJaxb(@Nullable final Session session) throws Exception {
+    public void saveXmlDataJaxb(@NotNull final Session session) throws Exception {
         validate(session);
         domainService.saveXmlDataJaxb();
     }
@@ -104,7 +103,7 @@ public final class DomainEndpoint extends AbstractEndpoint implements IDomainEnd
 
     @Override
     @WebMethod
-    public void save(@NotNull Domain domain) {
+    public void save(@NotNull final Domain domain) {
         domainService.save(domain);
     }
 

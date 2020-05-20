@@ -11,10 +11,10 @@ public interface IRepository<E extends AbstractEntity> {
     @NotNull
     Collection<E> findAll();
 
-    @Nullable
+    @NotNull
     E findOne(@NotNull final String name);
 
-    @Nullable
+    @NotNull
     E findOneById(@NotNull final String id);
 
     @Nullable

@@ -70,7 +70,7 @@ public class SessionService extends AbstractService<Session> implements ISession
         return new LinkedList<>(repository.findAll());
     }
 
-    @Nullable
+    @NotNull
     @Override
     public User getUser(@NotNull final Session session) {
         @NotNull final String userId = session.getUserId();

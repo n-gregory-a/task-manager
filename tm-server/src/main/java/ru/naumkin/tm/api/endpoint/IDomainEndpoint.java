@@ -1,7 +1,6 @@
 package ru.naumkin.tm.api.endpoint;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.dto.Domain;
 import ru.naumkin.tm.entity.Session;
 
@@ -12,34 +11,34 @@ import javax.jws.WebService;
 public interface IDomainEndpoint {
 
     @WebMethod
-    void loadBinaryData(@Nullable final Session session) throws Exception;
+    void loadBinaryData(@NotNull final Session session) throws Exception;
 
     @WebMethod
-    void saveBinaryData(@Nullable final Session session) throws Exception;
+    void saveBinaryData(@NotNull final Session session) throws Exception;
 
     @WebMethod
-    void loadJsonDataFasterXml(@Nullable final Session session) throws Exception;
+    void loadJsonDataFasterXml(@NotNull final Session session) throws Exception;
 
     @WebMethod
-    void saveJsonDataFasterXml(@Nullable final Session session) throws Exception;
+    void saveJsonDataFasterXml(@NotNull final Session session) throws Exception;
 
     @WebMethod
-    void loadJsonDataJaxb(@Nullable final Session session) throws Exception;
+    void loadJsonDataJaxb(@NotNull final Session session) throws Exception;
 
     @WebMethod
-    void saveJsonDataJaxb(@Nullable final Session session) throws Exception;
+    void saveJsonDataJaxb(@NotNull final Session session) throws Exception;
 
     @WebMethod
-    void loadXmlDataFasterXml(@Nullable final Session session) throws Exception;
+    void loadXmlDataFasterXml(@NotNull final Session session) throws Exception;
 
     @WebMethod
-    void saveXmlDataFasterXml(@Nullable final Session session) throws Exception;
+    void saveXmlDataFasterXml(@NotNull final Session session) throws Exception;
 
     @WebMethod
-    void loadXmlDataJaxb(@Nullable final Session session) throws Exception;
+    void loadXmlDataJaxb(@NotNull final Session session) throws Exception;
 
     @WebMethod
-    void saveXmlDataJaxb(@Nullable final Session session) throws Exception;
+    void saveXmlDataJaxb(@NotNull final Session session) throws Exception;
 
     @NotNull
     @WebMethod

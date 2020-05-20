@@ -35,14 +35,14 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
         if (name.isEmpty()) {
             throw new RuntimeException();
         }
-        @Nullable E entity = repository.findOne(name);
+        @NotNull E entity = repository.findOne(name);
         if (entity == null) {
             throw new EntityIsNullException();
         }
         return entity;
     }
 
-    @Nullable
+    @NotNull
     @Override
     public E findOneById(@Nullable final String id) {
         if (id == null) {

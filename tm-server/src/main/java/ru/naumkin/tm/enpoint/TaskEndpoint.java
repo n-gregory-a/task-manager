@@ -30,7 +30,7 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @NotNull
     @Override
     @WebMethod
-    public List<Task> findAllTasks(@Nullable final Session session) {
+    public List<Task> findAllTasks(@NotNull final Session session) {
         return new LinkedList<>(taskService.findAll());
     }
 
@@ -38,8 +38,8 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @Override
     @WebMethod
     public Task findOneTask(
-            @Nullable final Session session,
-            @Nullable final String name
+            @NotNull final Session session,
+            @NotNull final String name
     ) {
         validate(session);
         return taskService.findOne(name);
@@ -49,8 +49,8 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @Override
     @WebMethod
     public Task persistTask(
-            @Nullable final Session session,
-            @Nullable final Task task
+            @NotNull final Session session,
+            @NotNull final Task task
     ) {
         validate(session);
         return taskService.persist(task);
@@ -60,9 +60,9 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @Override
     @WebMethod
     public Task mergeTask(
-            @Nullable final Session session,
-            @Nullable final Task task,
-            @Nullable final String name
+            @NotNull final Session session,
+            @NotNull final Task task,
+            @NotNull final String name
     ) {
         validate(session);
         return taskService.merge(task, name);
@@ -72,8 +72,8 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @Override
     @WebMethod
     public Task removeTask(
-            @Nullable final Session session,
-            @Nullable final Task task
+            @NotNull final Session session,
+            @NotNull final Task task
     ) {
         validate(session);
         return taskService.remove(task);
@@ -81,7 +81,7 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
 
     @Override
     @WebMethod
-    public void removeAllTasks(@Nullable final Session session) {
+    public void removeAllTasks(@NotNull final Session session) {
         validate(session);
         taskService.removeAll();
     }
@@ -89,8 +89,8 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @Override
     @WebMethod
     public void loadTask(
-            @Nullable final Session session,
-            @Nullable final Task[] tasks
+            @NotNull final Session session,
+            @NotNull final Task[] tasks
     ) {
         validate(session);
         taskService.persist(tasks);
@@ -100,8 +100,8 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @Override
     @WebMethod
     public List<Task> findAllTasksByUserId(
-            @Nullable final Session session,
-            @Nullable final String currentUserId
+            @NotNull final Session session,
+            @NotNull final String currentUserId
     ) {
         validate(session);
         return taskService.findAll(currentUserId);
@@ -111,9 +111,9 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @Override
     @WebMethod
     public Task findOneTaskByUserId(
-            @Nullable final Session session,
-            @Nullable final String currentUserId,
-            @Nullable final String name
+            @NotNull final Session session,
+            @NotNull final String currentUserId,
+            @NotNull final String name
     ) {
         validate(session);
         return taskService.findOne(currentUserId, name);
@@ -123,9 +123,9 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @Override
     @WebMethod
     public Task removeTaskByUserId(
-            @Nullable final Session session,
-            @Nullable final String currentUserId,
-            @Nullable final Task task
+            @NotNull final Session session,
+            @NotNull final String currentUserId,
+            @NotNull final Task task
     ) {
         validate(session);
         return taskService.remove(currentUserId, task);
@@ -134,8 +134,8 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @Override
     @WebMethod
     public void removeAllTasksByUserId(
-            @Nullable final Session session,
-            @Nullable final String currentUserId) {
+            @NotNull final Session session,
+            @NotNull final String currentUserId) {
         validate(session);
         taskService.removeAll(currentUserId);
     }
@@ -144,8 +144,8 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @Override
     @WebMethod
     public List<Task> sortTasksByDateStart(
-            @Nullable final Session session,
-            @Nullable final String currentUserId
+            @NotNull final Session session,
+            @NotNull final String currentUserId
     ) {
         validate(session);
         return taskService.sortByDateStart(currentUserId);
@@ -155,8 +155,8 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @Override
     @WebMethod
     public List<Task> sortTasksByDateFinish(
-            @Nullable final Session session,
-            @Nullable final String currentUserId
+            @NotNull final Session session,
+            @NotNull final String currentUserId
     ) {
         validate(session);
         return taskService.sortByDateFinish(currentUserId);
@@ -166,8 +166,8 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @Override
     @WebMethod
     public List<Task> sortTasksByStatus(
-            @Nullable final Session session,
-            @Nullable final String currentUserId
+            @NotNull final Session session,
+            @NotNull final String currentUserId
     ) {
         validate(session);
         return taskService.sortByStatus(currentUserId);
@@ -177,9 +177,9 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @Override
     @WebMethod
     public List<Task> sortTasksByName(
-            @Nullable final Session session,
-            @Nullable final String currentUserId,
-            @Nullable final String name
+            @NotNull final Session session,
+            @NotNull final String currentUserId,
+            @NotNull final String name
     ) {
         validate(session);
         return taskService.sortByName(currentUserId, name);
@@ -189,9 +189,9 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @Override
     @WebMethod
     public List<Task> sortTasksByDescription(
-            @Nullable final Session session,
-            @Nullable final String currentUserId,
-            @Nullable final String description
+            @NotNull final Session session,
+            @NotNull final String currentUserId,
+            @NotNull final String description
     ) {
         validate(session);
         return taskService.sortByDescription(currentUserId, description);

@@ -22,7 +22,7 @@ public abstract class AbstractRepository<E extends AbstractEntity> implements IR
         return map.values();
     }
 
-    @Nullable
+    @NotNull
     @Override
     public E findOne(@NotNull final String name) {
         String id = null;
@@ -34,7 +34,7 @@ public abstract class AbstractRepository<E extends AbstractEntity> implements IR
         return map.get(id);
     }
 
-    @Nullable
+    @NotNull
     @Override
     public E findOneById(@NotNull final String id) {
         return map.get(id);
