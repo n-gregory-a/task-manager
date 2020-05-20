@@ -62,12 +62,9 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @NotNull
     @Override
     @WebMethod
-    public List<Task> findAllTasksByUserId(
-            @NotNull final Session session,
-            @NotNull final String currentUserId
-    ) {
+    public List<Task> findAllTasksByUserId(@NotNull final Session session) {
         validate(session);
-        return taskService.findAll(currentUserId);
+        return taskService.findAll(session.getUserId());
     }
 
     @NotNull
@@ -75,11 +72,10 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @WebMethod
     public Task findOneTaskByUserId(
             @NotNull final Session session,
-            @NotNull final String currentUserId,
             @NotNull final String name
     ) {
         validate(session);
-        return taskService.findOne(currentUserId, name);
+        return taskService.findOne(session.getUserId(), name);
     }
 
     @NotNull
@@ -87,53 +83,41 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @WebMethod
     public Task removeTaskByUserId(
             @NotNull final Session session,
-            @NotNull final String currentUserId,
             @NotNull final Task task
     ) {
         validate(session);
-        return taskService.remove(currentUserId, task);
+        return taskService.remove(session.getUserId(), task);
     }
 
     @Override
     @WebMethod
-    public void removeAllTasksByUserId(
-            @NotNull final Session session,
-            @NotNull final String currentUserId) {
+    public void removeAllTasksByUserId(@NotNull final Session session) {
         validate(session);
-        taskService.removeAll(currentUserId);
-    }
-
-    @NotNull
-    @Override
-    @WebMethod
-    public List<Task> sortTasksByDateStart(
-            @NotNull final Session session,
-            @NotNull final String currentUserId
-    ) {
-        validate(session);
-        return taskService.sortByDateStart(currentUserId);
+        taskService.removeAll(session.getUserId());
     }
 
     @NotNull
     @Override
     @WebMethod
-    public List<Task> sortTasksByDateFinish(
-            @NotNull final Session session,
-            @NotNull final String currentUserId
-    ) {
+    public List<Task> sortTasksByDateStart(@NotNull final Session session) {
         validate(session);
-        return taskService.sortByDateFinish(currentUserId);
+        return taskService.sortByDateStart(session.getUserId());
     }
 
     @NotNull
     @Override
     @WebMethod
-    public List<Task> sortTasksByStatus(
-            @NotNull final Session session,
-            @NotNull final String currentUserId
-    ) {
+    public List<Task> sortTasksByDateFinish(@NotNull final Session session) {
         validate(session);
-        return taskService.sortByStatus(currentUserId);
+        return taskService.sortByDateFinish(session.getUserId());
+    }
+
+    @NotNull
+    @Override
+    @WebMethod
+    public List<Task> sortTasksByStatus(@NotNull final Session session) {
+        validate(session);
+        return taskService.sortByStatus(session.getUserId());
     }
 
     @NotNull
@@ -141,11 +125,10 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @WebMethod
     public List<Task> sortTasksByName(
             @NotNull final Session session,
-            @NotNull final String currentUserId,
             @NotNull final String name
     ) {
         validate(session);
-        return taskService.sortByName(currentUserId, name);
+        return taskService.sortByName(session.getUserId(), name);
     }
 
     @NotNull
@@ -153,11 +136,10 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @WebMethod
     public List<Task> sortTasksByDescription(
             @NotNull final Session session,
-            @NotNull final String currentUserId,
             @NotNull final String description
     ) {
         validate(session);
-        return taskService.sortByDescription(currentUserId, description);
+        return taskService.sortByDescription(session.getUserId(), description);
     }
 
 }

@@ -44,10 +44,11 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
         return userService.findOne(name);
     }
 
+    @Nullable
     @Override
     @WebMethod
-    public @NotNull User persistUser(
-            @Nullable final User user
+    public User persistUser(
+            @NotNull final User user
     ) {
         return userService.persist(user);
     }
@@ -56,19 +57,20 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
     @Override
     @WebMethod
     public User mergeUser(
-            @Nullable final Session session,
-            @Nullable final User user,
+            @NotNull final Session session,
+            @NotNull final User user,
             @Nullable final String name
     ) {
         validate(session);
         return userService.merge(user, name);
     }
 
+    @Nullable
     @Override
     @WebMethod
-    public @NotNull User removeUser(
-            @Nullable final Session session,
-            @Nullable final User user
+    public User removeUser(
+            @NotNull final Session session,
+            @NotNull final User user
     ) {
         validate(session);
         return userService.remove(user);
@@ -76,7 +78,7 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
 
     @Override
     @WebMethod
-    public void removeAllUser(@Nullable final Session session) {
+    public void removeAllUser(@NotNull final Session session) {
         validate(session);
         userService.removeAll();
     }
@@ -84,8 +86,8 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
     @Override
     @WebMethod
     public void loadUser(
-            @Nullable final Session session,
-            @Nullable final User[] users
+            @NotNull final Session session,
+            @NotNull final User[] users
     ) {
         validate(session);
         userService.persist(users);
@@ -118,8 +120,8 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
     @Override
     @WebMethod
     public boolean isRoleAdmin(
-            @Nullable final Session session,
-            @Nullable final User user
+            @NotNull final Session session,
+            @NotNull final User user
     ) {
         validate(session);
         return userService.isRoleAdmin(user);
@@ -128,7 +130,7 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
     @Nullable
     @Override
     @WebMethod
-    public String getCurrentUserId(@Nullable final Session session) {
+    public String getCurrentUserId(@NotNull final Session session) {
         validate(session);
         return userService.getCurrentUserId();
     }

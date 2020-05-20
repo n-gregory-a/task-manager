@@ -21,7 +21,7 @@ public interface IUserEndpoint {
     @WebMethod
     User findOneUser(@NotNull final String name);
 
-    @NotNull
+    @Nullable
     @WebMethod
     User persistUser(@NotNull final User user);
 
@@ -32,7 +32,7 @@ public interface IUserEndpoint {
             @NotNull final User user,
             @NotNull final String name);
 
-    @NotNull
+    @Nullable
     @WebMethod
     User removeUser(@NotNull final Session session, @NotNull final User user);
 
