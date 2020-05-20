@@ -11,7 +11,6 @@ import ru.naumkin.tm.entity.Session;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
-import java.util.LinkedList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -26,23 +25,6 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     ) {
         super(sessionService);
         this.projectService = projectService;
-    }
-
-    @NotNull
-    @Override
-    @WebMethod
-    public List<Project> findAllProjects(@NotNull final Session session) {
-        validate(session);
-        return new LinkedList<>(projectService.findAll());
-    }
-
-    @NotNull
-    @Override
-    @WebMethod
-    public Project findOneProject(@NotNull final Session session,
-                                  @NotNull final String name) {
-        validate(session);
-        return projectService.findOne(name);
     }
 
     @Nullable
@@ -64,23 +46,6 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     ) {
         validate(session);
         return projectService.merge(project, name);
-    }
-
-    @Nullable
-    @Override
-    @WebMethod
-    public Project removeProject(@NotNull final Session session,
-                                 @NotNull final Project project
-    ) {
-        validate(session);
-        return projectService.remove(project);
-    }
-
-    @Override
-    @WebMethod
-    public void removeAllProjects(@NotNull final Session session) {
-        validate(session);
-        projectService.removeAll();
     }
 
     @Override

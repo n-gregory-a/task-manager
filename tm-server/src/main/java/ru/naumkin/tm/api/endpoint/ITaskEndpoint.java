@@ -12,14 +12,6 @@ import java.util.List;
 @WebService
 public interface ITaskEndpoint {
 
-    @NotNull
-    @WebMethod
-    List<Task> findAllTasks(@NotNull final Session session);
-
-    @NotNull
-    @WebMethod
-    Task findOneTask(@NotNull final Session session, @NotNull final String name);
-
     @Nullable
     @WebMethod
     Task persistTask(@NotNull final Session session, @NotNull final Task task);
@@ -30,13 +22,6 @@ public interface ITaskEndpoint {
             @NotNull final Session session,
             @NotNull final Task task,
             @NotNull final String name);
-
-    @Nullable
-    @WebMethod
-    Task removeTask(@NotNull final Session session, @NotNull final Task task);
-
-    @WebMethod
-    void removeAllTasks(@NotNull final Session session);
 
     @WebMethod
     void loadTask(@NotNull final Session session, @NotNull final Task[] tasks);

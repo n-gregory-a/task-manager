@@ -12,15 +12,6 @@ import java.util.List;
 @WebService
 public interface IProjectEndpoint {
 
-    @NotNull
-    @WebMethod
-    List<Project> findAllProjects(@NotNull final Session session);
-
-    @NotNull
-    @WebMethod
-    Project findOneProject(@NotNull final Session session,
-                           @NotNull final String name);
-
     @Nullable
     @WebMethod
     Project persistProject(@NotNull final Session session,
@@ -31,14 +22,6 @@ public interface IProjectEndpoint {
     Project mergeProject(@NotNull final Session session,
                          @NotNull final Project project,
                          @NotNull final String name);
-
-    @Nullable
-    @WebMethod
-    Project removeProject(@NotNull final Session session,
-                          @NotNull final Project project);
-
-    @WebMethod
-    void removeAllProjects(@NotNull final Session session);
 
     @WebMethod
     void loadProject(@NotNull final Session session,

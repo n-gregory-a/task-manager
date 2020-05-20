@@ -11,7 +11,6 @@ import ru.naumkin.tm.entity.Task;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
-import java.util.LinkedList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -25,24 +24,6 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
             @NotNull final ITaskService taskService) {
         super(sessionService);
         this.taskService = taskService;
-    }
-
-    @NotNull
-    @Override
-    @WebMethod
-    public List<Task> findAllTasks(@NotNull final Session session) {
-        return new LinkedList<>(taskService.findAll());
-    }
-
-    @NotNull
-    @Override
-    @WebMethod
-    public Task findOneTask(
-            @NotNull final Session session,
-            @NotNull final String name
-    ) {
-        validate(session);
-        return taskService.findOne(name);
     }
 
     @Nullable
@@ -66,24 +47,6 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     ) {
         validate(session);
         return taskService.merge(task, name);
-    }
-
-    @Nullable
-    @Override
-    @WebMethod
-    public Task removeTask(
-            @NotNull final Session session,
-            @NotNull final Task task
-    ) {
-        validate(session);
-        return taskService.remove(task);
-    }
-
-    @Override
-    @WebMethod
-    public void removeAllTasks(@NotNull final Session session) {
-        validate(session);
-        taskService.removeAll();
     }
 
     @Override
