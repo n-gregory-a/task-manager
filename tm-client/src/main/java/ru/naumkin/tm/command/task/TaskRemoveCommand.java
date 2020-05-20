@@ -35,7 +35,7 @@ public final class TaskRemoveCommand extends AbstractCommand {
         @Nullable final Task task = taskEndpoint.findOneTaskByUserId(
                 bootstrap.getCurrentSession(), currentUserId, taskName
         );
-        taskEndpoint.removeTask(bootstrap.getCurrentSession(), task);
+        taskEndpoint.removeTaskByUserId(bootstrap.getCurrentSession(), currentUserId, task);
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 
