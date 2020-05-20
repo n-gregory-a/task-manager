@@ -90,7 +90,7 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @WebMethod
     public void loadTask(
             @Nullable final Session session,
-            @NotNull final Task[] tasks
+            @Nullable final Task[] tasks
     ) {
         validate(session);
         taskService.persist(tasks);
@@ -124,8 +124,8 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @WebMethod
     public Task removeTaskByUserId(
             @Nullable final Session session,
-            @NotNull final String currentUserId,
-            @NotNull final Task task
+            @Nullable final String currentUserId,
+            @Nullable final Task task
     ) {
         validate(session);
         return taskService.remove(currentUserId, task);
@@ -167,7 +167,7 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @WebMethod
     public List<Task> sortTasksByStatus(
             @Nullable final Session session,
-            @NotNull final String currentUserId
+            @Nullable final String currentUserId
     ) {
         validate(session);
         return taskService.sortByStatus(currentUserId);
@@ -178,8 +178,8 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @WebMethod
     public List<Task> sortTasksByName(
             @Nullable final Session session,
-            @NotNull final String currentUserId,
-            @NotNull final String name
+            @Nullable final String currentUserId,
+            @Nullable final String name
     ) {
         validate(session);
         return taskService.sortByName(currentUserId, name);
@@ -190,8 +190,8 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @WebMethod
     public List<Task> sortTasksByDescription(
             @Nullable final Session session,
-            @NotNull final String currentUserId,
-            @NotNull final String description
+            @Nullable final String currentUserId,
+            @Nullable final String description
     ) {
         validate(session);
         return taskService.sortByDescription(currentUserId, description);

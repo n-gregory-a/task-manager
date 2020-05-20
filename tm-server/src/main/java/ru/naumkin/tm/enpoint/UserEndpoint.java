@@ -87,7 +87,7 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
     @WebMethod
     public void loadUser(
             @Nullable final Session session,
-            @NotNull final User[] users
+            @Nullable final User[] users
     ) {
         validate(session);
         userService.persist(users);
@@ -121,7 +121,7 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
     @WebMethod
     public boolean isRoleAdmin(
             @Nullable final Session session,
-            @NotNull final User user
+            @Nullable final User user
     ) {
         validate(session);
         return userService.isRoleAdmin(user);

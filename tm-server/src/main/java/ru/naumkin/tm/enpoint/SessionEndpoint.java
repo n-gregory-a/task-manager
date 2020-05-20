@@ -83,7 +83,7 @@ public class SessionEndpoint implements ISessionEndpoint {
     @WebMethod
     public void persistSessions(
             @Nullable final Session session,
-            @NotNull final Session[] sessions
+            @Nullable final Session[] sessions
     ) {
         RoleType role = sessionService.getUser(session).getRole();
         validateAdmin(session, role);

@@ -163,7 +163,7 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     @WebMethod
     public List<Project> sortProjectsByStatus(
             @Nullable final Session session,
-            @NotNull final String currentUserId
+            @Nullable final String currentUserId
     ) {
         validate(session);
         return projectService.sortByStatus(currentUserId);
@@ -174,8 +174,8 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     @WebMethod
     public List<Project> sortProjectsByName(
             @Nullable final Session session,
-            @NotNull final String currentUserId,
-            @NotNull final String name
+            @Nullable final String currentUserId,
+            @Nullable final String name
     ) {
         validate(session);
         return projectService.sortByName(currentUserId, name);
@@ -186,8 +186,8 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     @WebMethod
     public List<Project> sortProjectsByDescription(
             @Nullable final Session session,
-            @NotNull final String currentUserId,
-            @NotNull final String description
+            @Nullable final String currentUserId,
+            @Nullable final String description
     ) {
         validate(session);
         return projectService.sortByDescription(currentUserId, description);
