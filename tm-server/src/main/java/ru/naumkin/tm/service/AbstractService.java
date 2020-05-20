@@ -106,4 +106,5 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
         }
         repository.persist(entities);
     }
+
 }

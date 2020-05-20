@@ -51,11 +51,11 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
             @NotNull final String currentUserId,
             @NotNull final Task task
     ) {
-        @Nullable final Task toRemove = findOne(task.getName(), currentUserId);
+        @Nullable final Task toRemove = findOne(currentUserId, task.getName());
         if (toRemove == null) {
             return null;
         }
-        map.remove(toRemove.getName());
+        map.remove(toRemove.getId());
         return toRemove;
     }
 
