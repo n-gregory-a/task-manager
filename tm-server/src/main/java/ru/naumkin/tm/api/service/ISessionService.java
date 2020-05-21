@@ -1,6 +1,7 @@
 package ru.naumkin.tm.api.service;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.entity.Session;
 import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.enumerated.RoleType;
@@ -19,7 +20,7 @@ public interface ISessionService extends IService<Session> {
     @NotNull
     List<Session> getListSession(@NotNull final Session session) throws SQLException;
 
-    @NotNull
+    @Nullable
     User getUser(@NotNull final Session session) throws SQLException;
 
     void validate(@NotNull final Session session) throws SQLException;

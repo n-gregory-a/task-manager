@@ -64,7 +64,7 @@ public class SessionService extends AbstractService<Session> implements ISession
         return new SessionRepository(connection).findAll();
     }
 
-    @NotNull
+    @Nullable
     @Override
     public User getUser(@NotNull final Session session) throws SQLException {
         @NotNull final String userId = session.getUserId();
