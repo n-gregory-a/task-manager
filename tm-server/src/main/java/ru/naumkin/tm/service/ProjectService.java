@@ -3,34 +3,36 @@ package ru.naumkin.tm.service;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.naumkin.tm.api.repository.IProjectRepository;
 import ru.naumkin.tm.api.service.IProjectService;
+import ru.naumkin.tm.api.service.IPropertyService;
 import ru.naumkin.tm.entity.Project;
 import ru.naumkin.tm.error.*;
+import ru.naumkin.tm.repository.ProjectRepository;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 @NoArgsConstructor
 public final class ProjectService extends AbstractService<Project> implements IProjectService {
 
-    @NotNull
-    private IProjectRepository projectRepository;
-
-    public ProjectService(@NotNull final IProjectRepository repository) {
-        super(repository);
-        this.projectRepository = repository;
+    public ProjectService(
+            @NotNull final  IPropertyService propertyService
+    ) {
+        super(propertyService);
     }
 
     @NotNull
     @Override
-    public List<Project> findAll(@Nullable final String currentUserId) {
+    public List<Project> findAll(@Nullable final String currentUserId) throws SQLException {
         if (currentUserId == null) {
             throw new CurrentUserIdIsNullException();
         }
         if (currentUserId.isEmpty()) {
             throw new CurrentUserIdIsEmptyException();
         }
-        return projectRepository.findAll(currentUserId);
+        @NotNull final Connection connection = getConnection();
+        return new ProjectRepository(connection).findAll(currentUserId);
     }
 
     @NotNull
@@ -38,7 +40,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
     public Project findOne(
             @Nullable final String currentUserId,
             @Nullable final String name
-    ) {
+    ) throws SQLException {
         if (name == null) {
             throw new NameIsNullException();
         }
@@ -51,7 +53,9 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (currentUserId.isEmpty()) {
             throw new CurrentUserIdIsEmptyException();
         }
-        @Nullable final Project project = projectRepository.findOne(currentUserId, name);
+        @NotNull final Connection connection = getConnection();
+        @Nullable final Project project =
+                new ProjectRepository(connection).findOne(currentUserId, name);
         if (project == null) {
             throw new NoProjectWithSuchNameException(name);
         }
@@ -60,10 +64,30 @@ public final class ProjectService extends AbstractService<Project> implements IP
 
     @NotNull
     @Override
+    public Project persist(@Nullable final Project project) throws SQLException {
+        if (project == null) {
+            throw new ProjectIsNullException();
+        }
+        @NotNull final Connection connection = getConnection();
+        return new ProjectRepository(connection).persist(project);
+    }
+
+    @NotNull
+    @Override
+    public Project merge(@Nullable final Project project) throws SQLException {
+        if (project == null) {
+            throw new ProjectIsNullException();
+        }
+        @NotNull final Connection connection = getConnection();
+        return new ProjectRepository(connection).merge(project);
+    }
+
+    @NotNull
+    @Override
     public Project remove(
             @Nullable final String currentUserId,
             @Nullable final Project project
-    ) {
+    ) throws SQLException {
         if (project == null) {
             throw new ProjectIsNullException();
         }
@@ -73,7 +97,9 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (currentUserId.isEmpty()) {
             throw new CurrentUserIdIsEmptyException();
         }
-        @Nullable final Project toRemove = projectRepository.remove(currentUserId, project);
+        @NotNull final Connection connection = getConnection();
+        @Nullable final Project toRemove =
+                new ProjectRepository(connection).remove(currentUserId, project);
         if (toRemove == null) {
             throw new ProjectIsNullException();
         }
@@ -81,50 +107,54 @@ public final class ProjectService extends AbstractService<Project> implements IP
     }
 
     @Override
-    public void removeAll(final @Nullable String currentUserId) {
+    public void removeAll(final @Nullable String currentUserId) throws SQLException {
         if (currentUserId == null) {
             throw new CurrentUserIdIsNullException();
         }
         if (currentUserId.isEmpty()) {
             throw new CurrentUserIdIsEmptyException();
         }
-        projectRepository.removeAll(currentUserId);
+        @NotNull final Connection connection = getConnection();
+        new ProjectRepository(connection).removeAll(currentUserId);
     }
 
     @NotNull
     @Override
-    public List<Project> sortByDateStart(@Nullable final String currentUserId) {
+    public List<Project> sortByDateStart(@Nullable final String currentUserId) throws SQLException {
         if (currentUserId == null) {
             throw new CurrentUserIdIsNullException();
         }
         if (currentUserId.isEmpty()) {
             throw new CurrentUserIdIsEmptyException();
         }
-        return projectRepository.sortByDateStart(currentUserId);
+        @NotNull final Connection connection = getConnection();
+        return new ProjectRepository(connection).sortByDateStart(currentUserId);
     }
 
     @NotNull
     @Override
-    public List<Project> sortByDateFinish(@Nullable final String currentUserId) {
+    public List<Project> sortByDateFinish(@Nullable final String currentUserId) throws SQLException {
         if (currentUserId == null) {
             throw new CurrentUserIdIsNullException();
         }
         if (currentUserId.isEmpty()) {
             throw new CurrentUserIdIsEmptyException();
         }
-        return projectRepository.sortByDateFinish(currentUserId);
+        @NotNull final Connection connection = getConnection();
+        return new ProjectRepository(connection).sortByDateFinish(currentUserId);
     }
 
     @NotNull
     @Override
-    public List<Project> sortByStatus(@Nullable final String currentUserId) {
+    public List<Project> sortByStatus(@Nullable final String currentUserId) throws SQLException {
         if (currentUserId == null) {
             throw new CurrentUserIdIsNullException();
         }
         if (currentUserId.isEmpty()) {
             throw new CurrentUserIdIsEmptyException();
         }
-        return projectRepository.sortByStatus(currentUserId);
+        @NotNull final Connection connection = getConnection();
+        return new ProjectRepository(connection).sortByStatus(currentUserId);
     }
 
     @NotNull
@@ -132,7 +162,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
     public List<Project> sortByName(
             @Nullable final String currentUserId,
             @Nullable final String name
-    ) {
+    ) throws SQLException {
         if (name == null) {
             throw new NameIsNullException();
         }
@@ -145,14 +175,15 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (currentUserId.isEmpty()) {
             throw new CurrentUserIdIsEmptyException();
         }
-        return projectRepository.sortByName(currentUserId, name);
+        @NotNull final Connection connection = getConnection();
+        return new ProjectRepository(connection).sortByName(currentUserId, name);
     }
 
     @Override
     public @NotNull List<Project> sortByDescription(
             @Nullable final String currentUserId,
             @Nullable final String description
-    ) {
+    ) throws SQLException {
         if (description == null) {
             throw new DescriptionIsNullException();
         }
@@ -165,7 +196,8 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (currentUserId.isEmpty()) {
             throw new CurrentUserIdIsEmptyException();
         }
-        return projectRepository.sortByDescription(currentUserId, description);
+        @NotNull final Connection connection = getConnection();
+        return new ProjectRepository(connection).sortByDescription(currentUserId, description);
     }
 
 }

@@ -3,34 +3,34 @@ package ru.naumkin.tm.service;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.naumkin.tm.api.repository.ITaskRepository;
+import ru.naumkin.tm.api.service.IPropertyService;
 import ru.naumkin.tm.api.service.ITaskService;
 import ru.naumkin.tm.entity.Task;
 import ru.naumkin.tm.error.*;
+import ru.naumkin.tm.repository.TaskRepository;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 @NoArgsConstructor
 public final class TaskService extends AbstractService<Task> implements ITaskService {
 
-    @NotNull
-    private ITaskRepository taskRepository;
-
-    public TaskService(@NotNull final ITaskRepository repository) {
-        super(repository);
-        this.taskRepository = repository;
+    public TaskService(@NotNull IPropertyService propertyService) {
+        super(propertyService);
     }
 
     @NotNull
     @Override
-    public List<Task> findAll(@Nullable final String currentUserId) {
+    public List<Task> findAll(@Nullable final String currentUserId) throws SQLException {
         if (currentUserId == null) {
             throw new CurrentUserIdIsNullException();
         }
         if (currentUserId.isEmpty()) {
             throw new CurrentUserIdIsEmptyException();
         }
-        return taskRepository.findAll(currentUserId);
+        @NotNull final Connection connection = getConnection();
+        return new TaskRepository(connection).findAll(currentUserId);
     }
 
     @NotNull
@@ -38,7 +38,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     public Task findOne(
             @Nullable final String currentUserId,
             @Nullable final String name
-    ) {
+    ) throws SQLException {
         if (name == null) {
             throw new NameIsNullException();
         }
@@ -51,7 +51,9 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (currentUserId.isEmpty()) {
             throw new CurrentUserIdIsEmptyException();
         }
-        @Nullable final Task task = taskRepository.findOne(currentUserId, name);
+        @NotNull final Connection connection = getConnection();
+        @Nullable final Task task =
+                new TaskRepository(connection).findOne(currentUserId, name);
         if (task == null) {
             throw new NoTaskWithSuchNameException(name);
         }
@@ -60,10 +62,30 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
 
     @NotNull
     @Override
+    public Task persist(@Nullable final Task task) throws SQLException {
+        if (task == null) {
+            throw new TaskIsNullException();
+        }
+        @NotNull final Connection connection = getConnection();
+        return new TaskRepository(connection).persist(task);
+    }
+
+    @NotNull
+    @Override
+    public Task merge(@Nullable final Task task) throws SQLException {
+        if (task == null) {
+            throw new TaskIsNullException();
+        }
+        @NotNull final Connection connection = getConnection();
+        return new TaskRepository(connection).merge(task);
+    }
+
+    @NotNull
+    @Override
     public Task remove(
             @Nullable final String currentUserId,
             @Nullable final Task task
-    ) {
+    ) throws SQLException {
         if (task == null) {
             throw new TaskIsNullException();
         }
@@ -73,7 +95,9 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (currentUserId.isEmpty()) {
             throw new CurrentUserIdIsEmptyException();
         }
-        @Nullable final Task toRemove = taskRepository.remove(currentUserId, task);
+        @NotNull final Connection connection = getConnection();
+        @Nullable final Task toRemove =
+                new TaskRepository(connection).remove(currentUserId, task);
         if (toRemove == null) {
             throw new TaskIsNullException();
         }
@@ -81,50 +105,54 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     }
 
     @Override
-    public void removeAll(@Nullable final String currentUserId) {
+    public void removeAll(@Nullable final String currentUserId) throws SQLException {
         if (currentUserId == null) {
             throw new CurrentUserIdIsNullException();
         }
         if (currentUserId.isEmpty()) {
             throw new CurrentUserIdIsEmptyException();
         }
-        taskRepository.removeAll(currentUserId);
+        @NotNull final Connection connection = getConnection();
+        new TaskRepository(connection).removeAll(currentUserId);
     }
 
     @NotNull
     @Override
-    public List<Task> sortByDateStart(@Nullable final String currentUserId) {
+    public List<Task> sortByDateStart(@Nullable final String currentUserId) throws SQLException {
         if (currentUserId == null) {
             throw new CurrentUserIdIsNullException();
         }
         if (currentUserId.isEmpty()) {
             throw new CurrentUserIdIsEmptyException();
         }
-        return taskRepository.sortByDateStart(currentUserId);
+        @NotNull final Connection connection = getConnection();
+        return new TaskRepository(connection).sortByDateStart(currentUserId);
     }
 
     @NotNull
     @Override
-    public List<Task> sortByDateFinish(@Nullable final String currentUserId) {
+    public List<Task> sortByDateFinish(@Nullable final String currentUserId) throws SQLException {
         if (currentUserId == null) {
             throw new CurrentUserIdIsNullException();
         }
         if (currentUserId.isEmpty()) {
             throw new CurrentUserIdIsEmptyException();
         }
-        return taskRepository.sortByDateFinish(currentUserId);
+        @NotNull final Connection connection = getConnection();
+        return new TaskRepository(connection).sortByDateFinish(currentUserId);
     }
 
     @NotNull
     @Override
-    public List<Task> sortByStatus(@Nullable final String currentUserId) {
+    public List<Task> sortByStatus(@Nullable final String currentUserId) throws SQLException {
         if (currentUserId == null) {
             throw new CurrentUserIdIsNullException();
         }
         if (currentUserId.isEmpty()) {
             throw new CurrentUserIdIsEmptyException();
         }
-        return taskRepository.sortByStatus(currentUserId);
+        @NotNull final Connection connection = getConnection();
+        return new TaskRepository(connection).sortByStatus(currentUserId);
     }
 
     @NotNull
@@ -132,7 +160,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     public List<Task> sortByName(
             @Nullable final String currentUserId,
             @Nullable final String name
-    ) {
+    ) throws SQLException {
         if (name == null) {
             throw new NameIsNullException();
         }
@@ -145,7 +173,8 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (currentUserId.isEmpty()) {
             throw new CurrentUserIdIsEmptyException();
         }
-        return taskRepository.sortByName(currentUserId, name);
+        @NotNull final Connection connection = getConnection();
+        return new TaskRepository(connection).sortByName(currentUserId, name);
     }
 
     @NotNull
@@ -153,7 +182,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     public List<Task> sortByDescription(
             @Nullable final String currentUserId,
             @Nullable final String description
-    ) {
+    ) throws SQLException {
         if (description == null) {
             throw new DescriptionIsNullException();
         }
@@ -166,7 +195,8 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (currentUserId.isEmpty()) {
             throw new CurrentUserIdIsEmptyException();
         }
-        return taskRepository.sortByDescription(currentUserId, description);
+        @NotNull final Connection connection = getConnection();
+        return new TaskRepository(connection).sortByDescription(currentUserId, description);
     }
 
 }
