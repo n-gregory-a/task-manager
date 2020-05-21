@@ -1,4 +1,4 @@
-package ru.naumkin.tm.util;
+package ru.naumkin.tm.comparator;
 
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;

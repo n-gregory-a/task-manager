@@ -5,9 +5,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.ITaskRepository;
 import ru.naumkin.tm.entity.Task;
-import ru.naumkin.tm.util.TaskDateFinishComparator;
-import ru.naumkin.tm.util.TaskDateStartComparator;
-import ru.naumkin.tm.util.TaskStatusComparator;
+import ru.naumkin.tm.comparator.TaskDateFinishComparator;
+import ru.naumkin.tm.comparator.TaskDateStartComparator;
+import ru.naumkin.tm.comparator.TaskStatusComparator;
 
 import java.util.Comparator;
 import java.util.LinkedList;

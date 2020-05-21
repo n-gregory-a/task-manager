@@ -1,8 +1,9 @@
-package ru.naumkin.tm.util;
+package ru.naumkin.tm.comparator;
 
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.naumkin.tm.entity.Task;
+import ru.naumkin.tm.error.TaskIsNullException;
 
 import java.util.Comparator;
 
@@ -12,10 +13,10 @@ public final class TaskDateStartComparator implements Comparator<Task> {
     @Override
     public int compare(@NotNull final Task taskOne, @NotNull final Task taskTwo) {
         if (taskOne.getDateStart() == null) {
-            throw new RuntimeException();
+            throw new TaskIsNullException();
         }
         if (taskTwo.getDateStart() == null) {
-            throw new RuntimeException();
+            throw new TaskIsNullException();
         }
         return taskOne.getDateStart().compareTo(taskTwo.getDateStart());
     }

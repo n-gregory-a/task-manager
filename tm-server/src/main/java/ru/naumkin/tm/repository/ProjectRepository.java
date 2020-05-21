@@ -7,9 +7,9 @@ import ru.naumkin.tm.api.repository.IProjectRepository;
 import ru.naumkin.tm.api.repository.ITaskRepository;
 import ru.naumkin.tm.entity.Project;
 import ru.naumkin.tm.entity.Task;
-import ru.naumkin.tm.util.ProjectDateFinishComparator;
-import ru.naumkin.tm.util.ProjectDateStartComparator;
-import ru.naumkin.tm.util.ProjectStatusComparator;
+import ru.naumkin.tm.comparator.ProjectDateFinishComparator;
+import ru.naumkin.tm.comparator.ProjectDateStartComparator;
+import ru.naumkin.tm.comparator.ProjectStatusComparator;
 
 import java.util.*;
 
