@@ -60,7 +60,7 @@ public class SessionRepository extends AbstractRepository<Session> implements IS
         return fetch(resultSet);
     }
 
-    @Nullable
+    @NotNull
     @Override
     public Session persist(@NotNull final Session session) throws SQLException {
         @NotNull final String query =
