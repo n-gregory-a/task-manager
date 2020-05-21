@@ -23,4 +23,8 @@ public final class DateFormatter {
         return FORMATTER.parse(date);
     }
 
+    public static java.sql.Date convertToSqlDate(@NotNull final Date date) {
+        return new java.sql.Date(date.getTime());
+    }
+
 }
