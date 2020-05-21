@@ -13,7 +13,10 @@ public interface IUserRepository {
     List<User> findAll() throws SQLException;
 
     @Nullable
-    User findOne(@NotNull final String id) throws SQLException;
+    User findOne(@NotNull final String name) throws SQLException;
+
+    @NotNull
+    User findOneById(@NotNull final String id) throws SQLException;
 
     @Nullable
     User persist(@NotNull final User user) throws SQLException;
