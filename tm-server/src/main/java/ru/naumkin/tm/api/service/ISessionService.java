@@ -5,28 +5,25 @@ import ru.naumkin.tm.entity.Session;
 import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.enumerated.RoleType;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface ISessionService extends IService<Session> {
 
-    Session open(@NotNull final String login, @NotNull final String password);
+    Session open(@NotNull final String login, @NotNull final String password) throws SQLException;
 
-    void close(@NotNull final Session session);
+    void close(@NotNull final Session session) throws SQLException;
 
-    void closeAll(@NotNull final Session session);
-
-    @NotNull
-    List<Session> getListSession(@NotNull final Session session);
+    void closeAll(@NotNull final Session session) throws SQLException;
 
     @NotNull
-    User getUser(@NotNull final Session session);
+    List<Session> getListSession(@NotNull final Session session) throws SQLException;
 
-    void validate(@NotNull final Session session);
+    @NotNull
+    User getUser(@NotNull final Session session) throws SQLException;
 
-    void validate(@NotNull final Session session, @NotNull final RoleType role);
+    void validate(@NotNull final Session session) throws SQLException;
 
     Session sign(@NotNull final Session session);
-
-    boolean isValid(@NotNull final Session session);
 
 }

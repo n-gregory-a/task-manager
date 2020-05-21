@@ -1,5 +1,6 @@
 package ru.naumkin.tm.service;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.naumkin.tm.api.service.IPropertyService;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 @NoArgsConstructor
 public abstract class AbstractService<E extends AbstractEntity> implements IService<E> {
 
+    @Getter
     @NotNull
     private IPropertyService propertyService;
 
