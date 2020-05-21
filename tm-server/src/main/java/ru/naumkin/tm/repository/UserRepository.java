@@ -46,12 +46,12 @@ public final class UserRepository extends AbstractRepository<User> implements IU
 
     @Nullable
     @Override
-    public User findOne(@NotNull String id) throws SQLException {
+    public User findOne(@NotNull final String name) throws SQLException {
         @NotNull final String query =
                 "SELECT * FROM `app_user` " +
-                        "WHERE `id` = ?";
+                        "WHERE `name` = ?";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
-        statement.setString(1, id);
+        statement.setString(1, name);
         @NotNull final ResultSet resultSet = statement.executeQuery();
         statement.close();
         @NotNull final boolean hasNext = resultSet.next();
