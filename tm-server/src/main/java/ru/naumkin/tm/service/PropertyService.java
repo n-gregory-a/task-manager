@@ -44,4 +44,22 @@ public final class PropertyService implements IPropertyService {
         return properties.getProperty("session.salt");
     }
 
+    @NotNull
+    @Override
+    public String getDbUrl() {
+        return properties.getProperty("db.url");
+    }
+
+    @NotNull
+    @Override
+    public String getDbUserName() {
+        return properties.getProperty("db.username");
+    }
+
+    @NotNull
+    @Override
+    public String getDbPassword() {
+        return properties.getProperty("db.password");
+    }
+
 }

@@ -18,4 +18,13 @@ public interface IPropertyService {
     @NotNull
     String getSessionSalt();
 
+    @NotNull
+    String getDbUrl();
+
+    @NotNull
+    String getDbUserName();
+
+    @NotNull
+    String getDbPassword();
+
 }
