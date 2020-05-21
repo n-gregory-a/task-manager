@@ -66,7 +66,7 @@ public class SessionRepository extends AbstractRepository<Session> implements IS
         @NotNull final String query =
                 "INSERT INTO `session` " +
                 "(`id`, `name`, `timestamp`, `user_id`, `signature`) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                "VALUES (?, ?, ?, ?, ?)";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, session.getId());
         statement.setString(2, session.getName());
