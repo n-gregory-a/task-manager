@@ -4,29 +4,50 @@ import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.ITaskRepository;
+import ru.naumkin.tm.constant.FieldConstant;
 import ru.naumkin.tm.entity.Task;
-import ru.naumkin.tm.comparator.TaskDateFinishComparator;
-import ru.naumkin.tm.comparator.TaskDateStartComparator;
-import ru.naumkin.tm.comparator.TaskStatusComparator;
+import ru.naumkin.tm.enumerated.Status;
+import ru.naumkin.tm.util.DateFormatter;
 
-import java.util.Comparator;
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
 @NoArgsConstructor
 public final class TaskRepository extends AbstractRepository<Task> implements ITaskRepository {
 
+    public TaskRepository(@NotNull Connection connection) {
+        super(connection);
+    }
+
+    @Nullable
+    private Task fetch(@Nullable final ResultSet resultSet) throws SQLException {
+        if (resultSet == null) {
+            return null;
+        }
+        @NotNull final Task task = new Task();
+        task.setId(resultSet.getString(FieldConstant.ID));
+        task.setName(resultSet.getString(FieldConstant.NAME));
+        task.setDescription(resultSet.getString(FieldConstant.DESCRIPTION));
+        task.setDateStart(resultSet.getDate(FieldConstant.DATE_START));
+        task.setDateFinish(resultSet.getDate(FieldConstant.DATE_FINISH));
+        task.setProjectId(resultSet.getString(FieldConstant.PROJECT_ID));
+        task.setUserId(resultSet.getString(FieldConstant.USER_ID));
+        task.setStatus(Status.valueOf(resultSet.getString(FieldConstant.STATUS)));
+        return task;
+    }
+
     @NotNull
     @Override
-    public List<Task> findAll(@NotNull final String currentUserId) {
+    public List<Task> findAll(@NotNull final String currentUserId) throws SQLException {
+        @NotNull final String query = "SELECT * FROM `task`";
+        @NotNull final Statement statement = getConnection().createStatement();
+        @NotNull final ResultSet resultSet = statement.executeQuery(query);
         @NotNull final List<Task> result = new LinkedList<>();
-        for (@NotNull final Task task: map.values()) {
-            final boolean taskCreatedByCurrentUser =
-                    currentUserId.equals(task.getUserId());
-            if (taskCreatedByCurrentUser) {
-                result.add(task);
-            }
+        while (resultSet.next()) {
+            result.add(fetch(resultSet));
         }
+        statement.close();
         return result;
     }
 
@@ -35,62 +56,138 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
     public Task findOne(
             @NotNull final String currentUserId,
             @NotNull final String name
-    ) {
-        Task result = null;
-        for (@NotNull final Task task: findAll(currentUserId)) {
-            if (task.getName().equals(name)) {
-                result = task;
-            }
+    ) throws SQLException {
+        @NotNull final String query =
+                "SELECT * FROM `task` " +
+                        "WHERE `name` = ? " + "AND `user_id` = ?";
+        @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
+        statement.setString(1, name);
+        statement.setString(2, currentUserId);
+        @NotNull final ResultSet resultSet = statement.executeQuery();
+        statement.close();
+        @NotNull final boolean hasNext = resultSet.next();
+        if (!hasNext) {
+            return null;
         }
-        return result;
+        return fetch(resultSet);
     }
 
-    @Nullable
+    @NotNull
+    @Override
+    public Task persist(@NotNull final Task task) throws SQLException {
+        @NotNull final String query =
+                "INSERT INTO `task` " +
+                        "(`id`, `name`, `description`, `date_start`, `date_finish`, `project_id`, `user_id`, `status`) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
+        statement.setString(1, task.getId());
+        statement.setString(2, task.getName());
+        statement.setString(3, task.getDescription());
+        statement.setDate(4, DateFormatter.convertToSqlDate(task.getDateStart()));
+        statement.setDate(5, DateFormatter.convertToSqlDate(task.getDateFinish()));
+        statement.setString(6, task.getProjectId());
+        statement.setString(7, task.getUserId());
+        statement.setString(8, String.valueOf(task.getStatus()));
+        statement.execute();
+        statement.close();
+        return task;
+    }
+
+    @NotNull
+    @Override
+    public Task merge(@NotNull final Task task) throws SQLException {
+        @NotNull String query =
+                "UPDATE `project` " +
+                        "SET `id` = ?, `name` = ?, `description` = ?, `date_start` = ?," +
+                        "`date_finish` = ?, `project_id` = ?, `user_id` = ?, `status` = ?";
+        @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
+        statement.setString(1, task.getId());
+        statement.setString(2, task.getName());
+        statement.setString(3, task.getDescription());
+        statement.setDate(4, DateFormatter.convertToSqlDate(task.getDateStart()));
+        statement.setDate(5, DateFormatter.convertToSqlDate(task.getDateFinish()));
+        statement.setString(6, task.getUserId());
+        statement.setString(7, String.valueOf(task.getStatus()));
+        statement.execute();
+        statement.close();
+        return task;
+    }
+
+    @NotNull
     @Override
     public Task remove(
             @NotNull final String currentUserId,
             @NotNull final Task task
-    ) {
-        @Nullable final Task toRemove = findOne(currentUserId, task.getName());
-        if (toRemove == null) {
-            return null;
-        }
-        map.remove(toRemove.getId());
-        return toRemove;
+    ) throws SQLException {
+        @NotNull final String query = "DELETE FROM `task` WHERE `id` = ? AND `user_id` = ?";
+        @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
+        statement.setString(1, task.getId());
+        statement.setString(2, task.getUserId());
+        statement.execute();
+        statement.close();
+        return task;
     }
 
     @Override
-    public void removeAll(final @NotNull String currentUserId) {
-        @Nullable final List<Task> toRemove = findAll(currentUserId);
-        for (@NotNull final Task task: toRemove) {
-            map.remove(task.getName());
-        }
+    public void removeAll(@NotNull final String currentUserId) throws SQLException {
+        @NotNull final String query = "DELETE FROM `task` WHERE `user_id` = ?";
+        @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
+        statement.setString(1, currentUserId);
+        statement.execute();
+        statement.close();
     }
 
     @NotNull
     @Override
-    public List<Task> sortByDateStart(@NotNull final String currentUserId) {
-        @NotNull List<Task> result = findAll(currentUserId);
-        @NotNull Comparator<Task> dateStartComparator = new TaskDateStartComparator();
-        result.sort(dateStartComparator);
+    public List<Task> sortByDateStart(@NotNull final String currentUserId) throws SQLException {
+        @NotNull final String query =
+                "SELECT * FROM `task` " +
+                        "WHERE `user_id` = ? " +
+                        "ORDER BY `date_start`";
+        @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
+        statement.setString(1, currentUserId);
+        @NotNull final ResultSet resultSet = statement.executeQuery();
+        statement.close();
+        @NotNull final List<Task> result = new LinkedList<>();
+        while (resultSet.next()) {
+            result.add(fetch(resultSet));
+        }
         return result;
     }
 
     @NotNull
     @Override
-    public List<Task> sortByDateFinish(@NotNull final String currentUserId) {
-        @NotNull final List<Task> result = findAll(currentUserId);
-        @NotNull final Comparator<Task> dateFinishComparator = new TaskDateFinishComparator();
-        result.sort(dateFinishComparator);
+    public List<Task> sortByDateFinish(@NotNull final String currentUserId) throws SQLException {
+        @NotNull final String query =
+                "SELECT * FROM `task` " +
+                        "WHERE `user_id` = ? " +
+                        "ORDER BY `date_finish`";
+        @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
+        statement.setString(1, currentUserId);
+        @NotNull final ResultSet resultSet = statement.executeQuery();
+        statement.close();
+        @NotNull final List<Task> result = new LinkedList<>();
+        while (resultSet.next()) {
+            result.add(fetch(resultSet));
+        }
         return result;
     }
 
     @NotNull
     @Override
-    public List<Task> sortByStatus(@NotNull final String currentUserId) {
-        @NotNull final List<Task> result = findAll(currentUserId);
-        @NotNull final Comparator<Task> statusComparator = new TaskStatusComparator();
-        result.sort(statusComparator);
+    public List<Task> sortByStatus(@NotNull final String currentUserId) throws SQLException {
+        @NotNull final String query =
+                "SELECT * FROM `task` " +
+                        "WHERE `user_id` = ? " +
+                        "ORDER BY FIELD(`status`, `PLANNED`, `IN_PROGRESS`, `COMPLETED`)";
+        @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
+        statement.setString(1, currentUserId);
+        @NotNull final ResultSet resultSet = statement.executeQuery();
+        statement.close();
+        @NotNull final List<Task> result = new LinkedList<>();
+        while (resultSet.next()) {
+            result.add(fetch(resultSet));
+        }
         return result;
     }
 
@@ -99,7 +196,7 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
     public List<Task> sortByName(
             @NotNull final String currentUserId,
             @NotNull final String name
-    ) {
+    ) throws SQLException {
         @NotNull final List<Task> all = findAll(currentUserId);
         @NotNull final List<Task> result = new LinkedList<>();
         for (@NotNull final Task task: all) {
@@ -115,7 +212,7 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
     public List<Task> sortByDescription(
             @NotNull final String currentUserId,
             @NotNull final String description
-    ) {
+    ) throws SQLException {
         @NotNull final List<Task> all = findAll(currentUserId);
         @NotNull final List<Task> result = new LinkedList<>();
         for (@NotNull final Task task: all) {
