@@ -84,4 +84,15 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
         userService.removeAll();
     }
 
+    @Override
+    @WebMethod
+    public boolean isRoleAdmin(
+            @NotNull final Session session,
+            @NotNull final User user
+    ) throws SQLException {
+        validate(session);
+        return userService.isRoleAdmin(user);
+    }
+
+
 }

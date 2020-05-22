@@ -40,4 +40,8 @@ public interface IUserEndpoint {
     @WebMethod
     void removeAllUser(@NotNull final Session session) throws SQLException;
 
+    @WebMethod
+    boolean isRoleAdmin(@NotNull final Session session, @NotNull final User user) throws SQLException;
+
+
 }
