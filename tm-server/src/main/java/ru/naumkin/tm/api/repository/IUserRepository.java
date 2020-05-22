@@ -15,7 +15,7 @@ public interface IUserRepository {
     @Nullable
     User findOne(@NotNull final String name) throws SQLException;
 
-    @NotNull
+    @Nullable
     User findOneById(@NotNull final String id) throws SQLException;
 
     @Nullable

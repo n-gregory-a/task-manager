@@ -61,8 +61,9 @@ public final class UserRepository extends AbstractRepository<User> implements IU
         return fetch(resultSet);
     }
 
+    @Nullable
     @Override
-    public @NotNull User findOneById(@NotNull String id) throws SQLException {
+    public User findOneById(@NotNull String id) throws SQLException {
         @NotNull final String query =
                 "SELECT * FROM `app_user` " +
                         "WHERE `id` = ?";
