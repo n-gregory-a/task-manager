@@ -2,6 +2,7 @@ package ru.naumkin.tm.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import lombok.NoArgsConstructor;
 import org.eclipse.persistence.jaxb.MarshallerProperties;
 import org.eclipse.persistence.jaxb.UnmarshallerProperties;
 import org.jetbrains.annotations.NotNull;
@@ -25,16 +26,17 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+@NoArgsConstructor
 public final class DomainService implements IDomainService {
 
     @NotNull
-    private final IProjectService projectService;
+    private IProjectService projectService;
 
     @NotNull
-    private final ITaskService taskService;
+    private ITaskService taskService;
 
     @NotNull
-    private final IUserService userService;
+    private IUserService userService;
 
     public DomainService(@NotNull final IProjectService projectService,
                          @NotNull final ITaskService taskService,

@@ -1,5 +1,6 @@
 package ru.naumkin.tm.service;
 
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.service.IPropertyService;
@@ -17,6 +18,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
+@NoArgsConstructor
 public class SessionService extends AbstractService<Session> implements ISessionService {
 
     public SessionService(@NotNull final IPropertyService propertyService) {
