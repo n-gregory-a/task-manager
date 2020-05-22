@@ -10,6 +10,9 @@ import java.util.List;
 public interface IProjectService extends IService<Project> {
 
     @NotNull
+    List<Project> findAll() throws SQLException;
+
+    @NotNull
     List<Project> findAll(@Nullable final String userId) throws SQLException;
 
     @NotNull

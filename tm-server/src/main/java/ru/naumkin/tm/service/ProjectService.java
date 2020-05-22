@@ -22,6 +22,12 @@ public final class ProjectService extends AbstractService<Project> implements IP
         super(propertyService);
     }
 
+    @Override
+    public @NotNull List<Project> findAll() throws SQLException {
+        @NotNull final Connection connection = getConnection();
+        return new ProjectRepository(connection).findAll();
+    }
+
     @NotNull
     @Override
     public List<Project> findAll(@Nullable final String userId) throws SQLException {

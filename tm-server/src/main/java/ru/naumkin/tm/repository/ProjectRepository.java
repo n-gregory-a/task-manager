@@ -38,7 +38,7 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
 
     @NotNull
     @Override
-    public List<Project> findAll(@NotNull final String currentUserId) throws SQLException {
+    public List<Project> findAll() throws SQLException {
         @NotNull final String query = "SELECT * FROM `project`";
         @NotNull final Statement statement = getConnection().createStatement();
         @NotNull final ResultSet resultSet = statement.executeQuery(query);
@@ -50,18 +50,37 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
         return result;
     }
 
+    @NotNull
+    @Override
+    public List<Project> findAll(@NotNull final String userId) throws SQLException {
+        @NotNull final String query =
+                "SELECT * FROM `project` " +
+                "WHERE `user_id` = ?";
+        @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
+        statement.setString(1, userId);
+        @NotNull final ResultSet resultSet = statement.executeQuery();
+        statement.close();
+        @NotNull final List<Project> result = new LinkedList<>();
+        while (resultSet.next()) {
+            result.add(fetch(resultSet));
+        }
+        statement.close();
+        return result;
+    }
+
     @Nullable
     @Override
     public Project findOne(
-            @NotNull final String currentUserId,
+            @NotNull final String userId,
             @NotNull final String name
     ) throws SQLException {
         @NotNull final String query =
                 "SELECT * FROM `project` " +
-                "WHERE `name` = ? " + "AND `user_id` = ?";
+                "WHERE `name` = ? " +
+                "AND `user_id` = ?";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, name);
-        statement.setString(2, currentUserId);
+        statement.setString(2, userId);
         @NotNull final ResultSet resultSet = statement.executeQuery();
         statement.close();
         @NotNull final boolean hasNext = resultSet.next();
@@ -114,15 +133,19 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
     @NotNull
     @Override
     public Project remove(
-            @NotNull final String currentUserId,
+            @NotNull final String userId,
             @NotNull final Project project
     ) throws SQLException {
-        @NotNull String query = "DELETE FROM `project` WHERE `id` = ? AND `user_id` = ?";
+        @NotNull String query =
+                "DELETE FROM `project` " +
+                "WHERE `id` = ? AND `user_id` = ?";
         @NotNull PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, project.getId());
         statement.setString(2, project.getUserId());
         statement.execute();
-        query = "DELETE FROM `task` WHERE `project_id` = ? AND `user_id` = ?";
+        query = "DELETE FROM `task` " +
+                "WHERE `project_id` = ? " +
+                "AND `user_id` = ?";
         statement = getConnection().prepareStatement(query);
         statement.setString(1, project.getId());
         statement.setString(2, project.getUserId());
@@ -132,25 +155,25 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
     }
 
     @Override
-    public void removeAll(@NotNull final String currentUserId) throws SQLException {
+    public void removeAll(@NotNull final String userId) throws SQLException {
         @NotNull final String query =
                 "DELETE * FROM `project` " +
                 "WHERE `user_id` = ?";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
-        statement.setString(1, currentUserId);
+        statement.setString(1, userId);
         statement.execute();
         statement.close();
     }
 
     @NotNull
     @Override
-    public List<Project> sortByDateStart(@NotNull final String currentUserId) throws SQLException {
+    public List<Project> sortByDateStart(@NotNull final String userId) throws SQLException {
         @NotNull final String query =
                 "SELECT * FROM `project` " +
                 "WHERE `user_id` = ? " +
                 "ORDER BY `date_start`";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
-        statement.setString(1, currentUserId);
+        statement.setString(1, userId);
         @NotNull final ResultSet resultSet = statement.executeQuery();
         statement.close();
         @NotNull final List<Project> result = new LinkedList<>();
@@ -162,13 +185,13 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
 
     @NotNull
     @Override
-    public List<Project> sortByDateFinish(@NotNull final String currentUserId) throws SQLException {
+    public List<Project> sortByDateFinish(@NotNull final String userId) throws SQLException {
         @NotNull final String query =
                 "SELECT * FROM `project` " +
                 "WHERE `user_id` = ? " +
                 "ORDER BY `date_finish`";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
-        statement.setString(1, currentUserId);
+        statement.setString(1, userId);
         @NotNull final ResultSet resultSet = statement.executeQuery();
         statement.close();
         @NotNull final List<Project> result = new LinkedList<>();
@@ -180,13 +203,13 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
 
     @NotNull
     @Override
-    public List<Project> sortByStatus(@NotNull final String currentUserId) throws SQLException {
+    public List<Project> sortByStatus(@NotNull final String userId) throws SQLException {
         @NotNull final String query =
                 "SELECT * FROM `project` " +
                 "WHERE `user_id` = ? " +
                 "ORDER BY FIELD(`status`, `PLANNED`, `IN_PROGRESS`, `COMPLETED`)";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
-        statement.setString(1, currentUserId);
+        statement.setString(1, userId);
         @NotNull final ResultSet resultSet = statement.executeQuery();
         statement.close();
         @NotNull final List<Project> result = new LinkedList<>();
@@ -199,10 +222,10 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
     @NotNull
     @Override
     public List<Project> sortByName(
-            @NotNull final String currentUserId,
+            @NotNull final String userId,
             @NotNull final String name
     ) throws SQLException {
-        @NotNull final List<Project> all = findAll(currentUserId);
+        @NotNull final List<Project> all = findAll(userId);
         @NotNull final List<Project> result = new LinkedList<>();
         for (@NotNull final Project project: all) {
             if (project.getName().contains(name)) {
@@ -214,10 +237,10 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
 
     @Override
     public @NotNull List<Project> sortByDescription(
-            @NotNull final String currentUserId,
+            @NotNull final String userId,
             @NotNull final String description
     ) throws SQLException {
-        @NotNull final List<Project> all = findAll(currentUserId);
+        @NotNull final List<Project> all = findAll(userId);
         @NotNull final List<Project> result = new LinkedList<>();
         for (@NotNull final Project project: all) {
             if (project.getDescription().contains(description)) {
