@@ -132,12 +132,12 @@ public interface IDomainEndpoint {
     ) throws IOException, JAXBException, SQLException;
 
     @WebMethod
-    @Action(input = "http://endpoint.api.tm.naumkin.ru/IDomainEndpoint/loadBinaryDataRequest", output = "http://endpoint.api.tm.naumkin.ru/IDomainEndpoint/loadBinaryDataResponse", fault = {@FaultAction(className = IOException.class, value = "http://endpoint.api.tm.naumkin.ru/IDomainEndpoint/loadBinaryData/Fault/IOException"), @FaultAction(className = SQLException.class, value = "http://endpoint.api.tm.naumkin.ru/IDomainEndpoint/loadBinaryData/Fault/SQLException"), @FaultAction(className = ClassNotFoundException_Exception.class, value = "http://endpoint.api.tm.naumkin.ru/IDomainEndpoint/loadBinaryData/Fault/ClassNotFoundException")})
+    @Action(input = "http://endpoint.api.tm.naumkin.ru/IDomainEndpoint/loadBinaryDataRequest", output = "http://endpoint.api.tm.naumkin.ru/IDomainEndpoint/loadBinaryDataResponse", fault = {@FaultAction(className = IOException.class, value = "http://endpoint.api.tm.naumkin.ru/IDomainEndpoint/loadBinaryData/Fault/IOException"), @FaultAction(className = SQLException.class, value = "http://endpoint.api.tm.naumkin.ru/IDomainEndpoint/loadBinaryData/Fault/SQLException"), @FaultAction(className = ClassNotFoundException.class, value = "http://endpoint.api.tm.naumkin.ru/IDomainEndpoint/loadBinaryData/Fault/ClassNotFoundException")})
     @RequestWrapper(localName = "loadBinaryData", targetNamespace = "http://endpoint.api.tm.naumkin.ru/", className = "ru.naumkin.tm.api.endpoint.LoadBinaryData")
     @ResponseWrapper(localName = "loadBinaryDataResponse", targetNamespace = "http://endpoint.api.tm.naumkin.ru/", className = "ru.naumkin.tm.api.endpoint.LoadBinaryDataResponse")
     public void loadBinaryData(
 
         @WebParam(name = "arg0", targetNamespace = "")
         ru.naumkin.tm.api.endpoint.Session arg0
-    ) throws IOException, SQLException, ClassNotFoundException_Exception;
+    ) throws IOException, SQLException, ClassNotFoundException;
 }

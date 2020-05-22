@@ -25,7 +25,6 @@ import java.sql.SQLException;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _SQLException_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "SQLException");
     private final static QName _Close_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "close");
     private final static QName _CloseAll_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "closeAll");
     private final static QName _CloseAllResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "closeAllResponse");
@@ -56,14 +55,6 @@ public class ObjectFactory {
      * 
      */
     public ObjectFactory() {
-    }
-
-    /**
-     * Create an instance of {@link SQLException }
-     * 
-     */
-    public SQLException createSQLException() {
-        return new SQLException();
     }
 
     /**
@@ -264,51 +255,6 @@ public class ObjectFactory {
      */
     public Session createSession() {
         return new Session();
-    }
-
-    /**
-     * Create an instance of {@link SQLException }
-     * 
-     */
-    public SQLException createSqlException() {
-        return new SQLException();
-    }
-
-    /**
-     * Create an instance of {@link Exception }
-     * 
-     */
-    public Exception createException() {
-        return new Exception();
-    }
-
-    /**
-     * Create an instance of {@link Throwable }
-     * 
-     */
-    public Throwable createThrowable() {
-        return new Throwable();
-    }
-
-    /**
-     * Create an instance of {@link StackTraceElement }
-     * 
-     */
-    public StackTraceElement createStackTraceElement() {
-        return new StackTraceElement();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SQLException }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link SQLException }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "SQLException")
-    public JAXBElement<SQLException> createSQLException(SQLException value) {
-        return new JAXBElement<SQLException>(_SQLException_QNAME, SQLException.class, null, value);
     }
 
     /**
