@@ -46,7 +46,6 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
         while (resultSet.next()) {
             result.add(fetch(resultSet));
         }
-        statement.close();
         return result;
     }
 
@@ -63,7 +62,6 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
         while (resultSet.next()) {
             result.add(fetch(resultSet));
         }
-        statement.close();
         return result;
     }
 
@@ -81,7 +79,6 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
         statement.setString(1, name);
         statement.setString(2, userId);
         @NotNull final ResultSet resultSet = statement.executeQuery();
-        statement.close();
         @NotNull final boolean hasNext = resultSet.next();
         if (!hasNext) {
             return null;
@@ -105,7 +102,6 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
         statement.setString(6, project.getUserId());
         statement.setString(7, String.valueOf(project.getStatus()));
         statement.execute();
-        statement.close();
         return project;
     }
 
@@ -125,7 +121,6 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
         statement.setString(6, project.getUserId());
         statement.setString(7, String.valueOf(project.getStatus()));
         statement.execute();
-        statement.close();
         return project;
     }
 
@@ -149,7 +144,6 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
         statement.setString(1, project.getId());
         statement.setString(2, project.getUserId());
         statement.execute();
-        statement.close();
         return project;
     }
 
@@ -161,7 +155,6 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, userId);
         statement.execute();
-        statement.close();
     }
 
     @NotNull
@@ -174,7 +167,6 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, userId);
         @NotNull final ResultSet resultSet = statement.executeQuery();
-        statement.close();
         @NotNull final List<Project> result = new LinkedList<>();
         while (resultSet.next()) {
             result.add(fetch(resultSet));
@@ -192,7 +184,6 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, userId);
         @NotNull final ResultSet resultSet = statement.executeQuery();
-        statement.close();
         @NotNull final List<Project> result = new LinkedList<>();
         while (resultSet.next()) {
             result.add(fetch(resultSet));
@@ -210,7 +201,6 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, userId);
         @NotNull final ResultSet resultSet = statement.executeQuery();
-        statement.close();
         @NotNull final List<Project> result = new LinkedList<>();
         while (resultSet.next()) {
             result.add(fetch(resultSet));

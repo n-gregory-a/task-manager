@@ -39,7 +39,6 @@ public class SessionRepository extends AbstractRepository<Session> implements IS
         while (resultSet.next()) {
             result.add(fetch(resultSet));
         }
-        statement.close();
         return result;
     }
 
@@ -56,7 +55,6 @@ public class SessionRepository extends AbstractRepository<Session> implements IS
         if (!hasNext) {
             return null;
         }
-        statement.close();
         return fetch(resultSet);
     }
 
@@ -74,7 +72,6 @@ public class SessionRepository extends AbstractRepository<Session> implements IS
         statement.setString(4, session.getUserId());
         statement.setString(5, session.getSignature());
         statement.execute();
-        statement.close();
         return session;
     }
 
@@ -92,7 +89,6 @@ public class SessionRepository extends AbstractRepository<Session> implements IS
         statement.setString(4, session.getUserId());
         statement.setString(5, session.getSignature());
         statement.execute();
-        statement.close();
         return session;
     }
 
@@ -103,7 +99,6 @@ public class SessionRepository extends AbstractRepository<Session> implements IS
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, session.getId());
         statement.execute();
-        statement.close();
         return session;
     }
 
@@ -112,7 +107,6 @@ public class SessionRepository extends AbstractRepository<Session> implements IS
         @NotNull final String query = "DELETE * FROM `session`";
         @NotNull final Statement statement = getConnection().createStatement();
         statement.execute(query);
-        statement.close();
     }
 
 }

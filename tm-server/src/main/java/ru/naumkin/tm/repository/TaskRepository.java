@@ -46,7 +46,6 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
         while (resultSet.next()) {
             result.add(fetch(resultSet));
         }
-        statement.close();
         return result;
     }
 
@@ -63,7 +62,6 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
         while (resultSet.next()) {
             result.add(fetch(resultSet));
         }
-        statement.close();
         return result;
     }
 
@@ -85,7 +83,6 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
         if (!hasNext) {
             return null;
         }
-        statement.close();
         return fetch(resultSet);
     }
 
@@ -106,7 +103,6 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
         statement.setString(7, task.getUserId());
         statement.setString(8, String.valueOf(task.getStatus()));
         statement.execute();
-        statement.close();
         return task;
     }
 
@@ -126,7 +122,6 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
         statement.setString(6, task.getUserId());
         statement.setString(7, String.valueOf(task.getStatus()));
         statement.execute();
-        statement.close();
         return task;
     }
 
@@ -144,7 +139,6 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
         statement.setString(1, task.getId());
         statement.setString(2, task.getUserId());
         statement.execute();
-        statement.close();
         return task;
     }
 
@@ -156,7 +150,6 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, userId);
         statement.execute();
-        statement.close();
     }
 
     @NotNull
@@ -173,7 +166,6 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
         while (resultSet.next()) {
             result.add(fetch(resultSet));
         }
-        statement.close();
         return result;
     }
 
@@ -191,7 +183,6 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
         while (resultSet.next()) {
             result.add(fetch(resultSet));
         }
-        statement.close();
         return result;
     }
 
@@ -209,7 +200,6 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
         while (resultSet.next()) {
             result.add(fetch(resultSet));
         }
-        statement.close();
         return result;
     }
 
