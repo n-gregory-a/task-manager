@@ -10,6 +10,8 @@ import ru.naumkin.tm.entity.Session;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import javax.xml.bind.JAXBException;
+import java.io.IOException;
 import java.sql.SQLException;
 
 @NoArgsConstructor
@@ -28,69 +30,79 @@ public final class DomainEndpoint extends AbstractEndpoint implements IDomainEnd
 
     @Override
     @WebMethod
-    public void loadBinaryData(@NotNull final Session session) throws Exception {
+    public void loadBinaryData(@NotNull final Session session)
+            throws IOException, ClassNotFoundException, SQLException {
         validate(session);
         domainService.loadBinaryData();
     }
 
     @Override
     @WebMethod
-    public void saveBinaryData(@NotNull final Session session) throws Exception {
+    public void saveBinaryData(@NotNull final Session session)
+            throws IOException, SQLException {
         validate(session);
         domainService.saveBinaryData();
     }
 
     @Override
     @WebMethod
-    public void loadJsonDataFasterXml(@NotNull final Session session) throws Exception {
+    public void loadJsonDataFasterXml(@NotNull final Session session)
+            throws IOException, SQLException {
         validate(session);
         domainService.loadJsonDataFasterXml();
     }
 
     @Override
     @WebMethod
-    public void saveJsonDataFasterXml(@NotNull final Session session) throws Exception {
+    public void saveJsonDataFasterXml(@NotNull final Session session)
+            throws IOException, SQLException {
         validate(session);
         domainService.saveJsonDataFasterXml();
     }
 
     @Override
     @WebMethod
-    public void loadJsonDataJaxb(@NotNull final Session session) throws Exception {
+    public void loadJsonDataJaxb(@NotNull final Session session)
+            throws IOException, JAXBException, SQLException {
         validate(session);
         domainService.loadJsonDataJaxb();
     }
 
     @Override
     @WebMethod
-    public void saveJsonDataJaxb(@NotNull final Session session) throws Exception {
+    public void saveJsonDataJaxb(@NotNull final Session session)
+            throws IOException, SQLException, JAXBException {
         validate(session);
         domainService.saveJsonDataJaxb();
     }
 
     @Override
     @WebMethod
-    public void loadXmlDataFasterXml(@NotNull final Session session) throws Exception {
+    public void loadXmlDataFasterXml(@NotNull final Session session)
+            throws IOException, SQLException {
         validate(session);
         domainService.loadXmlDataFasterXml();
     }
 
     @Override
-    public void saveXmlDataFasterXml(@NotNull final Session session) throws Exception {
+    public void saveXmlDataFasterXml(@NotNull final Session session)
+            throws IOException, SQLException {
         validate(session);
         domainService.saveXmlDataFasterXml();
     }
 
     @Override
     @WebMethod
-    public void loadXmlDataJaxb(@NotNull final Session session) throws Exception {
+    public void loadXmlDataJaxb(@NotNull final Session session)
+            throws IOException, JAXBException, SQLException {
         validate(session);
         domainService.loadXmlDataJaxb();
     }
 
     @Override
     @WebMethod
-    public void saveXmlDataJaxb(@NotNull final Session session) throws Exception {
+    public void saveXmlDataJaxb(@NotNull final Session session)
+            throws IOException, JAXBException, SQLException {
         validate(session);
         domainService.saveXmlDataJaxb();
     }
