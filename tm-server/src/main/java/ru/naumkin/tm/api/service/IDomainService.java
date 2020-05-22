@@ -3,6 +3,8 @@ package ru.naumkin.tm.api.service;
 import org.jetbrains.annotations.NotNull;
 import ru.naumkin.tm.dto.Domain;
 
+import java.sql.SQLException;
+
 public interface IDomainService {
 
     void loadBinaryData() throws Exception;
@@ -26,8 +28,8 @@ public interface IDomainService {
     void saveXmlDataJaxb() throws Exception;
 
     @NotNull
-    Domain load();
+    Domain load() throws SQLException;
 
-    void save(@NotNull final Domain domain);
+    void save(@NotNull final Domain domain) throws SQLException;
 
 }

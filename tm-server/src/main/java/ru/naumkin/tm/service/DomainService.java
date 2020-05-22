@@ -21,6 +21,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
 import java.nio.file.Files;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -175,11 +176,7 @@ public final class DomainService implements IDomainService {
 
     @NotNull
     @Override
-    public Domain load() {
-        @Nullable final String currentUserId = userService.getCurrentUserId();
-        if (currentUserId == null) {
-            throw new RuntimeException();
-        }
+    public Domain load() throws SQLException {
         @NotNull Domain domain = new Domain();
         @NotNull final List<Project> projects = new LinkedList<>(projectService.findAll());
         @NotNull final List<Task> tasks = new LinkedList<>(taskService.findAll());
@@ -191,7 +188,7 @@ public final class DomainService implements IDomainService {
     }
 
     @Override
-    public void save(@NotNull final Domain domain) {
+    public void save(@NotNull final Domain domain) throws SQLException {
         boolean nullCheck = domain.getProjects() == null ||
                 domain.getTasks() == null ||
                 domain.getUsers() == null;
@@ -209,23 +206,28 @@ public final class DomainService implements IDomainService {
         }
     }
 
-    private void persistTask(@NotNull final Object object) {
+    private void persistTask(@NotNull final Object object) throws SQLException {
         if (!(object instanceof Task[])) {
             return;
         }
         @NotNull final Task[] tasks = (Task[]) object;
-        taskService.persist(tasks);
+        for (@NotNull final Task toPersist: tasks) {
+            taskService.persist(toPersist);
+        }
+
     }
 
-    private void persistProject(@NotNull final Object object) {
+    private void persistProject(@NotNull final Object object) throws SQLException {
         if (!(object instanceof Project[])) {
             return;
         }
         @NotNull final Project[] projects = (Project[]) object;
-        projectService.persist(projects);
+        for (@NotNull final Project toPersist: projects) {
+            projectService.persist(toPersist);
+        }
     }
 
-    private void persistUser(@NotNull final Object object) {
+    private void persistUser(@NotNull final Object object) throws SQLException {
         if (!(object instanceof User[])) {
             return;
         }
