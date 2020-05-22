@@ -13,7 +13,7 @@ import ru.naumkin.tm.service.TerminalService;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.lang.Exception;
+import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -72,7 +72,7 @@ public final class Bootstrap {
 
     public void init(@NotNull final Set<Class<? extends AbstractCommand>> classes) throws Exception {
         terminalService.showMessage("*** Welcome to task manager ***");
-        createDefaultUser();
+        retrieveDefaultUser();
         @NotNull final Class abstractCommand = AbstractCommand.class;
         for (@NotNull final Class clazz: classes) {
             if (abstractCommand.isAssignableFrom(clazz)) {
@@ -101,10 +101,10 @@ public final class Bootstrap {
             return;
         }
         final boolean secureCheck = !abstractCommand.isSecure() ||
-                (abstractCommand.isSecure() && userEndpoint.getCurrentUser() != null);
+                (abstractCommand.isSecure() && currentSession.getUserId() != null);
         final boolean roleCheck = (abstractCommand.getRoles() == null) ||
                 (abstractCommand.getRoles() != null &&
-                        userEndpoint.isRoleAdmin(currentSession, userEndpoint.getCurrentUser()));
+                        userEndpoint.isRoleAdmin(currentSession, currentSession.getUserId()));
         if (secureCheck && roleCheck) {
             abstractCommand.execute();
             return;
@@ -112,12 +112,10 @@ public final class Bootstrap {
         getTerminalService().showMessage("This command is not allowed.");
     }
 
-    public void createDefaultUser() {
-        @NotNull final User user = userEndpoint.createUser(RoleType.USER);
+    public void retrieveDefaultUser() throws SQLException {
+        @NotNull final User user = userEndpoint.findOneUser("user");
         @NotNull final Session session = sessionEndpoint.open(user.getName(), user.getPassword());
         setCurrentSession(session);
-        userEndpoint.setCurrentUser(user);
-        @NotNull final User administrator = userEndpoint.createUser(RoleType.ADMINISTRATOR);
     }
 
 }
