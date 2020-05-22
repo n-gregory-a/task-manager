@@ -48,7 +48,7 @@ public final class DomainService implements IDomainService {
     }
 
     @Override
-    public void loadBinaryData() throws IOException, ClassNotFoundException, SQLException {
+    public void loadBinaryData() throws Exception {
         @NotNull final File file = new File(DataConstant.BINARY_FILE);
         @NotNull final FileInputStream fileInputStream = new FileInputStream(file);
         @NotNull final ObjectInputStream objectInputStream
@@ -60,7 +60,7 @@ public final class DomainService implements IDomainService {
     }
 
     @Override
-    public void saveBinaryData() throws IOException, SQLException {
+    public void saveBinaryData() throws Exception {
         @NotNull final Project[] projects = projectService.findAll().toArray(new Project[0]);
         @NotNull final Task[] tasks = taskService.findAll().toArray(new Task[0]);
         @NotNull final User[] users = userService.findAll().toArray(new User[0]);
@@ -77,7 +77,7 @@ public final class DomainService implements IDomainService {
     }
 
     @Override
-    public void loadJsonDataFasterXml() throws IOException, SQLException {
+    public void loadJsonDataFasterXml() throws Exception {
         @NotNull final File file = new File(DataConstant.JSON_FILE);
         @NotNull final ObjectMapper objectMapper = new ObjectMapper();
         @NotNull final Domain domain = objectMapper.readValue(file, Domain.class);
@@ -85,7 +85,7 @@ public final class DomainService implements IDomainService {
     }
 
     @Override
-    public void saveJsonDataFasterXml() throws IOException, SQLException {
+    public void saveJsonDataFasterXml() throws Exception {
         @NotNull final Domain domain = load();
         @NotNull final File file = new File(DataConstant.JSON_FILE);
         Files.deleteIfExists(file.toPath());
@@ -95,7 +95,7 @@ public final class DomainService implements IDomainService {
     }
 
     @Override
-    public void loadJsonDataJaxb() throws IOException, JAXBException, SQLException {
+    public void loadJsonDataJaxb() throws Exception {
         @NotNull final File file = new File(DataConstant.JSON_FILE);
         @NotNull final FileInputStream fileInputStream = new FileInputStream(file);
         @NotNull final ObjectInputStream objectInputStream =
@@ -111,7 +111,7 @@ public final class DomainService implements IDomainService {
     }
 
     @Override
-    public void saveJsonDataJaxb() throws IOException, SQLException, JAXBException {
+    public void saveJsonDataJaxb() throws Exception {
         @NotNull final Domain domain = load();
         @NotNull final File file = new File(DataConstant.JSON_FILE);
         Files.deleteIfExists(file.toPath());
@@ -130,7 +130,7 @@ public final class DomainService implements IDomainService {
     }
 
     @Override
-    public void loadXmlDataFasterXml() throws IOException, SQLException {
+    public void loadXmlDataFasterXml() throws Exception {
         @NotNull final File file = new File(DataConstant.XML_FILE);
         @NotNull final ObjectMapper objectMapper = new XmlMapper();
         @NotNull final Domain domain = objectMapper.readValue(file, Domain.class);
@@ -138,7 +138,7 @@ public final class DomainService implements IDomainService {
     }
 
     @Override
-    public void saveXmlDataFasterXml() throws IOException, SQLException {
+    public void saveXmlDataFasterXml() throws Exception {
         @NotNull final Domain domain = load();
         @NotNull final File file = new File(DataConstant.XML_FILE);
         Files.deleteIfExists(file.toPath());
@@ -148,7 +148,7 @@ public final class DomainService implements IDomainService {
     }
 
     @Override
-    public void loadXmlDataJaxb() throws IOException, JAXBException, SQLException {
+    public void loadXmlDataJaxb() throws Exception {
         @NotNull final File file = new File(DataConstant.XML_FILE);
         @NotNull final FileInputStream fileInputStream = new FileInputStream(file);
         @NotNull final ObjectInputStream objectInputStream =
@@ -161,7 +161,7 @@ public final class DomainService implements IDomainService {
     }
 
     @Override
-    public void saveXmlDataJaxb() throws IOException, SQLException, JAXBException {
+    public void saveXmlDataJaxb() throws Exception {
         @NotNull final Domain domain = load();
         @NotNull final File file = new File(DataConstant.XML_FILE);
         Files.deleteIfExists(file.toPath());
@@ -178,7 +178,7 @@ public final class DomainService implements IDomainService {
 
     @NotNull
     @Override
-    public Domain load() throws SQLException {
+    public Domain load() throws Exception {
         @NotNull Domain domain = new Domain();
         @NotNull final List<Project> projects = new LinkedList<>(projectService.findAll());
         @NotNull final List<Task> tasks = new LinkedList<>(taskService.findAll());
@@ -190,7 +190,7 @@ public final class DomainService implements IDomainService {
     }
 
     @Override
-    public void save(@NotNull final Domain domain) throws SQLException {
+    public void save(@NotNull final Domain domain) throws Exception {
         boolean nullCheck = domain.getProjects() == null ||
                 domain.getTasks() == null ||
                 domain.getUsers() == null;
@@ -208,7 +208,7 @@ public final class DomainService implements IDomainService {
         }
     }
 
-    private void persistTask(@NotNull final Object object) throws SQLException {
+    private void persistTask(@NotNull final Object object) throws Exception {
         if (!(object instanceof Task[])) {
             return;
         }
@@ -219,7 +219,7 @@ public final class DomainService implements IDomainService {
 
     }
 
-    private void persistProject(@NotNull final Object object) throws SQLException {
+    private void persistProject(@NotNull final Object object) throws Exception {
         if (!(object instanceof Project[])) {
             return;
         }
@@ -229,7 +229,7 @@ public final class DomainService implements IDomainService {
         }
     }
 
-    private void persistUser(@NotNull final Object object) throws SQLException {
+    private void persistUser(@NotNull final Object object) throws Exception {
         if (!(object instanceof User[])) {
             return;
         }

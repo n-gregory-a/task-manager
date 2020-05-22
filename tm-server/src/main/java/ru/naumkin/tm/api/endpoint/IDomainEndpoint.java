@@ -6,48 +6,45 @@ import ru.naumkin.tm.entity.Session;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
-import javax.xml.bind.JAXBException;
-import java.io.IOException;
-import java.sql.SQLException;
 
 @WebService
 public interface IDomainEndpoint {
 
     @WebMethod
-    void loadBinaryData(@NotNull final Session session) throws IOException, ClassNotFoundException, SQLException;
+    void loadBinaryData(@NotNull final Session session) throws Exception;
 
     @WebMethod
-    void saveBinaryData(@NotNull final Session session) throws IOException, SQLException;
+    void saveBinaryData(@NotNull final Session session) throws Exception;
 
     @WebMethod
-    void loadJsonDataFasterXml(@NotNull final Session session) throws IOException, SQLException;
+    void loadJsonDataFasterXml(@NotNull final Session session) throws Exception;
 
     @WebMethod
-    void saveJsonDataFasterXml(@NotNull final Session session) throws IOException, SQLException;
+    void saveJsonDataFasterXml(@NotNull final Session session) throws Exception;
 
     @WebMethod
-    void loadJsonDataJaxb(@NotNull final Session session) throws IOException, JAXBException, SQLException;
+    void loadJsonDataJaxb(@NotNull final Session session) throws Exception;
 
     @WebMethod
-    void saveJsonDataJaxb(@NotNull final Session session) throws IOException, SQLException, JAXBException;
+    void saveJsonDataJaxb(@NotNull final Session session) throws Exception;
 
     @WebMethod
-    void loadXmlDataFasterXml(@NotNull final Session session) throws IOException, SQLException;
+    void loadXmlDataFasterXml(@NotNull final Session session) throws Exception;
 
     @WebMethod
-    void saveXmlDataFasterXml(@NotNull final Session session) throws IOException, SQLException;
+    void saveXmlDataFasterXml(@NotNull final Session session) throws Exception;
 
     @WebMethod
-    void loadXmlDataJaxb(@NotNull final Session session) throws IOException, JAXBException, SQLException;
+    void loadXmlDataJaxb(@NotNull final Session session) throws Exception;
 
     @WebMethod
-    void saveXmlDataJaxb(@NotNull final Session session) throws IOException, SQLException, JAXBException;
+    void saveXmlDataJaxb(@NotNull final Session session) throws Exception;
 
     @NotNull
     @WebMethod
-    Domain load() throws SQLException;
+    Domain load() throws Exception;
 
     @WebMethod
-    void save(@NotNull final Domain domain) throws SQLException;
+    void save(@NotNull final Domain domain) throws Exception;
 
 }

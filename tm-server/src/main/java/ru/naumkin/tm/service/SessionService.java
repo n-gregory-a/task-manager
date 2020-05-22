@@ -14,7 +14,6 @@ import ru.naumkin.tm.repository.UserRepository;
 import ru.naumkin.tm.util.SignatureUtil;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -27,48 +26,48 @@ public class SessionService extends AbstractService<Session> implements ISession
 
     @NotNull
     @Override
-    public List<Session> findAll() throws SQLException {
+    public List<Session> findAll() throws Exception {
         @NotNull final Connection connection = getConnection();
         return new SessionRepository(connection).findAll();
     }
 
     @Nullable
     @Override
-    public Session findOne(@NotNull final String id) throws SQLException {
+    public Session findOne(@NotNull final String id) throws Exception {
         @NotNull final Connection connection = getConnection();
         return new SessionRepository(connection).findOne(id);
     }
 
     @Nullable
     @Override
-    public Session persist(@NotNull final Session session) throws SQLException {
+    public Session persist(@NotNull final Session session) throws Exception {
         @NotNull final Connection connection = getConnection();
         return new SessionRepository(connection).persist(session);
     }
 
     @Nullable
     @Override
-    public Session merge(@NotNull final Session session) throws SQLException {
+    public Session merge(@NotNull final Session session) throws Exception {
         @NotNull final Connection connection = getConnection();
         return new SessionRepository(connection).merge(session);
     }
 
     @Nullable
     @Override
-    public Session remove(@NotNull final Session session) throws SQLException {
+    public Session remove(@NotNull final Session session) throws Exception {
         @NotNull final Connection connection = getConnection();
         return new SessionRepository(connection).remove(session);
     }
 
     @Override
-    public void removeAll() throws SQLException {
+    public void removeAll() throws Exception {
         @NotNull final Connection connection = getConnection();
         new SessionRepository(connection).removeAll();
     }
 
     @NotNull
     @Override
-    public Session open(@NotNull final String login, @NotNull final String password) throws SQLException {
+    public Session open(@NotNull final String login, @NotNull final String password) throws Exception {
         @NotNull Session session = new Session();
         session.setName("Session" + System.currentTimeMillis());
         session.setTimestamp(System.currentTimeMillis());
@@ -89,34 +88,34 @@ public class SessionService extends AbstractService<Session> implements ISession
     }
 
     @Override
-    public void close(@NotNull final Session session) throws SQLException {
+    public void close(@NotNull final Session session) throws Exception {
         @NotNull final Connection connection = getConnection();
         new SessionRepository(connection).remove(session);
     }
 
     @Override
-    public void closeAll(@NotNull final Session session) throws SQLException {
+    public void closeAll(@NotNull final Session session) throws Exception {
         @NotNull final Connection connection = getConnection();
         new SessionRepository(connection).removeAll();
     }
 
     @NotNull
     @Override
-    public List<Session> getListSession(@NotNull final Session session) throws SQLException {
+    public List<Session> getListSession(@NotNull final Session session) throws Exception {
         @NotNull final Connection connection = getConnection();
         return new SessionRepository(connection).findAll();
     }
 
     @Nullable
     @Override
-    public User getUser(@NotNull final Session session) throws SQLException {
+    public User getUser(@NotNull final Session session) throws Exception {
         @NotNull final String userId = session.getUserId();
         @NotNull final Connection connection = getConnection();
         return new UserRepository(connection).findOneById(userId);
     }
 
     @Override
-    public void validate(@NotNull final Session session) throws SQLException {
+    public void validate(@NotNull final Session session) throws Exception {
         if (session.getUserId() == null || session.getUserId().isEmpty()) {
             throw new SessionValidationException();
         }

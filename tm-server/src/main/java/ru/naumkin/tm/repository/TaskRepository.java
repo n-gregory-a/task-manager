@@ -59,7 +59,6 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, userId);
         @NotNull final ResultSet resultSet = statement.executeQuery();
-        statement.close();
         @NotNull final List<Task> result = new LinkedList<>();
         while (resultSet.next()) {
             result.add(fetch(resultSet));
@@ -82,11 +81,11 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
         statement.setString(1, name);
         statement.setString(2, userId);
         @NotNull final ResultSet resultSet = statement.executeQuery();
-        statement.close();
         @NotNull final boolean hasNext = resultSet.next();
         if (!hasNext) {
             return null;
         }
+        statement.close();
         return fetch(resultSet);
     }
 
@@ -170,11 +169,11 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, userId);
         @NotNull final ResultSet resultSet = statement.executeQuery();
-        statement.close();
         @NotNull final List<Task> result = new LinkedList<>();
         while (resultSet.next()) {
             result.add(fetch(resultSet));
         }
+        statement.close();
         return result;
     }
 
@@ -188,11 +187,11 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, userId);
         @NotNull final ResultSet resultSet = statement.executeQuery();
-        statement.close();
         @NotNull final List<Task> result = new LinkedList<>();
         while (resultSet.next()) {
             result.add(fetch(resultSet));
         }
+        statement.close();
         return result;
     }
 
@@ -206,11 +205,11 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, userId);
         @NotNull final ResultSet resultSet = statement.executeQuery();
-        statement.close();
         @NotNull final List<Task> result = new LinkedList<>();
         while (resultSet.next()) {
             result.add(fetch(resultSet));
         }
+        statement.close();
         return result;
     }
 

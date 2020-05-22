@@ -11,7 +11,6 @@ import ru.naumkin.tm.entity.Task;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
-import java.sql.SQLException;
 import java.util.List;
 
 @NoArgsConstructor
@@ -33,7 +32,7 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     public Task persistTask(
             @NotNull final Session session,
             @NotNull final Task task
-    ) throws SQLException {
+    ) throws Exception {
         validate(session);
         return taskService.persist(task);
     }
@@ -45,7 +44,7 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
             @NotNull final Session session,
             @NotNull final Task task,
             @NotNull final String name
-    ) throws SQLException {
+    ) throws Exception {
         validate(session);
         return taskService.merge(task);
     }
@@ -53,7 +52,7 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @NotNull
     @Override
     @WebMethod
-    public List<Task> findAllTasksByUserId(@NotNull final Session session) throws SQLException {
+    public List<Task> findAllTasksByUserId(@NotNull final Session session) throws Exception {
         validate(session);
         return taskService.findAll(session.getUserId());
     }
@@ -64,7 +63,7 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     public Task findOneTaskByUserId(
             @NotNull final Session session,
             @NotNull final String name
-    ) throws SQLException {
+    ) throws Exception {
         validate(session);
         return taskService.findOne(session.getUserId(), name);
     }
@@ -75,14 +74,14 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     public Task removeTaskByUserId(
             @NotNull final Session session,
             @NotNull final Task task
-    ) throws SQLException {
+    ) throws Exception {
         validate(session);
         return taskService.remove(session.getUserId(), task);
     }
 
     @Override
     @WebMethod
-    public void removeAllTasksByUserId(@NotNull final Session session) throws SQLException {
+    public void removeAllTasksByUserId(@NotNull final Session session) throws Exception {
         validate(session);
         taskService.removeAll(session.getUserId());
     }
@@ -90,7 +89,7 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @NotNull
     @Override
     @WebMethod
-    public List<Task> sortTasksByDateStart(@NotNull final Session session) throws SQLException {
+    public List<Task> sortTasksByDateStart(@NotNull final Session session) throws Exception {
         validate(session);
         return taskService.sortByDateStart(session.getUserId());
     }
@@ -98,7 +97,7 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @NotNull
     @Override
     @WebMethod
-    public List<Task> sortTasksByDateFinish(@NotNull final Session session) throws SQLException {
+    public List<Task> sortTasksByDateFinish(@NotNull final Session session) throws Exception {
         validate(session);
         return taskService.sortByDateFinish(session.getUserId());
     }
@@ -106,7 +105,7 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @NotNull
     @Override
     @WebMethod
-    public List<Task> sortTasksByStatus(@NotNull final Session session) throws SQLException {
+    public List<Task> sortTasksByStatus(@NotNull final Session session) throws Exception {
         validate(session);
         return taskService.sortByStatus(session.getUserId());
     }
@@ -117,7 +116,7 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     public List<Task> sortTasksByName(
             @NotNull final Session session,
             @NotNull final String name
-    ) throws SQLException {
+    ) throws Exception {
         validate(session);
         return taskService.sortByName(session.getUserId(), name);
     }
@@ -128,7 +127,7 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     public List<Task> sortTasksByDescription(
             @NotNull final Session session,
             @NotNull final String description
-    ) throws SQLException {
+    ) throws Exception {
         validate(session);
         return taskService.sortByDescription(session.getUserId(), description);
     }

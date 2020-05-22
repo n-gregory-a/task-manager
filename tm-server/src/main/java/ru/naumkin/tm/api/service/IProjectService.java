@@ -10,38 +10,38 @@ import java.util.List;
 public interface IProjectService extends IService<Project> {
 
     @NotNull
-    List<Project> findAll() throws SQLException;
+    List<Project> findAll() throws Exception;
 
     @NotNull
-    List<Project> findAll(@Nullable final String userId) throws SQLException;
+    List<Project> findAll(@Nullable final String userId) throws Exception;
 
     @NotNull
-    Project findOne(@Nullable final String userId, @Nullable final String name) throws SQLException;
+    Project findOne(@Nullable final String userId, @Nullable final String name) throws Exception;
 
     @Nullable
-    Project persist(@NotNull final Project project) throws SQLException;
+    Project persist(@NotNull final Project project) throws Exception;
 
     @Nullable
-    Project merge(@NotNull final Project project) throws SQLException;
+    Project merge(@NotNull final Project project) throws Exception;
 
     @NotNull
-    Project remove(@NotNull final String userId, @NotNull final Project project) throws SQLException;
+    Project remove(@NotNull final String userId, @NotNull final Project project) throws Exception;
 
-    void removeAll(@Nullable final String userId) throws SQLException;
-
-    @NotNull
-    List<Project> sortByDateStart(@Nullable final String userId) throws SQLException;
+    void removeAll(@Nullable final String userId) throws Exception;
 
     @NotNull
-    List<Project> sortByDateFinish(@Nullable final String userId) throws SQLException;
+    List<Project> sortByDateStart(@Nullable final String userId) throws Exception;
 
     @NotNull
-    List<Project> sortByStatus(@NotNull final String userId) throws SQLException;
+    List<Project> sortByDateFinish(@Nullable final String userId) throws Exception;
 
     @NotNull
-    List<Project> sortByName(@NotNull final String userId, @NotNull final String name) throws SQLException;
+    List<Project> sortByStatus(@NotNull final String userId) throws Exception;
 
     @NotNull
-    List<Project> sortByDescription(@NotNull final String userId, @NotNull final String description) throws SQLException;
+    List<Project> sortByName(@NotNull final String userId, @NotNull final String name) throws Exception;
+
+    @NotNull
+    List<Project> sortByDescription(@NotNull final String userId, @NotNull final String description) throws Exception;
 
 }

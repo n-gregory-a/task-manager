@@ -9,6 +9,6 @@ import java.sql.SQLException;
 public interface IService<E extends AbstractEntity> {
 
     @NotNull
-    Connection getConnection() throws SQLException;
+    Connection getConnection() throws SQLException, ClassNotFoundException;
 
 }

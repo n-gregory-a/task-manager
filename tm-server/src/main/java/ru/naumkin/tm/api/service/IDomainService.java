@@ -3,35 +3,31 @@ package ru.naumkin.tm.api.service;
 import org.jetbrains.annotations.NotNull;
 import ru.naumkin.tm.dto.Domain;
 
-import javax.xml.bind.JAXBException;
-import java.io.IOException;
-import java.sql.SQLException;
-
 public interface IDomainService {
 
-    void loadBinaryData() throws IOException, ClassNotFoundException, SQLException;
+    void loadBinaryData() throws Exception;
 
-    void saveBinaryData() throws IOException, SQLException;
+    void saveBinaryData() throws Exception;
 
-    void loadJsonDataFasterXml() throws IOException, SQLException;
+    void loadJsonDataFasterXml() throws Exception;
 
-    void saveJsonDataFasterXml() throws IOException, SQLException;
+    void saveJsonDataFasterXml() throws Exception;
 
-    void loadJsonDataJaxb() throws IOException, JAXBException, SQLException;
+    void loadJsonDataJaxb() throws Exception;
 
-    void saveJsonDataJaxb() throws IOException, SQLException, JAXBException;
+    void saveJsonDataJaxb() throws Exception;
 
-    void loadXmlDataFasterXml() throws IOException, SQLException;
+    void loadXmlDataFasterXml() throws Exception;
 
-    void saveXmlDataFasterXml() throws IOException, SQLException;
+    void saveXmlDataFasterXml() throws Exception;
 
-    void loadXmlDataJaxb() throws IOException, JAXBException, SQLException;
+    void loadXmlDataJaxb() throws Exception;
 
-    void saveXmlDataJaxb() throws IOException, SQLException, JAXBException;
+    void saveXmlDataJaxb() throws Exception;
 
     @NotNull
-    Domain load() throws SQLException;
+    Domain load() throws Exception;
 
-    void save(@NotNull final Domain domain) throws SQLException;
+    void save(@NotNull final Domain domain) throws Exception;
 
 }

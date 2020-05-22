@@ -44,22 +44,27 @@ public final class PropertyService implements IPropertyService {
         return properties.getProperty("session.salt");
     }
 
+    @Override
+    public @NotNull String getDriver() {
+        return properties.getProperty("connection.driver");
+    }
+
     @NotNull
     @Override
     public String getDbUrl() {
-        return properties.getProperty("db.url");
+        return properties.getProperty("connection.url");
     }
 
     @NotNull
     @Override
     public String getDbUserName() {
-        return properties.getProperty("db.username");
+        return properties.getProperty("connection.username");
     }
 
     @NotNull
     @Override
     public String getDbPassword() {
-        return properties.getProperty("db.password");
+        return properties.getProperty("connection.password");
     }
 
 }

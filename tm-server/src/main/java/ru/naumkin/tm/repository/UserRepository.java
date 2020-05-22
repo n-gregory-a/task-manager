@@ -40,7 +40,6 @@ public final class UserRepository extends AbstractRepository<User> implements IU
         while (resultSet.next()) {
             result.add(fetch(resultSet));
         }
-        statement.close();
         return result;
     }
 
@@ -53,7 +52,6 @@ public final class UserRepository extends AbstractRepository<User> implements IU
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, name);
         @NotNull final ResultSet resultSet = statement.executeQuery();
-        statement.close();
         @NotNull final boolean hasNext = resultSet.next();
         if (!hasNext) {
             return null;
@@ -70,7 +68,6 @@ public final class UserRepository extends AbstractRepository<User> implements IU
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, id);
         @NotNull final ResultSet resultSet = statement.executeQuery();
-        statement.close();
         @NotNull final boolean hasNext = resultSet.next();
         if (!hasNext) {
             return null;
@@ -91,7 +88,6 @@ public final class UserRepository extends AbstractRepository<User> implements IU
         statement.setString(3, user.getPassword());
         statement.setString(4, String.valueOf(user.getRole()));
         statement.execute();
-        statement.close();
         return user;
     }
 
@@ -108,7 +104,6 @@ public final class UserRepository extends AbstractRepository<User> implements IU
         statement.setString(3, user.getPassword());
         statement.setString(4, String.valueOf(user.getRole()));
         statement.execute();
-        statement.close();
         return user;
     }
 
@@ -119,7 +114,6 @@ public final class UserRepository extends AbstractRepository<User> implements IU
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, user.getId());
         statement.execute();
-        statement.close();
         return user;
     }
 
@@ -128,7 +122,6 @@ public final class UserRepository extends AbstractRepository<User> implements IU
         @NotNull final String query = "DELETE * FROM `app_user`";
         @NotNull final Statement statement = getConnection().createStatement();
         statement.execute(query);
-        statement.close();
     }
 
 }

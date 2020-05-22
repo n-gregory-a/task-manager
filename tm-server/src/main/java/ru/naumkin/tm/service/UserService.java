@@ -11,7 +11,6 @@ import ru.naumkin.tm.error.*;
 import ru.naumkin.tm.repository.UserRepository;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 @NoArgsConstructor
@@ -22,7 +21,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
     }
 
     @Override
-    public boolean isRoleAdmin(@Nullable final String id) throws SQLException {
+    public boolean isRoleAdmin(@Nullable final String id) throws Exception {
         if (id == null) {
             throw new IdIsNullException();
         }
@@ -35,14 +34,14 @@ public final class UserService extends AbstractService<User> implements IUserSer
 
     @NotNull
     @Override
-    public List<User> findAll() throws SQLException {
+    public List<User> findAll() throws Exception {
         @NotNull final Connection connection = getConnection();
         return new UserRepository(connection).findAll();
     }
 
     @NotNull
     @Override
-    public User findOne(@Nullable final String name) throws SQLException {
+    public User findOne(@Nullable final String name) throws Exception {
         if (name == null) {
             throw new NameIsNullException();
         }
@@ -59,7 +58,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
 
     @NotNull
     @Override
-    public User findOneById(@Nullable final String id) throws SQLException {
+    public User findOneById(@Nullable final String id) throws Exception {
         if (id == null) {
             throw new IdIsNullException();
         }
@@ -76,7 +75,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
 
     @NotNull
     @Override
-    public User persist(@Nullable final User user) throws SQLException {
+    public User persist(@Nullable final User user) throws Exception {
         if (user == null) {
             throw new UserIsNullException();
         }
@@ -86,7 +85,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
 
     @NotNull
     @Override
-    public User merge(@Nullable final User user) throws SQLException {
+    public User merge(@Nullable final User user) throws Exception {
         if (user == null) {
             throw new UserIsNullException();
         }
@@ -96,7 +95,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
 
     @NotNull
     @Override
-    public User remove(@Nullable final User user) throws SQLException {
+    public User remove(@Nullable final User user) throws Exception {
         if (user == null) {
             throw new UserIsNullException();
         }
@@ -105,7 +104,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
     }
 
     @Override
-    public void removeAll() throws SQLException {
+    public void removeAll() throws Exception {
         @NotNull final Connection connection = getConnection();
         new UserRepository(connection).removeAll();
     }

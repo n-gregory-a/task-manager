@@ -10,7 +10,6 @@ import ru.naumkin.tm.error.*;
 import ru.naumkin.tm.repository.ProjectRepository;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 @NoArgsConstructor
@@ -23,14 +22,14 @@ public final class ProjectService extends AbstractService<Project> implements IP
     }
 
     @Override
-    public @NotNull List<Project> findAll() throws SQLException {
+    public @NotNull List<Project> findAll() throws Exception {
         @NotNull final Connection connection = getConnection();
         return new ProjectRepository(connection).findAll();
     }
 
     @NotNull
     @Override
-    public List<Project> findAll(@Nullable final String userId) throws SQLException {
+    public List<Project> findAll(@Nullable final String userId) throws Exception {
         if (userId == null) {
             throw new UserIdIsNullException();
         }
@@ -46,7 +45,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
     public Project findOne(
             @Nullable final String userId,
             @Nullable final String name
-    ) throws SQLException {
+    ) throws Exception {
         if (name == null) {
             throw new NameIsNullException();
         }
@@ -70,7 +69,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
 
     @NotNull
     @Override
-    public Project persist(@Nullable final Project project) throws SQLException {
+    public Project persist(@Nullable final Project project) throws Exception {
         if (project == null) {
             throw new ProjectIsNullException();
         }
@@ -80,7 +79,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
 
     @NotNull
     @Override
-    public Project merge(@Nullable final Project project) throws SQLException {
+    public Project merge(@Nullable final Project project) throws Exception {
         if (project == null) {
             throw new ProjectIsNullException();
         }
@@ -93,7 +92,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
     public Project remove(
             @Nullable final String userId,
             @Nullable final Project project
-    ) throws SQLException {
+    ) throws Exception {
         if (project == null) {
             throw new ProjectIsNullException();
         }
@@ -113,7 +112,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
     }
 
     @Override
-    public void removeAll(final @Nullable String userId) throws SQLException {
+    public void removeAll(final @Nullable String userId) throws Exception {
         if (userId == null) {
             throw new UserIdIsNullException();
         }
@@ -126,7 +125,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
 
     @NotNull
     @Override
-    public List<Project> sortByDateStart(@Nullable final String userId) throws SQLException {
+    public List<Project> sortByDateStart(@Nullable final String userId) throws Exception {
         if (userId == null) {
             throw new UserIdIsNullException();
         }
@@ -139,7 +138,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
 
     @NotNull
     @Override
-    public List<Project> sortByDateFinish(@Nullable final String userId) throws SQLException {
+    public List<Project> sortByDateFinish(@Nullable final String userId) throws Exception {
         if (userId == null) {
             throw new UserIdIsNullException();
         }
@@ -152,7 +151,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
 
     @NotNull
     @Override
-    public List<Project> sortByStatus(@Nullable final String userId) throws SQLException {
+    public List<Project> sortByStatus(@Nullable final String userId) throws Exception {
         if (userId == null) {
             throw new UserIdIsNullException();
         }
@@ -168,7 +167,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
     public List<Project> sortByName(
             @Nullable final String userId,
             @Nullable final String name
-    ) throws SQLException {
+    ) throws Exception {
         if (name == null) {
             throw new NameIsNullException();
         }
@@ -189,7 +188,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
     public @NotNull List<Project> sortByDescription(
             @Nullable final String userId,
             @Nullable final String description
-    ) throws SQLException {
+    ) throws Exception {
         if (description == null) {
             throw new DescriptionIsNullException();
         }

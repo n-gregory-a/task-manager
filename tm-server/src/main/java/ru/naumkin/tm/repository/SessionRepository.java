@@ -52,11 +52,11 @@ public class SessionRepository extends AbstractRepository<Session> implements IS
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, id);
         @NotNull final ResultSet resultSet = statement.executeQuery();
-        statement.close();
         @NotNull final boolean hasNext = resultSet.next();
         if (!hasNext) {
             return null;
         }
+        statement.close();
         return fetch(resultSet);
     }
 

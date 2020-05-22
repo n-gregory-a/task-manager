@@ -59,7 +59,6 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, userId);
         @NotNull final ResultSet resultSet = statement.executeQuery();
-        statement.close();
         @NotNull final List<Project> result = new LinkedList<>();
         while (resultSet.next()) {
             result.add(fetch(resultSet));

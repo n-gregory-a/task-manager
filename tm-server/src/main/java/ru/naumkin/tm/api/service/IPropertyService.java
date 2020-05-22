@@ -19,6 +19,9 @@ public interface IPropertyService {
     String getSessionSalt();
 
     @NotNull
+    String getDriver();
+
+    @NotNull
     String getDbUrl();
 
     @NotNull

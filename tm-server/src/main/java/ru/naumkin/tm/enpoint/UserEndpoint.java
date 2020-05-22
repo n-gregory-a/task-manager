@@ -11,7 +11,6 @@ import ru.naumkin.tm.entity.User;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
-import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,7 +30,7 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
     @NotNull
     @Override
     @WebMethod
-    public List<User> findAllUsers() throws SQLException {
+    public List<User> findAllUsers() throws Exception {
         return new LinkedList<>(userService.findAll());
     }
 
@@ -40,7 +39,7 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
     @WebMethod
     public User findOneUser(
             @Nullable final String name
-    ) throws SQLException {
+    ) throws Exception {
         return userService.findOne(name);
     }
 
@@ -49,7 +48,7 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
     @WebMethod
     public User persistUser(
             @NotNull final User user
-    ) throws SQLException {
+    ) throws Exception {
         return userService.persist(user);
     }
 
@@ -60,7 +59,7 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
             @NotNull final Session session,
             @NotNull final User user,
             @Nullable final String name
-    ) throws SQLException {
+    ) throws Exception {
         validate(session);
         return userService.merge(user);
     }
@@ -71,14 +70,14 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
     public User removeUser(
             @NotNull final Session session,
             @NotNull final User user
-    ) throws SQLException {
+    ) throws Exception {
         validate(session);
         return userService.remove(user);
     }
 
     @Override
     @WebMethod
-    public void removeAllUser(@NotNull final Session session) throws SQLException {
+    public void removeAllUser(@NotNull final Session session) throws Exception {
         validate(session);
         userService.removeAll();
     }
@@ -88,7 +87,7 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
     public boolean isRoleAdmin(
             @NotNull final Session session,
             @NotNull final String id
-    ) throws SQLException {
+    ) throws Exception {
         validate(session);
         return userService.isRoleAdmin(id);
     }

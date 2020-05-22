@@ -9,7 +9,6 @@ import ru.naumkin.tm.entity.Session;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
-import java.sql.SQLException;
 import java.util.List;
 
 @NoArgsConstructor
@@ -25,18 +24,18 @@ public class SessionEndpoint implements ISessionEndpoint {
     @NotNull
     @Override
     @WebMethod
-    public List<Session> findAllSessions(@NotNull final Session session) throws SQLException {
+    public List<Session> findAllSessions(@NotNull final Session session) throws Exception {
         validate(session);
         return sessionService.findAll();
     }
 
-    @NotNull
+    @Nullable
     @Override
     @WebMethod
     public Session findOneSession(
             @NotNull final Session session,
             @NotNull final String name
-    ) throws SQLException {
+    ) throws Exception {
         validate(session);
         return sessionService.findOne(name);
     }
@@ -44,7 +43,7 @@ public class SessionEndpoint implements ISessionEndpoint {
     @Nullable
     @Override
     @WebMethod
-    public Session persistSession(@NotNull final Session session) throws SQLException {
+    public Session persistSession(@NotNull final Session session) throws Exception {
         validate(session);
         return sessionService.persist(session);
     }
@@ -52,7 +51,7 @@ public class SessionEndpoint implements ISessionEndpoint {
     @Nullable
     @Override
     @WebMethod
-    public Session mergeSession(@NotNull final Session session, @NotNull final String name) throws SQLException {
+    public Session mergeSession(@NotNull final Session session, @NotNull final String name) throws Exception {
         validate(session);
         return sessionService.merge(session);
     }
@@ -60,14 +59,14 @@ public class SessionEndpoint implements ISessionEndpoint {
     @Nullable
     @Override
     @WebMethod
-    public Session removeSession(@NotNull final Session session) throws SQLException {
+    public Session removeSession(@NotNull final Session session) throws Exception {
         validate(session);
         return sessionService.remove(session);
     }
 
     @Override
     @WebMethod
-    public void removeAllSessions(@NotNull final Session session) throws SQLException {
+    public void removeAllSessions(@NotNull final Session session) throws Exception {
         validate(session);
         sessionService.removeAll();
     }
@@ -78,32 +77,32 @@ public class SessionEndpoint implements ISessionEndpoint {
     public Session open(
             @NotNull final String login,
             @NotNull final String password
-    ) throws SQLException {
+    ) throws Exception {
         return sessionService.open(login, password);
     }
 
     @Override
     @WebMethod
-    public void close(@NotNull final Session session) throws SQLException {
+    public void close(@NotNull final Session session) throws Exception {
         sessionService.close(session);
     }
 
     @Override
     @WebMethod
-    public void closeAll(@NotNull final Session session) throws SQLException {
+    public void closeAll(@NotNull final Session session) throws Exception {
         sessionService.closeAll(session);
     }
 
     @NotNull
     @Override
     @WebMethod
-    public List<Session> getListSession(@NotNull final Session session) throws SQLException {
+    public List<Session> getListSession(@NotNull final Session session) throws Exception {
         return sessionService.getListSession(session);
     }
 
     @Override
     @WebMethod
-    public void validate(@NotNull final Session session) throws SQLException {
+    public void validate(@NotNull final Session session) throws Exception {
         sessionService.validate(session);
     }
 

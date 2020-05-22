@@ -7,7 +7,6 @@ import ru.naumkin.tm.entity.Task;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
-import java.sql.SQLException;
 import java.util.List;
 
 @WebService
@@ -15,57 +14,57 @@ public interface ITaskEndpoint {
 
     @Nullable
     @WebMethod
-    Task persistTask(@NotNull final Session session, @NotNull final Task task) throws SQLException;
+    Task persistTask(@NotNull final Session session, @NotNull final Task task) throws Exception;
 
     @Nullable
     @WebMethod
     Task mergeTask(
             @NotNull final Session session,
             @NotNull final Task task,
-            @NotNull final String name) throws SQLException;
+            @NotNull final String name) throws Exception;
 
     @NotNull
     @WebMethod
     List<Task> findAllTasksByUserId(
-            @NotNull final Session session) throws SQLException;
+            @NotNull final Session session) throws Exception;
 
     @NotNull
     @WebMethod
     Task findOneTaskByUserId(
             @NotNull final Session session,
-            @NotNull final String name) throws SQLException;
+            @NotNull final String name) throws Exception;
 
     @NotNull
     @WebMethod
     Task removeTaskByUserId(
             @NotNull final Session session,
-            @NotNull final Task task) throws SQLException;
+            @NotNull final Task task) throws Exception;
 
     @WebMethod
-    void removeAllTasksByUserId(@NotNull final Session session) throws SQLException;
-
-    @NotNull
-    @WebMethod
-    List<Task> sortTasksByDateStart(@NotNull final Session session) throws SQLException;
+    void removeAllTasksByUserId(@NotNull final Session session) throws Exception;
 
     @NotNull
     @WebMethod
-    List<Task> sortTasksByDateFinish(@NotNull final Session session) throws SQLException;
+    List<Task> sortTasksByDateStart(@NotNull final Session session) throws Exception;
 
     @NotNull
     @WebMethod
-    List<Task> sortTasksByStatus(@NotNull final Session session) throws SQLException;
+    List<Task> sortTasksByDateFinish(@NotNull final Session session) throws Exception;
+
+    @NotNull
+    @WebMethod
+    List<Task> sortTasksByStatus(@NotNull final Session session) throws Exception;
 
     @NotNull
     @WebMethod
     List<Task> sortTasksByName(
             @NotNull final Session session,
-            @NotNull final String name) throws SQLException;
+            @NotNull final String name) throws Exception;
 
     @NotNull
     @WebMethod
     List<Task> sortTasksByDescription(
             @NotNull final Session session,
-            @NotNull final String description) throws SQLException;
+            @NotNull final String description) throws Exception;
     
 }

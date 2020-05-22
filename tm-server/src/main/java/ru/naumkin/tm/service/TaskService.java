@@ -10,7 +10,6 @@ import ru.naumkin.tm.error.*;
 import ru.naumkin.tm.repository.TaskRepository;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 @NoArgsConstructor
@@ -21,14 +20,14 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     }
 
     @Override
-    public @NotNull List<Task> findAll() throws SQLException {
+    public @NotNull List<Task> findAll() throws Exception {
         @NotNull final Connection connection = getConnection();
         return new TaskRepository(connection).findAll();
     }
 
     @NotNull
     @Override
-    public List<Task> findAll(@Nullable final String userId) throws SQLException {
+    public List<Task> findAll(@Nullable final String userId) throws Exception {
         if (userId == null) {
             throw new UserIdIsNullException();
         }
@@ -44,7 +43,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     public Task findOne(
             @Nullable final String userId,
             @Nullable final String name
-    ) throws SQLException {
+    ) throws Exception {
         if (name == null) {
             throw new NameIsNullException();
         }
@@ -68,7 +67,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
 
     @NotNull
     @Override
-    public Task persist(@Nullable final Task task) throws SQLException {
+    public Task persist(@Nullable final Task task) throws Exception {
         if (task == null) {
             throw new TaskIsNullException();
         }
@@ -78,7 +77,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
 
     @NotNull
     @Override
-    public Task merge(@Nullable final Task task) throws SQLException {
+    public Task merge(@Nullable final Task task) throws Exception {
         if (task == null) {
             throw new TaskIsNullException();
         }
@@ -91,7 +90,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     public Task remove(
             @Nullable final String userId,
             @Nullable final Task task
-    ) throws SQLException {
+    ) throws Exception {
         if (task == null) {
             throw new TaskIsNullException();
         }
@@ -111,7 +110,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     }
 
     @Override
-    public void removeAll(@Nullable final String userId) throws SQLException {
+    public void removeAll(@Nullable final String userId) throws Exception {
         if (userId == null) {
             throw new UserIdIsNullException();
         }
@@ -124,7 +123,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
 
     @NotNull
     @Override
-    public List<Task> sortByDateStart(@Nullable final String userId) throws SQLException {
+    public List<Task> sortByDateStart(@Nullable final String userId) throws Exception {
         if (userId == null) {
             throw new UserIdIsNullException();
         }
@@ -137,7 +136,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
 
     @NotNull
     @Override
-    public List<Task> sortByDateFinish(@Nullable final String userId) throws SQLException {
+    public List<Task> sortByDateFinish(@Nullable final String userId) throws Exception {
         if (userId == null) {
             throw new UserIdIsNullException();
         }
@@ -150,7 +149,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
 
     @NotNull
     @Override
-    public List<Task> sortByStatus(@Nullable final String userId) throws SQLException {
+    public List<Task> sortByStatus(@Nullable final String userId) throws Exception {
         if (userId == null) {
             throw new UserIdIsNullException();
         }
@@ -166,7 +165,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     public List<Task> sortByName(
             @Nullable final String userId,
             @Nullable final String name
-    ) throws SQLException {
+    ) throws Exception {
         if (name == null) {
             throw new NameIsNullException();
         }
@@ -188,7 +187,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     public List<Task> sortByDescription(
             @Nullable final String userId,
             @Nullable final String description
-    ) throws SQLException {
+    ) throws Exception {
         if (description == null) {
             throw new DescriptionIsNullException();
         }

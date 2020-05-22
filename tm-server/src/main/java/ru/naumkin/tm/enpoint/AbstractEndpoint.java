@@ -5,8 +5,6 @@ import org.jetbrains.annotations.NotNull;
 import ru.naumkin.tm.api.service.ISessionService;
 import ru.naumkin.tm.entity.Session;
 
-import java.sql.SQLException;
-
 @NoArgsConstructor
 public class AbstractEndpoint {
 
@@ -16,7 +14,7 @@ public class AbstractEndpoint {
         this.sessionService = sessionService;
     }
 
-    protected void validate(@NotNull final Session session) throws SQLException {
+    protected void validate(@NotNull final Session session) throws Exception {
         sessionService.validate(session);
     }
 

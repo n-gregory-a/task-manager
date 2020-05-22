@@ -23,11 +23,12 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
     }
 
     @NotNull
-    public Connection getConnection() throws SQLException {
+    public Connection getConnection() throws SQLException, ClassNotFoundException {
+        @NotNull final String driver = propertyService.getDriver();
         @NotNull final String url = propertyService.getDbUrl();
         @NotNull final String userName = propertyService.getDbUserName();
         @NotNull final String password = propertyService.getDbPassword();
-        return ConnectionUtil.getConnection(url, userName, password);
+        return ConnectionUtil.getConnection(driver, url, userName, password);
     }
 
 }
