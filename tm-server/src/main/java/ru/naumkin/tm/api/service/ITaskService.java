@@ -10,10 +10,10 @@ import java.util.List;
 public interface ITaskService {
 
     @NotNull
-    List<Task> findAll(@Nullable final String currentUserId) throws SQLException;
+    List<Task> findAll(@Nullable final String userId) throws SQLException;
 
     @NotNull
-    Task findOne(@Nullable final String currentUserId, @Nullable final String name) throws SQLException;
+    Task findOne(@Nullable final String userId, @Nullable final String name) throws SQLException;
 
     @Nullable
     Task persist(@NotNull final Task task) throws SQLException;
@@ -22,23 +22,23 @@ public interface ITaskService {
     Task merge(@NotNull final Task task) throws SQLException;
 
     @NotNull
-    Task remove(@Nullable final String currentUserId, @Nullable final Task task) throws SQLException;
+    Task remove(@Nullable final String userId, @Nullable final Task task) throws SQLException;
 
-    void removeAll(@Nullable final String currentUserId) throws SQLException;
-
-    @NotNull
-    List<Task> sortByDateStart(@Nullable final String currentUserId) throws SQLException;
+    void removeAll(@Nullable final String userId) throws SQLException;
 
     @NotNull
-    List<Task> sortByDateFinish(@Nullable final String currentUserId) throws SQLException;
+    List<Task> sortByDateStart(@Nullable final String userId) throws SQLException;
 
     @NotNull
-    List<Task> sortByStatus(@NotNull final String currentUserId) throws SQLException;
+    List<Task> sortByDateFinish(@Nullable final String userId) throws SQLException;
 
     @NotNull
-    List<Task> sortByName(@NotNull final String currentUserId, @NotNull final String name) throws SQLException;
+    List<Task> sortByStatus(@NotNull final String userId) throws SQLException;
 
     @NotNull
-    List<Task> sortByDescription(@NotNull final String currentUserId, @NotNull final String description) throws SQLException;
+    List<Task> sortByName(@NotNull final String userId, @NotNull final String name) throws SQLException;
+
+    @NotNull
+    List<Task> sortByDescription(@NotNull final String userId, @NotNull final String description) throws SQLException;
 
 }

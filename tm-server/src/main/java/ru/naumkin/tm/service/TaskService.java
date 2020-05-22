@@ -22,38 +22,38 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
 
     @NotNull
     @Override
-    public List<Task> findAll(@Nullable final String currentUserId) throws SQLException {
-        if (currentUserId == null) {
-            throw new CurrentUserIdIsNullException();
+    public List<Task> findAll(@Nullable final String userId) throws SQLException {
+        if (userId == null) {
+            throw new UserIdIsNullException();
         }
-        if (currentUserId.isEmpty()) {
-            throw new CurrentUserIdIsEmptyException();
+        if (userId.isEmpty()) {
+            throw new UserIdIsEmptyException();
         }
         @NotNull final Connection connection = getConnection();
-        return new TaskRepository(connection).findAll(currentUserId);
+        return new TaskRepository(connection).findAll(userId);
     }
 
     @NotNull
     @Override
     public Task findOne(
-            @Nullable final String currentUserId,
+            @Nullable final String userId,
             @Nullable final String name
     ) throws SQLException {
         if (name == null) {
             throw new NameIsNullException();
         }
-        if (currentUserId == null) {
-            throw new CurrentUserIdIsNullException();
+        if (userId == null) {
+            throw new UserIdIsNullException();
         }
         if (name.isEmpty()) {
             throw new NameIsEmptyException();
         }
-        if (currentUserId.isEmpty()) {
-            throw new CurrentUserIdIsEmptyException();
+        if (userId.isEmpty()) {
+            throw new UserIdIsEmptyException();
         }
         @NotNull final Connection connection = getConnection();
         @Nullable final Task task =
-                new TaskRepository(connection).findOne(currentUserId, name);
+                new TaskRepository(connection).findOne(userId, name);
         if (task == null) {
             throw new NoTaskWithSuchNameException(name);
         }
@@ -83,21 +83,21 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     @NotNull
     @Override
     public Task remove(
-            @Nullable final String currentUserId,
+            @Nullable final String userId,
             @Nullable final Task task
     ) throws SQLException {
         if (task == null) {
             throw new TaskIsNullException();
         }
-        if (currentUserId == null) {
-            throw new CurrentUserIdIsNullException();
+        if (userId == null) {
+            throw new UserIdIsNullException();
         }
-        if (currentUserId.isEmpty()) {
-            throw new CurrentUserIdIsEmptyException();
+        if (userId.isEmpty()) {
+            throw new UserIdIsEmptyException();
         }
         @NotNull final Connection connection = getConnection();
         @Nullable final Task toRemove =
-                new TaskRepository(connection).remove(currentUserId, task);
+                new TaskRepository(connection).remove(userId, task);
         if (toRemove == null) {
             throw new TaskIsNullException();
         }
@@ -105,98 +105,98 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     }
 
     @Override
-    public void removeAll(@Nullable final String currentUserId) throws SQLException {
-        if (currentUserId == null) {
-            throw new CurrentUserIdIsNullException();
+    public void removeAll(@Nullable final String userId) throws SQLException {
+        if (userId == null) {
+            throw new UserIdIsNullException();
         }
-        if (currentUserId.isEmpty()) {
-            throw new CurrentUserIdIsEmptyException();
+        if (userId.isEmpty()) {
+            throw new UserIdIsEmptyException();
         }
         @NotNull final Connection connection = getConnection();
-        new TaskRepository(connection).removeAll(currentUserId);
+        new TaskRepository(connection).removeAll(userId);
     }
 
     @NotNull
     @Override
-    public List<Task> sortByDateStart(@Nullable final String currentUserId) throws SQLException {
-        if (currentUserId == null) {
-            throw new CurrentUserIdIsNullException();
+    public List<Task> sortByDateStart(@Nullable final String userId) throws SQLException {
+        if (userId == null) {
+            throw new UserIdIsNullException();
         }
-        if (currentUserId.isEmpty()) {
-            throw new CurrentUserIdIsEmptyException();
+        if (userId.isEmpty()) {
+            throw new UserIdIsEmptyException();
         }
         @NotNull final Connection connection = getConnection();
-        return new TaskRepository(connection).sortByDateStart(currentUserId);
+        return new TaskRepository(connection).sortByDateStart(userId);
     }
 
     @NotNull
     @Override
-    public List<Task> sortByDateFinish(@Nullable final String currentUserId) throws SQLException {
-        if (currentUserId == null) {
-            throw new CurrentUserIdIsNullException();
+    public List<Task> sortByDateFinish(@Nullable final String userId) throws SQLException {
+        if (userId == null) {
+            throw new UserIdIsNullException();
         }
-        if (currentUserId.isEmpty()) {
-            throw new CurrentUserIdIsEmptyException();
+        if (userId.isEmpty()) {
+            throw new UserIdIsEmptyException();
         }
         @NotNull final Connection connection = getConnection();
-        return new TaskRepository(connection).sortByDateFinish(currentUserId);
+        return new TaskRepository(connection).sortByDateFinish(userId);
     }
 
     @NotNull
     @Override
-    public List<Task> sortByStatus(@Nullable final String currentUserId) throws SQLException {
-        if (currentUserId == null) {
-            throw new CurrentUserIdIsNullException();
+    public List<Task> sortByStatus(@Nullable final String userId) throws SQLException {
+        if (userId == null) {
+            throw new UserIdIsNullException();
         }
-        if (currentUserId.isEmpty()) {
-            throw new CurrentUserIdIsEmptyException();
+        if (userId.isEmpty()) {
+            throw new UserIdIsEmptyException();
         }
         @NotNull final Connection connection = getConnection();
-        return new TaskRepository(connection).sortByStatus(currentUserId);
+        return new TaskRepository(connection).sortByStatus(userId);
     }
 
     @NotNull
     @Override
     public List<Task> sortByName(
-            @Nullable final String currentUserId,
+            @Nullable final String userId,
             @Nullable final String name
     ) throws SQLException {
         if (name == null) {
             throw new NameIsNullException();
         }
-        if (currentUserId == null) {
-            throw new CurrentUserIdIsNullException();
+        if (userId == null) {
+            throw new UserIdIsNullException();
         }
         if (name.isEmpty()) {
             throw new NameIsEmptyException();
         }
-        if (currentUserId.isEmpty()) {
-            throw new CurrentUserIdIsEmptyException();
+        if (userId.isEmpty()) {
+            throw new UserIdIsEmptyException();
         }
         @NotNull final Connection connection = getConnection();
-        return new TaskRepository(connection).sortByName(currentUserId, name);
+        return new TaskRepository(connection).sortByName(userId, name);
     }
 
     @NotNull
     @Override
     public List<Task> sortByDescription(
-            @Nullable final String currentUserId,
+            @Nullable final String userId,
             @Nullable final String description
     ) throws SQLException {
         if (description == null) {
             throw new DescriptionIsNullException();
         }
-        if (currentUserId == null) {
-            throw new CurrentUserIdIsNullException();
+        if (userId == null) {
+            throw new UserIdIsNullException();
         }
         if (description.isEmpty()) {
             throw new DescriptionIsEmptyException();
         }
-        if (currentUserId.isEmpty()) {
-            throw new CurrentUserIdIsEmptyException();
+        if (userId.isEmpty()) {
+            throw new UserIdIsEmptyException();
         }
         @NotNull final Connection connection = getConnection();
-        return new TaskRepository(connection).sortByDescription(currentUserId, description);
+        return new TaskRepository(connection).sortByDescription(userId, description);
     }
 
 }

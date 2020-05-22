@@ -24,38 +24,38 @@ public final class ProjectService extends AbstractService<Project> implements IP
 
     @NotNull
     @Override
-    public List<Project> findAll(@Nullable final String currentUserId) throws SQLException {
-        if (currentUserId == null) {
-            throw new CurrentUserIdIsNullException();
+    public List<Project> findAll(@Nullable final String userId) throws SQLException {
+        if (userId == null) {
+            throw new UserIdIsNullException();
         }
-        if (currentUserId.isEmpty()) {
-            throw new CurrentUserIdIsEmptyException();
+        if (userId.isEmpty()) {
+            throw new UserIdIsEmptyException();
         }
         @NotNull final Connection connection = getConnection();
-        return new ProjectRepository(connection).findAll(currentUserId);
+        return new ProjectRepository(connection).findAll(userId);
     }
 
     @NotNull
     @Override
     public Project findOne(
-            @Nullable final String currentUserId,
+            @Nullable final String userId,
             @Nullable final String name
     ) throws SQLException {
         if (name == null) {
             throw new NameIsNullException();
         }
-        if (currentUserId == null) {
-            throw new CurrentUserIdIsNullException();
+        if (userId == null) {
+            throw new UserIdIsNullException();
         }
         if (name.isEmpty()) {
             throw new NameIsEmptyException();
         }
-        if (currentUserId.isEmpty()) {
-            throw new CurrentUserIdIsEmptyException();
+        if (userId.isEmpty()) {
+            throw new UserIdIsEmptyException();
         }
         @NotNull final Connection connection = getConnection();
         @Nullable final Project project =
-                new ProjectRepository(connection).findOne(currentUserId, name);
+                new ProjectRepository(connection).findOne(userId, name);
         if (project == null) {
             throw new NoProjectWithSuchNameException(name);
         }
@@ -85,21 +85,21 @@ public final class ProjectService extends AbstractService<Project> implements IP
     @NotNull
     @Override
     public Project remove(
-            @Nullable final String currentUserId,
+            @Nullable final String userId,
             @Nullable final Project project
     ) throws SQLException {
         if (project == null) {
             throw new ProjectIsNullException();
         }
-        if (currentUserId == null) {
-            throw new CurrentUserIdIsNullException();
+        if (userId == null) {
+            throw new UserIdIsNullException();
         }
-        if (currentUserId.isEmpty()) {
-            throw new CurrentUserIdIsEmptyException();
+        if (userId.isEmpty()) {
+            throw new UserIdIsEmptyException();
         }
         @NotNull final Connection connection = getConnection();
         @Nullable final Project toRemove =
-                new ProjectRepository(connection).remove(currentUserId, project);
+                new ProjectRepository(connection).remove(userId, project);
         if (toRemove == null) {
             throw new ProjectIsNullException();
         }
@@ -107,97 +107,97 @@ public final class ProjectService extends AbstractService<Project> implements IP
     }
 
     @Override
-    public void removeAll(final @Nullable String currentUserId) throws SQLException {
-        if (currentUserId == null) {
-            throw new CurrentUserIdIsNullException();
+    public void removeAll(final @Nullable String userId) throws SQLException {
+        if (userId == null) {
+            throw new UserIdIsNullException();
         }
-        if (currentUserId.isEmpty()) {
-            throw new CurrentUserIdIsEmptyException();
+        if (userId.isEmpty()) {
+            throw new UserIdIsEmptyException();
         }
         @NotNull final Connection connection = getConnection();
-        new ProjectRepository(connection).removeAll(currentUserId);
+        new ProjectRepository(connection).removeAll(userId);
     }
 
     @NotNull
     @Override
-    public List<Project> sortByDateStart(@Nullable final String currentUserId) throws SQLException {
-        if (currentUserId == null) {
-            throw new CurrentUserIdIsNullException();
+    public List<Project> sortByDateStart(@Nullable final String userId) throws SQLException {
+        if (userId == null) {
+            throw new UserIdIsNullException();
         }
-        if (currentUserId.isEmpty()) {
-            throw new CurrentUserIdIsEmptyException();
+        if (userId.isEmpty()) {
+            throw new UserIdIsEmptyException();
         }
         @NotNull final Connection connection = getConnection();
-        return new ProjectRepository(connection).sortByDateStart(currentUserId);
+        return new ProjectRepository(connection).sortByDateStart(userId);
     }
 
     @NotNull
     @Override
-    public List<Project> sortByDateFinish(@Nullable final String currentUserId) throws SQLException {
-        if (currentUserId == null) {
-            throw new CurrentUserIdIsNullException();
+    public List<Project> sortByDateFinish(@Nullable final String userId) throws SQLException {
+        if (userId == null) {
+            throw new UserIdIsNullException();
         }
-        if (currentUserId.isEmpty()) {
-            throw new CurrentUserIdIsEmptyException();
+        if (userId.isEmpty()) {
+            throw new UserIdIsEmptyException();
         }
         @NotNull final Connection connection = getConnection();
-        return new ProjectRepository(connection).sortByDateFinish(currentUserId);
+        return new ProjectRepository(connection).sortByDateFinish(userId);
     }
 
     @NotNull
     @Override
-    public List<Project> sortByStatus(@Nullable final String currentUserId) throws SQLException {
-        if (currentUserId == null) {
-            throw new CurrentUserIdIsNullException();
+    public List<Project> sortByStatus(@Nullable final String userId) throws SQLException {
+        if (userId == null) {
+            throw new UserIdIsNullException();
         }
-        if (currentUserId.isEmpty()) {
-            throw new CurrentUserIdIsEmptyException();
+        if (userId.isEmpty()) {
+            throw new UserIdIsEmptyException();
         }
         @NotNull final Connection connection = getConnection();
-        return new ProjectRepository(connection).sortByStatus(currentUserId);
+        return new ProjectRepository(connection).sortByStatus(userId);
     }
 
     @NotNull
     @Override
     public List<Project> sortByName(
-            @Nullable final String currentUserId,
+            @Nullable final String userId,
             @Nullable final String name
     ) throws SQLException {
         if (name == null) {
             throw new NameIsNullException();
         }
-        if (currentUserId == null) {
-            throw new CurrentUserIdIsNullException();
+        if (userId == null) {
+            throw new UserIdIsNullException();
         }
         if (name.isEmpty()) {
             throw new NameIsEmptyException();
         }
-        if (currentUserId.isEmpty()) {
-            throw new CurrentUserIdIsEmptyException();
+        if (userId.isEmpty()) {
+            throw new UserIdIsEmptyException();
         }
         @NotNull final Connection connection = getConnection();
-        return new ProjectRepository(connection).sortByName(currentUserId, name);
+        return new ProjectRepository(connection).sortByName(userId, name);
     }
 
     @Override
     public @NotNull List<Project> sortByDescription(
-            @Nullable final String currentUserId,
+            @Nullable final String userId,
             @Nullable final String description
     ) throws SQLException {
         if (description == null) {
             throw new DescriptionIsNullException();
         }
-        if (currentUserId == null) {
-            throw new CurrentUserIdIsNullException();
+        if (userId == null) {
+            throw new UserIdIsNullException();
         }
         if (description.isEmpty()) {
             throw new DescriptionIsEmptyException();
         }
-        if (currentUserId.isEmpty()) {
-            throw new CurrentUserIdIsEmptyException();
+        if (userId.isEmpty()) {
+            throw new UserIdIsEmptyException();
         }
         @NotNull final Connection connection = getConnection();
-        return new ProjectRepository(connection).sortByDescription(currentUserId, description);
+        return new ProjectRepository(connection).sortByDescription(userId, description);
     }
 
 }
