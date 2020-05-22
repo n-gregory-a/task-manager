@@ -233,7 +233,7 @@ public final class DomainService implements IDomainService {
         }
         @NotNull final User[] users = (User[]) object;
         for (User user: users) {
-            if (userService.isRoleAdmin(user)) {
+            if (userService.isRoleAdmin(user.getId())) {
                 continue;
             }
             userService.persist(user);
