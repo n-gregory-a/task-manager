@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface IUserService extends IService<User> {
 
-    boolean isRoleAdmin(User user);
+    boolean isRoleAdmin(@NotNull final String id) throws SQLException;
 
     @NotNull
     List<User> findAll() throws SQLException;

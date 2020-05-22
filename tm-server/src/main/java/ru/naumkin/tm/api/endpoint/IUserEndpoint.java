@@ -4,7 +4,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.entity.Session;
 import ru.naumkin.tm.entity.User;
-import ru.naumkin.tm.enumerated.RoleType;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -41,7 +40,7 @@ public interface IUserEndpoint {
     void removeAllUser(@NotNull final Session session) throws SQLException;
 
     @WebMethod
-    boolean isRoleAdmin(@NotNull final Session session, @NotNull final User user) throws SQLException;
+    boolean isRoleAdmin(@NotNull final Session session, @NotNull final String id) throws SQLException;
 
 
 }

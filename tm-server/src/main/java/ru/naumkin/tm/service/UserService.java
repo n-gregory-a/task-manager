@@ -22,10 +22,14 @@ public final class UserService extends AbstractService<User> implements IUserSer
     }
 
     @Override
-    public boolean isRoleAdmin(@Nullable final User user) {
-        if (user == null) {
-            throw new RuntimeException();
+    public boolean isRoleAdmin(@Nullable final String id) throws SQLException {
+        if (id == null) {
+            throw new IdIsNullException();
         }
+        if (id.isEmpty()) {
+            throw new IdIsEmptyException();
+        }
+        @NotNull final User user = findOneById(id);
         return user.getRole() == RoleType.ADMINISTRATOR;
     }
 

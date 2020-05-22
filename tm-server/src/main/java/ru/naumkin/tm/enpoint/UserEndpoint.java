@@ -8,7 +8,6 @@ import ru.naumkin.tm.api.service.ISessionService;
 import ru.naumkin.tm.api.service.IUserService;
 import ru.naumkin.tm.entity.Session;
 import ru.naumkin.tm.entity.User;
-import ru.naumkin.tm.enumerated.RoleType;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -88,10 +87,10 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
     @WebMethod
     public boolean isRoleAdmin(
             @NotNull final Session session,
-            @NotNull final User user
+            @NotNull final String id
     ) throws SQLException {
         validate(session);
-        return userService.isRoleAdmin(user);
+        return userService.isRoleAdmin(id);
     }
 
 
