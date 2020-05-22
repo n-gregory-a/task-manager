@@ -25,6 +25,47 @@ public class SessionService extends AbstractService<Session> implements ISession
 
     @NotNull
     @Override
+    public List<Session> findAll() throws SQLException {
+        @NotNull final Connection connection = getConnection();
+        return new SessionRepository(connection).findAll();
+    }
+
+    @Nullable
+    @Override
+    public Session findOne(@NotNull final String id) throws SQLException {
+        @NotNull final Connection connection = getConnection();
+        return new SessionRepository(connection).findOne(id);
+    }
+
+    @Nullable
+    @Override
+    public Session persist(@NotNull final Session session) throws SQLException {
+        @NotNull final Connection connection = getConnection();
+        return new SessionRepository(connection).persist(session);
+    }
+
+    @Nullable
+    @Override
+    public Session merge(@NotNull final Session session) throws SQLException {
+        @NotNull final Connection connection = getConnection();
+        return new SessionRepository(connection).merge(session);
+    }
+
+    @Nullable
+    @Override
+    public Session remove(@NotNull final Session session) throws SQLException {
+        @NotNull final Connection connection = getConnection();
+        return new SessionRepository(connection).remove(session);
+    }
+
+    @Override
+    public void removeAll() throws SQLException {
+        @NotNull final Connection connection = getConnection();
+        new SessionRepository(connection).removeAll();
+    }
+
+    @NotNull
+    @Override
     public Session open(@NotNull final String login, @NotNull final String password) throws SQLException {
         @NotNull Session session = new Session();
         session.setName("Session" + System.currentTimeMillis());

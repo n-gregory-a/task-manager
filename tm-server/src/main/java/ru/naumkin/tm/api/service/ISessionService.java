@@ -11,6 +11,23 @@ import java.util.List;
 
 public interface ISessionService extends IService<Session> {
 
+    @NotNull
+    List<Session> findAll() throws SQLException;
+
+    @Nullable
+    Session findOne(@NotNull final String id) throws SQLException;
+
+    @Nullable
+    Session persist(@NotNull final Session session) throws SQLException;
+
+    @Nullable
+    Session merge(@NotNull final Session session) throws SQLException;
+
+    @Nullable
+    Session remove(@NotNull final Session session) throws SQLException;
+
+    void removeAll() throws SQLException;
+
     Session open(@NotNull final String login, @NotNull final String password) throws SQLException;
 
     void close(@NotNull final Session session) throws SQLException;
