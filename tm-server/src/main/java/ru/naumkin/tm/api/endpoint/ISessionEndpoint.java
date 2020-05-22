@@ -7,6 +7,7 @@ import ru.naumkin.tm.enumerated.RoleType;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import java.sql.SQLException;
 import java.util.List;
 
 @WebService
@@ -14,56 +15,47 @@ public interface ISessionEndpoint {
 
     @NotNull
     @WebMethod
-    List<Session> findAllSessions(@NotNull final Session session);
+    List<Session> findAllSessions(@NotNull final Session session) throws SQLException;
 
     @NotNull
     @WebMethod
-    Session findOneSession(@NotNull final Session session, @NotNull final String name);
+    Session findOneSession(@NotNull final Session session, @NotNull final String name) throws SQLException;
 
     @Nullable
     @WebMethod
-    Session persistSession(@NotNull final Session session);
+    Session persistSession(@NotNull final Session session) throws SQLException;
 
     @Nullable
     @WebMethod
-    Session mergeSession(@NotNull final Session session, @NotNull final String name);
+    Session mergeSession(@NotNull final Session session, @NotNull final String name) throws SQLException;
 
     @Nullable
     @WebMethod
-    Session removeSession(@NotNull final Session session);
+    Session removeSession(@NotNull final Session session) throws SQLException;
 
     @WebMethod
-    void removeAllSessions(@NotNull final Session session);
-
-    @WebMethod
-    void persistSessions(@NotNull final Session session, @NotNull final Session[] sessions);
+    void removeAllSessions(@NotNull final Session session) throws SQLException;
 
     @WebMethod
     Session open(
             @NotNull final String login,
-            @NotNull final String password);
+            @NotNull final String password) throws SQLException;
 
     @WebMethod
-    void close(@NotNull final Session session);
+    void close(@NotNull final Session session) throws SQLException;
 
     @WebMethod
-    void closeAll(@NotNull final Session session);
+    void closeAll(@NotNull final Session session) throws SQLException;
 
     @NotNull
     @WebMethod
-    List<Session> getListSession(@NotNull final Session session);
+    List<Session> getListSession(@NotNull final Session session) throws SQLException;
 
     @WebMethod
-    void validate(@NotNull final Session session);
-
-    @WebMethod
-    void validateAdmin(@NotNull final Session session, @NotNull final RoleType role);
+    void validate(@NotNull final Session session) throws SQLException;
 
     @NotNull
     @WebMethod
     Session sign(@NotNull final Session session);
 
-    @WebMethod
-    boolean isValid(@NotNull final Session session);
-    
 }

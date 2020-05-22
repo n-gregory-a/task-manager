@@ -10,6 +10,7 @@ import ru.naumkin.tm.entity.Session;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import java.sql.SQLException;
 
 @NoArgsConstructor
 @WebService(endpointInterface = "ru.naumkin.tm.api.endpoint.IDomainEndpoint")
@@ -97,13 +98,13 @@ public final class DomainEndpoint extends AbstractEndpoint implements IDomainEnd
     @NotNull
     @Override
     @WebMethod
-    public Domain load() {
+    public Domain load() throws SQLException {
         return domainService.load();
     }
 
     @Override
     @WebMethod
-    public void save(@NotNull final Domain domain) {
+    public void save(@NotNull final Domain domain) throws SQLException {
         domainService.save(domain);
     }
 

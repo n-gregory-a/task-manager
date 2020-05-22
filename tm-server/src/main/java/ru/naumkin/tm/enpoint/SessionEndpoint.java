@@ -6,11 +6,10 @@ import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.endpoint.ISessionEndpoint;
 import ru.naumkin.tm.api.service.ISessionService;
 import ru.naumkin.tm.entity.Session;
-import ru.naumkin.tm.enumerated.RoleType;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
-import java.util.LinkedList;
+import java.sql.SQLException;
 import java.util.List;
 
 @NoArgsConstructor
@@ -26,10 +25,9 @@ public class SessionEndpoint implements ISessionEndpoint {
     @NotNull
     @Override
     @WebMethod
-    public List<Session> findAllSessions(@NotNull final Session session) {
-        RoleType role = sessionService.getUser(session).getRole();
-        validateAdmin(session, role);
-        return new LinkedList<>(sessionService.findAll());
+    public List<Session> findAllSessions(@NotNull final Session session) throws SQLException {
+        validate(session);
+        return sessionService.findAll();
     }
 
     @NotNull
@@ -38,56 +36,40 @@ public class SessionEndpoint implements ISessionEndpoint {
     public Session findOneSession(
             @NotNull final Session session,
             @NotNull final String name
-    ) {
-        RoleType role = sessionService.getUser(session).getRole();
-        validateAdmin(session, role);
+    ) throws SQLException {
+        validate(session);
         return sessionService.findOne(name);
     }
 
     @Nullable
     @Override
     @WebMethod
-    public Session persistSession(@NotNull final Session session) {
-        RoleType role = sessionService.getUser(session).getRole();
-        validateAdmin(session, role);
+    public Session persistSession(@NotNull final Session session) throws SQLException {
+        validate(session);
         return sessionService.persist(session);
     }
 
     @Nullable
     @Override
     @WebMethod
-    public Session mergeSession(@NotNull final Session session, @NotNull final String name) {
-        RoleType role = sessionService.getUser(session).getRole();
-        validateAdmin(session, role);
-        return sessionService.merge(session, name);
+    public Session mergeSession(@NotNull final Session session, @NotNull final String name) throws SQLException {
+        validate(session);
+        return sessionService.merge(session);
     }
 
     @Nullable
     @Override
     @WebMethod
-    public Session removeSession(@NotNull final Session session) {
-        RoleType role = sessionService.getUser(session).getRole();
-        validateAdmin(session, role);
+    public Session removeSession(@NotNull final Session session) throws SQLException {
+        validate(session);
         return sessionService.remove(session);
     }
 
     @Override
     @WebMethod
-    public void removeAllSessions(@NotNull final Session session) {
-        RoleType role = sessionService.getUser(session).getRole();
-        validateAdmin(session, role);
+    public void removeAllSessions(@NotNull final Session session) throws SQLException {
+        validate(session);
         sessionService.removeAll();
-    }
-
-    @Override
-    @WebMethod
-    public void persistSessions(
-            @NotNull final Session session,
-            @NotNull final Session[] sessions
-    ) {
-        RoleType role = sessionService.getUser(session).getRole();
-        validateAdmin(session, role);
-        sessionService.persist(sessions);
     }
 
     @NotNull
@@ -96,38 +78,33 @@ public class SessionEndpoint implements ISessionEndpoint {
     public Session open(
             @NotNull final String login,
             @NotNull final String password
-    ) {
+    ) throws SQLException {
         return sessionService.open(login, password);
     }
 
     @Override
     @WebMethod
-    public void close(@NotNull final Session session) {
+    public void close(@NotNull final Session session) throws SQLException {
         sessionService.close(session);
     }
 
     @Override
     @WebMethod
-    public void closeAll(@NotNull final Session session) {
+    public void closeAll(@NotNull final Session session) throws SQLException {
         sessionService.closeAll(session);
     }
 
     @NotNull
     @Override
     @WebMethod
-    public List<Session> getListSession(@NotNull final Session session) {
+    public List<Session> getListSession(@NotNull final Session session) throws SQLException {
         return sessionService.getListSession(session);
     }
 
     @Override
     @WebMethod
-    public void validate(@NotNull final Session session) {
+    public void validate(@NotNull final Session session) throws SQLException {
         sessionService.validate(session);
-    }
-
-    @Override
-    public void validateAdmin(@NotNull final Session session, @NotNull final RoleType role) {
-        sessionService.validate(session, role);
     }
 
     @NotNull
@@ -135,12 +112,6 @@ public class SessionEndpoint implements ISessionEndpoint {
     @WebMethod
     public Session sign(@NotNull final Session session) {
         return sessionService.sign(session);
-    }
-
-    @Override
-    @WebMethod
-    public boolean isValid(@NotNull final Session session) {
-        return sessionService.isValid(session);
     }
 
 }

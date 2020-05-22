@@ -12,6 +12,7 @@ import ru.naumkin.tm.enumerated.RoleType;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,16 +32,16 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
     @NotNull
     @Override
     @WebMethod
-    public List<User> findAllUsers() {
+    public List<User> findAllUsers() throws SQLException {
         return new LinkedList<>(userService.findAll());
     }
 
-    @NotNull
+    @Nullable
     @Override
     @WebMethod
     public User findOneUser(
             @Nullable final String name
-    ) {
+    ) throws SQLException {
         return userService.findOne(name);
     }
 
@@ -49,7 +50,7 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
     @WebMethod
     public User persistUser(
             @NotNull final User user
-    ) {
+    ) throws SQLException {
         return userService.persist(user);
     }
 
@@ -60,9 +61,9 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
             @NotNull final Session session,
             @NotNull final User user,
             @Nullable final String name
-    ) {
+    ) throws SQLException {
         validate(session);
-        return userService.merge(user, name);
+        return userService.merge(user);
     }
 
     @Nullable
@@ -71,68 +72,16 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
     public User removeUser(
             @NotNull final Session session,
             @NotNull final User user
-    ) {
+    ) throws SQLException {
         validate(session);
         return userService.remove(user);
     }
 
     @Override
     @WebMethod
-    public void removeAllUser(@NotNull final Session session) {
+    public void removeAllUser(@NotNull final Session session) throws SQLException {
         validate(session);
         userService.removeAll();
-    }
-
-    @Override
-    @WebMethod
-    public void loadUser(
-            @NotNull final Session session,
-            @NotNull final User[] users
-    ) {
-        validate(session);
-        userService.persist(users);
-    }
-
-    @Nullable
-    @Override
-    @WebMethod
-    public User getCurrentUser() {
-        return userService.getCurrentUser();
-    }
-
-    @Override
-    @WebMethod
-    public void setCurrentUser(
-            @Nullable final User currentUser
-    ) {
-        userService.setCurrentUser(currentUser);
-    }
-
-    @NotNull
-    @Override
-    @WebMethod
-    public User createUser(
-            @NotNull final RoleType role
-    ) {
-        return userService.createUser(role);
-    }
-
-    @Override
-    @WebMethod
-    public boolean isRoleAdmin(
-            @NotNull final Session session,
-            @NotNull final User user
-    ) {
-        validate(session);
-        return userService.isRoleAdmin(user);
-    }
-
-    @Nullable
-    @Override
-    @WebMethod
-    public String getCurrentUserId(@NotNull final Session session) {
-        validate(session);
-        return userService.getCurrentUserId();
     }
 
 }

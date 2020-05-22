@@ -6,6 +6,7 @@ import ru.naumkin.tm.entity.Session;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import java.sql.SQLException;
 
 @WebService
 public interface IDomainEndpoint {
@@ -42,9 +43,9 @@ public interface IDomainEndpoint {
 
     @NotNull
     @WebMethod
-    Domain load();
+    Domain load() throws SQLException;
 
     @WebMethod
-    void save(@NotNull final Domain domain);
+    void save(@NotNull final Domain domain) throws SQLException;
 
 }

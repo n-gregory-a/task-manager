@@ -7,6 +7,7 @@ import ru.naumkin.tm.entity.Session;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import java.sql.SQLException;
 import java.util.List;
 
 @WebService
@@ -15,55 +16,51 @@ public interface IProjectEndpoint {
     @Nullable
     @WebMethod
     Project persistProject(@NotNull final Session session,
-                           @NotNull final Project project);
+                           @NotNull final Project project) throws SQLException;
 
     @Nullable
     @WebMethod
     Project mergeProject(@NotNull final Session session,
                          @NotNull final Project project,
-                         @NotNull final String name);
-
-    @WebMethod
-    void loadProject(@NotNull final Session session,
-                     @NotNull final Project[] projects);
+                         @NotNull final String name) throws SQLException;
 
     @NotNull
     @WebMethod
-    List<Project> findAllProjectsByUserId(@NotNull final Session session);
+    List<Project> findAllProjectsByUserId(@NotNull final Session session) throws SQLException;
 
     @NotNull
     @WebMethod
     Project findOneProjectByUserId(@NotNull final Session session,
-                                   @NotNull final String name);
+                                   @NotNull final String name) throws SQLException;
 
     @NotNull
     @WebMethod
     Project removeProjectByUserId(@NotNull final Session session,
-                                  @NotNull final Project project);
+                                  @NotNull final Project project) throws SQLException;
 
     @WebMethod
-    void removeAllProjectsByUserId(@NotNull final Session session);
-
-    @NotNull
-    @WebMethod
-    List<Project> sortProjectsByDateStart(@NotNull final Session session);
+    void removeAllProjectsByUserId(@NotNull final Session session) throws SQLException;
 
     @NotNull
     @WebMethod
-    List<Project> sortProjectsByDateFinish(@NotNull final Session session);
+    List<Project> sortProjectsByDateStart(@NotNull final Session session) throws SQLException;
 
     @NotNull
     @WebMethod
-    List<Project> sortProjectsByStatus(@NotNull final Session session);
+    List<Project> sortProjectsByDateFinish(@NotNull final Session session) throws SQLException;
+
+    @NotNull
+    @WebMethod
+    List<Project> sortProjectsByStatus(@NotNull final Session session) throws SQLException;
 
     @NotNull
     @WebMethod
     List<Project> sortProjectsByName(@NotNull final Session session,
-                                     @NotNull final String name);
+                                     @NotNull final String name) throws SQLException;
 
     @NotNull
     @WebMethod
     List<Project> sortProjectsByDescription(@NotNull final Session session,
-                                            @NotNull final String description);
+                                            @NotNull final String description) throws SQLException;
 
 }

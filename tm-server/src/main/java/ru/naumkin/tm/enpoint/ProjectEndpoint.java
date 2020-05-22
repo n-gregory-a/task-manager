@@ -11,6 +11,7 @@ import ru.naumkin.tm.entity.Session;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import java.sql.SQLException;
 import java.util.List;
 
 @NoArgsConstructor
@@ -31,7 +32,7 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     @Override
     @WebMethod
     public Project persistProject(@NotNull final Session session,
-                                  @NotNull final Project project) {
+                                  @NotNull final Project project) throws SQLException {
         validate(session);
         return projectService.persist(project);
     }
@@ -43,17 +44,9 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
             @NotNull final Session session,
             @NotNull final Project project,
             @NotNull final String name
-    ) {
+    ) throws SQLException {
         validate(session);
-        return projectService.merge(project, name);
-    }
-
-    @Override
-    @WebMethod
-    public void loadProject(@NotNull final Session session,
-                            @NotNull final Project[] projects) {
-        validate(session);
-        projectService.persist(projects);
+        return projectService.merge(project);
     }
 
     @NotNull
@@ -61,7 +54,7 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     @WebMethod
     public List<Project> findAllProjectsByUserId(
             @NotNull final Session session
-    ) {
+    ) throws SQLException {
         validate(session);
         return projectService.findAll(session.getUserId());
     }
@@ -72,7 +65,7 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     public Project findOneProjectByUserId(
             @NotNull final Session session,
             @NotNull final String name
-    ) {
+    ) throws SQLException {
         validate(session);
         return projectService.findOne(session.getUserId(), name);
     }
@@ -83,7 +76,7 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     public Project removeProjectByUserId(
             @NotNull final Session session,
             @NotNull final Project project
-    ) {
+    ) throws SQLException {
         validate(session);
         return projectService.remove(session.getUserId(), project);
     }
@@ -92,7 +85,7 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     @WebMethod
     public void removeAllProjectsByUserId(
             @NotNull final Session session
-    ) {
+    ) throws SQLException {
         validate(session);
         projectService.findAll(session.getUserId());
     }
@@ -102,7 +95,7 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     @WebMethod
     public List<Project> sortProjectsByDateStart(
             @NotNull final Session session
-    ) {
+    ) throws SQLException {
         validate(session);
         return projectService.sortByDateStart(session.getUserId());
     }
@@ -112,7 +105,7 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     @WebMethod
     public List<Project> sortProjectsByDateFinish(
             @NotNull final Session session
-    ) {
+    ) throws SQLException {
         validate(session);
         return projectService.sortByDateFinish(session.getUserId());
     }
@@ -122,7 +115,7 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     @WebMethod
     public List<Project> sortProjectsByStatus(
             @NotNull final Session session
-    ) {
+    ) throws SQLException {
         validate(session);
         return projectService.sortByStatus(session.getUserId());
     }
@@ -133,7 +126,7 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     public List<Project> sortProjectsByName(
             @NotNull final Session session,
             @NotNull final String name
-    ) {
+    ) throws SQLException {
         validate(session);
         return projectService.sortByName(session.getUserId(), name);
     }
@@ -144,7 +137,7 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     public List<Project> sortProjectsByDescription(
             @NotNull final Session session,
             @NotNull final String description
-    ) {
+    ) throws SQLException {
         validate(session);
         return projectService.sortByDescription(session.getUserId(), description);
     }
