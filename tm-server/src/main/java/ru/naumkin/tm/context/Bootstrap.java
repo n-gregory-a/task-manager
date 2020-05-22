@@ -7,7 +7,6 @@ import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.ServiceLocator;
 import ru.naumkin.tm.api.endpoint.*;
 import ru.naumkin.tm.api.repository.IProjectRepository;
-import ru.naumkin.tm.api.repository.IRepository;
 import ru.naumkin.tm.api.repository.ITaskRepository;
 import ru.naumkin.tm.api.service.*;
 import ru.naumkin.tm.enpoint.*;
@@ -24,29 +23,22 @@ import javax.xml.ws.Endpoint;
 @NoArgsConstructor
 public final class Bootstrap implements ServiceLocator {
 
-    @NotNull
-    private final ITaskRepository taskRepository = new TaskRepository();
-
-    @NotNull
-    private final IProjectRepository projectRepository = new ProjectRepository(taskRepository);
-
-    @NotNull
-    private final IRepository<User> userRepository = new UserRepository();
-
-    @NotNull
-    private final IRepository<Session> sessionIRepository = new SessionRepository();
 
     @Getter
     @NotNull
-    private final ITaskService taskService = new TaskService(taskRepository);
+    private final IPropertyService propertyService = new PropertyService();
 
     @Getter
     @NotNull
-    private final IProjectService projectService = new ProjectService(projectRepository);
+    private final ITaskService taskService = new TaskService(propertyService);
 
     @Getter
     @NotNull
-    private final IUserService userService = new UserService(userRepository);
+    private final IProjectService projectService = new ProjectService(propertyService);
+
+    @Getter
+    @NotNull
+    private final IUserService userService = new UserService(propertyService);
 
     @Getter
     @NotNull
@@ -55,12 +47,7 @@ public final class Bootstrap implements ServiceLocator {
 
     @Getter
     @NotNull
-    private final IPropertyService propertyService = new PropertyService();
-
-    @Getter
-    @NotNull
-    private final ISessionService sessionService = new SessionService(
-            sessionIRepository, userService, propertyService);
+    private final ISessionService sessionService = new SessionService(propertyService);
 
     @NotNull
     private final IProjectEndpoint projectEndpoint =
