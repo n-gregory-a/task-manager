@@ -1,7 +1,6 @@
 package ru.naumkin.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
-import ru.naumkin.tm.api.endpoint.IProjectEndpoint;
 import ru.naumkin.tm.command.AbstractCommand;
 
 public final class ProjectClearCommand extends AbstractCommand {

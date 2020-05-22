@@ -2,8 +2,6 @@ package ru.naumkin.tm.command.data.json;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.naumkin.tm.api.endpoint.IDomainEndpoint;
-import ru.naumkin.tm.api.endpoint.RoleType;
 import ru.naumkin.tm.command.AbstractCommand;
 
 public class DataJsonJBSaveCommand extends AbstractCommand {

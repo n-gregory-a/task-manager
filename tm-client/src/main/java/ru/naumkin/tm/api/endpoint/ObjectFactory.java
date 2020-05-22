@@ -24,6 +24,7 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _SQLException_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "SQLException");
     private final static QName _Close_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "close");
     private final static QName _CloseAll_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "closeAll");
     private final static QName _CloseAllResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "closeAllResponse");
@@ -34,16 +35,12 @@ public class ObjectFactory {
     private final static QName _FindOneSessionResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "findOneSessionResponse");
     private final static QName _GetListSession_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "getListSession");
     private final static QName _GetListSessionResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "getListSessionResponse");
-    private final static QName _IsValid_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "isValid");
-    private final static QName _IsValidResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "isValidResponse");
     private final static QName _MergeSession_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "mergeSession");
     private final static QName _MergeSessionResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "mergeSessionResponse");
     private final static QName _Open_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "open");
     private final static QName _OpenResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "openResponse");
     private final static QName _PersistSession_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "persistSession");
     private final static QName _PersistSessionResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "persistSessionResponse");
-    private final static QName _PersistSessions_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "persistSessions");
-    private final static QName _PersistSessionsResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "persistSessionsResponse");
     private final static QName _RemoveAllSessions_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "removeAllSessions");
     private final static QName _RemoveAllSessionsResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "removeAllSessionsResponse");
     private final static QName _RemoveSession_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "removeSession");
@@ -51,8 +48,6 @@ public class ObjectFactory {
     private final static QName _Sign_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "sign");
     private final static QName _SignResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "signResponse");
     private final static QName _Validate_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "validate");
-    private final static QName _ValidateAdmin_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "validateAdmin");
-    private final static QName _ValidateAdminResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "validateAdminResponse");
     private final static QName _ValidateResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "validateResponse");
 
     /**
@@ -60,6 +55,14 @@ public class ObjectFactory {
      * 
      */
     public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link SQLException }
+     * 
+     */
+    public SQLException createSQLException() {
+        return new SQLException();
     }
 
     /**
@@ -143,22 +146,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link IsValid }
-     * 
-     */
-    public IsValid createIsValid() {
-        return new IsValid();
-    }
-
-    /**
-     * Create an instance of {@link IsValidResponse }
-     * 
-     */
-    public IsValidResponse createIsValidResponse() {
-        return new IsValidResponse();
-    }
-
-    /**
      * Create an instance of {@link MergeSession }
      * 
      */
@@ -204,22 +191,6 @@ public class ObjectFactory {
      */
     public PersistSessionResponse createPersistSessionResponse() {
         return new PersistSessionResponse();
-    }
-
-    /**
-     * Create an instance of {@link PersistSessions }
-     * 
-     */
-    public PersistSessions createPersistSessions() {
-        return new PersistSessions();
-    }
-
-    /**
-     * Create an instance of {@link PersistSessionsResponse }
-     * 
-     */
-    public PersistSessionsResponse createPersistSessionsResponse() {
-        return new PersistSessionsResponse();
     }
 
     /**
@@ -279,22 +250,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ValidateAdmin }
-     * 
-     */
-    public ValidateAdmin createValidateAdmin() {
-        return new ValidateAdmin();
-    }
-
-    /**
-     * Create an instance of {@link ValidateAdminResponse }
-     * 
-     */
-    public ValidateAdminResponse createValidateAdminResponse() {
-        return new ValidateAdminResponse();
-    }
-
-    /**
      * Create an instance of {@link ValidateResponse }
      * 
      */
@@ -308,6 +263,51 @@ public class ObjectFactory {
      */
     public Session createSession() {
         return new Session();
+    }
+
+    /**
+     * Create an instance of {@link SqlException }
+     * 
+     */
+    public SqlException createSqlException() {
+        return new SqlException();
+    }
+
+    /**
+     * Create an instance of {@link Exception }
+     * 
+     */
+    public Exception createException() {
+        return new Exception();
+    }
+
+    /**
+     * Create an instance of {@link Throwable }
+     * 
+     */
+    public Throwable createThrowable() {
+        return new Throwable();
+    }
+
+    /**
+     * Create an instance of {@link StackTraceElement }
+     * 
+     */
+    public StackTraceElement createStackTraceElement() {
+        return new StackTraceElement();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SQLException }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link SQLException }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "SQLException")
+    public JAXBElement<SQLException> createSQLException(SQLException value) {
+        return new JAXBElement<SQLException>(_SQLException_QNAME, SQLException.class, null, value);
     }
 
     /**
@@ -441,32 +441,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link IsValid }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link IsValid }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "isValid")
-    public JAXBElement<IsValid> createIsValid(IsValid value) {
-        return new JAXBElement<IsValid>(_IsValid_QNAME, IsValid.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link IsValidResponse }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link IsValidResponse }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "isValidResponse")
-    public JAXBElement<IsValidResponse> createIsValidResponse(IsValidResponse value) {
-        return new JAXBElement<IsValidResponse>(_IsValidResponse_QNAME, IsValidResponse.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link MergeSession }{@code >}
      * 
      * @param value
@@ -542,32 +516,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "persistSessionResponse")
     public JAXBElement<PersistSessionResponse> createPersistSessionResponse(PersistSessionResponse value) {
         return new JAXBElement<PersistSessionResponse>(_PersistSessionResponse_QNAME, PersistSessionResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link PersistSessions }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link PersistSessions }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "persistSessions")
-    public JAXBElement<PersistSessions> createPersistSessions(PersistSessions value) {
-        return new JAXBElement<PersistSessions>(_PersistSessions_QNAME, PersistSessions.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link PersistSessionsResponse }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link PersistSessionsResponse }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "persistSessionsResponse")
-    public JAXBElement<PersistSessionsResponse> createPersistSessionsResponse(PersistSessionsResponse value) {
-        return new JAXBElement<PersistSessionsResponse>(_PersistSessionsResponse_QNAME, PersistSessionsResponse.class, null, value);
     }
 
     /**
@@ -659,32 +607,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "validate")
     public JAXBElement<Validate> createValidate(Validate value) {
         return new JAXBElement<Validate>(_Validate_QNAME, Validate.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ValidateAdmin }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link ValidateAdmin }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "validateAdmin")
-    public JAXBElement<ValidateAdmin> createValidateAdmin(ValidateAdmin value) {
-        return new JAXBElement<ValidateAdmin>(_ValidateAdmin_QNAME, ValidateAdmin.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ValidateAdminResponse }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link ValidateAdminResponse }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "validateAdminResponse")
-    public JAXBElement<ValidateAdminResponse> createValidateAdminResponse(ValidateAdminResponse value) {
-        return new JAXBElement<ValidateAdminResponse>(_ValidateAdminResponse_QNAME, ValidateAdminResponse.class, null, value);
     }
 
     /**

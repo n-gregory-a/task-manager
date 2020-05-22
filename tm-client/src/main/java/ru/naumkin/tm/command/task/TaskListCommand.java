@@ -2,8 +2,6 @@ package ru.naumkin.tm.command.task;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.jetbrains.annotations.NotNull;
-import ru.naumkin.tm.api.endpoint.ITaskEndpoint;
-import ru.naumkin.tm.api.endpoint.Task;
 import ru.naumkin.tm.command.AbstractCommand;
 
 public final class TaskListCommand extends AbstractCommand {

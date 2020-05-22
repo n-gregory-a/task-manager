@@ -2,9 +2,6 @@ package ru.naumkin.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.naumkin.tm.api.endpoint.ITaskEndpoint;
-import ru.naumkin.tm.api.endpoint.Status;
-import ru.naumkin.tm.api.endpoint.Task;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.util.DateFormatter;
 

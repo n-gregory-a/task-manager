@@ -3,7 +3,6 @@ package ru.naumkin.tm.command;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.naumkin.tm.api.endpoint.RoleType;
 import ru.naumkin.tm.context.Bootstrap;
 
 @NoArgsConstructor
