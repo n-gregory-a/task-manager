@@ -20,6 +20,12 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         super(propertyService);
     }
 
+    @Override
+    public @NotNull List<Task> findAll() throws SQLException {
+        @NotNull final Connection connection = getConnection();
+        return new TaskRepository(connection).findAll();
+    }
+
     @NotNull
     @Override
     public List<Task> findAll(@Nullable final String userId) throws SQLException {

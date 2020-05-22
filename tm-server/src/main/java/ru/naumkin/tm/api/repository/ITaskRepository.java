@@ -10,6 +10,9 @@ import java.util.List;
 public interface ITaskRepository {
 
     @NotNull
+    List<Task> findAll() throws SQLException;
+
+    @NotNull
     List<Task> findAll(@NotNull final String currentUserId) throws SQLException;
 
     @Nullable

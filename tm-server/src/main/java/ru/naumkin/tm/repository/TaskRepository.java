@@ -37,9 +37,8 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
         return task;
     }
 
-    @NotNull
     @Override
-    public List<Task> findAll(@NotNull final String currentUserId) throws SQLException {
+    public @NotNull List<Task> findAll() throws SQLException {
         @NotNull final String query = "SELECT * FROM `task`";
         @NotNull final Statement statement = getConnection().createStatement();
         @NotNull final ResultSet resultSet = statement.executeQuery(query);
@@ -51,18 +50,37 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
         return result;
     }
 
+    @NotNull
+    @Override
+    public List<Task> findAll(@NotNull final String userId) throws SQLException {
+        @NotNull final String query =
+                "SELECT * FROM `task` " +
+                "WHERE `user_id` = ?";
+        @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
+        statement.setString(1, userId);
+        @NotNull final ResultSet resultSet = statement.executeQuery();
+        statement.close();
+        @NotNull final List<Task> result = new LinkedList<>();
+        while (resultSet.next()) {
+            result.add(fetch(resultSet));
+        }
+        statement.close();
+        return result;
+    }
+
     @Nullable
     @Override
     public Task findOne(
-            @NotNull final String currentUserId,
+            @NotNull final String userId,
             @NotNull final String name
     ) throws SQLException {
         @NotNull final String query =
                 "SELECT * FROM `task` " +
-                        "WHERE `name` = ? " + "AND `user_id` = ?";
+                "WHERE `name` = ? " +
+                "AND `user_id` = ?";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, name);
-        statement.setString(2, currentUserId);
+        statement.setString(2, userId);
         @NotNull final ResultSet resultSet = statement.executeQuery();
         statement.close();
         @NotNull final boolean hasNext = resultSet.next();
@@ -77,8 +95,8 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
     public Task persist(@NotNull final Task task) throws SQLException {
         @NotNull final String query =
                 "INSERT INTO `task` " +
-                        "(`id`, `name`, `description`, `date_start`, `date_finish`, `project_id`, `user_id`, `status`) " +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                "(`id`, `name`, `description`, `date_start`, `date_finish`, `project_id`, `user_id`, `status`) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, task.getId());
         statement.setString(2, task.getName());
@@ -98,8 +116,8 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
     public Task merge(@NotNull final Task task) throws SQLException {
         @NotNull String query =
                 "UPDATE `project` " +
-                        "SET `id` = ?, `name` = ?, `description` = ?, `date_start` = ?," +
-                        "`date_finish` = ?, `project_id` = ?, `user_id` = ?, `status` = ?";
+                "SET `id` = ?, `name` = ?, `description` = ?, `date_start` = ?," +
+                "`date_finish` = ?, `project_id` = ?, `user_id` = ?, `status` = ?";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, task.getId());
         statement.setString(2, task.getName());
@@ -116,10 +134,13 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
     @NotNull
     @Override
     public Task remove(
-            @NotNull final String currentUserId,
+            @NotNull final String userId,
             @NotNull final Task task
     ) throws SQLException {
-        @NotNull final String query = "DELETE FROM `task` WHERE `id` = ? AND `user_id` = ?";
+        @NotNull final String query =
+                "DELETE FROM `task` " +
+                "WHERE `id` = ? " +
+                "AND `user_id` = ?";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, task.getId());
         statement.setString(2, task.getUserId());
@@ -129,23 +150,25 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
     }
 
     @Override
-    public void removeAll(@NotNull final String currentUserId) throws SQLException {
-        @NotNull final String query = "DELETE FROM `task` WHERE `user_id` = ?";
+    public void removeAll(@NotNull final String userId) throws SQLException {
+        @NotNull final String query =
+                "DELETE FROM `task` " +
+                "WHERE `user_id` = ?";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
-        statement.setString(1, currentUserId);
+        statement.setString(1, userId);
         statement.execute();
         statement.close();
     }
 
     @NotNull
     @Override
-    public List<Task> sortByDateStart(@NotNull final String currentUserId) throws SQLException {
+    public List<Task> sortByDateStart(@NotNull final String userId) throws SQLException {
         @NotNull final String query =
                 "SELECT * FROM `task` " +
-                        "WHERE `user_id` = ? " +
-                        "ORDER BY `date_start`";
+                "WHERE `user_id` = ? " +
+                "ORDER BY `date_start`";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
-        statement.setString(1, currentUserId);
+        statement.setString(1, userId);
         @NotNull final ResultSet resultSet = statement.executeQuery();
         statement.close();
         @NotNull final List<Task> result = new LinkedList<>();
@@ -157,13 +180,13 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
 
     @NotNull
     @Override
-    public List<Task> sortByDateFinish(@NotNull final String currentUserId) throws SQLException {
+    public List<Task> sortByDateFinish(@NotNull final String userId) throws SQLException {
         @NotNull final String query =
                 "SELECT * FROM `task` " +
-                        "WHERE `user_id` = ? " +
-                        "ORDER BY `date_finish`";
+                "WHERE `user_id` = ? " +
+                "ORDER BY `date_finish`";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
-        statement.setString(1, currentUserId);
+        statement.setString(1, userId);
         @NotNull final ResultSet resultSet = statement.executeQuery();
         statement.close();
         @NotNull final List<Task> result = new LinkedList<>();
@@ -175,13 +198,13 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
 
     @NotNull
     @Override
-    public List<Task> sortByStatus(@NotNull final String currentUserId) throws SQLException {
+    public List<Task> sortByStatus(@NotNull final String userId) throws SQLException {
         @NotNull final String query =
                 "SELECT * FROM `task` " +
-                        "WHERE `user_id` = ? " +
-                        "ORDER BY FIELD(`status`, `PLANNED`, `IN_PROGRESS`, `COMPLETED`)";
+                "WHERE `user_id` = ? " +
+                "ORDER BY FIELD(`status`, `PLANNED`, `IN_PROGRESS`, `COMPLETED`)";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
-        statement.setString(1, currentUserId);
+        statement.setString(1, userId);
         @NotNull final ResultSet resultSet = statement.executeQuery();
         statement.close();
         @NotNull final List<Task> result = new LinkedList<>();
@@ -194,10 +217,10 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
     @NotNull
     @Override
     public List<Task> sortByName(
-            @NotNull final String currentUserId,
+            @NotNull final String userId,
             @NotNull final String name
     ) throws SQLException {
-        @NotNull final List<Task> all = findAll(currentUserId);
+        @NotNull final List<Task> all = findAll(userId);
         @NotNull final List<Task> result = new LinkedList<>();
         for (@NotNull final Task task: all) {
             if (task.getName().contains(name)) {
@@ -210,10 +233,10 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
     @NotNull
     @Override
     public List<Task> sortByDescription(
-            @NotNull final String currentUserId,
+            @NotNull final String userId,
             @NotNull final String description
     ) throws SQLException {
-        @NotNull final List<Task> all = findAll(currentUserId);
+        @NotNull final List<Task> all = findAll(userId);
         @NotNull final List<Task> result = new LinkedList<>();
         for (@NotNull final Task task: all) {
             if (task.getDescription().contains(description)) {
