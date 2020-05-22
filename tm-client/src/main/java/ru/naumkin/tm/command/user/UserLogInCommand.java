@@ -1,6 +1,8 @@
 package ru.naumkin.tm.command.user;
 
 import org.jetbrains.annotations.NotNull;
+import ru.naumkin.tm.api.endpoint.Session;
+import ru.naumkin.tm.api.endpoint.User;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.util.HashGenerator;
 
@@ -41,7 +43,6 @@ public final class UserLogInCommand extends AbstractCommand {
         @NotNull final Session session =
                 bootstrap.getSessionEndpoint().open(user.getName(), user.getPassword());
         bootstrap.setCurrentSession(session);
-        bootstrap.getUserEndpoint().setCurrentUser(user);
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 

@@ -1,6 +1,8 @@
 package ru.naumkin.tm.command.user;
 
 import org.jetbrains.annotations.NotNull;
+import ru.naumkin.tm.api.endpoint.RoleType;
+import ru.naumkin.tm.api.endpoint.User;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.util.HashGenerator;
 

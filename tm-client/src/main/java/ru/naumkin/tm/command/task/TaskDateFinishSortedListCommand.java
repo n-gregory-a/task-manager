@@ -1,6 +1,8 @@
 package ru.naumkin.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
+import ru.naumkin.tm.api.endpoint.ITaskEndpoint;
+import ru.naumkin.tm.api.endpoint.Task;
 import ru.naumkin.tm.command.AbstractCommand;
 
 public class TaskDateFinishSortedListCommand extends AbstractCommand {

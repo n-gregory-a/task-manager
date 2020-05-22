@@ -1,10 +1,12 @@
 package ru.naumkin.tm.command.user;
 
 import org.jetbrains.annotations.NotNull;
+import ru.naumkin.tm.api.endpoint.User;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.util.HashGenerator;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public final class UserRegisterCommand extends AbstractCommand {
 
@@ -36,7 +38,7 @@ public final class UserRegisterCommand extends AbstractCommand {
     }
 
     @NotNull
-    private User createUniqueLoginUser() throws IOException {
+    private User createUniqueLoginUser() throws IOException, SQLException {
         bootstrap.getTerminalService().showMessage("Enter login:");
         @NotNull final String login = bootstrap.getTerminalService().readLine();
         User user = new User();

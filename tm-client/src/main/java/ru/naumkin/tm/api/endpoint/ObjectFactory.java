@@ -5,6 +5,7 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
 import javax.xml.namespace.QName;
+import java.sql.SQLException;
 
 
 /**
@@ -266,11 +267,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link SqlException }
+     * Create an instance of {@link SQLException }
      * 
      */
-    public SqlException createSqlException() {
-        return new SqlException();
+    public SQLException createSqlException() {
+        return new SQLException();
     }
 
     /**

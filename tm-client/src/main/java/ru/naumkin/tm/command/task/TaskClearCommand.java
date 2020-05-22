@@ -1,7 +1,10 @@
 package ru.naumkin.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
+import ru.naumkin.tm.api.endpoint.ITaskEndpoint;
 import ru.naumkin.tm.command.AbstractCommand;
+
+import java.sql.SQLException;
 
 public final class TaskClearCommand extends AbstractCommand {
 
@@ -22,7 +25,7 @@ public final class TaskClearCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws SQLException {
         bootstrap.getTerminalService().showMessage("[TASK LIST CLEAR]");
         @NotNull final ITaskEndpoint taskEndpoint = bootstrap.getTaskEndpoint();
         taskEndpoint.removeAllTasksByUserId(bootstrap.getCurrentSession());

@@ -2,6 +2,10 @@ package ru.naumkin.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.naumkin.tm.api.endpoint.ITaskEndpoint;
+import ru.naumkin.tm.api.endpoint.Session;
+import ru.naumkin.tm.api.endpoint.Task;
+import ru.naumkin.tm.api.endpoint.User;
 import ru.naumkin.tm.command.AbstractCommand;
 
 public final class TaskCreateCommand extends AbstractCommand {
@@ -25,17 +29,15 @@ public final class TaskCreateCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         bootstrap.getTerminalService().showMessage("[TASK CREATE]");
-        @Nullable final User user =
-                bootstrap.getUserEndpoint().getCurrentUser();
+        @Nullable final Session session =
+                bootstrap.getCurrentSession();
         @NotNull final ITaskEndpoint taskEndpoint = bootstrap.getTaskEndpoint();
         bootstrap.getTerminalService().showMessage("Enter name:");
         @NotNull final String name = bootstrap.getTerminalService().readLine();
         @NotNull Task task = new Task();
         task.setName(name);
-        if (user != null) {
-            task.setUserId(user.getId());
-        }
-        taskEndpoint.persistTask(bootstrap.getCurrentSession(), task);
+        task.setUserId(session.getId());
+        taskEndpoint.persistTask(session, task);
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 

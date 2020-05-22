@@ -1,6 +1,9 @@
 package ru.naumkin.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
+import ru.naumkin.tm.api.endpoint.IProjectEndpoint;
+import ru.naumkin.tm.api.endpoint.Project;
+import ru.naumkin.tm.api.endpoint.Status;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.util.DateFormatter;
 
