@@ -6,16 +6,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.ServiceLocator;
 import ru.naumkin.tm.api.endpoint.*;
-import ru.naumkin.tm.api.repository.IProjectRepository;
-import ru.naumkin.tm.api.repository.ITaskRepository;
 import ru.naumkin.tm.api.service.*;
 import ru.naumkin.tm.enpoint.*;
-import ru.naumkin.tm.entity.Session;
-import ru.naumkin.tm.entity.User;
-import ru.naumkin.tm.repository.ProjectRepository;
-import ru.naumkin.tm.repository.SessionRepository;
-import ru.naumkin.tm.repository.TaskRepository;
-import ru.naumkin.tm.repository.UserRepository;
 import ru.naumkin.tm.service.*;
 
 import javax.xml.ws.Endpoint;
