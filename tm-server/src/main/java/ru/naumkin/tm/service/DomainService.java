@@ -17,9 +17,7 @@ import ru.naumkin.tm.entity.Project;
 import ru.naumkin.tm.entity.Task;
 import ru.naumkin.tm.entity.User;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.sql.SQLException;
@@ -48,7 +46,7 @@ public final class DomainService implements IDomainService {
     }
 
     @Override
-    public void loadBinaryData() throws Exception {
+    public void loadBinaryData() throws IOException, ClassNotFoundException, SQLException {
         @NotNull final File file = new File(DataConstant.BINARY_FILE);
         @NotNull final FileInputStream fileInputStream = new FileInputStream(file);
         @NotNull final ObjectInputStream objectInputStream
@@ -60,7 +58,7 @@ public final class DomainService implements IDomainService {
     }
 
     @Override
-    public void saveBinaryData() throws Exception {
+    public void saveBinaryData() throws IOException, SQLException {
         @NotNull final Project[] projects = projectService.findAll().toArray(new Project[0]);
         @NotNull final Task[] tasks = taskService.findAll().toArray(new Task[0]);
         @NotNull final User[] users = userService.findAll().toArray(new User[0]);
@@ -77,7 +75,7 @@ public final class DomainService implements IDomainService {
     }
 
     @Override
-    public void loadJsonDataFasterXml() throws Exception{
+    public void loadJsonDataFasterXml() throws IOException, SQLException {
         @NotNull final File file = new File(DataConstant.JSON_FILE);
         @NotNull final ObjectMapper objectMapper = new ObjectMapper();
         @NotNull final Domain domain = objectMapper.readValue(file, Domain.class);
@@ -85,7 +83,7 @@ public final class DomainService implements IDomainService {
     }
 
     @Override
-    public void saveJsonDataFasterXml() throws Exception {
+    public void saveJsonDataFasterXml() throws IOException, SQLException {
         @NotNull final Domain domain = load();
         @NotNull final File file = new File(DataConstant.JSON_FILE);
         Files.deleteIfExists(file.toPath());
@@ -95,7 +93,7 @@ public final class DomainService implements IDomainService {
     }
 
     @Override
-    public void loadJsonDataJaxb() throws Exception {
+    public void loadJsonDataJaxb() throws IOException, JAXBException, SQLException {
         @NotNull final File file = new File(DataConstant.JSON_FILE);
         @NotNull final FileInputStream fileInputStream = new FileInputStream(file);
         @NotNull final ObjectInputStream objectInputStream =
@@ -111,7 +109,7 @@ public final class DomainService implements IDomainService {
     }
 
     @Override
-    public void saveJsonDataJaxb() throws Exception {
+    public void saveJsonDataJaxb() throws IOException, SQLException, JAXBException {
         @NotNull final Domain domain = load();
         @NotNull final File file = new File(DataConstant.JSON_FILE);
         Files.deleteIfExists(file.toPath());
@@ -130,7 +128,7 @@ public final class DomainService implements IDomainService {
     }
 
     @Override
-    public void loadXmlDataFasterXml() throws Exception {
+    public void loadXmlDataFasterXml() throws IOException, SQLException {
         @NotNull final File file = new File(DataConstant.XML_FILE);
         @NotNull final ObjectMapper objectMapper = new XmlMapper();
         @NotNull final Domain domain = objectMapper.readValue(file, Domain.class);
@@ -138,7 +136,7 @@ public final class DomainService implements IDomainService {
     }
 
     @Override
-    public void saveXmlDataFasterXml() throws Exception {
+    public void saveXmlDataFasterXml() throws IOException, SQLException {
         @NotNull final Domain domain = load();
         @NotNull final File file = new File(DataConstant.XML_FILE);
         Files.deleteIfExists(file.toPath());
@@ -148,7 +146,7 @@ public final class DomainService implements IDomainService {
     }
 
     @Override
-    public void loadXmlDataJaxb() throws Exception {
+    public void loadXmlDataJaxb() throws IOException, JAXBException, SQLException {
         @NotNull final File file = new File(DataConstant.XML_FILE);
         @NotNull final FileInputStream fileInputStream = new FileInputStream(file);
         @NotNull final ObjectInputStream objectInputStream =
@@ -161,7 +159,7 @@ public final class DomainService implements IDomainService {
     }
 
     @Override
-    public void saveXmlDataJaxb() throws Exception {
+    public void saveXmlDataJaxb() throws IOException, SQLException, JAXBException {
         @NotNull final Domain domain = load();
         @NotNull final File file = new File(DataConstant.XML_FILE);
         Files.deleteIfExists(file.toPath());
