@@ -92,7 +92,7 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
         @NotNull final String query =
                 "INSERT INTO `task` " +
                 "(`id`, `name`, `description`, `date_start`, `date_finish`, `project_id`, `user_id`, `status`) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, task.getId());
         statement.setString(2, task.getName());
