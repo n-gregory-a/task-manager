@@ -80,14 +80,15 @@ public class SessionRepository extends AbstractRepository<Session> implements IS
     public Session merge(@NotNull final Session session) throws SQLException {
         @NotNull String query =
                 "UPDATE `session` " +
-                "SET `id` = ?, `name` = ?, `timestamp` = ?, " +
-                "`user_id` = ?, `signature` = ?";
+                "SET `name` = ?, `timestamp` = ?, " +
+                "`user_id` = ?, `signature` = ?" +
+                "WHERE `id` = ?";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
-        statement.setString(1, session.getId());
-        statement.setString(2, session.getName());
-        statement.setLong(3, session.getTimestamp());
-        statement.setString(4, session.getUserId());
-        statement.setString(5, session.getSignature());
+        statement.setString(1, session.getName());
+        statement.setLong(2, session.getTimestamp());
+        statement.setString(3, session.getUserId());
+        statement.setString(4, session.getSignature());
+        statement.setString(5, session.getId());
         statement.execute();
         return session;
     }

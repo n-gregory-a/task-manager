@@ -110,16 +110,17 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
     public Project merge(@NotNull final Project project) throws SQLException {
         @NotNull String query =
                 "UPDATE `project` " +
-                "SET `id` = ?, `name` = ?, `description` = ?, `date_start` = ?," +
-                "`date_finish` = ?, `user_id` = ?, `status` = ?";
+                "SET `name` = ?, `description` = ?, `date_start` = ?," +
+                "`date_finish` = ?, `user_id` = ?, `status` = ?" +
+                "WHERE `id` = ?";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
-        statement.setString(1, project.getId());
-        statement.setString(2, project.getName());
-        statement.setString(3, project.getDescription());
-        statement.setDate(4, DateFormatter.convertToSqlDate(project.getDateStart()));
-        statement.setDate(5, DateFormatter.convertToSqlDate(project.getDateFinish()));
-        statement.setString(6, project.getUserId());
-        statement.setString(7, String.valueOf(project.getStatus()));
+        statement.setString(1, project.getName());
+        statement.setString(2, project.getDescription());
+        statement.setDate(3, DateFormatter.convertToSqlDate(project.getDateStart()));
+        statement.setDate(4, DateFormatter.convertToSqlDate(project.getDateFinish()));
+        statement.setString(5, project.getUserId());
+        statement.setString(6, String.valueOf(project.getStatus()));
+        statement.setString(7, project.getId());
         statement.execute();
         return project;
     }
@@ -137,20 +138,13 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
         statement.setString(1, project.getId());
         statement.setString(2, project.getUserId());
         statement.execute();
-        query = "DELETE FROM `task` " +
-                "WHERE `project_id` = ? " +
-                "AND `user_id` = ?";
-        statement = getConnection().prepareStatement(query);
-        statement.setString(1, project.getId());
-        statement.setString(2, project.getUserId());
-        statement.execute();
         return project;
     }
 
     @Override
     public void removeAll(@NotNull final String userId) throws SQLException {
         @NotNull final String query =
-                "DELETE * FROM `project` " +
+                "DELETE FROM `project` " +
                 "WHERE `user_id` = ?";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, userId);
@@ -197,7 +191,7 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
         @NotNull final String query =
                 "SELECT * FROM `project` " +
                 "WHERE `user_id` = ? " +
-                "ORDER BY FIELD(`status`, `PLANNED`, `IN_PROGRESS`, `COMPLETED`)";
+                "ORDER BY `status`";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, userId);
         @NotNull final ResultSet resultSet = statement.executeQuery();

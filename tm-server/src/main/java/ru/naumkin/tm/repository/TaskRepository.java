@@ -110,17 +110,19 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
     @Override
     public Task merge(@NotNull final Task task) throws SQLException {
         @NotNull String query =
-                "UPDATE `project` " +
-                "SET `id` = ?, `name` = ?, `description` = ?, `date_start` = ?," +
-                "`date_finish` = ?, `project_id` = ?, `user_id` = ?, `status` = ?";
+                "UPDATE `task` " +
+                "SET `name` = ?, `description` = ?, `date_start` = ?," +
+                "`date_finish` = ?, `project_id` = ?, `user_id` = ?, `status` = ?" +
+                "WHERE `id` = ?";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
-        statement.setString(1, task.getId());
-        statement.setString(2, task.getName());
-        statement.setString(3, task.getDescription());
-        statement.setDate(4, DateFormatter.convertToSqlDate(task.getDateStart()));
-        statement.setDate(5, DateFormatter.convertToSqlDate(task.getDateFinish()));
+        statement.setString(1, task.getName());
+        statement.setString(2, task.getDescription());
+        statement.setDate(3, DateFormatter.convertToSqlDate(task.getDateStart()));
+        statement.setDate(4, DateFormatter.convertToSqlDate(task.getDateFinish()));
+        statement.setString(5, task.getProjectId());
         statement.setString(6, task.getUserId());
         statement.setString(7, String.valueOf(task.getStatus()));
+        statement.setString(8, task.getId());
         statement.execute();
         return task;
     }
@@ -192,7 +194,7 @@ public final class TaskRepository extends AbstractRepository<Task> implements IT
         @NotNull final String query =
                 "SELECT * FROM `task` " +
                 "WHERE `user_id` = ? " +
-                "ORDER BY FIELD(`status`, `PLANNED`, `IN_PROGRESS`, `COMPLETED`)";
+                "ORDER `status`";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, userId);
         @NotNull final ResultSet resultSet = statement.executeQuery();

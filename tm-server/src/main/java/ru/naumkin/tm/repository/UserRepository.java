@@ -96,13 +96,14 @@ public final class UserRepository extends AbstractRepository<User> implements IU
     public  User merge(@NotNull final User user) throws SQLException {
         @NotNull String query =
                 "UPDATE `app_user` " +
-                "SET `id` = ?, `name` = ?, " +
-                "`password_hash` = ?, `role` = ?";
+                "SET `name` = ?, " +
+                "`password_hash` = ?, `role` = ?" +
+                "WHERE `id` = ?";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
-        statement.setString(1, user.getId());
-        statement.setString(2, user.getName());
-        statement.setString(3, user.getPassword());
-        statement.setString(4, String.valueOf(user.getRole()));
+        statement.setString(1, user.getName());
+        statement.setString(2, user.getPassword());
+        statement.setString(3, String.valueOf(user.getRole()));
+        statement.setString(4, user.getId());
         statement.execute();
         return user;
     }
