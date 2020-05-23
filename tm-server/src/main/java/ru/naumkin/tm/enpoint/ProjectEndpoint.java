@@ -86,7 +86,7 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
             @NotNull final Session session
     ) throws Exception {
         validate(session);
-        projectService.findAll(session.getUserId());
+        projectService.removeAll(session.getUserId());
     }
 
     @NotNull
