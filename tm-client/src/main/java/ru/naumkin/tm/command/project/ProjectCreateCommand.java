@@ -7,6 +7,9 @@ import ru.naumkin.tm.api.endpoint.Project;
 import ru.naumkin.tm.api.endpoint.Session;
 import ru.naumkin.tm.api.endpoint.User;
 import ru.naumkin.tm.command.AbstractCommand;
+import ru.naumkin.tm.util.DateFormatter;
+
+import java.util.Date;
 
 public final class ProjectCreateCommand extends AbstractCommand {
 
@@ -32,11 +35,22 @@ public final class ProjectCreateCommand extends AbstractCommand {
         @Nullable final Session session
                 = bootstrap.getCurrentSession();
         @NotNull final IProjectEndpoint projectEndpoint = bootstrap.getProjectEndpoint();
+        @Nullable final Project project = new Project();
         bootstrap.getTerminalService().showMessage("Enter name:");
         @NotNull final String name = bootstrap.getTerminalService().readLine();
-        @Nullable final Project project = new Project();
         project.setName(name);
-        project.setUserId(session.getId());
+        bootstrap.getTerminalService().showMessage("Enter description:");
+        @NotNull final String description = bootstrap.getTerminalService().readLine();
+        project.setDescription(description);
+        bootstrap.getTerminalService().showMessage("Enter new start date(dd.mm.yyyy): ");
+        @NotNull final String startDate = bootstrap.getTerminalService().readLine();
+        @NotNull Date date = DateFormatter.convertStringToDate(startDate);
+        project.setDateStart(DateFormatter.convertToXmlGregorianCalendar(date));
+        bootstrap.getTerminalService().showMessage("Enter new finish date(dd.mm.yyyy):");
+        @NotNull final String finishDate = bootstrap.getTerminalService().readLine();
+        date = DateFormatter.convertStringToDate(finishDate);
+        project.setDateFinish(DateFormatter.convertToXmlGregorianCalendar(date));
+        project.setUserId(session.getUserId());
         projectEndpoint.persistProject(session, project);
         bootstrap.getTerminalService().showMessage("[OK]");
     }
