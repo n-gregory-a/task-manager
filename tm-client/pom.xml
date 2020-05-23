@@ -23,6 +23,28 @@
 
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>
+                                true
+                            </addDefaultImplementationEntries>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>release/lib/</classpathPrefix>
+                            <mainClass>ru.naumkin.tm.Application</mainClass>
+                        </manifest>
+                        <manifestEntries>
+                            <buildNumber>${buildNumber}</buildNumber>
+                            <developer>${developerName}</developer>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
                 <groupId>com.webcohesion.enunciate</groupId>
                 <artifactId>enunciate-maven-plugin</artifactId>
                 <version>2.13.0</version>
