@@ -1,15 +1,16 @@
 package ru.naumkin.tm.service;
 
 import lombok.NoArgsConstructor;
+import org.apache.ibatis.session.SqlSession;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.naumkin.tm.api.repository.IProjectRepository;
 import ru.naumkin.tm.api.service.IProjectService;
 import ru.naumkin.tm.api.service.IPropertyService;
 import ru.naumkin.tm.entity.Project;
 import ru.naumkin.tm.error.*;
-import ru.naumkin.tm.repository.ProjectRepository;
 
-import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 @NoArgsConstructor
@@ -23,8 +24,10 @@ public final class ProjectService extends AbstractService<Project> implements IP
 
     @Override
     public @NotNull List<Project> findAll() throws Exception {
-        @NotNull final Connection connection = getConnection();
-        return new ProjectRepository(connection).findAll();
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final IProjectRepository projectRepository =
+                sqlSession.getMapper(IProjectRepository.class);
+        return projectRepository.findAll();
     }
 
     @NotNull
@@ -36,8 +39,10 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final Connection connection = getConnection();
-        return new ProjectRepository(connection).findAll(userId);
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final IProjectRepository projectRepository =
+                sqlSession.getMapper(IProjectRepository.class);
+        return projectRepository.findAllByUserId(userId);
     }
 
     @NotNull
@@ -58,9 +63,11 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final Connection connection = getConnection();
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final IProjectRepository projectRepository =
+                sqlSession.getMapper(IProjectRepository.class);
         @Nullable final Project project =
-                new ProjectRepository(connection).findOne(userId, name);
+                projectRepository.findOne(userId, name);
         if (project == null) {
             throw new NoProjectWithSuchNameException(name);
         }
@@ -73,8 +80,22 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (project == null) {
             throw new ProjectIsNullException();
         }
-        @NotNull final Connection connection = getConnection();
-        return new ProjectRepository(connection).persist(project);
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final IProjectRepository projectRepository =
+                sqlSession.getMapper(IProjectRepository.class);
+        @Nullable Project toPersist = null;
+        try {
+            toPersist = projectRepository.persist(project);
+            sqlSession.commit();
+        } catch (SQLException e) {
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        if (toPersist == null) {
+            throw new ProjectIsNullException();
+        }
+        return toPersist;
     }
 
     @NotNull
@@ -83,8 +104,22 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (project == null) {
             throw new ProjectIsNullException();
         }
-        @NotNull final Connection connection = getConnection();
-        return new ProjectRepository(connection).merge(project);
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final IProjectRepository projectRepository =
+                sqlSession.getMapper(IProjectRepository.class);
+        @Nullable Project toMerge = null;
+        try {
+            toMerge = projectRepository.persist(project);
+            sqlSession.commit();
+        } catch (SQLException e) {
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        if (toMerge == null) {
+            throw new ProjectIsNullException();
+        }
+        return toMerge;
     }
 
     @NotNull
@@ -102,9 +137,18 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final Connection connection = getConnection();
-        @Nullable final Project toRemove =
-                new ProjectRepository(connection).remove(userId, project);
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final IProjectRepository projectRepository =
+                sqlSession.getMapper(IProjectRepository.class);
+        @Nullable Project toRemove = null;
+        try {
+            toRemove = projectRepository.persist(project);
+            sqlSession.commit();
+        } catch (SQLException e) {
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
         if (toRemove == null) {
             throw new ProjectIsNullException();
         }
@@ -119,8 +163,17 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final Connection connection = getConnection();
-        new ProjectRepository(connection).removeAll(userId);
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final IProjectRepository projectRepository =
+                sqlSession.getMapper(IProjectRepository.class);
+        try {
+            projectRepository.removeAll(userId);
+            sqlSession.commit();
+        } catch (SQLException e) {
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
     }
 
     @NotNull
@@ -132,8 +185,10 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final Connection connection = getConnection();
-        return new ProjectRepository(connection).sortByDateStart(userId);
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final IProjectRepository projectRepository =
+                sqlSession.getMapper(IProjectRepository.class);
+        return projectRepository.sortByDateStart(userId);
     }
 
     @NotNull
@@ -145,8 +200,10 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final Connection connection = getConnection();
-        return new ProjectRepository(connection).sortByDateFinish(userId);
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final IProjectRepository projectRepository =
+                sqlSession.getMapper(IProjectRepository.class);
+        return projectRepository.sortByDateFinish(userId);
     }
 
     @NotNull
@@ -158,8 +215,10 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final Connection connection = getConnection();
-        return new ProjectRepository(connection).sortByStatus(userId);
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final IProjectRepository projectRepository =
+                sqlSession.getMapper(IProjectRepository.class);
+        return projectRepository.sortByStatus(userId);
     }
 
     @NotNull
@@ -180,8 +239,10 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final Connection connection = getConnection();
-        return new ProjectRepository(connection).sortByName(userId, name);
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final IProjectRepository projectRepository =
+                sqlSession.getMapper(IProjectRepository.class);
+        return projectRepository.sortByName(userId, name);
     }
 
     @Override
@@ -201,8 +262,10 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final Connection connection = getConnection();
-        return new ProjectRepository(connection).sortByDescription(userId, description);
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final IProjectRepository projectRepository =
+                sqlSession.getMapper(IProjectRepository.class);
+        return projectRepository.sortByDescription(userId, description);
     }
 
 }
