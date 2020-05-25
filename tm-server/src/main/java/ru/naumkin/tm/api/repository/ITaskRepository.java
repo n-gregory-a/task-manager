@@ -8,7 +8,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.entity.Task;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface ITaskRepository {
