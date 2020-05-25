@@ -1,47 +1,83 @@
 package ru.naumkin.tm.api.repository;
 
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.entity.Project;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface IProjectRepository {
 
     @NotNull
-    List<Project> findAll() throws SQLException;
+    @Select("SELECT * FROM `project`")
+    List<Project> findAll() throws Exception;
 
     @NotNull
-    List<Project> findAll(@NotNull final String userId) throws SQLException;
+    @Select("SELECT * FROM `project` " +
+            "WHERE `user_id` = #{userId}")
+    List<Project> findAllByUserId(@NotNull final String userId) throws Exception;
 
     @Nullable
-    Project findOne(@NotNull final String userId, @NotNull final String name) throws SQLException;
+    @Select("SELECT * FROM `project` " +
+            "WHERE `name` = #{name} " +
+            "AND `user_id` = #{userId}")
+    Project findOne(@NotNull final String userId, @NotNull final String name) throws Exception;
 
     @Nullable
-    Project persist(@NotNull final Project project) throws SQLException;
+    @Insert("INSERT INTO `project` " +
+            "(`id`, `name`, `description`, `date_start`, `date_finish`, `user_id`, `status`) " +
+            "VALUES (#{id}, #{name}, #{description}, #{date_start}, #{date_finish}, #{user_id}, #{status})")
+    Project persist(@NotNull final Project project) throws Exception;
 
     @Nullable
-    Project merge(@NotNull final Project project) throws SQLException;
+    @Update("UPDATE `project` " +
+            "SET `name` = #{name}, `description` = #{description}, `date_start` = #{date_start}," +
+            "`date_finish` = #{date_finish}, `user_id` = #{user_id}, `status` = #{status}" +
+            "WHERE `id` = #{id}")
+    Project merge(@NotNull final Project project) throws Exception;
 
     @Nullable
-    Project remove(@NotNull final String userId, @NotNull final Project project) throws SQLException;
+    @Delete("DELETE FROM `project` " +
+            "WHERE `id` = #{id} " +
+            "AND `user_id` = #{user_id}")
+    Project remove(@NotNull final String userId, @NotNull final Project project) throws Exception;
 
-    void removeAll(@NotNull final String userId) throws SQLException;
-
-    @NotNull
-    List<Project> sortByDateStart(@NotNull final String userId) throws SQLException;
-
-    @NotNull
-    List<Project> sortByDateFinish(@NotNull final String userId) throws SQLException;
-
-    @NotNull
-    List<Project> sortByStatus(@NotNull final String userId) throws SQLException;
+    @Delete("DELETE FROM `project` " +
+            "WHERE `user_id` = #{user_id}")
+    void removeAll(@NotNull final String userId) throws Exception;
 
     @NotNull
-    List<Project> sortByName(@NotNull final String userId, @NotNull final String name) throws SQLException;
+    @Select("SELECT * FROM `project` " +
+            "WHERE `user_id` = #{user_id} " +
+            "ORDER BY `date_start`")
+    List<Project> sortByDateStart(@NotNull final String userId) throws Exception;
 
     @NotNull
-    List<Project> sortByDescription(@NotNull final String userId, @NotNull final String description) throws SQLException;
+    @Select("SELECT * FROM `project` " +
+            "WHERE `user_id` = #{user_id} " +
+            "ORDER BY `date_finish`")
+    List<Project> sortByDateFinish(@NotNull final String userId) throws Exception;
+
+    @NotNull
+    @Select("SELECT * FROM `project` " +
+            "WHERE `user_id` = #{user_id} " +
+            "ORDER BY `status`")
+    List<Project> sortByStatus(@NotNull final String userId) throws Exception;
+
+    @NotNull
+    @Select("SELECT * FROM `project` " +
+            "WHERE `user_id` = #{user_id} " +
+            "AND `name` LIKE `%#{name}%`")
+    List<Project> sortByName(@NotNull final String userId, @NotNull final String name) throws Exception;
+
+    @NotNull
+    @Select("SELECT * FROM `project` " +
+            "WHERE `user_id` = #{user_id} " +
+            "AND `description` LIKE `%#{description}%`")
+    List<Project> sortByDescription(@NotNull final String userId, @NotNull final String description) throws Exception;
 
 }
