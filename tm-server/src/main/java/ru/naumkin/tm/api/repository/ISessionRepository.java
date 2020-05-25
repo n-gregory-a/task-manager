@@ -1,29 +1,45 @@
 package ru.naumkin.tm.api.repository;
 
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.entity.Session;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface ISessionRepository {
 
     @NotNull
-    List<Session> findAll() throws SQLException;
+    @Select("SELECT * FROM `session`")
+    List<Session> findAll() throws Exception;
 
     @Nullable
-    Session findOne(@NotNull final String id) throws SQLException;
+    @Select("SELECT * FROM `session` " +
+            "WHERE `id` = #{id}")
+    Session findOne(@NotNull final String id) throws Exception;
 
     @Nullable
-    Session persist(@NotNull final Session session) throws SQLException;
+    @Insert("INSERT INTO `session` " +
+            "(`id`, `name`, `timestamp`, `user_id`, `signature`) " +
+            "VALUES (#{id}, #{name}, #{timestamp}, #{userId}, #{signature})")
+    Session persist(@NotNull final Session session) throws Exception;
 
     @Nullable
-    Session merge(@NotNull final Session session) throws SQLException;
+    @Update("UPDATE `session` " +
+            "SET `name` = #{name}, `timestamp` = #{timestamp}, " +
+            "`user_id` = #{userId}, `signature` = #{signature}" +
+            "WHERE `id` = #{id}")
+    Session merge(@NotNull final Session session) throws Exception;
 
     @Nullable
-    Session remove(@NotNull final Session session) throws SQLException;
+    @Delete("DELETE FROM `session` " +
+            "WHERE `id` = #{id}")
+    Session remove(@NotNull final Session session) throws Exception;
 
-    void removeAll() throws SQLException;
+    @Delete("DELETE * FROM `session`")
+    void removeAll() throws Exception;
 
 }
