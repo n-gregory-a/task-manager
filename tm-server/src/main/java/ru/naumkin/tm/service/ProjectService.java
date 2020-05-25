@@ -109,7 +109,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
                 sqlSession.getMapper(IProjectRepository.class);
         @Nullable Project toMerge = null;
         try {
-            toMerge = projectRepository.persist(project);
+            toMerge = projectRepository.merge(project);
             sqlSession.commit();
         } catch (SQLException e) {
             sqlSession.rollback();
@@ -142,7 +142,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
                 sqlSession.getMapper(IProjectRepository.class);
         @Nullable Project toRemove = null;
         try {
-            toRemove = projectRepository.persist(project);
+            toRemove = projectRepository.remove(userId, project);
             sqlSession.commit();
         } catch (SQLException e) {
             sqlSession.rollback();
