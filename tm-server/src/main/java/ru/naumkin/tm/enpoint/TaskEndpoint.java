@@ -40,8 +40,7 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @WebMethod
     public void mergeTask(
             @NotNull final Session session,
-            @NotNull final Task task,
-            @NotNull final String name
+            @NotNull final Task task
     ) throws Exception {
         validate(session);
         taskService.merge(task);

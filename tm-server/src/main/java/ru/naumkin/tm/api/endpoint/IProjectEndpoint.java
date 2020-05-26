@@ -13,12 +13,11 @@ public interface IProjectEndpoint {
 
     @WebMethod
     void persistProject(@NotNull final Session session,
-                           @NotNull final Project project) throws Exception;
+                        @NotNull final Project project) throws Exception;
 
     @WebMethod
     void mergeProject(@NotNull final Session session,
-                         @NotNull final Project project,
-                         @NotNull final String name) throws Exception;
+                      @NotNull final Project project) throws Exception;
 
     @NotNull
     @WebMethod
@@ -31,7 +30,7 @@ public interface IProjectEndpoint {
 
     @WebMethod
     void removeProjectByUserId(@NotNull final Session session,
-                                  @NotNull final Project project) throws Exception;
+                               @NotNull final Project project) throws Exception;
 
     @WebMethod
     void removeAllProjectsByUserId(@NotNull final Session session) throws Exception;

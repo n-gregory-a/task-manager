@@ -55,8 +55,7 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
     @WebMethod
     public void mergeUser(
             @NotNull final Session session,
-            @NotNull final User user,
-            @Nullable final String name
+            @NotNull final User user
     ) throws Exception {
         validate(session);
         userService.merge(user);

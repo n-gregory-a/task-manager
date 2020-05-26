@@ -39,8 +39,7 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     @WebMethod
     public void mergeProject(
             @NotNull final Session session,
-            @NotNull final Project project,
-            @NotNull final String name
+            @NotNull final Project project
     ) throws Exception {
         validate(session);
         projectService.merge(project);

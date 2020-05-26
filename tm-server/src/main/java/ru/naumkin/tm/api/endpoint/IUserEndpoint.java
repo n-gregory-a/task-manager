@@ -26,8 +26,7 @@ public interface IUserEndpoint {
     @WebMethod
     void mergeUser(
             @NotNull final Session session,
-            @NotNull final User user,
-            @NotNull final String name) throws Exception;
+            @NotNull final User user) throws Exception;
 
     @WebMethod
     void removeUser(@NotNull final Session session, @NotNull final User user) throws Exception;
@@ -37,6 +36,5 @@ public interface IUserEndpoint {
 
     @WebMethod
     boolean isRoleAdmin(@NotNull final Session session, @NotNull final String id) throws Exception;
-
 
 }

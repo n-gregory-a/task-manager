@@ -18,8 +18,7 @@ public interface ITaskEndpoint {
     @WebMethod
     void mergeTask(
             @NotNull final Session session,
-            @NotNull final Task task,
-            @NotNull final String name) throws Exception;
+            @NotNull final Task task) throws Exception;
 
     @NotNull
     @WebMethod
