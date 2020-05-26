@@ -10,13 +10,13 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.jetbrains.annotations.NotNull;
+import ru.naumkin.tm.api.repository.IProjectRepository;
+import ru.naumkin.tm.api.repository.ISessionRepository;
+import ru.naumkin.tm.api.repository.ITaskRepository;
+import ru.naumkin.tm.api.repository.IUserRepository;
 import ru.naumkin.tm.api.service.IPropertyService;
 import ru.naumkin.tm.api.service.IService;
 import ru.naumkin.tm.entity.AbstractEntity;
-import ru.naumkin.tm.repository.ProjectRepository;
-import ru.naumkin.tm.repository.SessionRepository;
-import ru.naumkin.tm.repository.TaskRepository;
-import ru.naumkin.tm.repository.UserRepository;
 
 import javax.sql.DataSource;
 
@@ -42,10 +42,10 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
         @NotNull final Environment environment =
                 new Environment("development", transactionFactory, dataSource);
         @NotNull final Configuration configuration = new Configuration(environment);
-        configuration.addMapper(ProjectRepository.class);
-        configuration.addMapper(SessionRepository.class);
-        configuration.addMapper(TaskRepository.class);
-        configuration.addMapper(UserRepository.class);
+        configuration.addMapper(IProjectRepository.class);
+        configuration.addMapper(ISessionRepository.class);
+        configuration.addMapper(ITaskRepository.class);
+        configuration.addMapper(IUserRepository.class);
         return new SqlSessionFactoryBuilder().build(configuration);
     }
 
