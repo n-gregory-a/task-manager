@@ -16,13 +16,24 @@ public interface IProjectRepository {
     @NotNull
     @Select("SELECT * FROM `project` " +
             "WHERE `user_id` = #{userId}")
+    @Results(value = {
+            @Result(property = "dateStart", column = "date_start"),
+            @Result(property = "dateFinish", column = "date_finish"),
+            @Result(property = "userId", column = "user_id"),
+    })
     List<Project> findAllByUserId(@NotNull final String userId) throws Exception;
 
     @Nullable
     @Select("SELECT * FROM `project` " +
             "WHERE `name` = #{name} " +
             "AND `user_id` = #{userId}")
-    Project findOne(@NotNull final String userId, @NotNull final String name) throws Exception;
+    @Results(value = {
+            @Result(property = "dateStart", column = "date_start"),
+            @Result(property = "dateFinish", column = "date_finish"),
+            @Result(property = "userId", column = "user_id"),
+    })
+    Project findOne(@NotNull @Param("userId") final String userId,
+                    @NotNull @Param("name") final String name) throws Exception;
 
     @Insert("INSERT INTO `project` " +
             "(`id`, `name`, `description`, `date_start`, `date_finish`, `user_id`, `status`) " +
@@ -38,14 +49,12 @@ public interface IProjectRepository {
     @Delete("DELETE FROM `project` " +
             "WHERE `id` = #{id} " +
             "AND `user_id` = #{userId}")
-//    @Results(value = {
-//            @Result(property = "")
-//    })
-    void remove(@NotNull final String userId, @NotNull final Project project) throws Exception;
+    void remove(@NotNull @Param("userId") final String userId,
+                @NotNull @Param("id") final String id) throws Exception;
 
     @Delete("DELETE FROM `project` " +
             "WHERE `user_id` = #{userId}")
-    void removeAll(@NotNull final String userId) throws Exception;
+    void removeAll(@NotNull @Param("userId") final String userId) throws Exception;
 
     @NotNull
     @Select("SELECT * FROM `project` " +

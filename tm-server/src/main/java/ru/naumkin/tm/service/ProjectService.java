@@ -128,7 +128,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         @NotNull final IProjectRepository projectRepository =
                 sqlSession.getMapper(IProjectRepository.class);
         try {
-            projectRepository.remove(userId, project);
+            projectRepository.remove(userId, project.getId());
             sqlSession.commit();
         } catch (SQLException e) {
             sqlSession.rollback();
