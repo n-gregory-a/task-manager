@@ -25,16 +25,10 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _Exception_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "Exception");
-    private final static QName _Close_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "close");
-    private final static QName _CloseAll_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "closeAll");
-    private final static QName _CloseAllResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "closeAllResponse");
-    private final static QName _CloseResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "closeResponse");
     private final static QName _FindAllSessions_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "findAllSessions");
     private final static QName _FindAllSessionsResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "findAllSessionsResponse");
     private final static QName _FindOneSession_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "findOneSession");
     private final static QName _FindOneSessionResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "findOneSessionResponse");
-    private final static QName _GetListSession_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "getListSession");
-    private final static QName _GetListSessionResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "getListSessionResponse");
     private final static QName _MergeSession_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "mergeSession");
     private final static QName _MergeSessionResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "mergeSessionResponse");
     private final static QName _Open_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "open");
@@ -58,35 +52,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Close }
+     * Create an instance of {@link Exception }
      * 
      */
-    public Close createClose() {
-        return new Close();
-    }
-
-    /**
-     * Create an instance of {@link CloseAll }
-     * 
-     */
-    public CloseAll createCloseAll() {
-        return new CloseAll();
-    }
-
-    /**
-     * Create an instance of {@link CloseAllResponse }
-     * 
-     */
-    public CloseAllResponse createCloseAllResponse() {
-        return new CloseAllResponse();
-    }
-
-    /**
-     * Create an instance of {@link CloseResponse }
-     * 
-     */
-    public CloseResponse createCloseResponse() {
-        return new CloseResponse();
+    public Exception createException() {
+        return new Exception();
     }
 
     /**
@@ -119,22 +89,6 @@ public class ObjectFactory {
      */
     public FindOneSessionResponse createFindOneSessionResponse() {
         return new FindOneSessionResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetListSession }
-     * 
-     */
-    public GetListSession createGetListSession() {
-        return new GetListSession();
-    }
-
-    /**
-     * Create an instance of {@link GetListSessionResponse }
-     * 
-     */
-    public GetListSessionResponse createGetListSessionResponse() {
-        return new GetListSessionResponse();
     }
 
     /**
@@ -271,58 +225,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Close }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link Close }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "close")
-    public JAXBElement<Close> createClose(Close value) {
-        return new JAXBElement<Close>(_Close_QNAME, Close.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link CloseAll }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link CloseAll }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "closeAll")
-    public JAXBElement<CloseAll> createCloseAll(CloseAll value) {
-        return new JAXBElement<CloseAll>(_CloseAll_QNAME, CloseAll.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link CloseAllResponse }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link CloseAllResponse }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "closeAllResponse")
-    public JAXBElement<CloseAllResponse> createCloseAllResponse(CloseAllResponse value) {
-        return new JAXBElement<CloseAllResponse>(_CloseAllResponse_QNAME, CloseAllResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link CloseResponse }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link CloseResponse }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "closeResponse")
-    public JAXBElement<CloseResponse> createCloseResponse(CloseResponse value) {
-        return new JAXBElement<CloseResponse>(_CloseResponse_QNAME, CloseResponse.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link FindAllSessions }{@code >}
      * 
      * @param value
@@ -372,32 +274,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "findOneSessionResponse")
     public JAXBElement<FindOneSessionResponse> createFindOneSessionResponse(FindOneSessionResponse value) {
         return new JAXBElement<FindOneSessionResponse>(_FindOneSessionResponse_QNAME, FindOneSessionResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetListSession }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link GetListSession }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "getListSession")
-    public JAXBElement<GetListSession> createGetListSession(GetListSession value) {
-        return new JAXBElement<GetListSession>(_GetListSession_QNAME, GetListSession.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetListSessionResponse }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link GetListSessionResponse }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "getListSessionResponse")
-    public JAXBElement<GetListSessionResponse> createGetListSessionResponse(GetListSessionResponse value) {
-        return new JAXBElement<GetListSessionResponse>(_GetListSessionResponse_QNAME, GetListSessionResponse.class, null, value);
     }
 
     /**
