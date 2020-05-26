@@ -1,16 +1,17 @@
 package ru.naumkin.tm.service;
 
 import lombok.NoArgsConstructor;
+import org.apache.ibatis.session.SqlSession;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.naumkin.tm.api.repository.IUserRepository;
 import ru.naumkin.tm.api.service.IPropertyService;
 import ru.naumkin.tm.api.service.IUserService;
 import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.enumerated.RoleType;
 import ru.naumkin.tm.error.*;
-import ru.naumkin.tm.repository.UserRepository;
 
-import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 @NoArgsConstructor
@@ -35,8 +36,9 @@ public final class UserService extends AbstractService<User> implements IUserSer
     @NotNull
     @Override
     public List<User> findAll() throws Exception {
-        @NotNull final Connection connection = getConnection();
-        return new UserRepository(connection).findAll();
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
+        return userRepository.findAll();
     }
 
     @NotNull
@@ -48,8 +50,9 @@ public final class UserService extends AbstractService<User> implements IUserSer
         if (name.isEmpty()) {
             throw new NameIsEmptyException();
         }
-        @NotNull final Connection connection = getConnection();
-        @Nullable final User user = new UserRepository(connection).findOne(name);
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
+        @Nullable final User user = userRepository.findOne(name);
         if (user == null) {
             throw new NoUserWithSuchLoginException(name);
         }
@@ -65,8 +68,9 @@ public final class UserService extends AbstractService<User> implements IUserSer
         if (id.isEmpty()) {
             throw new IdIsEmptyException();
         }
-        @NotNull final Connection connection = getConnection();
-        @Nullable final User user = new UserRepository(connection).findOneById(id);
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
+        @Nullable final User user = userRepository.findOneById(id);
         if (user == null) {
             throw new NoUserWithSuchIdException(id);
         }
@@ -79,8 +83,21 @@ public final class UserService extends AbstractService<User> implements IUserSer
         if (user == null) {
             throw new UserIsNullException();
         }
-        @NotNull final Connection connection = getConnection();
-        return new UserRepository(connection).persist(user);
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
+        @Nullable User toPersist = null;
+        try {
+            toPersist = userRepository.persist(user);
+            sqlSession.commit();
+        } catch (SQLException e) {
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        if (toPersist == null) {
+            throw new UserIsNullException();
+        }
+        return toPersist;
     }
 
     @NotNull
@@ -89,8 +106,21 @@ public final class UserService extends AbstractService<User> implements IUserSer
         if (user == null) {
             throw new UserIsNullException();
         }
-        @NotNull final Connection connection = getConnection();
-        return new UserRepository(connection).merge(user);
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
+        @Nullable User toMerge = null;
+        try {
+            toMerge = userRepository.merge(user);
+            sqlSession.commit();
+        } catch (SQLException e) {
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        if (toMerge == null) {
+            throw new UserIsNullException();
+        }
+        return toMerge;
     }
 
     @NotNull
@@ -99,14 +129,35 @@ public final class UserService extends AbstractService<User> implements IUserSer
         if (user == null) {
             throw new UserIsNullException();
         }
-        @NotNull final Connection connection = getConnection();
-        return new UserRepository(connection).remove(user);
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
+        @Nullable User toRemove = null;
+        try {
+            toRemove = userRepository.remove(user);
+            sqlSession.commit();
+        } catch (SQLException e) {
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        if (toRemove == null) {
+            throw new UserIsNullException();
+        }
+        return toRemove;
     }
 
     @Override
     public void removeAll() throws Exception {
-        @NotNull final Connection connection = getConnection();
-        new UserRepository(connection).removeAll();
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
+        try {
+            userRepository.removeAll();
+            sqlSession.commit();
+        } catch (SQLException e) {
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
     }
 
 }
