@@ -40,28 +40,25 @@ public class SessionEndpoint implements ISessionEndpoint {
         return sessionService.findOne(name);
     }
 
-    @Nullable
     @Override
     @WebMethod
-    public Session persistSession(@NotNull final Session session) throws Exception {
+    public void persistSession(@NotNull final Session session) throws Exception {
         validate(session);
-        return sessionService.persist(session);
+        sessionService.persist(session);
     }
 
-    @Nullable
     @Override
     @WebMethod
-    public Session mergeSession(@NotNull final Session session, @NotNull final String name) throws Exception {
+    public void mergeSession(@NotNull final Session session, @NotNull final String name) throws Exception {
         validate(session);
-        return sessionService.merge(session);
+        sessionService.merge(session);
     }
 
-    @Nullable
     @Override
     @WebMethod
-    public Session removeSession(@NotNull final Session session) throws Exception {
+    public void removeSession(@NotNull final Session session) throws Exception {
         validate(session);
-        return sessionService.remove(session);
+        sessionService.remove(session);
     }
 
     @Override

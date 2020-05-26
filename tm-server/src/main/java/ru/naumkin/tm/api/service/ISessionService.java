@@ -15,14 +15,11 @@ public interface ISessionService extends IService<Session> {
     @Nullable
     Session findOne(@NotNull final String id) throws Exception;
 
-    @Nullable
-    Session persist(@NotNull final Session session) throws Exception;
+    void persist(@NotNull final Session session) throws Exception;
 
-    @Nullable
-    Session merge(@NotNull final Session session) throws Exception;
+    void merge(@NotNull final Session session) throws Exception;
 
-    @Nullable
-    Session remove(@NotNull final Session session) throws Exception;
+    void remove(@NotNull final Session session) throws Exception;
 
     void removeAll() throws Exception;
 

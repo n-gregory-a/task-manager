@@ -14,7 +14,6 @@ import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.error.*;
 import ru.naumkin.tm.util.SignatureUtil;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
@@ -42,64 +41,46 @@ public class SessionService extends AbstractService<Session> implements ISession
         return sessionRepository.findOne(id);
     }
 
-    @Nullable
     @Override
-    public Session persist(@NotNull final Session session) throws Exception {
+    public void persist(@NotNull final Session session) throws Exception {
         @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
-        @Nullable Session toPersist = null;
         try {
-            toPersist = sessionRepository.persist(session);
+            sessionRepository.persist(session);
             sqlSession.commit();
         } catch (SQLException e) {
             sqlSession.rollback();
         } finally {
             sqlSession.close();
         }
-        if (toPersist == null) {
-            throw new SessionIsNullException();
-        }
-        return toPersist;
     }
 
-    @Nullable
     @Override
-    public Session merge(@NotNull final Session session) throws Exception {
+    public void merge(@NotNull final Session session) throws Exception {
         @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
-        @Nullable Session toMerge = null;
         try {
-            toMerge = sessionRepository.merge(session);
+            sessionRepository.merge(session);
             sqlSession.commit();
         } catch (SQLException e) {
             sqlSession.rollback();
         } finally {
             sqlSession.close();
         }
-        if (toMerge == null) {
-            throw new SessionIsNullException();
-        }
-        return toMerge;
     }
 
-    @Nullable
     @Override
-    public Session remove(@NotNull final Session session) throws Exception {
+    public void remove(@NotNull final Session session) throws Exception {
         @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
-        @Nullable Session toRemove = null;
         try {
-            toRemove = sessionRepository.remove(session);
+            sessionRepository.remove(session);
             sqlSession.commit();
         } catch (SQLException e) {
             sqlSession.rollback();
         } finally {
             sqlSession.close();
         }
-        if (toRemove == null) {
-            throw new SessionIsNullException();
-        }
-        return toRemove;
     }
 
     @Override
@@ -135,8 +116,7 @@ public class SessionService extends AbstractService<Session> implements ISession
         }
         session.setUserId(user.getId());
         sign(session);
-        @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
-        sessionRepository.persist(session);
+        persist(session);
         return session;
     }
 
