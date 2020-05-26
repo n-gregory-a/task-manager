@@ -1,9 +1,6 @@
 package ru.naumkin.tm.api.repository;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.entity.Project;
@@ -41,6 +38,9 @@ public interface IProjectRepository {
     @Delete("DELETE FROM `project` " +
             "WHERE `id` = #{id} " +
             "AND `user_id` = #{userId}")
+//    @Results(value = {
+//            @Result(property = "")
+//    })
     void remove(@NotNull final String userId, @NotNull final Project project) throws Exception;
 
     @Delete("DELETE FROM `project` " +
