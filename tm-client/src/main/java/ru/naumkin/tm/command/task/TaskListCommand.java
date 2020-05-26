@@ -1,12 +1,9 @@
 package ru.naumkin.tm.command.task;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.jetbrains.annotations.NotNull;
 import ru.naumkin.tm.api.endpoint.ITaskEndpoint;
 import ru.naumkin.tm.api.endpoint.Task;
 import ru.naumkin.tm.command.AbstractCommand;
-
-import java.sql.SQLException;
 
 public final class TaskListCommand extends AbstractCommand {
 
@@ -27,7 +24,7 @@ public final class TaskListCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws JsonProcessingException, SQLException {
+    public void execute() throws Exception {
         bootstrap.getTerminalService().showMessage("[TASK LIST]");
         @NotNull final ITaskEndpoint taskService = bootstrap.getTaskEndpoint();
         int index = 1;

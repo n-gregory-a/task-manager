@@ -3,8 +3,6 @@ package ru.naumkin.tm.command.user;
 import org.jetbrains.annotations.NotNull;
 import ru.naumkin.tm.command.AbstractCommand;
 
-import java.sql.SQLException;
-
 public final class UserLogOutCommand extends AbstractCommand {
 
     public UserLogOutCommand() {
@@ -24,7 +22,7 @@ public final class UserLogOutCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws SQLException {
+    public void execute() throws Exception {
         bootstrap.getTerminalService().showMessage("[USER CLOSE SESSION]");
         bootstrap.getSessionEndpoint().close(bootstrap.getCurrentSession());
         bootstrap.getTerminalService().showMessage("Session was closed.");

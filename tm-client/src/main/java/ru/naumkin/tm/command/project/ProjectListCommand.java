@@ -1,12 +1,9 @@
 package ru.naumkin.tm.command.project;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.jetbrains.annotations.NotNull;
 import ru.naumkin.tm.api.endpoint.IProjectEndpoint;
 import ru.naumkin.tm.api.endpoint.Project;
 import ru.naumkin.tm.command.AbstractCommand;
-
-import java.sql.SQLException;
 
 public final class ProjectListCommand extends AbstractCommand {
 
@@ -27,7 +24,7 @@ public final class ProjectListCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws JsonProcessingException, SQLException {
+    public void execute() throws Exception {
         bootstrap.getTerminalService().showMessage("[PROJECT LIST]");
         @NotNull final IProjectEndpoint projectEndpoint = bootstrap.getProjectEndpoint();
         int index = 1;

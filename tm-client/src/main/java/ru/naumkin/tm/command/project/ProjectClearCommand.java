@@ -4,8 +4,6 @@ import org.jetbrains.annotations.NotNull;
 import ru.naumkin.tm.api.endpoint.IProjectEndpoint;
 import ru.naumkin.tm.command.AbstractCommand;
 
-import java.sql.SQLException;
-
 public final class ProjectClearCommand extends AbstractCommand {
 
     public ProjectClearCommand() {
@@ -25,7 +23,7 @@ public final class ProjectClearCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws SQLException {
+    public void execute() throws Exception {
         bootstrap.getTerminalService().showMessage("[PROJECT CLEAR]");
         @NotNull final IProjectEndpoint projectEndpoint = bootstrap.getProjectEndpoint();
         projectEndpoint.removeAllProjectsByUserId(bootstrap.getCurrentSession());
