@@ -1,9 +1,6 @@
 package ru.naumkin.tm.api.repository;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.entity.Task;
@@ -19,13 +16,24 @@ public interface ITaskRepository {
     @NotNull
     @Select("SELECT * FROM `task` " +
             "WHERE `user_id` = #{userId}")
+    @Results(value = {
+            @Result(property = "dateStart", column = "date_start"),
+            @Result(property = "dateFinish", column = "date_finish"),
+            @Result(property = "userId", column = "user_id"),
+    })
     List<Task> findAllByUserId(@NotNull final String userId) throws Exception;
 
     @Nullable
     @Select("SELECT * FROM `task` " +
             "WHERE `name` = #{name} " +
             "AND `user_id` = #{userId}")
-    Task findOneByUserId(@NotNull final String userId, @NotNull final String name) throws Exception;
+    @Results(value = {
+            @Result(property = "dateStart", column = "date_start"),
+            @Result(property = "dateFinish", column = "date_finish"),
+            @Result(property = "userId", column = "user_id"),
+    })
+    Task findOneByUserId(@NotNull @Param("userId") final String userId,
+                         @NotNull @Param("name") final String name) throws Exception;
 
     @Insert("INSERT INTO `task` " +
             "(`id`, `name`, `description`, `date_start`, `date_finish`, `project_id`, `user_id`, `status`) " +
@@ -41,7 +49,8 @@ public interface ITaskRepository {
     @Delete("DELETE FROM `task` " +
             "WHERE `id` = #{id} " +
             "AND `user_id` = #{userId}")
-    void remove(@NotNull final String userId, @NotNull final Task task) throws Exception;
+    void remove(@NotNull @Param("userId") final String userId,
+                @NotNull @Param("id") final String id) throws Exception;
 
     @Delete("DELETE FROM `task` " +
             "WHERE `user_id` = #{userId}")

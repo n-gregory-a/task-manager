@@ -120,7 +120,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
         try {
-            taskRepository.remove(userId, task);
+            taskRepository.remove(userId, task.getId());
             sqlSession.commit();
         } catch (SQLException e) {
             sqlSession.rollback();
