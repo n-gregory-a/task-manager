@@ -1,15 +1,16 @@
 package ru.naumkin.tm.service;
 
 import lombok.NoArgsConstructor;
+import org.apache.ibatis.session.SqlSession;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.naumkin.tm.api.repository.ITaskRepository;
 import ru.naumkin.tm.api.service.IPropertyService;
 import ru.naumkin.tm.api.service.ITaskService;
 import ru.naumkin.tm.entity.Task;
 import ru.naumkin.tm.error.*;
-import ru.naumkin.tm.repository.TaskRepository;
 
-import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 @NoArgsConstructor
@@ -21,8 +22,9 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
 
     @Override
     public @NotNull List<Task> findAll() throws Exception {
-        @NotNull final Connection connection = getConnection();
-        return new TaskRepository(connection).findAll();
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
+        return taskRepository.findAll();
     }
 
     @NotNull
@@ -34,8 +36,9 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final Connection connection = getConnection();
-        return new TaskRepository(connection).findAll(userId);
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
+        return taskRepository.findAll(userId);
     }
 
     @NotNull
@@ -56,9 +59,10 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final Connection connection = getConnection();
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
         @Nullable final Task task =
-                new TaskRepository(connection).findOne(userId, name);
+                taskRepository.findOneByUserId(userId, name);
         if (task == null) {
             throw new NoTaskWithSuchNameException(name);
         }
@@ -71,8 +75,21 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (task == null) {
             throw new TaskIsNullException();
         }
-        @NotNull final Connection connection = getConnection();
-        return new TaskRepository(connection).persist(task);
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
+        @Nullable Task toPersist = null;
+        try {
+            toPersist = taskRepository.persist(task);
+            sqlSession.commit();
+        } catch (SQLException e) {
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        if (toPersist == null) {
+            throw new TaskIsNullException();
+        }
+        return toPersist;
     }
 
     @NotNull
@@ -81,8 +98,21 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (task == null) {
             throw new TaskIsNullException();
         }
-        @NotNull final Connection connection = getConnection();
-        return new TaskRepository(connection).merge(task);
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
+        @Nullable Task toMerge = null;
+        try {
+            toMerge = taskRepository.merge(task);
+            sqlSession.commit();
+        } catch (SQLException e) {
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        if (toMerge == null) {
+            throw new TaskIsNullException();
+        }
+        return toMerge;
     }
 
     @NotNull
@@ -100,9 +130,17 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final Connection connection = getConnection();
-        @Nullable final Task toRemove =
-                new TaskRepository(connection).remove(userId, task);
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
+        @Nullable Task toRemove = null;
+        try {
+            toRemove = taskRepository.remove(userId, task);
+            sqlSession.commit();
+        } catch (SQLException e) {
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
         if (toRemove == null) {
             throw new TaskIsNullException();
         }
@@ -117,8 +155,17 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final Connection connection = getConnection();
-        new TaskRepository(connection).removeAll(userId);
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
+        try {
+            taskRepository.removeAll(userId);
+            sqlSession.commit();
+        } catch (SQLException e) {
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+
     }
 
     @NotNull
@@ -130,8 +177,9 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final Connection connection = getConnection();
-        return new TaskRepository(connection).sortByDateStart(userId);
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
+        return taskRepository.sortByDateStart(userId);
     }
 
     @NotNull
@@ -143,8 +191,9 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final Connection connection = getConnection();
-        return new TaskRepository(connection).sortByDateFinish(userId);
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
+        return taskRepository.sortByDateFinish(userId);
     }
 
     @NotNull
@@ -156,8 +205,9 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final Connection connection = getConnection();
-        return new TaskRepository(connection).sortByStatus(userId);
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
+        return taskRepository.sortByStatus(userId);
     }
 
     @NotNull
@@ -178,8 +228,9 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final Connection connection = getConnection();
-        return new TaskRepository(connection).sortByName(userId, name);
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
+        return taskRepository.sortByName(userId, name);
     }
 
     @NotNull
@@ -200,8 +251,9 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final Connection connection = getConnection();
-        return new TaskRepository(connection).sortByDescription(userId, description);
+        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
+        return taskRepository.sortByDescription(userId, description);
     }
 
 }
