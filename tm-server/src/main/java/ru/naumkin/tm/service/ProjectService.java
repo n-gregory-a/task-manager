@@ -24,7 +24,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
 
     @Override
     public @NotNull List<Project> findAll() throws Exception {
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final IProjectRepository projectRepository =
                 sqlSession.getMapper(IProjectRepository.class);
         return projectRepository.findAll();
@@ -39,7 +39,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final IProjectRepository projectRepository =
                 sqlSession.getMapper(IProjectRepository.class);
         return projectRepository.findAllByUserId(userId);
@@ -63,7 +63,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final IProjectRepository projectRepository =
                 sqlSession.getMapper(IProjectRepository.class);
         @Nullable final Project project =
@@ -80,7 +80,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (project == null) {
             throw new ProjectIsNullException();
         }
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final IProjectRepository projectRepository =
                 sqlSession.getMapper(IProjectRepository.class);
         @Nullable Project toPersist = null;
@@ -104,7 +104,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (project == null) {
             throw new ProjectIsNullException();
         }
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final IProjectRepository projectRepository =
                 sqlSession.getMapper(IProjectRepository.class);
         @Nullable Project toMerge = null;
@@ -137,7 +137,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final IProjectRepository projectRepository =
                 sqlSession.getMapper(IProjectRepository.class);
         @Nullable Project toRemove = null;
@@ -163,7 +163,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final IProjectRepository projectRepository =
                 sqlSession.getMapper(IProjectRepository.class);
         try {
@@ -185,7 +185,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final IProjectRepository projectRepository =
                 sqlSession.getMapper(IProjectRepository.class);
         return projectRepository.sortByDateStart(userId);
@@ -200,7 +200,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final IProjectRepository projectRepository =
                 sqlSession.getMapper(IProjectRepository.class);
         return projectRepository.sortByDateFinish(userId);
@@ -215,7 +215,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final IProjectRepository projectRepository =
                 sqlSession.getMapper(IProjectRepository.class);
         return projectRepository.sortByStatus(userId);
@@ -239,7 +239,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final IProjectRepository projectRepository =
                 sqlSession.getMapper(IProjectRepository.class);
         return projectRepository.sortByName(userId, name);
@@ -262,7 +262,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final IProjectRepository projectRepository =
                 sqlSession.getMapper(IProjectRepository.class);
         return projectRepository.sortByDescription(userId, description);

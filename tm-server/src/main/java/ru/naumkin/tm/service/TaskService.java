@@ -22,7 +22,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
 
     @Override
     public @NotNull List<Task> findAll() throws Exception {
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
         return taskRepository.findAll();
     }
@@ -36,7 +36,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
         return taskRepository.findAll(userId);
     }
@@ -59,7 +59,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
         @Nullable final Task task =
                 taskRepository.findOneByUserId(userId, name);
@@ -75,7 +75,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (task == null) {
             throw new TaskIsNullException();
         }
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
         @Nullable Task toPersist = null;
         try {
@@ -98,7 +98,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (task == null) {
             throw new TaskIsNullException();
         }
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
         @Nullable Task toMerge = null;
         try {
@@ -130,7 +130,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
         @Nullable Task toRemove = null;
         try {
@@ -155,7 +155,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
         try {
             taskRepository.removeAll(userId);
@@ -176,7 +176,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
         return taskRepository.sortByDateStart(userId);
     }
@@ -190,7 +190,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
         return taskRepository.sortByDateFinish(userId);
     }
@@ -204,7 +204,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
         return taskRepository.sortByStatus(userId);
     }
@@ -227,7 +227,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
         return taskRepository.sortByName(userId, name);
     }
@@ -250,7 +250,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
         return taskRepository.sortByDescription(userId, description);
     }

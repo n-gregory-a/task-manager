@@ -36,7 +36,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
     @NotNull
     @Override
     public List<User> findAll() throws Exception {
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
         return userRepository.findAll();
     }
@@ -50,7 +50,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
         if (name.isEmpty()) {
             throw new NameIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
         @Nullable final User user = userRepository.findOne(name);
         if (user == null) {
@@ -68,7 +68,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
         if (id.isEmpty()) {
             throw new IdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
         @Nullable final User user = userRepository.findOneById(id);
         if (user == null) {
@@ -83,7 +83,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
         if (user == null) {
             throw new UserIsNullException();
         }
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
         @Nullable User toPersist = null;
         try {
@@ -106,7 +106,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
         if (user == null) {
             throw new UserIsNullException();
         }
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
         @Nullable User toMerge = null;
         try {
@@ -129,7 +129,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
         if (user == null) {
             throw new UserIsNullException();
         }
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
         @Nullable User toRemove = null;
         try {
@@ -148,7 +148,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
 
     @Override
     public void removeAll() throws Exception {
-        @NotNull final SqlSession sqlSession =getSqlSessionFactory().openSession();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
         try {
             userRepository.removeAll();
