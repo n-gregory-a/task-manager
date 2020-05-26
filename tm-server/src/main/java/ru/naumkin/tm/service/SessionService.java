@@ -74,7 +74,7 @@ public class SessionService extends AbstractService<Session> implements ISession
         @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
         try {
-            sessionRepository.remove(session);
+            sessionRepository.remove(session.getId());
             sqlSession.commit();
         } catch (SQLException e) {
             sqlSession.rollback();

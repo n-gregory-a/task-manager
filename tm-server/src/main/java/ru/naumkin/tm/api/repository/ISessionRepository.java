@@ -11,23 +11,22 @@ public interface ISessionRepository {
 
     @NotNull
     @Select("SELECT * FROM `session`")
+    @Results(value = {
+            @Result(property = "userId", column = "user_id"),
+    })
     List<Session> findAll() throws Exception;
 
     @Nullable
     @Select("SELECT * FROM `session` " +
             "WHERE `id` = #{id}")
-    Session findOne(@NotNull final String id) throws Exception;
+    @Results(value = {
+            @Result(property = "userId", column = "user_id"),
+    })
+    Session findOne(@NotNull @Param("id") final String id) throws Exception;
 
     @Insert("INSERT INTO `session` " +
             "(`id`, `name`, `timestamp`, `user_id`, `signature`) " +
             "VALUES (#{id}, #{name}, #{timestamp}, #{userId}, #{signature})")
-    @Results(value = {
-            @Result(property = "id", column = "id"),
-            @Result(property = "name", column = "name"),
-            @Result(property = "timestamp", column = "timestamp"),
-            @Result(property = "userId", column = "user_id"),
-            @Result(property = "signature", column = "signature")
-    })
     void persist(@NotNull final Session session) throws Exception;
 
     @Update("UPDATE `session` " +
@@ -38,7 +37,7 @@ public interface ISessionRepository {
 
     @Delete("DELETE FROM `session` " +
             "WHERE `id` = #{id}")
-    void remove(@NotNull final Session session) throws Exception;
+    void remove(@NotNull @Param("id") final String id) throws Exception;
 
     @Delete("DELETE * FROM `session`")
     void removeAll() throws Exception;
