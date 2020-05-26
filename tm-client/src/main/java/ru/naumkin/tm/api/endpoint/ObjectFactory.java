@@ -5,7 +5,6 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
 import javax.xml.namespace.QName;
-import java.sql.SQLException;
 
 
 /**
@@ -25,6 +24,7 @@ import java.sql.SQLException;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _Exception_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "Exception");
     private final static QName _Close_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "close");
     private final static QName _CloseAll_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "closeAll");
     private final static QName _CloseAllResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "closeAllResponse");
@@ -255,6 +255,19 @@ public class ObjectFactory {
      */
     public Session createSession() {
         return new Session();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Exception }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link Exception }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "Exception")
+    public JAXBElement<Exception> createException(Exception value) {
+        return new JAXBElement<Exception>(_Exception_QNAME, Exception.class, null, value);
     }
 
     /**

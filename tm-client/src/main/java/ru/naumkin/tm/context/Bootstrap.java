@@ -112,7 +112,7 @@ public final class Bootstrap {
         getTerminalService().showMessage("This command is not allowed.");
     }
 
-    public void retrieveDefaultUser() throws SQLException {
+    public void retrieveDefaultUser() throws Exception {
         @NotNull final User user = userEndpoint.findOneUser("user");
         @NotNull final Session session = sessionEndpoint.open(user.getName(), user.getPassword());
         setCurrentSession(session);
