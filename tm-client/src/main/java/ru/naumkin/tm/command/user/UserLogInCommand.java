@@ -39,7 +39,7 @@ public final class UserLogInCommand extends AbstractCommand {
                     .showMessage("Password is incorrect. Authorisation failed.");
             return;
         }
-        bootstrap.getSessionEndpoint().close(bootstrap.getCurrentSession());
+        bootstrap.getSessionEndpoint().removeSession(bootstrap.getCurrentSession());
         @NotNull final Session session =
                 bootstrap.getSessionEndpoint().open(user.getName(), user.getPassword());
         bootstrap.setCurrentSession(session);
