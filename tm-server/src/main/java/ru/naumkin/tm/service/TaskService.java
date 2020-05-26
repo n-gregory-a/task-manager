@@ -165,7 +165,6 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         } finally {
             sqlSession.close();
         }
-
     }
 
     @NotNull
