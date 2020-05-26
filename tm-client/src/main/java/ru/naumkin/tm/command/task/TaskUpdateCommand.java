@@ -67,7 +67,7 @@ public final class TaskUpdateCommand extends AbstractCommand {
                 .showMessage("Enter new status (\"planned\", \"in progress\", \"completed\"):");
         @NotNull final String status = bootstrap.getTerminalService().readLine();
         task.setStatus(Status.fromValue(status));
-            taskEndpoint.mergeTask(bootstrap.getCurrentSession(), task, name);
+            taskEndpoint.mergeTask(bootstrap.getCurrentSession(), task);
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 

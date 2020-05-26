@@ -66,7 +66,7 @@ public final class ProjectUpdateCommand extends AbstractCommand {
                 .showMessage("Enter new status (\"planned\", \"in progress\", \"completed\"):");
         @NotNull final String status = bootstrap.getTerminalService().readLine();
         project.setStatus(Status.fromValue(status));
-        projectService.mergeProject(bootstrap.getCurrentSession(), project, name);
+        projectService.mergeProject(bootstrap.getCurrentSession(), project);
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 
