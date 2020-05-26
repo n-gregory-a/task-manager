@@ -74,57 +74,44 @@ public final class ProjectService extends AbstractService<Project> implements IP
         return project;
     }
 
-    @NotNull
     @Override
-    public Project persist(@Nullable final Project project) throws Exception {
+    public void persist(@Nullable final Project project) throws Exception {
         if (project == null) {
             throw new ProjectIsNullException();
         }
         @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final IProjectRepository projectRepository =
                 sqlSession.getMapper(IProjectRepository.class);
-        @Nullable Project toPersist = null;
         try {
-            toPersist = projectRepository.persist(project);
+            projectRepository.persist(project);
             sqlSession.commit();
         } catch (SQLException e) {
             sqlSession.rollback();
         } finally {
             sqlSession.close();
         }
-        if (toPersist == null) {
-            throw new ProjectIsNullException();
-        }
-        return toPersist;
     }
 
-    @NotNull
     @Override
-    public Project merge(@Nullable final Project project) throws Exception {
+    public void merge(@Nullable final Project project) throws Exception {
         if (project == null) {
             throw new ProjectIsNullException();
         }
         @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final IProjectRepository projectRepository =
                 sqlSession.getMapper(IProjectRepository.class);
-        @Nullable Project toMerge = null;
         try {
-            toMerge = projectRepository.merge(project);
+            projectRepository.merge(project);
             sqlSession.commit();
         } catch (SQLException e) {
             sqlSession.rollback();
         } finally {
             sqlSession.close();
         }
-        if (toMerge == null) {
-            throw new ProjectIsNullException();
-        }
-        return toMerge;
     }
 
-    @NotNull
     @Override
-    public Project remove(
+    public void remove(
             @Nullable final String userId,
             @Nullable final Project project
     ) throws Exception {
@@ -140,19 +127,14 @@ public final class ProjectService extends AbstractService<Project> implements IP
         @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final IProjectRepository projectRepository =
                 sqlSession.getMapper(IProjectRepository.class);
-        @Nullable Project toRemove = null;
         try {
-            toRemove = projectRepository.remove(userId, project);
+            projectRepository.remove(userId, project);
             sqlSession.commit();
         } catch (SQLException e) {
             sqlSession.rollback();
         } finally {
             sqlSession.close();
         }
-        if (toRemove == null) {
-            throw new ProjectIsNullException();
-        }
-        return toRemove;
     }
 
     @Override

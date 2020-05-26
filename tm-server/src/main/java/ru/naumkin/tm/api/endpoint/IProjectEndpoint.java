@@ -1,7 +1,6 @@
 package ru.naumkin.tm.api.endpoint;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.entity.Project;
 import ru.naumkin.tm.entity.Session;
 
@@ -12,14 +11,12 @@ import java.util.List;
 @WebService
 public interface IProjectEndpoint {
 
-    @Nullable
     @WebMethod
-    Project persistProject(@NotNull final Session session,
+    void persistProject(@NotNull final Session session,
                            @NotNull final Project project) throws Exception;
 
-    @Nullable
     @WebMethod
-    Project mergeProject(@NotNull final Session session,
+    void mergeProject(@NotNull final Session session,
                          @NotNull final Project project,
                          @NotNull final String name) throws Exception;
 
@@ -32,9 +29,8 @@ public interface IProjectEndpoint {
     Project findOneProjectByUserId(@NotNull final Session session,
                                    @NotNull final String name) throws Exception;
 
-    @NotNull
     @WebMethod
-    Project removeProjectByUserId(@NotNull final Session session,
+    void removeProjectByUserId(@NotNull final Session session,
                                   @NotNull final Project project) throws Exception;
 
     @WebMethod

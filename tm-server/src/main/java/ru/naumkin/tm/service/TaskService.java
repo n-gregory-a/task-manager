@@ -69,55 +69,42 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         return task;
     }
 
-    @NotNull
     @Override
-    public Task persist(@Nullable final Task task) throws Exception {
+    public void persist(@Nullable final Task task) throws Exception {
         if (task == null) {
             throw new TaskIsNullException();
         }
         @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
-        @Nullable Task toPersist = null;
         try {
-            toPersist = taskRepository.persist(task);
+            taskRepository.persist(task);
             sqlSession.commit();
         } catch (SQLException e) {
             sqlSession.rollback();
         } finally {
             sqlSession.close();
         }
-        if (toPersist == null) {
-            throw new TaskIsNullException();
-        }
-        return toPersist;
     }
 
-    @NotNull
     @Override
-    public Task merge(@Nullable final Task task) throws Exception {
+    public void merge(@Nullable final Task task) throws Exception {
         if (task == null) {
             throw new TaskIsNullException();
         }
         @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
-        @Nullable Task toMerge = null;
         try {
-            toMerge = taskRepository.merge(task);
+            taskRepository.merge(task);
             sqlSession.commit();
         } catch (SQLException e) {
             sqlSession.rollback();
         } finally {
             sqlSession.close();
         }
-        if (toMerge == null) {
-            throw new TaskIsNullException();
-        }
-        return toMerge;
     }
 
-    @NotNull
     @Override
-    public Task remove(
+    public void remove(
             @Nullable final String userId,
             @Nullable final Task task
     ) throws Exception {
@@ -132,19 +119,14 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         }
         @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
-        @Nullable Task toRemove = null;
         try {
-            toRemove = taskRepository.remove(userId, task);
+            taskRepository.remove(userId, task);
             sqlSession.commit();
         } catch (SQLException e) {
             sqlSession.rollback();
         } finally {
             sqlSession.close();
         }
-        if (toRemove == null) {
-            throw new TaskIsNullException();
-        }
-        return toRemove;
     }
 
     @Override

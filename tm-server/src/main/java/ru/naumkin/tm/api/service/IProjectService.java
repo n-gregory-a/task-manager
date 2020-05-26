@@ -18,14 +18,11 @@ public interface IProjectService extends IService<Project> {
     @NotNull
     Project findOne(@Nullable final String userId, @Nullable final String name) throws Exception;
 
-    @Nullable
-    Project persist(@NotNull final Project project) throws Exception;
+    void persist(@NotNull final Project project) throws Exception;
 
-    @Nullable
-    Project merge(@NotNull final Project project) throws Exception;
+    void merge(@NotNull final Project project) throws Exception;
 
-    @NotNull
-    Project remove(@NotNull final String userId, @NotNull final Project project) throws Exception;
+    void remove(@NotNull final String userId, @NotNull final Project project) throws Exception;
 
     void removeAll(@Nullable final String userId) throws Exception;
 

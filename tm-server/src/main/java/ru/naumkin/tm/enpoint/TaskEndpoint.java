@@ -26,27 +26,25 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
         this.taskService = taskService;
     }
 
-    @Nullable
     @Override
     @WebMethod
-    public Task persistTask(
+    public void persistTask(
             @NotNull final Session session,
             @NotNull final Task task
     ) throws Exception {
         validate(session);
-        return taskService.persist(task);
+        taskService.persist(task);
     }
 
-    @Nullable
     @Override
     @WebMethod
-    public Task mergeTask(
+    public void mergeTask(
             @NotNull final Session session,
             @NotNull final Task task,
             @NotNull final String name
     ) throws Exception {
         validate(session);
-        return taskService.merge(task);
+        taskService.merge(task);
     }
 
     @NotNull
@@ -68,15 +66,14 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
         return taskService.findOne(session.getUserId(), name);
     }
 
-    @NotNull
     @Override
     @WebMethod
-    public Task removeTaskByUserId(
+    public void removeTaskByUserId(
             @NotNull final Session session,
             @NotNull final Task task
     ) throws Exception {
         validate(session);
-        return taskService.remove(session.getUserId(), task);
+        taskService.remove(session.getUserId(), task);
     }
 
     @Override

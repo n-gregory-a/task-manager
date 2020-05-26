@@ -27,24 +27,21 @@ public interface IProjectRepository {
             "AND `user_id` = #{userId}")
     Project findOne(@NotNull final String userId, @NotNull final String name) throws Exception;
 
-    @Nullable
     @Insert("INSERT INTO `project` " +
             "(`id`, `name`, `description`, `date_start`, `date_finish`, `user_id`, `status`) " +
             "VALUES (#{id}, #{name}, #{description}, #{dateStart}, #{dateFinish}, #{userId}, #{status})")
-    Project persist(@NotNull final Project project) throws Exception;
+    void persist(@NotNull final Project project) throws Exception;
 
-    @Nullable
     @Update("UPDATE `project` " +
             "SET `name` = #{name}, `description` = #{description}, `date_start` = #{dateStart}," +
             "`date_finish` = #{dateFinish}, `user_id` = #{userId}, `status` = #{status}" +
             "WHERE `id` = #{id}")
-    Project merge(@NotNull final Project project) throws Exception;
+    void merge(@NotNull final Project project) throws Exception;
 
-    @Nullable
     @Delete("DELETE FROM `project` " +
             "WHERE `id` = #{id} " +
             "AND `user_id` = #{userId}")
-    Project remove(@NotNull final String userId, @NotNull final Project project) throws Exception;
+    void remove(@NotNull final String userId, @NotNull final Project project) throws Exception;
 
     @Delete("DELETE FROM `project` " +
             "WHERE `user_id` = #{userId}")

@@ -26,23 +26,20 @@ public interface IUserRepository {
             "WHERE `id` = #{id}")
     User findOneById(@NotNull final String id) throws Exception;
 
-    @Nullable
     @Insert("INSERT INTO `app_user` " +
             "(`id`, `name`, `password_hash`, `role`) " +
             "VALUES (#{id}, #{name}, #{password}, #{role})")
-    User persist(@NotNull final User user) throws Exception;
+    void persist(@NotNull final User user) throws Exception;
 
-    @Nullable
     @Update("UPDATE `app_user` " +
             "SET `name` = #{name}, " +
             "`password_hash` = #{password}, `role` = #{role}" +
             "WHERE `id` = #{id}")
-    User merge(@NotNull final User user) throws Exception;
+    void merge(@NotNull final User user) throws Exception;
 
-    @Nullable
     @Delete("DELETE FROM `app_user` " +
             "WHERE `id` = #{id}")
-    User remove(@NotNull final User user) throws Exception;
+    void remove(@NotNull final User user) throws Exception;
 
     @Delete("DELETE * FROM `app_user`")
     void removeAll() throws Exception;

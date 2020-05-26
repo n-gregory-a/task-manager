@@ -27,25 +27,23 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
         this.projectService = projectService;
     }
 
-    @Nullable
     @Override
     @WebMethod
-    public Project persistProject(@NotNull final Session session,
+    public void persistProject(@NotNull final Session session,
                                   @NotNull final Project project) throws Exception {
         validate(session);
-        return projectService.persist(project);
+        projectService.persist(project);
     }
 
-    @Nullable
     @Override
     @WebMethod
-    public Project mergeProject(
+    public void mergeProject(
             @NotNull final Session session,
             @NotNull final Project project,
             @NotNull final String name
     ) throws Exception {
         validate(session);
-        return projectService.merge(project);
+        projectService.merge(project);
     }
 
     @NotNull
@@ -69,15 +67,14 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
         return projectService.findOne(session.getUserId(), name);
     }
 
-    @NotNull
     @Override
     @WebMethod
-    public Project removeProjectByUserId(
+    public void removeProjectByUserId(
             @NotNull final Session session,
             @NotNull final Project project
     ) throws Exception {
         validate(session);
-        return projectService.remove(session.getUserId(), project);
+        projectService.remove(session.getUserId(), project);
     }
 
     @Override

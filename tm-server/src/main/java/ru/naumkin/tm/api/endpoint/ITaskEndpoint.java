@@ -12,13 +12,11 @@ import java.util.List;
 @WebService
 public interface ITaskEndpoint {
 
-    @Nullable
     @WebMethod
-    Task persistTask(@NotNull final Session session, @NotNull final Task task) throws Exception;
+    void persistTask(@NotNull final Session session, @NotNull final Task task) throws Exception;
 
-    @Nullable
     @WebMethod
-    Task mergeTask(
+    void mergeTask(
             @NotNull final Session session,
             @NotNull final Task task,
             @NotNull final String name) throws Exception;
@@ -34,9 +32,8 @@ public interface ITaskEndpoint {
             @NotNull final Session session,
             @NotNull final String name) throws Exception;
 
-    @NotNull
     @WebMethod
-    Task removeTaskByUserId(
+    void removeTaskByUserId(
             @NotNull final Session session,
             @NotNull final Task task) throws Exception;
 

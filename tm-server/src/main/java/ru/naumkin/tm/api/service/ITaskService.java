@@ -17,14 +17,11 @@ public interface ITaskService {
     @NotNull
     Task findOne(@Nullable final String userId, @Nullable final String name) throws Exception;
 
-    @Nullable
-    Task persist(@NotNull final Task task) throws Exception;
+    void persist(@NotNull final Task task) throws Exception;
 
-    @Nullable
-    Task merge(@NotNull final Task task) throws Exception;
+    void merge(@NotNull final Task task) throws Exception;
 
-    @NotNull
-    Task remove(@Nullable final String userId, @Nullable final Task task) throws Exception;
+    void remove(@Nullable final String userId, @Nullable final Task task) throws Exception;
 
     void removeAll(@Nullable final String userId) throws Exception;
 

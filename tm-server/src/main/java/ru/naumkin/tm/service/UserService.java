@@ -77,73 +77,55 @@ public final class UserService extends AbstractService<User> implements IUserSer
         return user;
     }
 
-    @NotNull
     @Override
-    public User persist(@Nullable final User user) throws Exception {
+    public void persist(@Nullable final User user) throws Exception {
         if (user == null) {
             throw new UserIsNullException();
         }
         @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
-        @Nullable User toPersist = null;
         try {
-            toPersist = userRepository.persist(user);
+            userRepository.persist(user);
             sqlSession.commit();
         } catch (SQLException e) {
             sqlSession.rollback();
         } finally {
             sqlSession.close();
         }
-        if (toPersist == null) {
-            throw new UserIsNullException();
-        }
-        return toPersist;
     }
 
-    @NotNull
     @Override
-    public User merge(@Nullable final User user) throws Exception {
+    public void merge(@Nullable final User user) throws Exception {
         if (user == null) {
             throw new UserIsNullException();
         }
         @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
-        @Nullable User toMerge = null;
         try {
-            toMerge = userRepository.merge(user);
+            userRepository.merge(user);
             sqlSession.commit();
         } catch (SQLException e) {
             sqlSession.rollback();
         } finally {
             sqlSession.close();
         }
-        if (toMerge == null) {
-            throw new UserIsNullException();
-        }
-        return toMerge;
     }
 
-    @NotNull
     @Override
-    public User remove(@Nullable final User user) throws Exception {
+    public void remove(@Nullable final User user) throws Exception {
         if (user == null) {
             throw new UserIsNullException();
         }
         @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
-        @Nullable User toRemove = null;
         try {
-            toRemove = userRepository.remove(user);
+            userRepository.remove(user);
             sqlSession.commit();
         } catch (SQLException e) {
             sqlSession.rollback();
         } finally {
             sqlSession.close();
         }
-        if (toRemove == null) {
-            throw new UserIsNullException();
-        }
-        return toRemove;
     }
 
     @Override

@@ -27,24 +27,21 @@ public interface ITaskRepository {
             "AND `user_id` = #{userId}")
     Task findOneByUserId(@NotNull final String userId, @NotNull final String name) throws Exception;
 
-    @Nullable
     @Insert("INSERT INTO `task` " +
             "(`id`, `name`, `description`, `date_start`, `date_finish`, `project_id`, `user_id`, `status`) " +
             "VALUES (#{id}, #{name}, #{description}, #{dateStart}, #{dateFinish}, #{projectId}, #{userId}, #{status})")
-    Task persist(@NotNull final Task task) throws Exception;
+    void persist(@NotNull final Task task) throws Exception;
 
-    @Nullable
     @Update("UPDATE `task` " +
             "SET `name` = #{name}, `description` = #{description}, `date_start` = #{dateStart}," +
             "`date_finish` = #{dateFinish}, `project_id` = #{projectId}, `user_id` = #{userId}, `status` = #{status}" +
             "WHERE `id` = #{id}")
-    Task merge(@NotNull final Task task) throws Exception;
+    void merge(@NotNull final Task task) throws Exception;
 
-    @Nullable
     @Delete("DELETE FROM `task` " +
             "WHERE `id` = #{id} " +
             "AND `user_id` = #{userId}")
-    Task remove(@NotNull final String userId, @NotNull final Task task) throws Exception;
+    void remove(@NotNull final String userId, @NotNull final Task task) throws Exception;
 
     @Delete("DELETE FROM `task` " +
             "WHERE `user_id` = #{userId}")

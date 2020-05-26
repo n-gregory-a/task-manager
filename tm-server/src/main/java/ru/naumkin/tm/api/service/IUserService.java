@@ -19,14 +19,11 @@ public interface IUserService extends IService<User> {
     @Nullable
     User findOneById(@NotNull final String id) throws Exception;
 
-    @Nullable
-    User persist(@NotNull final User user) throws Exception;
+    void persist(@NotNull final User user) throws Exception;
 
-    @Nullable
-    User merge(@NotNull final User user) throws Exception;
+    void merge(@NotNull final User user) throws Exception;
 
-    @Nullable
-    User remove(@NotNull final User user) throws Exception;
+    void remove(@NotNull final User user) throws Exception;
 
     void removeAll() throws Exception;
 

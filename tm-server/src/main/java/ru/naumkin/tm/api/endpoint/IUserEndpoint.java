@@ -20,20 +20,17 @@ public interface IUserEndpoint {
     @WebMethod
     User findOneUser(@NotNull final String name) throws Exception;
 
-    @Nullable
     @WebMethod
-    User persistUser(@NotNull final User user) throws Exception;
+    void persistUser(@NotNull final User user) throws Exception;
 
-    @Nullable
     @WebMethod
-    User mergeUser(
+    void mergeUser(
             @NotNull final Session session,
             @NotNull final User user,
             @NotNull final String name) throws Exception;
 
-    @Nullable
     @WebMethod
-    User removeUser(@NotNull final Session session, @NotNull final User user) throws Exception;
+    void removeUser(@NotNull final Session session, @NotNull final User user) throws Exception;
 
     @WebMethod
     void removeAllUser(@NotNull final Session session) throws Exception;

@@ -43,36 +43,33 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
         return userService.findOne(name);
     }
 
-    @Nullable
     @Override
     @WebMethod
-    public User persistUser(
+    public void persistUser(
             @NotNull final User user
     ) throws Exception {
-        return userService.persist(user);
+        userService.persist(user);
     }
 
-    @Nullable
     @Override
     @WebMethod
-    public User mergeUser(
+    public void mergeUser(
             @NotNull final Session session,
             @NotNull final User user,
             @Nullable final String name
     ) throws Exception {
         validate(session);
-        return userService.merge(user);
+        userService.merge(user);
     }
 
-    @Nullable
     @Override
     @WebMethod
-    public User removeUser(
+    public void removeUser(
             @NotNull final Session session,
             @NotNull final User user
     ) throws Exception {
         validate(session);
-        return userService.remove(user);
+        userService.remove(user);
     }
 
     @Override
@@ -91,6 +88,5 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
         validate(session);
         return userService.isRoleAdmin(id);
     }
-
 
 }
