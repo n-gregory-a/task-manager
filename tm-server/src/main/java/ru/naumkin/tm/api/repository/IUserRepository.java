@@ -1,9 +1,6 @@
 package ru.naumkin.tm.api.repository;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.entity.User;
@@ -14,16 +11,25 @@ public interface IUserRepository {
 
     @NotNull
     @Select("SELECT * FROM `app_user`")
+    @Results(value = {
+            @Result(property = "password", column = "password_hash"),
+    })
     List<User> findAll() throws Exception;
 
     @Nullable
     @Select("SELECT * FROM `app_user` " +
             "WHERE `name` = #{name}")
+    @Results(value = {
+            @Result(property = "password", column = "password_hash"),
+    })
     User findOne(@NotNull final String name) throws Exception;
 
     @Nullable
     @Select("SELECT * FROM `app_user` " +
             "WHERE `id` = #{id}")
+    @Results(value = {
+            @Result(property = "password", column = "password_hash"),
+    })
     User findOneById(@NotNull final String id) throws Exception;
 
     @Insert("INSERT INTO `app_user` " +
