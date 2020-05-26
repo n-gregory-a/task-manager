@@ -60,30 +60,55 @@ public interface ITaskRepository {
     @Select("SELECT * FROM `task` " +
             "WHERE `user_id` = #{userId} " +
             "ORDER BY `date_start`")
+    @Results(value = {
+            @Result(property = "dateStart", column = "date_start"),
+            @Result(property = "dateFinish", column = "date_finish"),
+            @Result(property = "userId", column = "user_id"),
+    })
     List<Task> sortByDateStart(@NotNull final String userId) throws Exception;
 
     @NotNull
     @Select("SELECT * FROM `task` " +
             "WHERE `user_id` = #{userId} " +
             "ORDER BY `date_finish`")
+    @Results(value = {
+            @Result(property = "dateStart", column = "date_start"),
+            @Result(property = "dateFinish", column = "date_finish"),
+            @Result(property = "userId", column = "user_id"),
+    })
     List<Task> sortByDateFinish(@NotNull final String userId) throws Exception;
 
     @NotNull
     @Select("SELECT * FROM `task` " +
             "WHERE `user_id` = #{userId} " +
             "ORDER `status`")
+    @Results(value = {
+            @Result(property = "dateStart", column = "date_start"),
+            @Result(property = "dateFinish", column = "date_finish"),
+            @Result(property = "userId", column = "user_id"),
+    })
     List<Task> sortByStatus(@NotNull final String userId) throws Exception;
 
     @NotNull
     @Select("SELECT * FROM `task` " +
             "WHERE `user_id` = #{userId} " +
             "AND `name` LIKE `%#{name}%`")
+    @Results(value = {
+            @Result(property = "dateStart", column = "date_start"),
+            @Result(property = "dateFinish", column = "date_finish"),
+            @Result(property = "userId", column = "user_id"),
+    })
     List<Task> sortByName(@NotNull final String userId, @NotNull final String name) throws Exception;
 
     @NotNull
     @Select("SELECT * FROM `task` " +
             "WHERE `user_id` = #{userId} " +
             "AND `description` LIKE `%#{description}%`")
+    @Results(value = {
+            @Result(property = "dateStart", column = "date_start"),
+            @Result(property = "dateFinish", column = "date_finish"),
+            @Result(property = "userId", column = "user_id"),
+    })
     List<Task> sortByDescription(@NotNull final String userId, @NotNull final String description) throws Exception;
 
 }
