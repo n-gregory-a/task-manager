@@ -19,7 +19,7 @@ public interface ITaskRepository {
     @NotNull
     @Select("SELECT * FROM `task` " +
             "WHERE `user_id` = #{userId}")
-    List<Task> findAll(@NotNull final String userId) throws Exception;
+    List<Task> findAllByUserId(@NotNull final String userId) throws Exception;
 
     @Nullable
     @Select("SELECT * FROM `task` " +

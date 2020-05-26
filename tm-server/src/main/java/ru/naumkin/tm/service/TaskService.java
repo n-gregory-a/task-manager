@@ -38,7 +38,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         }
         @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
-        return taskRepository.findAll(userId);
+        return taskRepository.findAllByUserId(userId);
     }
 
     @NotNull
