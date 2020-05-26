@@ -1,19 +1,21 @@
 package ru.naumkin.tm.service;
 
 import lombok.NoArgsConstructor;
+import org.apache.ibatis.session.SqlSession;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.naumkin.tm.api.repository.ISessionRepository;
+import ru.naumkin.tm.api.repository.IUserRepository;
 import ru.naumkin.tm.api.service.IPropertyService;
 import ru.naumkin.tm.api.service.ISessionService;
 import ru.naumkin.tm.constant.ValidationConstant;
 import ru.naumkin.tm.entity.Session;
 import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.error.*;
-import ru.naumkin.tm.repository.SessionRepository;
-import ru.naumkin.tm.repository.UserRepository;
 import ru.naumkin.tm.util.SignatureUtil;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -27,42 +29,92 @@ public class SessionService extends AbstractService<Session> implements ISession
     @NotNull
     @Override
     public List<Session> findAll() throws Exception {
-        @NotNull final Connection connection = getConnection();
-        return new SessionRepository(connection).findAll();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
+        @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
+        return sessionRepository.findAll();
     }
 
     @Nullable
     @Override
     public Session findOne(@NotNull final String id) throws Exception {
-        @NotNull final Connection connection = getConnection();
-        return new SessionRepository(connection).findOne(id);
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
+        @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
+        return sessionRepository.findOne(id);
     }
 
     @Nullable
     @Override
     public Session persist(@NotNull final Session session) throws Exception {
-        @NotNull final Connection connection = getConnection();
-        return new SessionRepository(connection).persist(session);
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
+        @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
+        @Nullable Session toPersist = null;
+        try {
+            toPersist = sessionRepository.persist(session);
+            sqlSession.commit();
+        } catch (SQLException e) {
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        if (toPersist == null) {
+            throw new SessionIsNullException();
+        }
+        return toPersist;
     }
 
     @Nullable
     @Override
     public Session merge(@NotNull final Session session) throws Exception {
-        @NotNull final Connection connection = getConnection();
-        return new SessionRepository(connection).merge(session);
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
+        @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
+        @Nullable Session toMerge = null;
+        try {
+            toMerge = sessionRepository.merge(session);
+            sqlSession.commit();
+        } catch (SQLException e) {
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        if (toMerge == null) {
+            throw new SessionIsNullException();
+        }
+        return toMerge;
     }
 
     @Nullable
     @Override
     public Session remove(@NotNull final Session session) throws Exception {
-        @NotNull final Connection connection = getConnection();
-        return new SessionRepository(connection).remove(session);
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
+        @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
+        @Nullable Session toRemove = null;
+        try {
+            toRemove = sessionRepository.remove(session);
+            sqlSession.commit();
+        } catch (SQLException e) {
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        if (toRemove == null) {
+            throw new SessionIsNullException();
+        }
+        return toRemove;
     }
 
     @Override
     public void removeAll() throws Exception {
-        @NotNull final Connection connection = getConnection();
-        new SessionRepository(connection).removeAll();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
+        @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
+        try {
+            sessionRepository.removeAll();
+            sqlSession.commit();
+        } catch (SQLException e) {
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+
     }
 
     @NotNull
@@ -71,8 +123,9 @@ public class SessionService extends AbstractService<Session> implements ISession
         @NotNull Session session = new Session();
         session.setName("Session" + System.currentTimeMillis());
         session.setTimestamp(System.currentTimeMillis());
-        @NotNull final Connection userFindConnection = getConnection();
-        @Nullable final User user = new UserRepository(userFindConnection).findOne(login);
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
+        @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
+        @Nullable final User user = userRepository.findOne(login);
         if (user == null) {
             throw new UserIsNullException();
         }
@@ -82,36 +135,40 @@ public class SessionService extends AbstractService<Session> implements ISession
         }
         session.setUserId(user.getId());
         sign(session);
-        @NotNull final Connection sessionPersistConnection = getConnection();
-        new SessionRepository(sessionPersistConnection).persist(session);
+        @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
+        sessionRepository.persist(session);
         return session;
     }
 
     @Override
     public void close(@NotNull final Session session) throws Exception {
-        @NotNull final Connection connection = getConnection();
-        new SessionRepository(connection).remove(session);
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
+        @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
+        sessionRepository.remove(session);
     }
 
     @Override
     public void closeAll(@NotNull final Session session) throws Exception {
-        @NotNull final Connection connection = getConnection();
-        new SessionRepository(connection).removeAll();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
+        @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
+        sessionRepository.removeAll();
     }
 
     @NotNull
     @Override
     public List<Session> getListSession(@NotNull final Session session) throws Exception {
-        @NotNull final Connection connection = getConnection();
-        return new SessionRepository(connection).findAll();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
+        @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
+        return sessionRepository.findAll();
     }
 
     @Nullable
     @Override
     public User getUser(@NotNull final Session session) throws Exception {
         @NotNull final String userId = session.getUserId();
-        @NotNull final Connection connection = getConnection();
-        return new UserRepository(connection).findOneById(userId);
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
+        @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
+        return userRepository.findOneById(userId);
     }
 
     @Override
@@ -136,9 +193,10 @@ public class SessionService extends AbstractService<Session> implements ISession
         if (!signatureEquals) {
             throw new SessionValidationException();
         }
-        @NotNull final Connection connection = getConnection();
+        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
+        @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
         final boolean sessionNotExists =
-                new SessionRepository(connection).findOne(session.getId()) == null;
+                sessionRepository.findOne(session.getId()) == null;
         if (sessionNotExists) {
             throw new SessionIsNullException();
         }
