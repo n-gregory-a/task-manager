@@ -25,13 +25,6 @@ public interface ISessionService extends IService<Session> {
 
     Session open(@NotNull final String login, @NotNull final String password) throws Exception;
 
-    void close(@NotNull final Session session) throws Exception;
-
-    void closeAll(@NotNull final Session session) throws Exception;
-
-    @NotNull
-    List<Session> getListSession(@NotNull final Session session) throws Exception;
-
     @Nullable
     User getUser(@NotNull final Session session) throws Exception;
 

@@ -37,16 +37,6 @@ public interface ISessionEndpoint {
             @NotNull final String password) throws Exception;
 
     @WebMethod
-    void close(@NotNull final Session session) throws Exception;
-
-    @WebMethod
-    void closeAll(@NotNull final Session session) throws Exception;
-
-    @NotNull
-    @WebMethod
-    List<Session> getListSession(@NotNull final Session session) throws Exception;
-
-    @WebMethod
     void validate(@NotNull final Session session) throws Exception;
 
     @NotNull

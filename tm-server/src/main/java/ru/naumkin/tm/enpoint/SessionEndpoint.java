@@ -80,25 +80,6 @@ public class SessionEndpoint implements ISessionEndpoint {
 
     @Override
     @WebMethod
-    public void close(@NotNull final Session session) throws Exception {
-        sessionService.close(session);
-    }
-
-    @Override
-    @WebMethod
-    public void closeAll(@NotNull final Session session) throws Exception {
-        sessionService.closeAll(session);
-    }
-
-    @NotNull
-    @Override
-    @WebMethod
-    public List<Session> getListSession(@NotNull final Session session) throws Exception {
-        return sessionService.getListSession(session);
-    }
-
-    @Override
-    @WebMethod
     public void validate(@NotNull final Session session) throws Exception {
         sessionService.validate(session);
     }

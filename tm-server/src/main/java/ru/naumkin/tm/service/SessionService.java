@@ -120,28 +120,6 @@ public class SessionService extends AbstractService<Session> implements ISession
         return session;
     }
 
-    @Override
-    public void close(@NotNull final Session session) throws Exception {
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
-        sessionRepository.remove(session);
-    }
-
-    @Override
-    public void closeAll(@NotNull final Session session) throws Exception {
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
-        sessionRepository.removeAll();
-    }
-
-    @NotNull
-    @Override
-    public List<Session> getListSession(@NotNull final Session session) throws Exception {
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
-        return sessionRepository.findAll();
-    }
-
     @Nullable
     @Override
     public User getUser(@NotNull final Session session) throws Exception {
