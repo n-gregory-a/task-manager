@@ -26,7 +26,7 @@ public final class TaskClearCommand extends AbstractCommand {
     public void execute() throws Exception {
         bootstrap.getTerminalService().showMessage("[TASK LIST CLEAR]");
         @NotNull final ITaskEndpoint taskEndpoint = bootstrap.getTaskEndpoint();
-        taskEndpoint.removeAllTasksByUserId(bootstrap.getCurrentSession());
+        taskEndpoint.removeAllTasksByUserId(bootstrap.getCurrentSessionToken());
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 

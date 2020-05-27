@@ -26,7 +26,7 @@ public class DataXmlJBSaveCommand extends AbstractCommand {
     public void execute() throws Exception {
         bootstrap.getTerminalService().showMessage("[SAVE DATA TO XML FILE BY JAXB]");
         @NotNull final IDomainEndpoint domainEndpoint = bootstrap.getDomainEndpoint();
-        domainEndpoint.saveXmlDataJaxb(bootstrap.getCurrentSession());
+        domainEndpoint.saveXmlDataJaxb(bootstrap.getCurrentSessionToken());
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 

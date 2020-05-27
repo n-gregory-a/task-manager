@@ -29,6 +29,7 @@ public final class UserLogInCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("[USER AUTHORISATION]");
         bootstrap.getTerminalService().showMessage("Enter login:");
         @NotNull final String userName = bootstrap.getTerminalService().readLine();
+        @NotNull final String sessionToken = bootstrap.getCurrentSessionToken();
         @NotNull final User user =
                 bootstrap.getUserEndpoint().findOneUser(userName);
         bootstrap.getTerminalService().showMessage("Enter password:");
@@ -39,10 +40,10 @@ public final class UserLogInCommand extends AbstractCommand {
                     .showMessage("Password is incorrect. Authorisation failed.");
             return;
         }
-        bootstrap.getSessionEndpoint().removeSession(bootstrap.getCurrentSession());
-        @NotNull final Session session =
+        bootstrap.getSessionEndpoint().removeSession(sessionToken);
+        @NotNull final String newSessionToken =
                 bootstrap.getSessionEndpoint().open(user.getName(), user.getPassword());
-        bootstrap.setCurrentSession(session);
+        bootstrap.setCurrentSessionToken(newSessionToken);
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 

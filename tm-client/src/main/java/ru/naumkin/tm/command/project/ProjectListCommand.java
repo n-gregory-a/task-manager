@@ -29,7 +29,7 @@ public final class ProjectListCommand extends AbstractCommand {
         @NotNull final IProjectEndpoint projectEndpoint = bootstrap.getProjectEndpoint();
         int index = 1;
         for (@NotNull final Project project:
-                projectEndpoint.findAllProjectsByUserId(bootstrap.getCurrentSession())
+                projectEndpoint.findAllProjectsByUserId(bootstrap.getCurrentSessionToken())
         ) {
             bootstrap.getTerminalService().showMessage(index++ + ". ");
             bootstrap.getTerminalService().printEntity(project);

@@ -32,8 +32,7 @@ public final class TaskCreateCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         bootstrap.getTerminalService().showMessage("[TASK CREATE]");
-        @Nullable final Session session =
-                bootstrap.getCurrentSession();
+        @NotNull final String sessionToken = bootstrap.getCurrentSessionToken();
         @NotNull final ITaskEndpoint taskEndpoint = bootstrap.getTaskEndpoint();
         @NotNull Task task = new Task();
         bootstrap.getTerminalService().showMessage("Enter name:");
@@ -49,8 +48,8 @@ public final class TaskCreateCommand extends AbstractCommand {
         @NotNull final String finishDate = bootstrap.getTerminalService().readLine();
         date = DateFormatter.convertStringToDate(finishDate);
         task.setDateFinish(DateFormatter.convertToXmlGregorianCalendar(date));
-        task.setUserId(session.getUserId());
-        taskEndpoint.persistTask(session, task);
+        task.setUserId(bootstrap.getSessionEndpoint().getUserId(sessionToken));
+        taskEndpoint.persistTask(sessionToken, task);
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 

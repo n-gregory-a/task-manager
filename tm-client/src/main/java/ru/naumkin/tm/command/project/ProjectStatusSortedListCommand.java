@@ -31,7 +31,7 @@ public class ProjectStatusSortedListCommand extends AbstractCommand {
         @NotNull final IProjectEndpoint projectService = bootstrap.getProjectEndpoint();
         int index = 1;
         for (@NotNull final Project project:
-                projectService.sortProjectsByStatus(bootstrap.getCurrentSession())
+                projectService.sortProjectsByStatus(bootstrap.getCurrentSessionToken())
         ) {
             bootstrap.getTerminalService().showMessage(index++ + ". " + project.toString());
         }

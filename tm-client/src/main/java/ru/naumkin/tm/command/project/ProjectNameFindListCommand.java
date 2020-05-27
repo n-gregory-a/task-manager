@@ -30,7 +30,7 @@ public class ProjectNameFindListCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("Enter part of name:");
         @NotNull final String name = bootstrap.getTerminalService().readLine();
         for (@NotNull final Project project:
-                projectEndpoint.sortProjectsByName(bootstrap.getCurrentSession(), name)
+                projectEndpoint.sortProjectsByName(bootstrap.getCurrentSessionToken(), name)
         ) {
             bootstrap.getTerminalService().showMessage(index++ + ". ");
             bootstrap.getTerminalService().printEntity(project);

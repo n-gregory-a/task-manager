@@ -30,7 +30,7 @@ public final class TaskDateStartSortedListCommand extends AbstractCommand {
         @NotNull final ITaskEndpoint taskEndpoint = bootstrap.getTaskEndpoint();
         int index = 1;
         for (@NotNull final Task task:
-                taskEndpoint.sortTasksByDateStart(bootstrap.getCurrentSession())
+                taskEndpoint.sortTasksByDateStart(bootstrap.getCurrentSessionToken())
         ) {
             bootstrap.getTerminalService().showMessage(index++ + ". ");
             bootstrap.getTerminalService().printEntity(task);

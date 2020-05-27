@@ -31,7 +31,7 @@ public class TaskDescriptionFindListCommand extends AbstractCommand {
         @NotNull final String description = bootstrap.getTerminalService().readLine();
         for (@NotNull final Task task:
                 taskEndpoint.sortTasksByDescription(
-                        bootstrap.getCurrentSession(), description)
+                        bootstrap.getCurrentSessionToken(), description)
         ) {
             bootstrap.getTerminalService().showMessage(index++ + ". ");
             bootstrap.getTerminalService().printEntity(task);

@@ -34,11 +34,12 @@ public final class TaskUpdateCommand extends AbstractCommand {
     public void execute() throws Exception {
         bootstrap.getTerminalService().showMessage("[TASK UPDATE]");
         @NotNull final ITaskEndpoint taskEndpoint = bootstrap.getTaskEndpoint();
+        @NotNull final String sessionToken = bootstrap.getCurrentSessionToken();
         bootstrap.getTerminalService().showMessage("Tasks available to update:");
         @NotNull final List<Task> list = new ArrayList<>();
         int index = 1;
         for (@NotNull final Task task:
-                taskEndpoint.findAllTasksByUserId(bootstrap.getCurrentSession())
+                taskEndpoint.findAllTasksByUserId(sessionToken)
         ) {
             bootstrap.getTerminalService().showMessage(index++ + ". ");
             bootstrap.getTerminalService().printEntity(task);
@@ -67,7 +68,7 @@ public final class TaskUpdateCommand extends AbstractCommand {
                 .showMessage("Enter new status (\"planned\", \"in progress\", \"completed\"):");
         @NotNull final String status = bootstrap.getTerminalService().readLine();
         task.setStatus(Status.fromValue(status));
-            taskEndpoint.mergeTask(bootstrap.getCurrentSession(), task);
+            taskEndpoint.mergeTask(sessionToken, task);
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 

@@ -30,7 +30,7 @@ public class ProjectDateFinishSortedListCommand extends AbstractCommand {
         @NotNull final IProjectEndpoint projectEndpoint = bootstrap.getProjectEndpoint();
         int index = 1;
         for (@NotNull final Project project:
-                projectEndpoint.sortProjectsByDateFinish(bootstrap.getCurrentSession())
+                projectEndpoint.sortProjectsByDateFinish(bootstrap.getCurrentSessionToken())
         ) {
             bootstrap.getTerminalService().showMessage(index++ + ". ");
             bootstrap.getTerminalService().printEntity(project);

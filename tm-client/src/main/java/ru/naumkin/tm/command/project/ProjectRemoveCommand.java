@@ -29,11 +29,12 @@ public final class ProjectRemoveCommand extends AbstractCommand {
         @NotNull final IProjectEndpoint projectEndpoint = bootstrap.getProjectEndpoint();
         bootstrap.getTerminalService().showMessage("Enter project name:");
         @NotNull final String projectName = bootstrap.getTerminalService().readLine();
+        @NotNull final String sessionToken = bootstrap.getCurrentSessionToken();
         @NotNull final Project project =
                 projectEndpoint.findOneProjectByUserId(
-                        bootstrap.getCurrentSession(), projectName
+                        sessionToken, projectName
                 );
-        projectEndpoint.removeProjectByUserId(bootstrap.getCurrentSession(), project);
+        projectEndpoint.removeProjectByUserId(sessionToken, project);
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 

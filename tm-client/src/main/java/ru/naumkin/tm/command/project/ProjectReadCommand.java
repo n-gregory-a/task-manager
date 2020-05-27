@@ -31,7 +31,7 @@ public final class ProjectReadCommand extends AbstractCommand {
         @NotNull final IProjectEndpoint projectService = bootstrap.getProjectEndpoint();
         @NotNull Project project;
         project = projectService.findOneProjectByUserId(
-                bootstrap.getCurrentSession(), projectName
+                bootstrap.getCurrentSessionToken(), projectName
         );
         bootstrap.getTerminalService().printEntity(project);
     }

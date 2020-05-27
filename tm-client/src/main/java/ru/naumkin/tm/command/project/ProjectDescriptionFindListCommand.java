@@ -31,7 +31,7 @@ public class ProjectDescriptionFindListCommand extends AbstractCommand {
         @NotNull final String description = bootstrap.getTerminalService().readLine();
         for (@NotNull final Project project:
                 projectEndpoint.sortProjectsByDescription(
-                        bootstrap.getCurrentSession(), description
+                        bootstrap.getCurrentSessionToken(), description
                 )
         ) {
             bootstrap.getTerminalService().showMessage(index++ + ". ");

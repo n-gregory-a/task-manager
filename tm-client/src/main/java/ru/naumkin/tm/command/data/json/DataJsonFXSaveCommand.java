@@ -26,7 +26,7 @@ public class DataJsonFXSaveCommand extends AbstractCommand {
     public void execute() throws Exception {
         bootstrap.getTerminalService().showMessage("[SAVE DATA TO JSON FILE BY FASTERXML]");
         @NotNull final IDomainEndpoint domainEndpoint = bootstrap.getDomainEndpoint();
-        domainEndpoint.saveJsonDataFasterXml(bootstrap.getCurrentSession());
+        domainEndpoint.saveJsonDataFasterXml(bootstrap.getCurrentSessionToken());
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 

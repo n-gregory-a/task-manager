@@ -31,13 +31,14 @@ public final class TaskViewCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("[VIEW TASKS ATTACHED TO THE PROJECT]");
         @NotNull final ITaskEndpoint taskEndpoint = bootstrap.getTaskEndpoint();
         @NotNull final IProjectEndpoint projectEndpoint = bootstrap.getProjectEndpoint();
+        @NotNull final String sessionToken = bootstrap.getCurrentSessionToken();
         bootstrap.getTerminalService().showMessage("Enter project name:");
         @NotNull final String projectName = bootstrap.getTerminalService().readLine();
         @NotNull final Project project = projectEndpoint.findOneProjectByUserId(
-                bootstrap.getCurrentSession(), projectName
+                sessionToken, projectName
         );
         for (@NotNull final Task task:
-                taskEndpoint.findAllTasksByUserId(bootstrap.getCurrentSession())
+                taskEndpoint.findAllTasksByUserId(sessionToken)
         ) {
             @Nullable final String projectId = task.getProjectId();
             if (projectId == null) {

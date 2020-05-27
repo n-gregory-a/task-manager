@@ -32,8 +32,8 @@ public final class ProjectCreateCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         bootstrap.getTerminalService().showMessage("[PROJECT CREATE]");
-        @Nullable final Session session
-                = bootstrap.getCurrentSession();
+        @Nullable final String sessionToken
+                = bootstrap.getCurrentSessionToken();
         @NotNull final IProjectEndpoint projectEndpoint = bootstrap.getProjectEndpoint();
         @Nullable final Project project = new Project();
         bootstrap.getTerminalService().showMessage("Enter name:");
@@ -50,8 +50,8 @@ public final class ProjectCreateCommand extends AbstractCommand {
         @NotNull final String finishDate = bootstrap.getTerminalService().readLine();
         date = DateFormatter.convertStringToDate(finishDate);
         project.setDateFinish(DateFormatter.convertToXmlGregorianCalendar(date));
-        project.setUserId(session.getUserId());
-        projectEndpoint.persistProject(session, project);
+        project.setUserId(bootstrap.getSessionEndpoint().getUserId(sessionToken));
+        projectEndpoint.persistProject(sessionToken, project);
         bootstrap.getTerminalService().showMessage("[OK]");
     }
 
