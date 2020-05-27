@@ -19,29 +19,32 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
 
     @NotNull private IProjectService projectService;
 
+    @NotNull private ISessionService sessionService;
+
     public ProjectEndpoint(
             @NotNull final ISessionService sessionService,
             @NotNull final IProjectService projectService
     ) {
         super(sessionService);
         this.projectService = projectService;
+        this.sessionService = sessionService;
     }
 
     @Override
     @WebMethod
-    public void persistProject(@NotNull final Session session,
+    public void persistProject(@NotNull final String sessionToken,
                                   @NotNull final Project project) throws Exception {
-        validate(session);
+        validate(sessionToken);
         projectService.persist(project);
     }
 
     @Override
     @WebMethod
     public void mergeProject(
-            @NotNull final Session session,
+            @NotNull final String sessionToken,
             @NotNull final Project project
     ) throws Exception {
-        validate(session);
+        validate(sessionToken);
         projectService.merge(project);
     }
 
@@ -49,92 +52,92 @@ public final class ProjectEndpoint extends AbstractEndpoint implements IProjectE
     @Override
     @WebMethod
     public List<Project> findAllProjectsByUserId(
-            @NotNull final Session session
+            @NotNull final String sessionToken
     ) throws Exception {
-        validate(session);
-        return projectService.findAll(session.getUserId());
+        validate(sessionToken);
+        return projectService.findAll(sessionService.getUserId(sessionToken));
     }
 
     @NotNull
     @Override
     @WebMethod
     public Project findOneProjectByUserId(
-            @NotNull final Session session,
+            @NotNull final String sessionToken,
             @NotNull final String name
     ) throws Exception {
-        validate(session);
-        return projectService.findOne(session.getUserId(), name);
+        validate(sessionToken);
+        return projectService.findOne(sessionService.getUserId(sessionToken), name);
     }
 
     @Override
     @WebMethod
     public void removeProjectByUserId(
-            @NotNull final Session session,
+            @NotNull final String sessionToken,
             @NotNull final Project project
     ) throws Exception {
-        validate(session);
-        projectService.remove(session.getUserId(), project);
+        validate(sessionToken);
+        projectService.remove(sessionService.getUserId(sessionToken), project);
     }
 
     @Override
     @WebMethod
     public void removeAllProjectsByUserId(
-            @NotNull final Session session
+            @NotNull final String sessionToken
     ) throws Exception {
-        validate(session);
-        projectService.removeAll(session.getUserId());
+        validate(sessionToken);
+        projectService.removeAll(sessionService.getUserId(sessionToken));
     }
 
     @NotNull
     @Override
     @WebMethod
     public List<Project> sortProjectsByDateStart(
-            @NotNull final Session session
+            @NotNull final String sessionToken
     ) throws Exception {
-        validate(session);
-        return projectService.sortByDateStart(session.getUserId());
+        validate(sessionToken);
+        return projectService.sortByDateStart(sessionService.getUserId(sessionToken));
     }
 
     @NotNull
     @Override
     @WebMethod
     public List<Project> sortProjectsByDateFinish(
-            @NotNull final Session session
+            @NotNull final String sessionToken
     ) throws Exception {
-        validate(session);
-        return projectService.sortByDateFinish(session.getUserId());
+        validate(sessionToken);
+        return projectService.sortByDateFinish(sessionService.getUserId(sessionToken));
     }
 
     @NotNull
     @Override
     @WebMethod
     public List<Project> sortProjectsByStatus(
-            @NotNull final Session session
+            @NotNull final String sessionToken
     ) throws Exception {
-        validate(session);
-        return projectService.sortByStatus(session.getUserId());
+        validate(sessionToken);
+        return projectService.sortByStatus(sessionService.getUserId(sessionToken));
     }
 
     @NotNull
     @Override
     @WebMethod
     public List<Project> sortProjectsByName(
-            @NotNull final Session session,
+            @NotNull final String sessionToken,
             @NotNull final String name
     ) throws Exception {
-        validate(session);
-        return projectService.sortByName(session.getUserId(), name);
+        validate(sessionToken);
+        return projectService.sortByName(sessionService.getUserId(sessionToken), name);
     }
 
     @NotNull
     @Override
     @WebMethod
     public List<Project> sortProjectsByDescription(
-            @NotNull final Session session,
+            @NotNull final String sessionToken,
             @NotNull final String description
     ) throws Exception {
-        validate(session);
-        return projectService.sortByDescription(session.getUserId(), description);
+        validate(sessionToken);
+        return projectService.sortByDescription(sessionService.getUserId(sessionToken), description);
     }
 
 }

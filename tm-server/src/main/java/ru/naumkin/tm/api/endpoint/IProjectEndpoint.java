@@ -12,49 +12,49 @@ import java.util.List;
 public interface IProjectEndpoint {
 
     @WebMethod
-    void persistProject(@NotNull final Session session,
+    void persistProject(@NotNull final String sessionToken,
                         @NotNull final Project project) throws Exception;
 
     @WebMethod
-    void mergeProject(@NotNull final Session session,
+    void mergeProject(@NotNull final String sessionToken,
                       @NotNull final Project project) throws Exception;
 
     @NotNull
     @WebMethod
-    List<Project> findAllProjectsByUserId(@NotNull final Session session) throws Exception;
+    List<Project> findAllProjectsByUserId(@NotNull final String sessionToken) throws Exception;
 
     @NotNull
     @WebMethod
-    Project findOneProjectByUserId(@NotNull final Session session,
+    Project findOneProjectByUserId(@NotNull final String sessionToken,
                                    @NotNull final String name) throws Exception;
 
     @WebMethod
-    void removeProjectByUserId(@NotNull final Session session,
+    void removeProjectByUserId(@NotNull final String sessionToken,
                                @NotNull final Project project) throws Exception;
 
     @WebMethod
-    void removeAllProjectsByUserId(@NotNull final Session session) throws Exception;
+    void removeAllProjectsByUserId(@NotNull final String sessionToken) throws Exception;
 
     @NotNull
     @WebMethod
-    List<Project> sortProjectsByDateStart(@NotNull final Session session) throws Exception;
+    List<Project> sortProjectsByDateStart(@NotNull final String sessionToken) throws Exception;
 
     @NotNull
     @WebMethod
-    List<Project> sortProjectsByDateFinish(@NotNull final Session session) throws Exception;
+    List<Project> sortProjectsByDateFinish(@NotNull final String sessionToken) throws Exception;
 
     @NotNull
     @WebMethod
-    List<Project> sortProjectsByStatus(@NotNull final Session session) throws Exception;
+    List<Project> sortProjectsByStatus(@NotNull final String sessionToken) throws Exception;
 
     @NotNull
     @WebMethod
-    List<Project> sortProjectsByName(@NotNull final Session session,
+    List<Project> sortProjectsByName(@NotNull final String sessionToken,
                                      @NotNull final String name) throws Exception;
 
     @NotNull
     @WebMethod
-    List<Project> sortProjectsByDescription(@NotNull final Session session,
+    List<Project> sortProjectsByDescription(@NotNull final String sessionToken,
                                             @NotNull final String description) throws Exception;
 
 }

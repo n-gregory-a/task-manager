@@ -18,114 +18,117 @@ import java.util.List;
 public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoint {
 
     @NotNull private ITaskService taskService;
+    
+    @NotNull private ISessionService sessionService;
 
     public TaskEndpoint(
             @NotNull final ISessionService sessionService,
             @NotNull final ITaskService taskService) {
         super(sessionService);
         this.taskService = taskService;
+        this.sessionService = sessionService;
     }
 
     @Override
     @WebMethod
     public void persistTask(
-            @NotNull final Session session,
+            @NotNull final String sessionToken,
             @NotNull final Task task
     ) throws Exception {
-        validate(session);
+        validate(sessionToken);
         taskService.persist(task);
     }
 
     @Override
     @WebMethod
     public void mergeTask(
-            @NotNull final Session session,
+            @NotNull final String sessionToken,
             @NotNull final Task task
     ) throws Exception {
-        validate(session);
+        validate(sessionToken);
         taskService.merge(task);
     }
 
     @NotNull
     @Override
     @WebMethod
-    public List<Task> findAllTasksByUserId(@NotNull final Session session) throws Exception {
-        validate(session);
-        return taskService.findAll(session.getUserId());
+    public List<Task> findAllTasksByUserId(@NotNull final String sessionToken) throws Exception {
+        validate(sessionToken);
+        return taskService.findAll(sessionService.getUserId(sessionToken));
     }
 
     @NotNull
     @Override
     @WebMethod
     public Task findOneTaskByUserId(
-            @NotNull final Session session,
+            @NotNull final String sessionToken,
             @NotNull final String name
     ) throws Exception {
-        validate(session);
-        return taskService.findOne(session.getUserId(), name);
+        validate(sessionToken);
+        return taskService.findOne(sessionService.getUserId(sessionToken), name);
     }
 
     @Override
     @WebMethod
     public void removeTaskByUserId(
-            @NotNull final Session session,
+            @NotNull final String sessionToken,
             @NotNull final Task task
     ) throws Exception {
-        validate(session);
-        taskService.remove(session.getUserId(), task);
+        validate(sessionToken);
+        taskService.remove(sessionService.getUserId(sessionToken), task);
     }
 
     @Override
     @WebMethod
-    public void removeAllTasksByUserId(@NotNull final Session session) throws Exception {
-        validate(session);
-        taskService.removeAll(session.getUserId());
-    }
-
-    @NotNull
-    @Override
-    @WebMethod
-    public List<Task> sortTasksByDateStart(@NotNull final Session session) throws Exception {
-        validate(session);
-        return taskService.sortByDateStart(session.getUserId());
+    public void removeAllTasksByUserId(@NotNull final String sessionToken) throws Exception {
+        validate(sessionToken);
+        taskService.removeAll(sessionService.getUserId(sessionToken));
     }
 
     @NotNull
     @Override
     @WebMethod
-    public List<Task> sortTasksByDateFinish(@NotNull final Session session) throws Exception {
-        validate(session);
-        return taskService.sortByDateFinish(session.getUserId());
+    public List<Task> sortTasksByDateStart(@NotNull final String sessionToken) throws Exception {
+        validate(sessionToken);
+        return taskService.sortByDateStart(sessionService.getUserId(sessionToken));
     }
 
     @NotNull
     @Override
     @WebMethod
-    public List<Task> sortTasksByStatus(@NotNull final Session session) throws Exception {
-        validate(session);
-        return taskService.sortByStatus(session.getUserId());
+    public List<Task> sortTasksByDateFinish(@NotNull final String sessionToken) throws Exception {
+        validate(sessionToken);
+        return taskService.sortByDateFinish(sessionService.getUserId(sessionToken));
+    }
+
+    @NotNull
+    @Override
+    @WebMethod
+    public List<Task> sortTasksByStatus(@NotNull final String sessionToken) throws Exception {
+        validate(sessionToken);
+        return taskService.sortByStatus(sessionService.getUserId(sessionToken));
     }
 
     @NotNull
     @Override
     @WebMethod
     public List<Task> sortTasksByName(
-            @NotNull final Session session,
+            @NotNull final String sessionToken,
             @NotNull final String name
     ) throws Exception {
-        validate(session);
-        return taskService.sortByName(session.getUserId(), name);
+        validate(sessionToken);
+        return taskService.sortByName(sessionService.getUserId(sessionToken), name);
     }
 
     @NotNull
     @Override
     @WebMethod
     public List<Task> sortTasksByDescription(
-            @NotNull final Session session,
+            @NotNull final String sessionToken,
             @NotNull final String description
     ) throws Exception {
-        validate(session);
-        return taskService.sortByDescription(session.getUserId(), description);
+        validate(sessionToken);
+        return taskService.sortByDescription(sessionService.getUserId(sessionToken), description);
     }
 
 }

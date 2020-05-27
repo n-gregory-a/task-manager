@@ -13,34 +13,30 @@ public interface ISessionEndpoint {
 
     @NotNull
     @WebMethod
-    List<Session> findAllSessions(@NotNull final Session session) throws Exception;
+    List<Session> findAllSessions(@NotNull final String sessionToken) throws Exception;
 
     @Nullable
     @WebMethod
-    Session findOneSession(@NotNull final Session session, @NotNull final String name) throws Exception;
+    Session findOneSession(@NotNull final String sessionToken, @NotNull final String name) throws Exception;
 
     @WebMethod
-    void persistSession(@NotNull final Session session) throws Exception;
+    void persistSession(@NotNull final String sessionToken) throws Exception;
 
     @WebMethod
-    void mergeSession(@NotNull final Session session, @NotNull final String name) throws Exception;
+    void mergeSession(@NotNull final String sessionToken, @NotNull final String name) throws Exception;
 
     @WebMethod
-    void removeSession(@NotNull final Session session) throws Exception;
+    void removeSession(@NotNull final String sessionToken) throws Exception;
 
     @WebMethod
-    void removeAllSessions(@NotNull final Session session) throws Exception;
+    void removeAllSessions(@NotNull final String sessionToken) throws Exception;
 
     @WebMethod
-    Session open(
+    String open(
             @NotNull final String login,
             @NotNull final String password) throws Exception;
 
     @WebMethod
-    void validate(@NotNull final Session session) throws Exception;
-
-    @NotNull
-    @WebMethod
-    Session sign(@NotNull final Session session);
+    void validate(@NotNull final String sessionToken) throws Exception;
 
 }

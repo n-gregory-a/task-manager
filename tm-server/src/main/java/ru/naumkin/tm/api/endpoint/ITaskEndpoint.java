@@ -13,54 +13,54 @@ import java.util.List;
 public interface ITaskEndpoint {
 
     @WebMethod
-    void persistTask(@NotNull final Session session, @NotNull final Task task) throws Exception;
+    void persistTask(@NotNull final String sessionToken, @NotNull final Task task) throws Exception;
 
     @WebMethod
     void mergeTask(
-            @NotNull final Session session,
+            @NotNull final String sessionToken,
             @NotNull final Task task) throws Exception;
 
     @NotNull
     @WebMethod
     List<Task> findAllTasksByUserId(
-            @NotNull final Session session) throws Exception;
+            @NotNull final String sessionToken) throws Exception;
 
     @NotNull
     @WebMethod
     Task findOneTaskByUserId(
-            @NotNull final Session session,
+            @NotNull final String sessionToken,
             @NotNull final String name) throws Exception;
 
     @WebMethod
     void removeTaskByUserId(
-            @NotNull final Session session,
+            @NotNull final String sessionToken,
             @NotNull final Task task) throws Exception;
 
     @WebMethod
-    void removeAllTasksByUserId(@NotNull final Session session) throws Exception;
+    void removeAllTasksByUserId(@NotNull final String sessionToken) throws Exception;
 
     @NotNull
     @WebMethod
-    List<Task> sortTasksByDateStart(@NotNull final Session session) throws Exception;
+    List<Task> sortTasksByDateStart(@NotNull final String sessionToken) throws Exception;
 
     @NotNull
     @WebMethod
-    List<Task> sortTasksByDateFinish(@NotNull final Session session) throws Exception;
+    List<Task> sortTasksByDateFinish(@NotNull final String sessionToken) throws Exception;
 
     @NotNull
     @WebMethod
-    List<Task> sortTasksByStatus(@NotNull final Session session) throws Exception;
+    List<Task> sortTasksByStatus(@NotNull final String sessionToken) throws Exception;
 
     @NotNull
     @WebMethod
     List<Task> sortTasksByName(
-            @NotNull final Session session,
+            @NotNull final String sessionToken,
             @NotNull final String name) throws Exception;
 
     @NotNull
     @WebMethod
     List<Task> sortTasksByDescription(
-            @NotNull final Session session,
+            @NotNull final String sessionToken,
             @NotNull final String description) throws Exception;
     
 }

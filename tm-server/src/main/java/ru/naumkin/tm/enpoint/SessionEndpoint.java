@@ -24,8 +24,8 @@ public class SessionEndpoint implements ISessionEndpoint {
     @NotNull
     @Override
     @WebMethod
-    public List<Session> findAllSessions(@NotNull final Session session) throws Exception {
-        validate(session);
+    public List<Session> findAllSessions(@NotNull final String sessionToken) throws Exception {
+        validate(sessionToken);
         return sessionService.findAll();
     }
 
@@ -33,45 +33,45 @@ public class SessionEndpoint implements ISessionEndpoint {
     @Override
     @WebMethod
     public Session findOneSession(
-            @NotNull final Session session,
+            @NotNull final String sessionToken,
             @NotNull final String name
     ) throws Exception {
-        validate(session);
+        validate(sessionToken);
         return sessionService.findOne(name);
     }
 
     @Override
     @WebMethod
-    public void persistSession(@NotNull final Session session) throws Exception {
-        validate(session);
-        sessionService.persist(session);
+    public void persistSession(@NotNull final String sessionToken) throws Exception {
+        validate(sessionToken);
+        sessionService.persist(sessionToken);
     }
 
     @Override
     @WebMethod
-    public void mergeSession(@NotNull final Session session, @NotNull final String name) throws Exception {
-        validate(session);
-        sessionService.merge(session);
+    public void mergeSession(@NotNull final String sessionToken, @NotNull final String name) throws Exception {
+        validate(sessionToken);
+        sessionService.merge(sessionToken);
     }
 
     @Override
     @WebMethod
-    public void removeSession(@NotNull final Session session) throws Exception {
-        validate(session);
-        sessionService.remove(session);
+    public void removeSession(@NotNull final String sessionToken) throws Exception {
+        validate(sessionToken);
+        sessionService.remove(sessionToken);
     }
 
     @Override
     @WebMethod
-    public void removeAllSessions(@NotNull final Session session) throws Exception {
-        validate(session);
+    public void removeAllSessions(@NotNull final String sessionToken) throws Exception {
+        validate(sessionToken);
         sessionService.removeAll();
     }
 
     @NotNull
     @Override
     @WebMethod
-    public Session open(
+    public String  open(
             @NotNull final String login,
             @NotNull final String password
     ) throws Exception {
@@ -80,15 +80,8 @@ public class SessionEndpoint implements ISessionEndpoint {
 
     @Override
     @WebMethod
-    public void validate(@NotNull final Session session) throws Exception {
-        sessionService.validate(session);
-    }
-
-    @NotNull
-    @Override
-    @WebMethod
-    public Session sign(@NotNull final Session session) {
-        return sessionService.sign(session);
+    public void validate(@NotNull final String sessionToken) throws Exception {
+        sessionService.validate(sessionToken);
     }
 
 }

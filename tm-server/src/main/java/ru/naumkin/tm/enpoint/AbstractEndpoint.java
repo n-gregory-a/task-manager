@@ -3,7 +3,6 @@ package ru.naumkin.tm.enpoint;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.naumkin.tm.api.service.ISessionService;
-import ru.naumkin.tm.entity.Session;
 
 @NoArgsConstructor
 public class AbstractEndpoint {
@@ -14,8 +13,8 @@ public class AbstractEndpoint {
         this.sessionService = sessionService;
     }
 
-    protected void validate(@NotNull final Session session) throws Exception {
-        sessionService.validate(session);
+    protected void validate(@NotNull final String sessionToken) throws Exception {
+        sessionService.validate(sessionToken);
     }
 
 }

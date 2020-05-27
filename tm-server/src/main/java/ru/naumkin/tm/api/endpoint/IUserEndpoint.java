@@ -25,16 +25,16 @@ public interface IUserEndpoint {
 
     @WebMethod
     void mergeUser(
-            @NotNull final Session session,
+            @NotNull final String sessionToken,
             @NotNull final User user) throws Exception;
 
     @WebMethod
-    void removeUser(@NotNull final Session session, @NotNull final User user) throws Exception;
+    void removeUser(@NotNull final String sessionToken, @NotNull final User user) throws Exception;
 
     @WebMethod
-    void removeAllUser(@NotNull final Session session) throws Exception;
+    void removeAllUser(@NotNull final String sessionToken) throws Exception;
 
     @WebMethod
-    boolean isRoleAdmin(@NotNull final Session session, @NotNull final String id) throws Exception;
+    boolean isRoleAdmin(@NotNull final String sessionToken, @NotNull final String id) throws Exception;
 
 }

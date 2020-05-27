@@ -54,37 +54,37 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
     @Override
     @WebMethod
     public void mergeUser(
-            @NotNull final Session session,
+            @NotNull final String sessionToken,
             @NotNull final User user
     ) throws Exception {
-        validate(session);
+        validate(sessionToken);
         userService.merge(user);
     }
 
     @Override
     @WebMethod
     public void removeUser(
-            @NotNull final Session session,
+            @NotNull final String sessionToken,
             @NotNull final User user
     ) throws Exception {
-        validate(session);
+        validate(sessionToken);
         userService.remove(user);
     }
 
     @Override
     @WebMethod
-    public void removeAllUser(@NotNull final Session session) throws Exception {
-        validate(session);
+    public void removeAllUser(@NotNull final String sessionToken) throws Exception {
+        validate(sessionToken);
         userService.removeAll();
     }
 
     @Override
     @WebMethod
     public boolean isRoleAdmin(
-            @NotNull final Session session,
+            @NotNull final String sessionToken,
             @NotNull final String id
     ) throws Exception {
-        validate(session);
+        validate(sessionToken);
         return userService.isRoleAdmin(id);
     }
 
