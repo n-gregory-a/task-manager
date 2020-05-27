@@ -31,7 +31,7 @@ public final class Bootstrap {
     @Getter
     @Setter
     @NotNull
-    private Session currentSession;
+    private String currentSessionToken;
 
     @Getter
     @NotNull
@@ -101,10 +101,10 @@ public final class Bootstrap {
             return;
         }
         final boolean secureCheck = !abstractCommand.isSecure() ||
-                (abstractCommand.isSecure() && currentSession.getUserId() != null);
+                (abstractCommand.isSecure() && sessionEndpoint.getUserId(currentSessionToken) != null);
         final boolean roleCheck = (abstractCommand.getRoles() == null) ||
                 (abstractCommand.getRoles() != null &&
-                        userEndpoint.isRoleAdmin(currentSession, currentSession.getUserId()));
+                        userEndpoint.isRoleAdmin(currentSessionToken, sessionEndpoint.getUserId(currentSessionToken)));
         if (secureCheck && roleCheck) {
             abstractCommand.execute();
             return;
@@ -114,8 +114,8 @@ public final class Bootstrap {
 
     public void retrieveDefaultUser() throws Exception {
         @NotNull final User user = userEndpoint.findOneUser("user");
-        @NotNull final Session session = sessionEndpoint.open(user.getName(), user.getPassword());
-        setCurrentSession(session);
+        @NotNull final String sessionToken = sessionEndpoint.open(user.getName(), user.getPassword());
+        setCurrentSessionToken(sessionToken);
     }
 
 }
