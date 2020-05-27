@@ -55,7 +55,7 @@ public final class Bootstrap {
 
     @Getter
     @NotNull
-    private final ISessionEndpoint sessionEndpoint= new SessionEndpointService().getSessionEndpointPort();
+    private final ISessionEndpoint sessionEndpoint = new SessionEndpointService().getSessionEndpointPort();
 
     public void registerCommand(@NotNull final AbstractCommand command) {
         @Nullable final String cliCommand = command.getName();
