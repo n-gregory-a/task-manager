@@ -127,13 +127,11 @@ public class SessionService extends AbstractService<Session> implements ISession
         return sessionToken;
     }
 
-    @Nullable
+    @NotNull
     @Override
-    public User getUser(@NotNull final Session session) throws Exception {
-        @NotNull final String userId = session.getUserId();
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
-        return userRepository.findOneById(userId);
+    public String getUserId(@NotNull final String sessionToken) throws Exception {
+        @NotNull final Session session = getSessionFromToken(sessionToken);
+        return session.getUserId();
     }
 
     @Override
@@ -141,18 +139,8 @@ public class SessionService extends AbstractService<Session> implements ISession
         if (sessionToken.isEmpty()) {
             throw new SessionTokenIsEmptyException();
         }
-        byte[] decodedBytes = Base64.getDecoder().decode(sessionToken);
-        @NotNull final String saltedJson = new String(decodedBytes);
-        @NotNull final String json = saltedJson.replace(getPropertyService().getSessionSalt(), "");
-        @NotNull final ObjectMapper objectMapper = new ObjectMapper();
-        @NotNull final Session session = objectMapper.readValue(json, Session.class);
-        if (session.getUserId() == null || session.getUserId().isEmpty()) {
-            throw new SessionValidationException();
-        }
+        @NotNull final Session session = getSessionFromToken(sessionToken);
         if (session.getSignature() == null || session.getSignature().isEmpty()) {
-            throw new SessionValidationException();
-        }
-        if (session.getTimestamp() == null) {
             throw new SessionValidationException();
         }
         @Nullable final Session tempSession = session.clone();
@@ -178,6 +166,15 @@ public class SessionService extends AbstractService<Session> implements ISession
         if (timeIsOut) {
             throw new SessionTimeOutException();
         }
+    }
+
+    @NotNull
+    private Session getSessionFromToken(@NotNull final String sessionToken) throws com.fasterxml.jackson.core.JsonProcessingException {
+        byte[] decodedBytes = Base64.getDecoder().decode(sessionToken);
+        @NotNull final String saltedJson = new String(decodedBytes);
+        @NotNull final String json = saltedJson.replace(getPropertyService().getSessionSalt(), "");
+        @NotNull final ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(json, Session.class);
     }
 
     @NotNull

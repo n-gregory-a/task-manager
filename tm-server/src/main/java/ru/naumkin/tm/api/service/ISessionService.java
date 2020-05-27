@@ -26,8 +26,8 @@ public interface ISessionService extends IService<Session> {
     @NotNull
     String open(@NotNull final String login, @NotNull final String password) throws Exception;
 
-    @Nullable
-    User getUser(@NotNull final Session session) throws Exception;
+    @NotNull
+    String getUserId(@NotNull final String sessionToken) throws Exception;
 
     void validate(@NotNull final String sessionToken) throws Exception;
 
