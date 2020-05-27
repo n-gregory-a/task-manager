@@ -29,6 +29,8 @@ public class ObjectFactory {
     private final static QName _FindAllSessionsResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "findAllSessionsResponse");
     private final static QName _FindOneSession_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "findOneSession");
     private final static QName _FindOneSessionResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "findOneSessionResponse");
+    private final static QName _GetUserId_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "getUserId");
+    private final static QName _GetUserIdResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "getUserIdResponse");
     private final static QName _MergeSession_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "mergeSession");
     private final static QName _MergeSessionResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "mergeSessionResponse");
     private final static QName _Open_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "open");
@@ -39,8 +41,6 @@ public class ObjectFactory {
     private final static QName _RemoveAllSessionsResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "removeAllSessionsResponse");
     private final static QName _RemoveSession_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "removeSession");
     private final static QName _RemoveSessionResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "removeSessionResponse");
-    private final static QName _Sign_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "sign");
-    private final static QName _SignResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "signResponse");
     private final static QName _Validate_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "validate");
     private final static QName _ValidateResponse_QNAME = new QName("http://endpoint.api.tm.naumkin.ru/", "validateResponse");
 
@@ -89,6 +89,22 @@ public class ObjectFactory {
      */
     public FindOneSessionResponse createFindOneSessionResponse() {
         return new FindOneSessionResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetUserId }
+     * 
+     */
+    public GetUserId createGetUserId() {
+        return new GetUserId();
+    }
+
+    /**
+     * Create an instance of {@link GetUserIdResponse }
+     * 
+     */
+    public GetUserIdResponse createGetUserIdResponse() {
+        return new GetUserIdResponse();
     }
 
     /**
@@ -169,22 +185,6 @@ public class ObjectFactory {
      */
     public RemoveSessionResponse createRemoveSessionResponse() {
         return new RemoveSessionResponse();
-    }
-
-    /**
-     * Create an instance of {@link Sign }
-     * 
-     */
-    public Sign createSign() {
-        return new Sign();
-    }
-
-    /**
-     * Create an instance of {@link SignResponse }
-     * 
-     */
-    public SignResponse createSignResponse() {
-        return new SignResponse();
     }
 
     /**
@@ -274,6 +274,32 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "findOneSessionResponse")
     public JAXBElement<FindOneSessionResponse> createFindOneSessionResponse(FindOneSessionResponse value) {
         return new JAXBElement<FindOneSessionResponse>(_FindOneSessionResponse_QNAME, FindOneSessionResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetUserId }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetUserId }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "getUserId")
+    public JAXBElement<GetUserId> createGetUserId(GetUserId value) {
+        return new JAXBElement<GetUserId>(_GetUserId_QNAME, GetUserId.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetUserIdResponse }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetUserIdResponse }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "getUserIdResponse")
+    public JAXBElement<GetUserIdResponse> createGetUserIdResponse(GetUserIdResponse value) {
+        return new JAXBElement<GetUserIdResponse>(_GetUserIdResponse_QNAME, GetUserIdResponse.class, null, value);
     }
 
     /**
@@ -404,32 +430,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "removeSessionResponse")
     public JAXBElement<RemoveSessionResponse> createRemoveSessionResponse(RemoveSessionResponse value) {
         return new JAXBElement<RemoveSessionResponse>(_RemoveSessionResponse_QNAME, RemoveSessionResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Sign }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link Sign }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "sign")
-    public JAXBElement<Sign> createSign(Sign value) {
-        return new JAXBElement<Sign>(_Sign_QNAME, Sign.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SignResponse }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link SignResponse }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://endpoint.api.tm.naumkin.ru/", name = "signResponse")
-    public JAXBElement<SignResponse> createSignResponse(SignResponse value) {
-        return new JAXBElement<SignResponse>(_SignResponse_QNAME, SignResponse.class, null, value);
     }
 
     /**
