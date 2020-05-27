@@ -44,11 +44,11 @@ public class SessionService extends AbstractService<Session> implements ISession
     }
 
     @Override
-    public void persist(@NotNull final Session session) throws Exception {
+    public void persist(@NotNull final String sessionToken) throws Exception {
         @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
         try {
-            sessionRepository.persist(session);
+            sessionRepository.persist(getSessionFromToken(sessionToken));
             sqlSession.commit();
         } catch (SQLException e) {
             sqlSession.rollback();
@@ -58,11 +58,11 @@ public class SessionService extends AbstractService<Session> implements ISession
     }
 
     @Override
-    public void merge(@NotNull final Session session) throws Exception {
+    public void merge(@NotNull final String sessionToken) throws Exception {
         @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
         try {
-            sessionRepository.merge(session);
+            sessionRepository.merge(getSessionFromToken(sessionToken));
             sqlSession.commit();
         } catch (SQLException e) {
             sqlSession.rollback();
@@ -72,11 +72,11 @@ public class SessionService extends AbstractService<Session> implements ISession
     }
 
     @Override
-    public void remove(@NotNull final Session session) throws Exception {
+    public void remove(@NotNull final String sessionToken) throws Exception {
         @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
         @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
         try {
-            sessionRepository.remove(session.getId());
+            sessionRepository.remove(getSessionFromToken(sessionToken).getId());
             sqlSession.commit();
         } catch (SQLException e) {
             sqlSession.rollback();
@@ -118,12 +118,12 @@ public class SessionService extends AbstractService<Session> implements ISession
         }
         session.setUserId(user.getId());
         sign(session);
-        persist(session);
         @NotNull final ObjectMapper objectMapper = new ObjectMapper();
         @NotNull final String json = objectMapper.writeValueAsString(session);
         @NotNull final String salt = getPropertyService().getSessionSalt();
         @NotNull final String saltedJson = salt + json + salt;
         @NotNull final String sessionToken = Base64.getEncoder().encodeToString(saltedJson.getBytes());
+        persist(sessionToken);
         return sessionToken;
     }
 
@@ -178,8 +178,7 @@ public class SessionService extends AbstractService<Session> implements ISession
     }
 
     @NotNull
-    @Override
-    public Session sign(@NotNull final Session session) {
+    private Session sign(@NotNull final Session session) {
         @NotNull final String salt = getPropertyService().getSessionSalt();
         @NotNull final Integer cycle = getPropertyService().getSessionCycle();
         @Nullable final String signature = SignatureUtil.sign(session, salt, cycle);
