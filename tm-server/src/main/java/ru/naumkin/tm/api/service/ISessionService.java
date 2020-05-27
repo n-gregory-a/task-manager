@@ -23,12 +23,13 @@ public interface ISessionService extends IService<Session> {
 
     void removeAll() throws Exception;
 
-    Session open(@NotNull final String login, @NotNull final String password) throws Exception;
+    @NotNull
+    String open(@NotNull final String login, @NotNull final String password) throws Exception;
 
     @Nullable
     User getUser(@NotNull final Session session) throws Exception;
 
-    void validate(@NotNull final Session session) throws Exception;
+    void validate(@NotNull final String sessionToken) throws Exception;
 
     Session sign(@NotNull final Session session);
 

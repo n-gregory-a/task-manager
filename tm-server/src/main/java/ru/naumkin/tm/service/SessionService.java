@@ -1,5 +1,6 @@
 package ru.naumkin.tm.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NoArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.jetbrains.annotations.NotNull;
@@ -15,6 +16,7 @@ import ru.naumkin.tm.error.*;
 import ru.naumkin.tm.util.SignatureUtil;
 
 import java.sql.SQLException;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -100,7 +102,7 @@ public class SessionService extends AbstractService<Session> implements ISession
 
     @NotNull
     @Override
-    public Session open(@NotNull final String login, @NotNull final String password) throws Exception {
+    public String open(@NotNull final String login, @NotNull final String password) throws Exception {
         @NotNull Session session = new Session();
         session.setName("Session" + System.currentTimeMillis());
         session.setTimestamp(System.currentTimeMillis());
@@ -117,7 +119,12 @@ public class SessionService extends AbstractService<Session> implements ISession
         session.setUserId(user.getId());
         sign(session);
         persist(session);
-        return session;
+        @NotNull final ObjectMapper objectMapper = new ObjectMapper();
+        @NotNull final String json = objectMapper.writeValueAsString(session);
+        @NotNull final String salt = getPropertyService().getSessionSalt();
+        @NotNull final String saltedJson = salt + json + salt;
+        @NotNull final String sessionToken = Base64.getEncoder().encodeToString(saltedJson.getBytes());
+        return sessionToken;
     }
 
     @Nullable
@@ -130,7 +137,15 @@ public class SessionService extends AbstractService<Session> implements ISession
     }
 
     @Override
-    public void validate(@NotNull final Session session) throws Exception {
+    public void validate(@NotNull final String sessionToken) throws Exception {
+        if (sessionToken.isEmpty()) {
+            throw new SessionTokenIsEmptyException();
+        }
+        byte[] decodedBytes = Base64.getDecoder().decode(sessionToken);
+        @NotNull final String saltedJson = new String(decodedBytes);
+        @NotNull final String json = saltedJson.replace(getPropertyService().getSessionSalt(), "");
+        @NotNull final ObjectMapper objectMapper = new ObjectMapper();
+        @NotNull final Session session = objectMapper.readValue(json, Session.class);
         if (session.getUserId() == null || session.getUserId().isEmpty()) {
             throw new SessionValidationException();
         }
