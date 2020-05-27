@@ -84,4 +84,11 @@ public class SessionEndpoint implements ISessionEndpoint {
         sessionService.validate(sessionToken);
     }
 
+    @NotNull
+    @Override
+    @WebMethod
+    public String getUserId(@NotNull final String sessionToken) throws Exception {
+        return sessionService.getUserId(sessionToken);
+    }
+
 }

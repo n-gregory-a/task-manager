@@ -39,4 +39,8 @@ public interface ISessionEndpoint {
     @WebMethod
     void validate(@NotNull final String sessionToken) throws Exception;
 
+    @NotNull
+    @WebMethod
+    String getUserId(@NotNull final String sessionToken) throws Exception;
+
 }
