@@ -1,7 +1,6 @@
 package ru.naumkin.tm;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -11,9 +10,7 @@ import ru.naumkin.tm.api.endpoint.*;
 import ru.naumkin.tm.enpoint.ProjectEndpointService;
 import ru.naumkin.tm.enpoint.SessionEndpointService;
 import ru.naumkin.tm.enpoint.UserEndpointService;
-import ru.naumkin.tm.util.DateFormatter;
 
-import java.util.Date;
 import java.util.List;
 
 @Category(ProjectEndpointTestCase.class)
