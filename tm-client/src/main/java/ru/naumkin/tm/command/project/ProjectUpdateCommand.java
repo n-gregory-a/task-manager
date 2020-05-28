@@ -47,7 +47,6 @@ public final class ProjectUpdateCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("Choose project to update by number:");
         @NotNull final Project project = list.get(Integer
                 .parseInt(bootstrap.getTerminalService().readLine()) - 1);
-        @NotNull final String name = project.getName();
         bootstrap.getTerminalService().showMessage("Updating project:");
         bootstrap.getTerminalService().showMessage("id: " + project.getId() +
                 ", name: " + project.getName());
