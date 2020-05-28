@@ -13,7 +13,7 @@ import ru.naumkin.tm.enpoint.UserEndpointService;
 
 import java.util.List;
 
-@Category(ProjectEndpointTestCase.class)
+@Category(ProjectCrudTestCase.class)
 public class ProjectCrudTest extends Assert {
 
     @NotNull
