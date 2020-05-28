@@ -47,7 +47,7 @@ public interface IUserRepository {
             "WHERE `id` = #{id}")
     void remove(@NotNull final User user) throws Exception;
 
-    @Delete("DELETE * FROM `app_user`")
+    @Delete("DELETE FROM `app_user`")
     void removeAll() throws Exception;
 
 }

@@ -39,7 +39,7 @@ public interface ISessionRepository {
             "WHERE `id` = #{id}")
     void remove(@NotNull @Param("id") final String id) throws Exception;
 
-    @Delete("DELETE * FROM `session`")
+    @Delete("DELETE FROM `session`")
     void removeAll() throws Exception;
 
 }
