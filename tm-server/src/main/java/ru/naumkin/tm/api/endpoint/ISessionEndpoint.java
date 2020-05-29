@@ -17,7 +17,7 @@ public interface ISessionEndpoint {
 
     @Nullable
     @WebMethod
-    Session findOneSession(@NotNull final String sessionToken, @NotNull final String name) throws Exception;
+    Session findOneSession(@NotNull final String sessionToken, @NotNull final String id) throws Exception;
 
     @WebMethod
     void persistSession(@NotNull final String sessionToken) throws Exception;
