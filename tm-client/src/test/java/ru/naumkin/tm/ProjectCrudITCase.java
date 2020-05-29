@@ -1,8 +1,10 @@
 package ru.naumkin.tm;
 
 import org.jetbrains.annotations.NotNull;
-import org.junit.*;
-import org.junit.experimental.categories.Category;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import ru.naumkin.tm.api.endpoint.*;
 import ru.naumkin.tm.enpoint.ProjectEndpointService;
 import ru.naumkin.tm.enpoint.SessionEndpointService;
@@ -10,8 +12,7 @@ import ru.naumkin.tm.enpoint.UserEndpointService;
 
 import java.util.List;
 
-@Category(ProjectCrudTestCase.class)
-public class ProjectCrudTest extends Assert {
+public class ProjectCrudITCase extends Assert {
 
     @NotNull
     private final IProjectEndpoint projectEndpoint = new ProjectEndpointService().getProjectEndpointPort();

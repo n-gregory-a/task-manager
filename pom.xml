@@ -87,6 +87,12 @@
       <artifactId>jackson-dataformat-xml</artifactId>
       <version>2.11.0</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-failsafe-plugin</artifactId>
+      <version>2.22.2</version>
+    </dependency>
   </dependencies>
 
   <scm>
@@ -95,5 +101,31 @@
     <tag>HEAD</tag>
     <url>http://127.0.0.1/dummy</url>
   </scm>
+
+  <profiles>
+    <profile>
+      <id>failsafe</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <version>2.22.2</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>integration-test</goal>
+                  <goal>verify</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
 </project>

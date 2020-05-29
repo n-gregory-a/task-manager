@@ -9,7 +9,7 @@ import ru.naumkin.tm.enpoint.UserEndpointService;
 
 import java.util.List;
 
-public class TaskCrudTest extends Assert {
+public class TaskCrudITCase extends Assert {
 
     @NotNull
     private final ITaskEndpoint taskEndpoint = new TaskEndpointService().getTaskEndpointPort();

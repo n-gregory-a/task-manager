@@ -11,7 +11,7 @@ import ru.naumkin.tm.enpoint.UserEndpointService;
 
 import java.util.List;
 
-public class UserCrudTest extends Assert {
+public class UserCrudITCase extends Assert {
 
     @NotNull
     private final ISessionEndpoint sessionEndpoint = new SessionEndpointService().getSessionEndpointPort();

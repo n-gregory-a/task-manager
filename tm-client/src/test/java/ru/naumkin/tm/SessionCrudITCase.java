@@ -12,7 +12,7 @@ import ru.naumkin.tm.enpoint.UserEndpointService;
 
 import java.util.List;
 
-public class SessionCrudTest extends Assert {
+public class SessionCrudITCase extends Assert {
 
     @NotNull
     private final ISessionEndpoint sessionEndpoint = new SessionEndpointService().getSessionEndpointPort();
