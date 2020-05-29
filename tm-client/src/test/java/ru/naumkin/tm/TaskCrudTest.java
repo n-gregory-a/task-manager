@@ -1,10 +1,7 @@
 package ru.naumkin.tm;
 
 import org.jetbrains.annotations.NotNull;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import ru.naumkin.tm.api.endpoint.*;
 import ru.naumkin.tm.enpoint.TaskEndpointService;
 import ru.naumkin.tm.enpoint.SessionEndpointService;
@@ -15,32 +12,32 @@ import java.util.List;
 public class TaskCrudTest extends Assert {
 
     @NotNull
-    private static final ITaskEndpoint taskEndpoint = new TaskEndpointService().getTaskEndpointPort();
+    private final ITaskEndpoint taskEndpoint = new TaskEndpointService().getTaskEndpointPort();
 
     @NotNull
-    private static final ISessionEndpoint sessionEndpoint = new SessionEndpointService().getSessionEndpointPort();
+    private final ISessionEndpoint sessionEndpoint = new SessionEndpointService().getSessionEndpointPort();
 
     @NotNull
-    private static final IUserEndpoint userEndpoint = new UserEndpointService().getUserEndpointPort();
+    private final IUserEndpoint userEndpoint = new UserEndpointService().getUserEndpointPort();
 
     @NotNull
-    private static User user = new User();
+    private User user = new User();
 
     @NotNull
-    private static String sessionToken = "";
+    private String sessionToken = "";
 
     @NotNull
-    private static String userId = "";
+    private String userId = "";
 
-    @BeforeClass
-    public static void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         user = userEndpoint.findOneUser("test");
         sessionToken = sessionEndpoint.open(user.getName(), user.getPassword());
         userId = user.getId();
     }
 
-    @AfterClass
-    public static void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         taskEndpoint.removeAllTasksByUserId(sessionToken);
         sessionEndpoint.removeSession(sessionToken);
     }

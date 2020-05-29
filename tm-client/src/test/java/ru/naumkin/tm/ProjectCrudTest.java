@@ -1,10 +1,7 @@
 package ru.naumkin.tm;
 
 import org.jetbrains.annotations.NotNull;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.experimental.categories.Category;
 import ru.naumkin.tm.api.endpoint.*;
 import ru.naumkin.tm.enpoint.ProjectEndpointService;
@@ -17,32 +14,32 @@ import java.util.List;
 public class ProjectCrudTest extends Assert {
 
     @NotNull
-    private static final IProjectEndpoint projectEndpoint = new ProjectEndpointService().getProjectEndpointPort();
+    private final IProjectEndpoint projectEndpoint = new ProjectEndpointService().getProjectEndpointPort();
 
     @NotNull
-    private static final ISessionEndpoint sessionEndpoint = new SessionEndpointService().getSessionEndpointPort();
+    private final ISessionEndpoint sessionEndpoint = new SessionEndpointService().getSessionEndpointPort();
 
     @NotNull
-    private static final IUserEndpoint userEndpoint = new UserEndpointService().getUserEndpointPort();
+    private final IUserEndpoint userEndpoint = new UserEndpointService().getUserEndpointPort();
     
     @NotNull
-    private static User user = new User();
+    private User user = new User();
 
     @NotNull
-    private static String sessionToken = "";
+    private String sessionToken = "";
 
     @NotNull
     private static String userId = "";
 
-    @BeforeClass
-    public static void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         user = userEndpoint.findOneUser("test");
         sessionToken = sessionEndpoint.open(user.getName(), user.getPassword());
         userId = user.getId();
     }
 
-    @AfterClass
-    public static void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         projectEndpoint.removeAllProjectsByUserId(sessionToken);
         sessionEndpoint.removeSession(sessionToken);
     }
