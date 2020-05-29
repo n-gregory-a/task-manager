@@ -2,23 +2,19 @@ package ru.naumkin.tm.service;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.apache.ibatis.datasource.pooled.PooledDataSource;
-import org.apache.ibatis.mapping.Environment;
-import org.apache.ibatis.session.Configuration;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.apache.ibatis.transaction.TransactionFactory;
-import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
+import org.hibernate.boot.Metadata;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Environment;
 import org.jetbrains.annotations.NotNull;
-import ru.naumkin.tm.api.repository.IProjectRepository;
-import ru.naumkin.tm.api.repository.ISessionRepository;
-import ru.naumkin.tm.api.repository.ITaskRepository;
-import ru.naumkin.tm.api.repository.IUserRepository;
 import ru.naumkin.tm.api.service.IPropertyService;
 import ru.naumkin.tm.api.service.IService;
-import ru.naumkin.tm.entity.AbstractEntity;
+import ru.naumkin.tm.entity.*;
 
-import javax.sql.DataSource;
+import javax.persistence.EntityManagerFactory;
+import java.util.HashMap;
+import java.util.Map;
 
 @NoArgsConstructor
 public abstract class AbstractService<E extends AbstractEntity> implements IService<E> {
@@ -32,21 +28,26 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
     }
 
     @NotNull
-    public SqlSessionFactory getSqlSessionFactory() {
-        @NotNull final String driver = propertyService.getDriver();
-        @NotNull final String url = propertyService.getDbUrl();
-        @NotNull final String userName = propertyService.getDbUserName();
-        @NotNull final String password = propertyService.getDbPassword();
-        @NotNull final DataSource dataSource = new PooledDataSource(driver, url, userName, password);
-        @NotNull final TransactionFactory transactionFactory = new JdbcTransactionFactory();
-        @NotNull final Environment environment =
-                new Environment("development", transactionFactory, dataSource);
-        @NotNull final Configuration configuration = new Configuration(environment);
-        configuration.addMapper(IProjectRepository.class);
-        configuration.addMapper(ISessionRepository.class);
-        configuration.addMapper(ITaskRepository.class);
-        configuration.addMapper(IUserRepository.class);
-        return new SqlSessionFactoryBuilder().build(configuration);
+    public EntityManagerFactory factory() {
+        final Map<String, String> settings = new HashMap<>();
+        settings.put(Environment.DRIVER, propertyService.getDriver());
+        settings.put(Environment.URL, propertyService.getDbUrl());
+        settings.put(Environment.USER, propertyService.getDbUserName());
+        settings.put(Environment.PASS, propertyService.getDbPassword());
+        settings.put(Environment.DIALECT, propertyService.getDbDialect());
+        settings.put(Environment.HBM2DDL_AUTO, "update");
+        settings.put(Environment.SHOW_SQL, "true");
+
+        final StandardServiceRegistryBuilder registryBuilder = new StandardServiceRegistryBuilder();
+        registryBuilder.applySettings(settings);
+        final StandardServiceRegistry registry = registryBuilder.build();
+        final MetadataSources sources = new MetadataSources(registry);
+        sources.addAnnotatedClass(Project.class);
+        sources.addAnnotatedClass(Task.class);
+        sources.addAnnotatedClass(User.class);
+        sources.addAnnotatedClass(Session.class);
+        final Metadata metadata = sources.getMetadataBuilder().build();
+        return metadata.getSessionFactoryBuilder().build();
     }
 
 }
