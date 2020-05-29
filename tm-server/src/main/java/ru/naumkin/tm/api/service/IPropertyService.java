@@ -30,4 +30,7 @@ public interface IPropertyService {
     @NotNull
     String getDbPassword();
 
+    @NotNull
+    String getDbDialect();
+
 }

@@ -67,4 +67,9 @@ public final class PropertyService implements IPropertyService {
         return properties.getProperty("connection.password");
     }
 
+    @Override
+    public @NotNull String getDbDialect() {
+        return properties.getProperty("connection.dialect");
+    }
+
 }
