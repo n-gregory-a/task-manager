@@ -8,47 +8,42 @@ import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.enumerated.Status;
 import ru.naumkin.tm.util.DateFormatter;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 public final class Task extends AbstractEntity {
 
     @NotNull
+    @Column(name = "description")
     private String description = "";
 
     @Nullable
+    @Column(name = "data_start")
     private Date dateStart = null;
 
     @Nullable
+    @Column(name = "date_finish")
     private Date dateFinish = null;
 
     @Nullable
-    private String projectId = null;
+    @ManyToOne
+    private Project project;
 
     @Nullable
-    private String userId = null;
+    @ManyToOne
+    private User user;
 
     @NotNull
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private Status status = Status.PLANNED;
 
     public Task(@NotNull final String name) {
         setName(name);
-    }
-
-    @Override
-    public String toString() {
-        return "Task{" +
-                "id: '" + getId() + '\'' +
-                ", name: '" + getName() + '\'' +
-                ", description: '" + description + '\'' +
-                ", dateStart: " + DateFormatter.convertDateToString(dateStart) +
-                ", dateFinish: " + DateFormatter.convertDateToString(dateFinish) +
-                ", projectId: '" + projectId + '\'' +
-                ", userId: '" + userId + '\'' +
-                ", status: " + status.displayStatus() +
-                '}';
     }
 
 }
