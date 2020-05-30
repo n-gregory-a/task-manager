@@ -6,44 +6,40 @@ import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.enumerated.Status;
-import ru.naumkin.tm.util.DateFormatter;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
 @Getter
 @Setter
+@Table(name = "project")
 @NoArgsConstructor
 public final class Project extends AbstractEntity {
 
     @NotNull
+    @Column(name = "description")
     private String description = "";
 
     @Nullable
+    @Column(name = "data_start")
     private Date dateStart = null;
 
     @Nullable
+    @Column(name = "date_finish")
     private Date dateFinish = null;
 
-    @Nullable
-    private String userId = null;
+    @NotNull
+    @ManyToOne
+    private User user;
 
     @NotNull
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private Status status = Status.PLANNED;
 
     public Project(@NotNull final String name) {
         setName(name);
     }
 
-    @Override
-    public String toString() {
-        return "Project{" +
-                "id: '" + getId() + '\'' +
-                ", name: '" + getName() + '\'' +
-                ", description: '" + description + '\'' +
-                ", dateStart: " + DateFormatter.convertDateToString(dateStart) +
-                ", dateFinish: " + DateFormatter.convertDateToString(dateFinish) +
-                ", userId: '" + userId + '\'' +
-                ", status: " + status.displayStatus() +
-                '}';
-    }
 }
