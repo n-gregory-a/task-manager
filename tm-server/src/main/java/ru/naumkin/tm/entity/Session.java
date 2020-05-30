@@ -7,6 +7,11 @@ import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+
+@Entity
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class Session extends AbstractEntity implements Cloneable {
@@ -23,16 +28,19 @@ public final class Session extends AbstractEntity implements Cloneable {
     @Getter
     @Setter
     @NotNull
+    @Column(name = "timestamp")
     private Long timestamp;
 
     @Getter
     @Setter
     @NotNull
-    private String userId;
+    @ManyToOne
+    private User user;
 
     @Getter
     @Setter
     @Nullable
+    @Column(name = "signature")
     private String signature;
 
 }
