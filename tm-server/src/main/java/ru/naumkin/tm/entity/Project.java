@@ -8,7 +8,9 @@ import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.enumerated.Status;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -37,6 +39,10 @@ public final class Project extends AbstractEntity {
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private Status status = Status.PLANNED;
+
+    @NotNull
+    @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Task> tasks = new ArrayList<>();
 
     public Project(@NotNull final String name) {
         setName(name);
