@@ -27,7 +27,7 @@ public class ProjectRepository extends AbstractRepository implements IProjectRep
     }
 
     @Override
-    public @Nullable Project findOne(@NotNull final String userId, @NotNull final String name) {
+    public @Nullable Project findOneByUserId(@NotNull final String userId, @NotNull final String name) {
         @NotNull final TypedQuery<Project> query = entityManager.createQuery(
                         "FROM Project WHERE Project.user.id=:userId AND Project.name=:name",
                         Project.class);

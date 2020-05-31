@@ -15,7 +15,7 @@ public interface IProjectRepository {
     List<Project> findAllByUserId(@NotNull final String userId);
 
     @Nullable
-    Project findOne(@NotNull final String userId, @NotNull final String name);
+    Project findOneByUserId(@NotNull final String userId, @NotNull final String name);
 
     void persist(@NotNull final Project project);
 
