@@ -9,37 +9,37 @@ import java.util.List;
 public interface ITaskRepository {
 
     @NotNull
-    List<Task> findAll() throws Exception;
+    List<Task> findAll();
 
     @NotNull
-    List<Task> findAllByUserId(@NotNull final String userId) throws Exception;
+    List<Task> findAllByUserId(@NotNull final String userId);
 
     @Nullable
     Task findOneByUserId(@NotNull final String userId,
-                         @NotNull final String name) throws Exception;
+                         @NotNull final String name);
 
-    void persist(@NotNull final Task task) throws Exception;
+    void persist(@NotNull final Task task);
 
-    void merge(@NotNull final Task task) throws Exception;
+    void merge(@NotNull final Task task);
 
     void remove(@NotNull final String userId,
-                @NotNull final String id) throws Exception;
+                @NotNull final String id);
 
-    void removeAll(@NotNull final String userId) throws Exception;
-
-    @NotNull
-    List<Task> sortByDateStart(@NotNull final String userId) throws Exception;
+    void removeAll(@NotNull final String userId);
 
     @NotNull
-    List<Task> sortByDateFinish(@NotNull final String userId) throws Exception;
+    List<Task> sortByDateStart(@NotNull final String userId);
 
     @NotNull
-    List<Task> sortByStatus(@NotNull final String userId) throws Exception;
+    List<Task> sortByDateFinish(@NotNull final String userId);
 
     @NotNull
-    List<Task> sortByName(@NotNull final String userId, @NotNull final String name) throws Exception;
+    List<Task> sortByStatus(@NotNull final String userId);
 
     @NotNull
-    List<Task> sortByDescription(@NotNull final String userId, @NotNull final String description) throws Exception;
+    List<Task> sortByName(@NotNull final String userId, @NotNull final String name);
+
+    @NotNull
+    List<Task> sortByDescription(@NotNull final String userId, @NotNull final String description);
 
 }
