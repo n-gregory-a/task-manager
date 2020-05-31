@@ -9,17 +9,17 @@ import java.util.List;
 public interface ISessionRepository {
 
     @NotNull
-    List<Session> findAll() throws Exception;
+    List<Session> findAll();
 
     @Nullable
-    Session findOne(@NotNull final String id) throws Exception;
+    Session findOne(@NotNull final String id);
 
-    void persist(@NotNull final Session session) throws Exception;
+    void persist(@NotNull final Session session);
 
-    void merge(@NotNull final Session session) throws Exception;
+    void merge(@NotNull final Session session);
 
-    void remove(@NotNull final String id) throws Exception;
+    void remove(@NotNull final String id);
 
-    void removeAll() throws Exception;
+    void removeAll();
 
 }
