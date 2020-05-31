@@ -10,13 +10,15 @@ import java.util.List;
 
 public class SessionRepository extends AbstractRepository implements ISessionRepository {
 
+    @NotNull
     @Override
-    public @NotNull List<Session> findAll() {
+    public List<Session> findAll() {
         return entityManager.createQuery("FORM Session", Session.class).getResultList();
     }
 
+    @Nullable
     @Override
-    public @Nullable Session findOne(@NotNull final String id) {
+    public Session findOne(@NotNull final String id) {
         @NotNull final TypedQuery<Session> query = entityManager.createQuery(
                 "FROM Session WHERE Session.id=:id",
                 Session.class);

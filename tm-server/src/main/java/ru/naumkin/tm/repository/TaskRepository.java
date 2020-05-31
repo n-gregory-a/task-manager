@@ -17,8 +17,9 @@ public class TaskRepository extends AbstractRepository implements ITaskRepositor
         return entityManager.createQuery("FROM Task", Task.class).getResultList();
     }
 
+    @NotNull
     @Override
-    public @NotNull List<Task> findAllByUserId(@NotNull final String userId) {
+    public List<Task> findAllByUserId(@NotNull final String userId) {
         @NotNull final TypedQuery<Task> query = entityManager.createQuery(
                 "FROM Task WHERE Task.user.id=:userId",
                 Task.class);
@@ -26,8 +27,9 @@ public class TaskRepository extends AbstractRepository implements ITaskRepositor
         return query.getResultList();
     }
 
+    @Nullable
     @Override
-    public @Nullable Task findOneByUserId(@NotNull final String userId, @NotNull final String name) {
+    public Task findOneByUserId(@NotNull final String userId, @NotNull final String name) {
         @NotNull final TypedQuery<Task> query = entityManager.createQuery(
                 "FROM Task WHERE Task.user.id=:userId AND Task.name=:name",
                 Task.class);
@@ -63,8 +65,9 @@ public class TaskRepository extends AbstractRepository implements ITaskRepositor
         query.executeUpdate();
     }
 
+    @NotNull
     @Override
-    public @NotNull List<Task> sortByDateStart(@NotNull final String userId) {
+    public List<Task> sortByDateStart(@NotNull final String userId) {
         @NotNull final TypedQuery<Task> query = entityManager.createQuery(
                 "FROM Task WHERE Task.user.id=:userId ORDER BY Task.dateStart",
                 Task.class);
@@ -72,8 +75,9 @@ public class TaskRepository extends AbstractRepository implements ITaskRepositor
         return query.getResultList();
     }
 
+    @NotNull
     @Override
-    public @NotNull List<Task> sortByDateFinish(@NotNull final String userId) {
+    public List<Task> sortByDateFinish(@NotNull final String userId) {
         @NotNull final TypedQuery<Task> query = entityManager.createQuery(
                 "FROM Task WHERE Task.user.id=:userId ORDER BY Task.dateFinish",
                 Task.class);
@@ -81,8 +85,9 @@ public class TaskRepository extends AbstractRepository implements ITaskRepositor
         return query.getResultList();
     }
 
+    @NotNull
     @Override
-    public @NotNull List<Task> sortByStatus(@NotNull final String userId) {
+    public List<Task> sortByStatus(@NotNull final String userId) {
         @NotNull final TypedQuery<Task> query = entityManager.createQuery(
                 "FROM Task WHERE Task.user.id=:userId ORDER BY Task.status",
                 Task.class);
@@ -90,8 +95,9 @@ public class TaskRepository extends AbstractRepository implements ITaskRepositor
         return query.getResultList();
     }
 
+    @NotNull
     @Override
-    public @NotNull List<Task> sortByName(@NotNull final String userId, @NotNull final String name) {
+    public List<Task> sortByName(@NotNull final String userId, @NotNull final String name) {
         @NotNull final TypedQuery<Task> query = entityManager.createQuery(
                 "FROM Task WHERE user.id=:userId AND Task.name LIKE %name%",
                 Task.class);
@@ -100,8 +106,9 @@ public class TaskRepository extends AbstractRepository implements ITaskRepositor
         return query.getResultList();
     }
 
+    @NotNull
     @Override
-    public @NotNull List<Task> sortByDescription(@NotNull final String userId, @NotNull final String description) {
+    public List<Task> sortByDescription(@NotNull final String userId, @NotNull final String description) {
         @NotNull final TypedQuery<Task> query = entityManager.createQuery(
                 "FROM Task WHERE user.id=:userId AND Task.description LIKE %description%",
                 Task.class);

@@ -17,8 +17,9 @@ public class ProjectRepository extends AbstractRepository implements IProjectRep
         return entityManager.createQuery("FROM Project", Project.class).getResultList();
     }
 
+    @NotNull
     @Override
-    public @NotNull List<Project> findAllByUserId(@NotNull final String userId) {
+    public List<Project> findAllByUserId(@NotNull final String userId) {
         @NotNull final TypedQuery<Project> query = entityManager.createQuery(
                 "FROM Project WHERE Project.user.id=:userId",
                 Project.class);
@@ -26,8 +27,9 @@ public class ProjectRepository extends AbstractRepository implements IProjectRep
         return query.getResultList();
     }
 
+    @Nullable
     @Override
-    public @Nullable Project findOneByUserId(@NotNull final String userId, @NotNull final String name) {
+    public Project findOneByUserId(@NotNull final String userId, @NotNull final String name) {
         @NotNull final TypedQuery<Project> query = entityManager.createQuery(
                         "FROM Project WHERE Project.user.id=:userId AND Project.name=:name",
                         Project.class);
@@ -63,8 +65,9 @@ public class ProjectRepository extends AbstractRepository implements IProjectRep
         query.executeUpdate();
     }
 
+    @NotNull
     @Override
-    public @NotNull List<Project> sortByDateStart(@NotNull final String userId) {
+    public List<Project> sortByDateStart(@NotNull final String userId) {
         @NotNull final TypedQuery<Project> query = entityManager.createQuery(
                 "FROM Project WHERE Project.user.id=:userId ORDER BY Project.dateStart",
                 Project.class);
@@ -72,8 +75,9 @@ public class ProjectRepository extends AbstractRepository implements IProjectRep
         return query.getResultList();
     }
 
+    @NotNull
     @Override
-    public @NotNull List<Project> sortByDateFinish(@NotNull final String userId) {
+    public List<Project> sortByDateFinish(@NotNull final String userId) {
         @NotNull final TypedQuery<Project> query = entityManager.createQuery(
                 "FROM Project WHERE Project.user.id=:userId ORDER BY Project.dateFinish",
                 Project.class);
@@ -81,8 +85,9 @@ public class ProjectRepository extends AbstractRepository implements IProjectRep
         return query.getResultList();
     }
 
+    @NotNull
     @Override
-    public @NotNull List<Project> sortByStatus(@NotNull final String userId) {
+    public List<Project> sortByStatus(@NotNull final String userId) {
         @NotNull final TypedQuery<Project> query = entityManager.createQuery(
                 "FROM Project WHERE Project.user.id=:userId ORDER BY Project.status",
                 Project.class);
@@ -90,8 +95,9 @@ public class ProjectRepository extends AbstractRepository implements IProjectRep
         return query.getResultList();
     }
 
+    @NotNull
     @Override
-    public @NotNull List<Project> sortByName(@NotNull final String userId, @NotNull final String name) {
+    public List<Project> sortByName(@NotNull final String userId, @NotNull final String name) {
         @NotNull final TypedQuery<Project> query = entityManager.createQuery(
                 "FROM Project WHERE user.id=:userId AND Project.name LIKE %name%",
                 Project.class);
@@ -100,8 +106,9 @@ public class ProjectRepository extends AbstractRepository implements IProjectRep
         return query.getResultList();
     }
 
+    @NotNull
     @Override
-    public @NotNull List<Project> sortByDescription(@NotNull final String userId, @NotNull final String description) {
+    public List<Project> sortByDescription(@NotNull final String userId, @NotNull final String description) {
         @NotNull final TypedQuery<Project> query = entityManager.createQuery(
                 "FROM Project WHERE user.id=:userId AND Project.description LIKE %description%",
                 Project.class);
