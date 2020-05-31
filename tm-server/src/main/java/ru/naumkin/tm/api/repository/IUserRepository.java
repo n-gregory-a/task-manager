@@ -9,20 +9,20 @@ import java.util.List;
 public interface IUserRepository {
 
     @NotNull
-    List<User> findAll() throws Exception;
+    List<User> findAll();
 
     @Nullable
-    User findOne(@NotNull final String name) throws Exception;
+    User findOne(@NotNull final String name);
 
     @Nullable
-    User findOneById(@NotNull final String id) throws Exception;
+    User findOneById(@NotNull final String id);
 
-    void persist(@NotNull final User user) throws Exception;
+    void persist(@NotNull final User user);
 
-    void merge(@NotNull final User user) throws Exception;
+    void merge(@NotNull final User user);
 
-    void remove(@NotNull final User user) throws Exception;
+    void remove(@NotNull final String id);
 
-    void removeAll() throws Exception;
+    void removeAll();
 
 }
