@@ -9,37 +9,35 @@ import java.util.List;
 public interface IProjectRepository {
 
     @NotNull
-    List<Project> findAll() throws Exception;
+    List<Project> findAll();
 
     @NotNull
-    List<Project> findAllByUserId(@NotNull final String userId) throws Exception;
+    List<Project> findAllByUserId(@NotNull final String userId);
 
     @Nullable
-    Project findOne(@NotNull final String userId,
-                    @NotNull final String name) throws Exception;
+    Project findOne(@NotNull final String userId, @NotNull final String name);
 
-    void persist(@NotNull final Project project) throws Exception;
+    void persist(@NotNull final Project project);
 
-    void merge(@NotNull final Project project) throws Exception;
+    void merge(@NotNull final Project project);
 
-    void remove(@NotNull final String userId,
-                @NotNull final String id) throws Exception;
+    void remove(@NotNull final String userId, @NotNull final String id);
 
-    void removeAll(@NotNull final String userId) throws Exception;
+    void removeAll(@NotNull final String userId);
 
     @NotNull
-    List<Project> sortByDateStart(@NotNull final String userId) throws Exception;
+    List<Project> sortByDateStart(@NotNull final String userId);
 
     @NotNull
-    List<Project> sortByDateFinish(@NotNull final String userId) throws Exception;
+    List<Project> sortByDateFinish(@NotNull final String userId);
 
     @NotNull
-    List<Project> sortByStatus(@NotNull final String userId) throws Exception;
+    List<Project> sortByStatus(@NotNull final String userId);
 
     @NotNull
-    List<Project> sortByName(@NotNull final String userId, @NotNull final String name) throws Exception;
+    List<Project> sortByName(@NotNull final String userId, @NotNull final String name);
 
     @NotNull
-    List<Project> sortByDescription(@NotNull final String userId, @NotNull final String description) throws Exception;
+    List<Project> sortByDescription(@NotNull final String userId, @NotNull final String description);
 
 }
