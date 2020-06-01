@@ -12,10 +12,10 @@ public interface IProjectService extends IService<Project> {
     List<Project> findAll() throws Exception;
 
     @NotNull
-    List<Project> findAllByUserId(@Nullable final String userId);
+    List<Project> findAll(@Nullable final String userId);
 
     @NotNull
-    Project findOneByUserId(@Nullable final String userId, @Nullable final String name);
+    Project findOne(@Nullable final String userId, @Nullable final String name);
 
     void persist(@NotNull final Project project);
 
@@ -23,7 +23,7 @@ public interface IProjectService extends IService<Project> {
 
     void remove(@NotNull final String userId, @NotNull final Project project);
 
-    void removeAllByUserId(@Nullable final String userId);
+    void removeAll(@Nullable final String userId);
 
     @NotNull
     List<Project> sortByDateStart(@Nullable final String userId);

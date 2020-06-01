@@ -37,7 +37,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
 
     @NotNull
     @Override
-    public List<Project> findAllByUserId(@Nullable final String userId) {
+    public List<Project> findAll(@Nullable final String userId) {
         if (userId == null) {
             throw new UserIdIsNullException();
         }
@@ -53,7 +53,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
 
     @NotNull
     @Override
-    public Project findOneByUserId(
+    public Project findOne(
             @Nullable final String userId,
             @Nullable final String name
     ) {
@@ -123,7 +123,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
     }
 
     @Override
-    public void removeAllByUserId(@Nullable final String userId) {
+    public void removeAll(@Nullable final String userId) {
         if (userId == null) {
             throw new UserIdIsNullException();
         }
