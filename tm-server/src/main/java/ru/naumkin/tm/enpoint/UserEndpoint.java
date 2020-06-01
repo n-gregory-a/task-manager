@@ -3,14 +3,15 @@ package ru.naumkin.tm.enpoint;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.naumkin.tm.api.ServiceLocator;
 import ru.naumkin.tm.api.endpoint.IUserEndpoint;
-import ru.naumkin.tm.api.service.ISessionService;
 import ru.naumkin.tm.api.service.IUserService;
-import ru.naumkin.tm.entity.Session;
+import ru.naumkin.tm.dto.UserDTO;
 import ru.naumkin.tm.entity.User;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,34 +21,36 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
 
     @NotNull private IUserService userService;
 
-    public UserEndpoint(
-            @NotNull final ISessionService sessionService,
-            @NotNull final IUserService userService) {
-        super(sessionService);
-        this.userService = userService;
+    public UserEndpoint(@NotNull final ServiceLocator serviceLocator) {
+        super(serviceLocator);
+        this.userService = serviceLocator.getUserService();
     }
 
     @NotNull
     @Override
     @WebMethod
-    public List<User> findAllUsers() throws Exception {
-        return new LinkedList<>(userService.findAll());
+    public List<UserDTO> findAllUsers() {
+        @NotNull final List<User> users = userService.findAll();
+        @NotNull final List<UserDTO> userDTOList = new ArrayList<>();
+        for (@NotNull final User user: users) {
+            @NotNull final UserDTO userDTO = user.convertToUserDTO(user);
+            userDTOList.add(userDTO);
+        }
+        return userDTOList;
     }
 
-    @Nullable
+    @NotNull
     @Override
     @WebMethod
-    public User findOneUser(
-            @Nullable final String name
-    ) throws Exception {
-        return userService.findOne(name);
+    public UserDTO findOneUser(@NotNull final String name) {
+        @NotNull final User user = userService.findOne(name);
+        return user.convertToUserDTO(user);
     }
 
     @Override
     @WebMethod
-    public void persistUser(
-            @NotNull final User user
-    ) throws Exception {
+    public void persistUser(@NotNull final UserDTO userDTO) {
+        @NotNull final User user = userDTO.convertToUser(userDTO, serviceLocator);
         userService.persist(user);
     }
 
@@ -55,9 +58,10 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
     @WebMethod
     public void mergeUser(
             @NotNull final String sessionToken,
-            @NotNull final User user
+            @NotNull final UserDTO userDTO
     ) throws Exception {
         validate(sessionToken);
+        @NotNull final User user = userDTO.convertToUser(userDTO, serviceLocator);
         userService.merge(user);
     }
 
@@ -65,9 +69,10 @@ public final class UserEndpoint extends AbstractEndpoint implements IUserEndpoin
     @WebMethod
     public void removeUser(
             @NotNull final String sessionToken,
-            @NotNull final User user
+            @NotNull final UserDTO userDTO
     ) throws Exception {
         validate(sessionToken);
+        @NotNull final User user = userDTO.convertToUser(userDTO, serviceLocator);
         userService.remove(user);
     }
 

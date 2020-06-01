@@ -2,7 +2,7 @@ package ru.naumkin.tm.api.endpoint;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.naumkin.tm.entity.Session;
+import ru.naumkin.tm.dto.UserDTO;
 import ru.naumkin.tm.entity.User;
 
 import javax.jws.WebMethod;
@@ -14,22 +14,23 @@ public interface IUserEndpoint {
 
     @NotNull
     @WebMethod
-    List<User> findAllUsers() throws Exception;
+    List<UserDTO> findAllUsers();
 
-    @Nullable
+    @NotNull
     @WebMethod
-    User findOneUser(@NotNull final String name) throws Exception;
+    UserDTO findOneUser(@NotNull final String name);
 
     @WebMethod
-    void persistUser(@NotNull final User user) throws Exception;
+    void persistUser(@NotNull final UserDTO userDTO);
 
     @WebMethod
     void mergeUser(
             @NotNull final String sessionToken,
-            @NotNull final User user) throws Exception;
+            @NotNull final UserDTO userDTO) throws Exception;
 
     @WebMethod
-    void removeUser(@NotNull final String sessionToken, @NotNull final User user) throws Exception;
+    void removeUser(@NotNull final String sessionToken,
+                    @NotNull final UserDTO userDTO) throws Exception;
 
     @WebMethod
     void removeAllUser(@NotNull final String sessionToken) throws Exception;
