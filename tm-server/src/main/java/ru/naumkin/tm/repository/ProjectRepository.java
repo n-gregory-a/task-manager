@@ -5,11 +5,16 @@ import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.IProjectRepository;
 import ru.naumkin.tm.entity.Project;
 
+import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class ProjectRepository extends AbstractRepository implements IProjectRepository {
+
+    public ProjectRepository(@NotNull final EntityManager entityManager) {
+        super(entityManager);
+    }
 
     @NotNull
     @Override
