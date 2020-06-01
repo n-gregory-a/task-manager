@@ -11,20 +11,20 @@ public interface IUserService extends IService<User> {
     boolean isRoleAdmin(@NotNull final String id) throws Exception;
 
     @NotNull
-    List<User> findAll() throws Exception;
+    List<User> findAll();
 
     @Nullable
-    User findOne(@NotNull final String name) throws Exception;
+    User findOne(@NotNull final String name);
 
     @Nullable
-    User findOneById(@NotNull final String id) throws Exception;
+    User findOneById(@NotNull final String id);
 
-    void persist(@NotNull final User user) throws Exception;
+    void persist(@NotNull final User user);
 
-    void merge(@NotNull final User user) throws Exception;
+    void merge(@NotNull final User user);
 
-    void remove(@NotNull final User user) throws Exception;
+    void remove(@NotNull final User user);
 
-    void removeAll() throws Exception;
+    void removeAll();
 
 }

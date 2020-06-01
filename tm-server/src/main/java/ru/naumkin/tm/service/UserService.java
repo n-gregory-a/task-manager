@@ -1,7 +1,6 @@
 package ru.naumkin.tm.service;
 
 import lombok.NoArgsConstructor;
-import org.apache.ibatis.session.SqlSession;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.IUserRepository;
@@ -11,14 +10,20 @@ import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.enumerated.RoleType;
 import ru.naumkin.tm.error.*;
 
-import java.sql.SQLException;
+import javax.persistence.EntityManager;
 import java.util.List;
 
 @NoArgsConstructor
 public final class UserService extends AbstractService<User> implements IUserService {
 
-    public UserService(@NotNull IPropertyService propertyService) {
+    @NotNull
+    private IUserRepository userRepository;
+
+    public UserService(@NotNull final IPropertyService propertyService,
+                       @NotNull final IUserRepository userRepository
+    ) {
         super(propertyService);
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -35,24 +40,27 @@ public final class UserService extends AbstractService<User> implements IUserSer
 
     @NotNull
     @Override
-    public List<User> findAll() throws Exception {
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
-        return userRepository.findAll();
+    public List<User> findAll() {
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        @NotNull final List<User> users = userRepository.findAll();
+        entityManager.getTransaction().commit();
+        return users;
     }
 
     @NotNull
     @Override
-    public User findOne(@Nullable final String name) throws Exception {
+    public User findOne(@Nullable final String name) {
         if (name == null) {
             throw new NameIsNullException();
         }
         if (name.isEmpty()) {
             throw new NameIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
         @Nullable final User user = userRepository.findOne(name);
+        entityManager.getTransaction().commit();
         if (user == null) {
             throw new NoUserWithSuchLoginException(name);
         }
@@ -61,16 +69,17 @@ public final class UserService extends AbstractService<User> implements IUserSer
 
     @NotNull
     @Override
-    public User findOneById(@Nullable final String id) throws Exception {
+    public User findOneById(@Nullable final String id) {
         if (id == null) {
             throw new IdIsNullException();
         }
         if (id.isEmpty()) {
             throw new IdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
         @Nullable final User user = userRepository.findOneById(id);
+        entityManager.getTransaction().commit();
         if (user == null) {
             throw new NoUserWithSuchIdException(id);
         }
@@ -78,68 +87,44 @@ public final class UserService extends AbstractService<User> implements IUserSer
     }
 
     @Override
-    public void persist(@Nullable final User user) throws Exception {
+    public void persist(@Nullable final User user) {
         if (user == null) {
             throw new UserIsNullException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
-        try {
-            userRepository.persist(user);
-            sqlSession.commit();
-        } catch (SQLException e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        userRepository.persist(user);
+        entityManager.getTransaction().commit();
     }
 
     @Override
-    public void merge(@Nullable final User user) throws Exception {
+    public void merge(@Nullable final User user) {
         if (user == null) {
             throw new UserIsNullException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
-        try {
-            userRepository.merge(user);
-            sqlSession.commit();
-        } catch (SQLException e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        userRepository.merge(user);
+        entityManager.getTransaction().commit();
     }
 
     @Override
-    public void remove(@Nullable final User user) throws Exception {
+    public void remove(@Nullable final User user) {
         if (user == null) {
             throw new UserIsNullException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
-        try {
-            userRepository.remove(user);
-            sqlSession.commit();
-        } catch (SQLException e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        userRepository.remove(user.getId());
+        entityManager.getTransaction().commit();
     }
 
     @Override
-    public void removeAll() throws Exception {
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
-        try {
-            userRepository.removeAll();
-            sqlSession.commit();
-        } catch (SQLException e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
+    public void removeAll() {
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        userRepository.removeAll();
+        entityManager.getTransaction().commit();
     }
 
 }
