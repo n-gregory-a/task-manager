@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence&gt;
  *         &lt;element name="signature" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="timestamp" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
- *         &lt;element name="userId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="user" type="{http://endpoint.api.tm.naumkin.ru/}user" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/extension&gt;
  *   &lt;/complexContent&gt;
@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "session", propOrder = {
     "signature",
     "timestamp",
-    "userId"
+    "user"
 })
 public class Session
     extends AbstractEntity
@@ -39,7 +39,7 @@ public class Session
 
     protected String signature;
     protected Long timestamp;
-    protected String userId;
+    protected User user;
 
     /**
      * Gets the value of the signature property.
@@ -90,27 +90,27 @@ public class Session
     }
 
     /**
-     * Gets the value of the userId property.
+     * Gets the value of the user property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link User }
      *     
      */
-    public String getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
     /**
-     * Sets the value of the userId property.
+     * Sets the value of the user property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link User }
      *     
      */
-    public void setUserId(String value) {
-        this.userId = value;
+    public void setUser(User value) {
+        this.user = value;
     }
 
 }

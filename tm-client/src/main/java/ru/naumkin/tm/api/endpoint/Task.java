@@ -21,9 +21,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="dateFinish" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
  *         &lt;element name="dateStart" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
  *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="projectId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="project" type="{http://endpoint.api.tm.naumkin.ru/}project" minOccurs="0"/&gt;
  *         &lt;element name="status" type="{http://endpoint.api.tm.naumkin.ru/}status" minOccurs="0"/&gt;
- *         &lt;element name="userId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="user" type="{http://endpoint.api.tm.naumkin.ru/}user" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/extension&gt;
  *   &lt;/complexContent&gt;
@@ -37,9 +37,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "dateFinish",
     "dateStart",
     "description",
-    "projectId",
+    "project",
     "status",
-    "userId"
+    "user"
 })
 public class Task
     extends AbstractEntity
@@ -50,10 +50,10 @@ public class Task
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar dateStart;
     protected String description;
-    protected String projectId;
+    protected Project project;
     @XmlSchemaType(name = "string")
     protected Status status;
-    protected String userId;
+    protected User user;
 
     /**
      * Gets the value of the dateFinish property.
@@ -128,27 +128,27 @@ public class Task
     }
 
     /**
-     * Gets the value of the projectId property.
+     * Gets the value of the project property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Project }
      *     
      */
-    public String getProjectId() {
-        return projectId;
+    public Project getProject() {
+        return project;
     }
 
     /**
-     * Sets the value of the projectId property.
+     * Sets the value of the project property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Project }
      *     
      */
-    public void setProjectId(String value) {
-        this.projectId = value;
+    public void setProject(Project value) {
+        this.project = value;
     }
 
     /**
@@ -176,27 +176,27 @@ public class Task
     }
 
     /**
-     * Gets the value of the userId property.
+     * Gets the value of the user property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link User }
      *     
      */
-    public String getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
     /**
-     * Sets the value of the userId property.
+     * Sets the value of the user property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link User }
      *     
      */
-    public void setUserId(String value) {
-        this.userId = value;
+    public void setUser(User value) {
+        this.user = value;
     }
 
 }

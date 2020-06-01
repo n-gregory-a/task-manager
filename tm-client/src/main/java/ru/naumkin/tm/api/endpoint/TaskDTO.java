@@ -1,32 +1,29 @@
 
 package ru.naumkin.tm.api.endpoint;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
- * <p>Java class for project complex type.
+ * <p>Java class for taskDTO complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="project"&gt;
+ * &lt;complexType name="taskDTO"&gt;
  *   &lt;complexContent&gt;
- *     &lt;extension base="{http://endpoint.api.tm.naumkin.ru/}abstractEntity"&gt;
+ *     &lt;extension base="{http://endpoint.api.tm.naumkin.ru/}abstractDTO"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="dateFinish" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
  *         &lt;element name="dateStart" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
  *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="projectId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="status" type="{http://endpoint.api.tm.naumkin.ru/}status" minOccurs="0"/&gt;
- *         &lt;element name="tasks" type="{http://endpoint.api.tm.naumkin.ru/}task" maxOccurs="unbounded" minOccurs="0"/&gt;
- *         &lt;element name="user" type="{http://endpoint.api.tm.naumkin.ru/}user" minOccurs="0"/&gt;
+ *         &lt;element name="userId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/extension&gt;
  *   &lt;/complexContent&gt;
@@ -36,16 +33,16 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "project", propOrder = {
+@XmlType(name = "taskDTO", propOrder = {
     "dateFinish",
     "dateStart",
     "description",
+    "projectId",
     "status",
-    "tasks",
-    "user"
+    "userId"
 })
-public class Project
-    extends AbstractEntity
+public class TaskDTO
+    extends AbstractDTO
 {
 
     @XmlSchemaType(name = "dateTime")
@@ -53,11 +50,10 @@ public class Project
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar dateStart;
     protected String description;
+    protected String projectId;
     @XmlSchemaType(name = "string")
     protected Status status;
-    @XmlElement(nillable = true)
-    protected List<Task> tasks;
-    protected User user;
+    protected String userId;
 
     /**
      * Gets the value of the dateFinish property.
@@ -132,6 +128,30 @@ public class Project
     }
 
     /**
+     * Gets the value of the projectId property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getProjectId() {
+        return projectId;
+    }
+
+    /**
+     * Sets the value of the projectId property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setProjectId(String value) {
+        this.projectId = value;
+    }
+
+    /**
      * Gets the value of the status property.
      * 
      * @return
@@ -156,56 +176,27 @@ public class Project
     }
 
     /**
-     * Gets the value of the tasks property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the tasks property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getTasks().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Task }
-     * 
-     * 
-     */
-    public List<Task> getTasks() {
-        if (tasks == null) {
-            tasks = new ArrayList<Task>();
-        }
-        return this.tasks;
-    }
-
-    /**
-     * Gets the value of the user property.
+     * Gets the value of the userId property.
      * 
      * @return
      *     possible object is
-     *     {@link User }
+     *     {@link String }
      *     
      */
-    public User getUser() {
-        return user;
+    public String getUserId() {
+        return userId;
     }
 
     /**
-     * Sets the value of the user property.
+     * Sets the value of the userId property.
      * 
      * @param value
      *     allowed object is
-     *     {@link User }
+     *     {@link String }
      *     
      */
-    public void setUser(User value) {
-        this.user = value;
+    public void setUserId(String value) {
+        this.userId = value;
     }
 
 }

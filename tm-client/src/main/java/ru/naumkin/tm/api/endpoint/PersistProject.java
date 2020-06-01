@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="arg0" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="arg1" type="{http://endpoint.api.tm.naumkin.ru/}project" minOccurs="0"/&gt;
+ *         &lt;element name="arg1" type="{http://endpoint.api.tm.naumkin.ru/}projectDTO" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlType;
 public class PersistProject {
 
     protected String arg0;
-    protected Project arg1;
+    protected ProjectDTO arg1;
 
     /**
      * Gets the value of the arg0 property.
@@ -65,10 +65,10 @@ public class PersistProject {
      * 
      * @return
      *     possible object is
-     *     {@link Project }
+     *     {@link ProjectDTO }
      *     
      */
-    public Project getArg1() {
+    public ProjectDTO getArg1() {
         return arg1;
     }
 
@@ -77,10 +77,10 @@ public class PersistProject {
      * 
      * @param value
      *     allowed object is
-     *     {@link Project }
+     *     {@link ProjectDTO }
      *     
      */
-    public void setArg1(Project value) {
+    public void setArg1(ProjectDTO value) {
         this.arg1 = value;
     }
 

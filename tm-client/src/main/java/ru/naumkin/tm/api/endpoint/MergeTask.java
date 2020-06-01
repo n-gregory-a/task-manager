@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="arg0" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="arg1" type="{http://endpoint.api.tm.naumkin.ru/}task" minOccurs="0"/&gt;
+ *         &lt;element name="arg1" type="{http://endpoint.api.tm.naumkin.ru/}taskDTO" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlType;
 public class MergeTask {
 
     protected String arg0;
-    protected Task arg1;
+    protected TaskDTO arg1;
 
     /**
      * Gets the value of the arg0 property.
@@ -65,10 +65,10 @@ public class MergeTask {
      * 
      * @return
      *     possible object is
-     *     {@link Task }
+     *     {@link TaskDTO }
      *     
      */
-    public Task getArg1() {
+    public TaskDTO getArg1() {
         return arg1;
     }
 
@@ -77,10 +77,10 @@ public class MergeTask {
      * 
      * @param value
      *     allowed object is
-     *     {@link Task }
+     *     {@link TaskDTO }
      *     
      */
-    public void setArg1(Task value) {
+    public void setArg1(TaskDTO value) {
         this.arg1 = value;
     }
 
