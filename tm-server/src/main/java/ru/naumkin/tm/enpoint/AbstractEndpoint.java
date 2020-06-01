@@ -2,19 +2,20 @@ package ru.naumkin.tm.enpoint;
 
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import ru.naumkin.tm.api.service.ISessionService;
+import ru.naumkin.tm.api.ServiceLocator;
 
 @NoArgsConstructor
 public class AbstractEndpoint {
 
-    private ISessionService sessionService;
+    @NotNull
+    protected ServiceLocator serviceLocator;
 
-    public AbstractEndpoint(@NotNull final ISessionService sessionService) {
-        this.sessionService = sessionService;
+    public AbstractEndpoint(@NotNull final ServiceLocator serviceLocator) {
+        this.serviceLocator = serviceLocator;
     }
 
     protected void validate(@NotNull final String sessionToken) throws Exception {
-        sessionService.validate(sessionToken);
+        serviceLocator.getSessionService().validate(sessionToken);
     }
 
 }
