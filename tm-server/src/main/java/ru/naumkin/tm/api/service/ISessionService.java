@@ -9,10 +9,10 @@ import java.util.List;
 public interface ISessionService extends IService<Session> {
 
     @NotNull
-    List<Session> findAll() throws Exception;
+    List<Session> findAll();
 
     @Nullable
-    Session findOne(@NotNull final String id) throws Exception;
+    Session findOne(@NotNull final String id);
 
     void persist(@NotNull final String sessionToken) throws Exception;
 
@@ -20,7 +20,7 @@ public interface ISessionService extends IService<Session> {
 
     void remove(@NotNull final String sessionToken) throws Exception;
 
-    void removeAll() throws Exception;
+    void removeAll();
 
     @NotNull
     String open(@NotNull final String login, @NotNull final String password) throws Exception;

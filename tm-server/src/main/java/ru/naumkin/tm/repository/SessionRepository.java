@@ -8,7 +8,7 @@ import ru.naumkin.tm.entity.Session;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class SessionRepository extends AbstractRepository implements ISessionRepository {
+public final class SessionRepository extends AbstractRepository implements ISessionRepository {
 
     @NotNull
     @Override

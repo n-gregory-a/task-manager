@@ -2,7 +2,6 @@ package ru.naumkin.tm.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NoArgsConstructor;
-import org.apache.ibatis.session.SqlSession;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.ISessionRepository;
@@ -15,89 +14,85 @@ import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.error.*;
 import ru.naumkin.tm.util.SignatureUtil;
 
-import java.sql.SQLException;
+import javax.persistence.EntityManager;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
 @NoArgsConstructor
-public class SessionService extends AbstractService<Session> implements ISessionService {
+public final class SessionService extends AbstractService<Session> implements ISessionService {
 
-    public SessionService(@NotNull final IPropertyService propertyService) {
+    @NotNull
+    private ISessionRepository sessionRepository;
+
+    @NotNull
+    private IUserRepository userRepository;
+
+    public SessionService(
+            @NotNull final IPropertyService propertyService,
+            @NotNull final ISessionRepository sessionRepository,
+            @NotNull final IUserRepository userRepository
+    ) {
         super(propertyService);
+        this.sessionRepository = sessionRepository;
+        this.userRepository = userRepository;
     }
 
     @NotNull
     @Override
-    public List<Session> findAll() throws Exception {
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
-        return sessionRepository.findAll();
+    public List<Session> findAll() {
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        @NotNull final List<Session> sessions = sessionRepository.findAll();
+        entityManager.getTransaction().commit();
+        return sessions;
     }
 
-    @Nullable
+    @NotNull
     @Override
-    public Session findOne(@NotNull final String id) throws Exception {
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
-        return sessionRepository.findOne(id);
+    public Session findOne(@NotNull final String id) {
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        @Nullable final Session session = sessionRepository.findOne(id);
+        if (session == null) {
+            throw new SessionIsNullException();
+        }
+        return session;
     }
 
     @Override
     public void persist(@NotNull final String sessionToken) throws Exception {
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
-        try {
-            sessionRepository.persist(getSessionFromToken(sessionToken));
-            sqlSession.commit();
-        } catch (SQLException e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
+        @NotNull final Session session = getSessionFromToken(sessionToken);
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        sessionRepository.persist(session);
+        entityManager.getTransaction().commit();
     }
 
     @Override
     public void merge(@NotNull final String sessionToken) throws Exception {
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
-        try {
-            sessionRepository.merge(getSessionFromToken(sessionToken));
-            sqlSession.commit();
-        } catch (SQLException e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
+        @NotNull final Session session = getSessionFromToken(sessionToken);
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        sessionRepository.merge(session);
+        entityManager.getTransaction().commit();
     }
 
     @Override
     public void remove(@NotNull final String sessionToken) throws Exception {
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
-        try {
-            sessionRepository.remove(getSessionFromToken(sessionToken).getId());
-            sqlSession.commit();
-        } catch (SQLException e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
+        @NotNull final Session session = getSessionFromToken(sessionToken);
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        sessionRepository.remove(session.getId());
+        entityManager.getTransaction().commit();
     }
 
     @Override
-    public void removeAll() throws Exception {
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
-        try {
-            sessionRepository.removeAll();
-            sqlSession.commit();
-        } catch (SQLException e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
-
+    public void removeAll() {
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        sessionRepository.removeAll();
+        entityManager.getTransaction().commit();
     }
 
     @NotNull
@@ -106,8 +101,6 @@ public class SessionService extends AbstractService<Session> implements ISession
         @NotNull Session session = new Session();
         session.setName("Session" + System.currentTimeMillis());
         session.setTimestamp(System.currentTimeMillis());
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final IUserRepository userRepository = sqlSession.getMapper(IUserRepository.class);
         @Nullable final User user = userRepository.findOne(login);
         if (user == null) {
             throw new UserIsNullException();
@@ -116,7 +109,7 @@ public class SessionService extends AbstractService<Session> implements ISession
         if (!passwordIsCorrect) {
             throw new PasswordIsIncorrectException();
         }
-        session.setUserId(user.getId());
+        session.setUser(user);
         sign(session);
         @NotNull final ObjectMapper objectMapper = new ObjectMapper();
         @NotNull final String json = objectMapper.writeValueAsString(session);
@@ -131,7 +124,7 @@ public class SessionService extends AbstractService<Session> implements ISession
     @Override
     public String getUserId(@NotNull final String sessionToken) throws Exception {
         @NotNull final Session session = getSessionFromToken(sessionToken);
-        return session.getUserId();
+        return session.getUser().getId();
     }
 
     @Override
@@ -154,8 +147,6 @@ public class SessionService extends AbstractService<Session> implements ISession
         if (!signatureEquals) {
             throw new SessionValidationException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final ISessionRepository sessionRepository = sqlSession.getMapper(ISessionRepository.class);
         final boolean sessionNotExists =
                 sessionRepository.findOne(session.getId()) == null;
         if (sessionNotExists) {
