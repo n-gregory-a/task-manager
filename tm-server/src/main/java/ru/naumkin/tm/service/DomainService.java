@@ -17,12 +17,10 @@ import ru.naumkin.tm.entity.Task;
 import ru.naumkin.tm.entity.User;
 
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
 import java.nio.file.Files;
-import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
