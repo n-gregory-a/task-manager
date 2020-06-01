@@ -15,6 +15,9 @@ import javax.xml.ws.Endpoint;
 @NoArgsConstructor
 public final class Bootstrap implements ServiceLocator {
 
+    @Getter
+    @NotNull
+    private final ServiceLocator serviceLocator = this;
 
     @Getter
     @NotNull
@@ -34,28 +37,23 @@ public final class Bootstrap implements ServiceLocator {
 
     @Getter
     @NotNull
-    private final IDomainService domainService =
-            new DomainService(projectService, taskService, userService);
+    private final IDomainService domainService = new DomainService(serviceLocator);
 
     @Getter
     @NotNull
     private final ISessionService sessionService = new SessionService(propertyService);
 
     @NotNull
-    private final IProjectEndpoint projectEndpoint =
-            new ProjectEndpoint(sessionService, projectService);
+    private final IProjectEndpoint projectEndpoint = new ProjectEndpoint(serviceLocator);
 
     @NotNull
-    private final ITaskEndpoint taskEndpoint =
-            new TaskEndpoint(sessionService, taskService);
+    private final ITaskEndpoint taskEndpoint = new TaskEndpoint(serviceLocator);
 
     @NotNull
-    private final IUserEndpoint userEndpoint =
-            new UserEndpoint(sessionService, userService);
+    private final IUserEndpoint userEndpoint = new UserEndpoint(serviceLocator);
 
     @NotNull
-    private final IDomainEndpoint domainEndpoint =
-            new DomainEndpoint(sessionService, domainService);
+    private final IDomainEndpoint domainEndpoint = new DomainEndpoint(serviceLocator);
 
     @NotNull
     private final ISessionEndpoint sessionEndpoint = new SessionEndpoint(sessionService);
