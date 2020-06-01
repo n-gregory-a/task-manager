@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.naumkin.tm.dto.ProjectDTO;
 import ru.naumkin.tm.enumerated.Status;
 
 import javax.persistence.*;
@@ -33,6 +34,7 @@ public final class Project extends AbstractEntity {
 
     @NotNull
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @NotNull
@@ -46,6 +48,19 @@ public final class Project extends AbstractEntity {
 
     public Project(@NotNull final String name) {
         setName(name);
+    }
+
+    @NotNull
+    public ProjectDTO convertToProjectDTO(@NotNull final Project project) {
+        @NotNull final ProjectDTO projectDTO = new ProjectDTO();
+        projectDTO.setId(project.getId());
+        projectDTO.setName(project.getName());
+        projectDTO.setDescription(project.getDescription());
+        projectDTO.setDateStart(project.getDateStart());
+        projectDTO.setDateFinish(project.getDateFinish());
+        projectDTO.setUserId(project.getUser().getId());
+        projectDTO.setStatus(project.getStatus());
+        return projectDTO;
     }
 
 }

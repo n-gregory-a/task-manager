@@ -5,8 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.naumkin.tm.dto.TaskDTO;
 import ru.naumkin.tm.enumerated.Status;
-import ru.naumkin.tm.util.DateFormatter;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -31,10 +31,12 @@ public final class Task extends AbstractEntity {
 
     @Nullable
     @ManyToOne
+    @JoinColumn(name = "project_id")
     private Project project;
 
-    @Nullable
+    @NotNull
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @NotNull
@@ -44,6 +46,19 @@ public final class Task extends AbstractEntity {
 
     public Task(@NotNull final String name) {
         setName(name);
+    }
+
+    @NotNull
+    public TaskDTO convertToTaskDTO(@NotNull final Task task) {
+        @NotNull final TaskDTO taskDTO = new TaskDTO();
+        taskDTO.setId(task.getId());
+        taskDTO.setName(task.getName());
+        taskDTO.setDescription(task.getDescription());
+        taskDTO.setDateStart(task.getDateStart());
+        taskDTO.setDateFinish(task.getDateFinish());
+        taskDTO.setUserId(task.getUser().getId());
+        taskDTO.setStatus(task.getStatus());
+        return taskDTO;
     }
 
 }

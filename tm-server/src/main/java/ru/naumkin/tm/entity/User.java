@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
+import ru.naumkin.tm.dto.UserDTO;
 import ru.naumkin.tm.enumerated.RoleType;
 import ru.naumkin.tm.util.HashGenerator;
 
@@ -37,5 +38,15 @@ public final class User extends AbstractEntity {
     @NotNull
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Session> sessions = new ArrayList<>();
+
+    @NotNull
+    public UserDTO convertToUserDTO(@NotNull final User user) {
+        @NotNull final UserDTO userDTO = new UserDTO();
+        userDTO.setId(user.getId());
+        userDTO.setName(user.getName());
+        userDTO.setPassword(user.getPassword());
+        userDTO.setRole(user.getRole());
+        return userDTO;
+    }
 
 }
