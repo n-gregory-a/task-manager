@@ -1,7 +1,6 @@
 package ru.naumkin.tm.service;
 
 import lombok.NoArgsConstructor;
-import org.apache.ibatis.session.SqlSession;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.ITaskRepository;
@@ -10,35 +9,46 @@ import ru.naumkin.tm.api.service.ITaskService;
 import ru.naumkin.tm.entity.Task;
 import ru.naumkin.tm.error.*;
 
-import java.sql.SQLException;
+import javax.persistence.EntityManager;
 import java.util.List;
 
 @NoArgsConstructor
 public final class TaskService extends AbstractService<Task> implements ITaskService {
+    
+    @NotNull
+    private ITaskRepository taskRepository;
 
-    public TaskService(@NotNull IPropertyService propertyService) {
+    public TaskService(
+            @NotNull final  IPropertyService propertyService,
+            @NotNull final ITaskRepository taskRepository
+    ) {
         super(propertyService);
+        this.taskRepository = taskRepository;
     }
 
     @Override
-    public @NotNull List<Task> findAll() throws Exception {
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
-        return taskRepository.findAll();
+    public @NotNull List<Task> findAll() {
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        @NotNull final List<Task> tasks = taskRepository.findAll();
+        entityManager.getTransaction().commit();
+        return tasks;
     }
 
     @NotNull
     @Override
-    public List<Task> findAll(@Nullable final String userId) throws Exception {
+    public List<Task> findAll(@Nullable final String userId) {
         if (userId == null) {
             throw new UserIdIsNullException();
         }
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
-        return taskRepository.findAllByUserId(userId);
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        @NotNull final List<Task> tasks = taskRepository.findAllByUserId(userId);
+        entityManager.getTransaction().commit();
+        return tasks;
     }
 
     @NotNull
@@ -46,7 +56,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     public Task findOne(
             @Nullable final String userId,
             @Nullable final String name
-    ) throws Exception {
+    ) {
         if (name == null) {
             throw new NameIsNullException();
         }
@@ -59,55 +69,44 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
         @Nullable final Task task =
                 taskRepository.findOneByUserId(userId, name);
         if (task == null) {
             throw new NoTaskWithSuchNameException(name);
         }
+        entityManager.getTransaction().commit();
         return task;
     }
 
     @Override
-    public void persist(@Nullable final Task task) throws Exception {
+    public void persist(@Nullable final Task task) {
         if (task == null) {
             throw new TaskIsNullException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
-        try {
-            taskRepository.persist(task);
-            sqlSession.commit();
-        } catch (SQLException e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        taskRepository.persist(task);
+        entityManager.getTransaction().commit();
     }
 
     @Override
-    public void merge(@Nullable final Task task) throws Exception {
+    public void merge(@Nullable final Task task) {
         if (task == null) {
             throw new TaskIsNullException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
-        try {
-            taskRepository.merge(task);
-            sqlSession.commit();
-        } catch (SQLException e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        taskRepository.merge(task);
+        entityManager.getTransaction().commit();
     }
 
     @Override
     public void remove(
             @Nullable final String userId,
             @Nullable final Task task
-    ) throws Exception {
+    ) {
         if (task == null) {
             throw new TaskIsNullException();
         }
@@ -117,78 +116,72 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
-        try {
-            taskRepository.remove(userId, task.getId());
-            sqlSession.commit();
-        } catch (SQLException e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        taskRepository.remove(userId, task.getId());
+        entityManager.getTransaction().commit();
     }
 
     @Override
-    public void removeAll(@Nullable final String userId) throws Exception {
+    public void removeAll(@Nullable final String userId) {
         if (userId == null) {
             throw new UserIdIsNullException();
         }
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
-        try {
-            taskRepository.removeAll(userId);
-            sqlSession.commit();
-        } catch (SQLException e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        taskRepository.removeAll(userId);
+        entityManager.getTransaction().commit();
     }
 
     @NotNull
     @Override
-    public List<Task> sortByDateStart(@Nullable final String userId) throws Exception {
+    public List<Task> sortByDateStart(@Nullable final String userId) {
         if (userId == null) {
             throw new UserIdIsNullException();
         }
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
-        return taskRepository.sortByDateStart(userId);
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        @NotNull final List<Task> tasks = taskRepository.sortByDateStart(userId);
+        entityManager.getTransaction().commit();
+        return tasks;
     }
 
     @NotNull
     @Override
-    public List<Task> sortByDateFinish(@Nullable final String userId) throws Exception {
+    public List<Task> sortByDateFinish(@Nullable final String userId) {
         if (userId == null) {
             throw new UserIdIsNullException();
         }
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
-        return taskRepository.sortByDateFinish(userId);
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        @NotNull final List<Task> tasks = taskRepository.sortByDateFinish(userId);
+        entityManager.getTransaction().commit();
+        return tasks;
     }
 
     @NotNull
     @Override
-    public List<Task> sortByStatus(@Nullable final String userId) throws Exception {
+    public List<Task> sortByStatus(@Nullable final String userId) {
         if (userId == null) {
             throw new UserIdIsNullException();
         }
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
-        return taskRepository.sortByStatus(userId);
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        @NotNull final List<Task> tasks = taskRepository.sortByStatus(userId);
+        entityManager.getTransaction().commit();
+        return tasks;
     }
 
     @NotNull
@@ -196,7 +189,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
     public List<Task> sortByName(
             @Nullable final String userId,
             @Nullable final String name
-    ) throws Exception {
+    ) {
         if (name == null) {
             throw new NameIsNullException();
         }
@@ -209,17 +202,18 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
-        return taskRepository.sortByName(userId, name);
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        @NotNull final List<Task> tasks = taskRepository.sortByName(userId, name);
+        entityManager.getTransaction().commit();
+        return tasks;
     }
 
-    @NotNull
     @Override
-    public List<Task> sortByDescription(
+    public @NotNull List<Task> sortByDescription(
             @Nullable final String userId,
             @Nullable final String description
-    ) throws Exception {
+    ) {
         if (description == null) {
             throw new DescriptionIsNullException();
         }
@@ -232,9 +226,11 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final ITaskRepository taskRepository = sqlSession.getMapper(ITaskRepository.class);
-        return taskRepository.sortByDescription(userId, description);
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        @NotNull final List<Task> tasks = taskRepository.sortByDescription(userId, description);
+        entityManager.getTransaction().commit();
+        return tasks;
     }
 
 }
