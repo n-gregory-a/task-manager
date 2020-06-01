@@ -1,14 +1,21 @@
 package ru.naumkin.tm.repository;
 
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.ISessionRepository;
 import ru.naumkin.tm.entity.Session;
 
+import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+@NoArgsConstructor
 public final class SessionRepository extends AbstractRepository implements ISessionRepository {
+
+    public SessionRepository(@NotNull final EntityManager entityManager) {
+        super(entityManager);
+    }
 
     @NotNull
     @Override

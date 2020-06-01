@@ -1,15 +1,22 @@
 package ru.naumkin.tm.repository;
 
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.ITaskRepository;
 import ru.naumkin.tm.entity.Task;
 
+import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class TaskRepository extends AbstractRepository implements ITaskRepository {
+@NoArgsConstructor
+public final class TaskRepository extends AbstractRepository implements ITaskRepository {
+
+    public TaskRepository(@NotNull final EntityManager entityManager) {
+        super(entityManager);
+    }
 
     @NotNull
     @Override

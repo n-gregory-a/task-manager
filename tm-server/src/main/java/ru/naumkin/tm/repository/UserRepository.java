@@ -1,14 +1,21 @@
 package ru.naumkin.tm.repository;
 
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.IUserRepository;
 import ru.naumkin.tm.entity.User;
 
+import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class UserRepository extends AbstractRepository implements IUserRepository {
+@NoArgsConstructor
+public final class UserRepository extends AbstractRepository implements IUserRepository {
+
+    public UserRepository(@NotNull final EntityManager entityManager) {
+        super(entityManager);
+    }
 
     @Override
     public @NotNull List<User> findAll() {
