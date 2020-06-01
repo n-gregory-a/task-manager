@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.eclipse.persistence.jaxb.MarshallerProperties;
 import org.eclipse.persistence.jaxb.UnmarshallerProperties;
 import org.jetbrains.annotations.NotNull;
+import ru.naumkin.tm.api.ServiceLocator;
 import ru.naumkin.tm.api.service.IDomainService;
 import ru.naumkin.tm.api.service.IProjectService;
 import ru.naumkin.tm.api.service.ITaskService;
@@ -36,13 +37,10 @@ public final class DomainService implements IDomainService {
     @NotNull
     private IUserService userService;
 
-    public DomainService(@NotNull final IProjectService projectService,
-                         @NotNull final ITaskService taskService,
-                         @NotNull final IUserService userService
-    ) {
-        this.projectService = projectService;
-        this.taskService = taskService;
-        this.userService = userService;
+    public DomainService(@NotNull final ServiceLocator serviceLocator) {
+        this.projectService = serviceLocator.getProjectService();
+        this.taskService = serviceLocator.getTaskService();
+        this.userService = serviceLocator.getUserService();
     }
 
     @Override
