@@ -2,15 +2,16 @@ package ru.naumkin.tm.enpoint;
 
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import ru.naumkin.tm.api.ServiceLocator;
 import ru.naumkin.tm.api.endpoint.ITaskEndpoint;
 import ru.naumkin.tm.api.service.ISessionService;
 import ru.naumkin.tm.api.service.ITaskService;
-import ru.naumkin.tm.entity.Session;
+import ru.naumkin.tm.dto.TaskDTO;
 import ru.naumkin.tm.entity.Task;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -21,60 +22,68 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     
     @NotNull private ISessionService sessionService;
 
-    public TaskEndpoint(
-            @NotNull final ISessionService sessionService,
-            @NotNull final ITaskService taskService) {
-        super(sessionService);
-        this.taskService = taskService;
-        this.sessionService = sessionService;
+    public TaskEndpoint(@NotNull final ServiceLocator serviceLocator) {
+        super(serviceLocator);
+        this.taskService = serviceLocator.getTaskService();
+        this.sessionService = serviceLocator.getSessionService();
     }
 
     @Override
     @WebMethod
     public void persistTask(
             @NotNull final String sessionToken,
-            @NotNull final Task task
+            @NotNull final TaskDTO taskDTO
     ) throws Exception {
         validate(sessionToken);
-        taskService.persist(task);
+        taskService.persist(taskDTO.convertToTask(taskDTO, serviceLocator));
     }
 
     @Override
     @WebMethod
     public void mergeTask(
             @NotNull final String sessionToken,
-            @NotNull final Task task
+            @NotNull final TaskDTO taskDTO
     ) throws Exception {
         validate(sessionToken);
-        taskService.merge(task);
+        taskService.merge(taskDTO.convertToTask(taskDTO, serviceLocator));
     }
 
     @NotNull
     @Override
     @WebMethod
-    public List<Task> findAllTasksByUserId(@NotNull final String sessionToken) throws Exception {
+    public List<TaskDTO> findAllTasksByUserId(@NotNull final String sessionToken) throws Exception {
         validate(sessionToken);
-        return taskService.findAll(sessionService.getUserId(sessionToken));
+        @NotNull final List<Task> tasks =
+                taskService.findAll(sessionService.getUserId(sessionToken));
+        @NotNull final List<TaskDTO> taskDTOList = new ArrayList<>();
+        for (Task task: tasks) {
+            @NotNull final TaskDTO taskDTO = task.convertToTaskDTO(task);
+            taskDTOList.add(taskDTO);
+        }
+        return taskDTOList;
     }
 
     @NotNull
     @Override
     @WebMethod
-    public Task findOneTaskByUserId(
+    public TaskDTO findOneTaskByUserId(
             @NotNull final String sessionToken,
             @NotNull final String name
     ) throws Exception {
         validate(sessionToken);
-        return taskService.findOne(sessionService.getUserId(sessionToken), name);
+        @NotNull final Task task =
+                taskService.findOne(sessionService.getUserId(sessionToken), name);
+        return task.convertToTaskDTO(task);
     }
 
     @Override
     @WebMethod
     public void removeTaskByUserId(
             @NotNull final String sessionToken,
-            @NotNull final Task task
+            @NotNull final TaskDTO taskDTO
     ) throws Exception {
         validate(sessionToken);
+        @NotNull final Task task = taskDTO.convertToTask(taskDTO, serviceLocator);
         taskService.remove(sessionService.getUserId(sessionToken), task);
     }
 
@@ -88,47 +97,82 @@ public final class TaskEndpoint extends AbstractEndpoint implements ITaskEndpoin
     @NotNull
     @Override
     @WebMethod
-    public List<Task> sortTasksByDateStart(@NotNull final String sessionToken) throws Exception {
+    public List<TaskDTO> sortTasksByDateStart(@NotNull final String sessionToken) throws Exception {
         validate(sessionToken);
-        return taskService.sortByDateStart(sessionService.getUserId(sessionToken));
+        @NotNull final List<Task> tasks =
+                taskService.sortByDateStart(sessionService.getUserId(sessionToken));
+        @NotNull final List<TaskDTO> taskDTOList = new ArrayList<>();
+        for (Task task: tasks) {
+            @NotNull final TaskDTO taskDTO = task.convertToTaskDTO(task);
+            taskDTOList.add(taskDTO);
+        }
+        return taskDTOList;
     }
 
     @NotNull
     @Override
     @WebMethod
-    public List<Task> sortTasksByDateFinish(@NotNull final String sessionToken) throws Exception {
+    public List<TaskDTO> sortTasksByDateFinish(@NotNull final String sessionToken) throws Exception {
         validate(sessionToken);
-        return taskService.sortByDateFinish(sessionService.getUserId(sessionToken));
+        @NotNull final List<Task> tasks =
+                taskService.sortByDateFinish(sessionService.getUserId(sessionToken));
+        @NotNull final List<TaskDTO> taskDTOList = new ArrayList<>();
+        for (Task task: tasks) {
+            @NotNull final TaskDTO taskDTO = task.convertToTaskDTO(task);
+            taskDTOList.add(taskDTO);
+        }
+        return taskDTOList;
     }
 
     @NotNull
     @Override
     @WebMethod
-    public List<Task> sortTasksByStatus(@NotNull final String sessionToken) throws Exception {
+    public List<TaskDTO> sortTasksByStatus(@NotNull final String sessionToken) throws Exception {
         validate(sessionToken);
-        return taskService.sortByStatus(sessionService.getUserId(sessionToken));
+        @NotNull final List<Task> tasks =
+                taskService.sortByStatus(sessionService.getUserId(sessionToken));
+        @NotNull final List<TaskDTO> taskDTOList = new ArrayList<>();
+        for (Task task: tasks) {
+            @NotNull final TaskDTO taskDTO = task.convertToTaskDTO(task);
+            taskDTOList.add(taskDTO);
+        }
+        return taskDTOList;
     }
 
     @NotNull
     @Override
     @WebMethod
-    public List<Task> sortTasksByName(
+    public List<TaskDTO> sortTasksByName(
             @NotNull final String sessionToken,
             @NotNull final String name
     ) throws Exception {
         validate(sessionToken);
-        return taskService.sortByName(sessionService.getUserId(sessionToken), name);
+        @NotNull final List<Task> tasks =
+                taskService.sortByName(sessionService.getUserId(sessionToken), name);
+        @NotNull final List<TaskDTO> taskDTOList = new ArrayList<>();
+        for (Task task: tasks) {
+            @NotNull final TaskDTO taskDTO = task.convertToTaskDTO(task);
+            taskDTOList.add(taskDTO);
+        }
+        return taskDTOList;
     }
 
     @NotNull
     @Override
     @WebMethod
-    public List<Task> sortTasksByDescription(
+    public List<TaskDTO> sortTasksByDescription(
             @NotNull final String sessionToken,
             @NotNull final String description
     ) throws Exception {
         validate(sessionToken);
-        return taskService.sortByDescription(sessionService.getUserId(sessionToken), description);
+        @NotNull final List<Task> tasks =
+                taskService.sortByDescription(sessionService.getUserId(sessionToken), description);
+        @NotNull final List<TaskDTO> taskDTOList = new ArrayList<>();
+        for (Task task: tasks) {
+            @NotNull final TaskDTO taskDTO = task.convertToTaskDTO(task);
+            taskDTOList.add(taskDTO);
+        }
+        return taskDTOList;
     }
 
 }

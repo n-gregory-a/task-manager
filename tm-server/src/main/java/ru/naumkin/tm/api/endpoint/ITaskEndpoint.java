@@ -2,6 +2,7 @@ package ru.naumkin.tm.api.endpoint;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.naumkin.tm.dto.TaskDTO;
 import ru.naumkin.tm.entity.Session;
 import ru.naumkin.tm.entity.Task;
 
@@ -13,53 +14,53 @@ import java.util.List;
 public interface ITaskEndpoint {
 
     @WebMethod
-    void persistTask(@NotNull final String sessionToken, @NotNull final Task task) throws Exception;
+    void persistTask(@NotNull final String sessionToken, @NotNull final TaskDTO taskDTO) throws Exception;
 
     @WebMethod
     void mergeTask(
             @NotNull final String sessionToken,
-            @NotNull final Task task) throws Exception;
+            @NotNull final TaskDTO taskDTO) throws Exception;
 
     @NotNull
     @WebMethod
-    List<Task> findAllTasksByUserId(
+    List<TaskDTO> findAllTasksByUserId(
             @NotNull final String sessionToken) throws Exception;
 
     @NotNull
     @WebMethod
-    Task findOneTaskByUserId(
+    TaskDTO findOneTaskByUserId(
             @NotNull final String sessionToken,
             @NotNull final String name) throws Exception;
 
     @WebMethod
     void removeTaskByUserId(
             @NotNull final String sessionToken,
-            @NotNull final Task task) throws Exception;
+            @NotNull final TaskDTO taskDTO) throws Exception;
 
     @WebMethod
     void removeAllTasksByUserId(@NotNull final String sessionToken) throws Exception;
 
     @NotNull
     @WebMethod
-    List<Task> sortTasksByDateStart(@NotNull final String sessionToken) throws Exception;
+    List<TaskDTO> sortTasksByDateStart(@NotNull final String sessionToken) throws Exception;
 
     @NotNull
     @WebMethod
-    List<Task> sortTasksByDateFinish(@NotNull final String sessionToken) throws Exception;
+    List<TaskDTO> sortTasksByDateFinish(@NotNull final String sessionToken) throws Exception;
 
     @NotNull
     @WebMethod
-    List<Task> sortTasksByStatus(@NotNull final String sessionToken) throws Exception;
+    List<TaskDTO> sortTasksByStatus(@NotNull final String sessionToken) throws Exception;
 
     @NotNull
     @WebMethod
-    List<Task> sortTasksByName(
+    List<TaskDTO> sortTasksByName(
             @NotNull final String sessionToken,
             @NotNull final String name) throws Exception;
 
     @NotNull
     @WebMethod
-    List<Task> sortTasksByDescription(
+    List<TaskDTO> sortTasksByDescription(
             @NotNull final String sessionToken,
             @NotNull final String description) throws Exception;
     
