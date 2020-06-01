@@ -3,34 +3,27 @@ package ru.naumkin.tm.service;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.naumkin.tm.api.repository.ITaskRepository;
 import ru.naumkin.tm.api.service.IPropertyService;
 import ru.naumkin.tm.api.service.ITaskService;
 import ru.naumkin.tm.entity.Task;
 import ru.naumkin.tm.error.*;
+import ru.naumkin.tm.repository.TaskRepository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
 @NoArgsConstructor
 public final class TaskService extends AbstractService<Task> implements ITaskService {
-    
-    @NotNull
-    private ITaskRepository taskRepository;
 
-    public TaskService(
-            @NotNull final  IPropertyService propertyService,
-            @NotNull final ITaskRepository taskRepository
-    ) {
+    public TaskService(@NotNull final  IPropertyService propertyService) {
         super(propertyService);
-        this.taskRepository = taskRepository;
     }
 
     @Override
     public @NotNull List<Task> findAll() {
         @NotNull final EntityManager entityManager = factory().createEntityManager();
         entityManager.getTransaction().begin();
-        @NotNull final List<Task> tasks = taskRepository.findAll();
+        @NotNull final List<Task> tasks = new TaskRepository(entityManager).findAll();
         entityManager.getTransaction().commit();
         return tasks;
     }
@@ -46,7 +39,8 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         }
         @NotNull final EntityManager entityManager = factory().createEntityManager();
         entityManager.getTransaction().begin();
-        @NotNull final List<Task> tasks = taskRepository.findAllByUserId(userId);
+        @NotNull final List<Task> tasks =
+                new TaskRepository(entityManager).findAllByUserId(userId);
         entityManager.getTransaction().commit();
         return tasks;
     }
@@ -72,7 +66,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         @NotNull final EntityManager entityManager = factory().createEntityManager();
         entityManager.getTransaction().begin();
         @Nullable final Task task =
-                taskRepository.findOneByUserId(userId, name);
+                new TaskRepository(entityManager).findOneByUserId(userId, name);
         if (task == null) {
             throw new NoTaskWithSuchNameException(name);
         }
@@ -87,7 +81,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         }
         @NotNull final EntityManager entityManager = factory().createEntityManager();
         entityManager.getTransaction().begin();
-        taskRepository.persist(task);
+        new TaskRepository(entityManager).persist(task);
         entityManager.getTransaction().commit();
     }
 
@@ -98,7 +92,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         }
         @NotNull final EntityManager entityManager = factory().createEntityManager();
         entityManager.getTransaction().begin();
-        taskRepository.merge(task);
+        new TaskRepository(entityManager).merge(task);
         entityManager.getTransaction().commit();
     }
 
@@ -118,7 +112,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         }
         @NotNull final EntityManager entityManager = factory().createEntityManager();
         entityManager.getTransaction().begin();
-        taskRepository.remove(userId, task.getId());
+        new TaskRepository(entityManager).remove(userId, task.getId());
         entityManager.getTransaction().commit();
     }
 
@@ -132,7 +126,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         }
         @NotNull final EntityManager entityManager = factory().createEntityManager();
         entityManager.getTransaction().begin();
-        taskRepository.removeAll(userId);
+        new TaskRepository(entityManager).removeAll(userId);
         entityManager.getTransaction().commit();
     }
 
@@ -147,7 +141,8 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         }
         @NotNull final EntityManager entityManager = factory().createEntityManager();
         entityManager.getTransaction().begin();
-        @NotNull final List<Task> tasks = taskRepository.sortByDateStart(userId);
+        @NotNull final List<Task> tasks =
+                new TaskRepository(entityManager).sortByDateStart(userId);
         entityManager.getTransaction().commit();
         return tasks;
     }
@@ -163,7 +158,8 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         }
         @NotNull final EntityManager entityManager = factory().createEntityManager();
         entityManager.getTransaction().begin();
-        @NotNull final List<Task> tasks = taskRepository.sortByDateFinish(userId);
+        @NotNull final List<Task> tasks =
+                new TaskRepository(entityManager).sortByDateFinish(userId);
         entityManager.getTransaction().commit();
         return tasks;
     }
@@ -179,7 +175,8 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         }
         @NotNull final EntityManager entityManager = factory().createEntityManager();
         entityManager.getTransaction().begin();
-        @NotNull final List<Task> tasks = taskRepository.sortByStatus(userId);
+        @NotNull final List<Task> tasks =
+                new TaskRepository(entityManager).sortByStatus(userId);
         entityManager.getTransaction().commit();
         return tasks;
     }
@@ -204,7 +201,8 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         }
         @NotNull final EntityManager entityManager = factory().createEntityManager();
         entityManager.getTransaction().begin();
-        @NotNull final List<Task> tasks = taskRepository.sortByName(userId, name);
+        @NotNull final List<Task> tasks =
+                new TaskRepository(entityManager).sortByName(userId, name);
         entityManager.getTransaction().commit();
         return tasks;
     }
@@ -228,7 +226,8 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         }
         @NotNull final EntityManager entityManager = factory().createEntityManager();
         entityManager.getTransaction().begin();
-        @NotNull final List<Task> tasks = taskRepository.sortByDescription(userId, description);
+        @NotNull final List<Task> tasks =
+                new TaskRepository(entityManager).sortByDescription(userId, description);
         entityManager.getTransaction().commit();
         return tasks;
     }
@@ -253,7 +252,8 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         }
         @NotNull final EntityManager entityManager = factory().createEntityManager();
         entityManager.getTransaction().begin();
-        @NotNull final List<Task> tasks = taskRepository.findAllByProjectId(userId, ProjectId);
+        @NotNull final List<Task> tasks =
+                new TaskRepository(entityManager).findAllByProjectId(userId, ProjectId);
         return tasks;
     }
 

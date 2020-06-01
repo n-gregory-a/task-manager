@@ -4,14 +4,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.naumkin.tm.api.repository.ISessionRepository;
-import ru.naumkin.tm.api.repository.IUserRepository;
 import ru.naumkin.tm.api.service.IPropertyService;
 import ru.naumkin.tm.api.service.ISessionService;
 import ru.naumkin.tm.constant.ValidationConstant;
 import ru.naumkin.tm.entity.Session;
 import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.error.*;
+import ru.naumkin.tm.repository.SessionRepository;
+import ru.naumkin.tm.repository.UserRepository;
 import ru.naumkin.tm.util.SignatureUtil;
 
 import javax.persistence.EntityManager;
@@ -22,20 +22,8 @@ import java.util.List;
 @NoArgsConstructor
 public final class SessionService extends AbstractService<Session> implements ISessionService {
 
-    @NotNull
-    private ISessionRepository sessionRepository;
-
-    @NotNull
-    private IUserRepository userRepository;
-
-    public SessionService(
-            @NotNull final IPropertyService propertyService,
-            @NotNull final ISessionRepository sessionRepository,
-            @NotNull final IUserRepository userRepository
-    ) {
+    public SessionService(@NotNull final IPropertyService propertyService) {
         super(propertyService);
-        this.sessionRepository = sessionRepository;
-        this.userRepository = userRepository;
     }
 
     @NotNull
@@ -43,7 +31,7 @@ public final class SessionService extends AbstractService<Session> implements IS
     public List<Session> findAll() {
         @NotNull final EntityManager entityManager = factory().createEntityManager();
         entityManager.getTransaction().begin();
-        @NotNull final List<Session> sessions = sessionRepository.findAll();
+        @NotNull final List<Session> sessions = new SessionRepository(entityManager).findAll();
         entityManager.getTransaction().commit();
         return sessions;
     }
@@ -53,7 +41,7 @@ public final class SessionService extends AbstractService<Session> implements IS
     public Session findOne(@NotNull final String id) {
         @NotNull final EntityManager entityManager = factory().createEntityManager();
         entityManager.getTransaction().begin();
-        @Nullable final Session session = sessionRepository.findOne(id);
+        @Nullable final Session session = new SessionRepository(entityManager).findOne(id);
         if (session == null) {
             throw new SessionIsNullException();
         }
@@ -65,7 +53,7 @@ public final class SessionService extends AbstractService<Session> implements IS
         @NotNull final Session session = getSessionFromToken(sessionToken);
         @NotNull final EntityManager entityManager = factory().createEntityManager();
         entityManager.getTransaction().begin();
-        sessionRepository.persist(session);
+        new SessionRepository(entityManager).persist(session);
         entityManager.getTransaction().commit();
     }
 
@@ -74,7 +62,7 @@ public final class SessionService extends AbstractService<Session> implements IS
         @NotNull final Session session = getSessionFromToken(sessionToken);
         @NotNull final EntityManager entityManager = factory().createEntityManager();
         entityManager.getTransaction().begin();
-        sessionRepository.merge(session);
+        new SessionRepository(entityManager).merge(session);
         entityManager.getTransaction().commit();
     }
 
@@ -83,7 +71,7 @@ public final class SessionService extends AbstractService<Session> implements IS
         @NotNull final Session session = getSessionFromToken(sessionToken);
         @NotNull final EntityManager entityManager = factory().createEntityManager();
         entityManager.getTransaction().begin();
-        sessionRepository.remove(session.getId());
+        new SessionRepository(entityManager).remove(session.getId());
         entityManager.getTransaction().commit();
     }
 
@@ -91,7 +79,7 @@ public final class SessionService extends AbstractService<Session> implements IS
     public void removeAll() {
         @NotNull final EntityManager entityManager = factory().createEntityManager();
         entityManager.getTransaction().begin();
-        sessionRepository.removeAll();
+        new SessionRepository(entityManager).removeAll();
         entityManager.getTransaction().commit();
     }
 
@@ -101,7 +89,8 @@ public final class SessionService extends AbstractService<Session> implements IS
         @NotNull Session session = new Session();
         session.setName("Session" + System.currentTimeMillis());
         session.setTimestamp(System.currentTimeMillis());
-        @Nullable final User user = userRepository.findOne(login);
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        @Nullable final User user = new UserRepository(entityManager).findOne(login);
         if (user == null) {
             throw new UserIsNullException();
         }
@@ -147,8 +136,9 @@ public final class SessionService extends AbstractService<Session> implements IS
         if (!signatureEquals) {
             throw new SessionValidationException();
         }
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
         final boolean sessionNotExists =
-                sessionRepository.findOne(session.getId()) == null;
+                new SessionRepository(entityManager).findOne(session.getId()) == null;
         if (sessionNotExists) {
             throw new SessionIsNullException();
         }

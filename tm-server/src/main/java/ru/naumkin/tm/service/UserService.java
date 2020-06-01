@@ -9,6 +9,7 @@ import ru.naumkin.tm.api.service.IUserService;
 import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.enumerated.RoleType;
 import ru.naumkin.tm.error.*;
+import ru.naumkin.tm.repository.UserRepository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -16,18 +17,12 @@ import java.util.List;
 @NoArgsConstructor
 public final class UserService extends AbstractService<User> implements IUserService {
 
-    @NotNull
-    private IUserRepository userRepository;
-
-    public UserService(@NotNull final IPropertyService propertyService,
-                       @NotNull final IUserRepository userRepository
-    ) {
+    public UserService(@NotNull final IPropertyService propertyService) {
         super(propertyService);
-        this.userRepository = userRepository;
     }
 
     @Override
-    public boolean isRoleAdmin(@Nullable final String id) throws Exception {
+    public boolean isRoleAdmin(@Nullable final String id) {
         if (id == null) {
             throw new IdIsNullException();
         }
@@ -43,7 +38,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
     public List<User> findAll() {
         @NotNull final EntityManager entityManager = factory().createEntityManager();
         entityManager.getTransaction().begin();
-        @NotNull final List<User> users = userRepository.findAll();
+        @NotNull final List<User> users = new UserRepository(entityManager).findAll();
         entityManager.getTransaction().commit();
         return users;
     }
@@ -59,7 +54,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
         }
         @NotNull final EntityManager entityManager = factory().createEntityManager();
         entityManager.getTransaction().begin();
-        @Nullable final User user = userRepository.findOne(name);
+        @Nullable final User user = new UserRepository(entityManager).findOne(name);
         entityManager.getTransaction().commit();
         if (user == null) {
             throw new NoUserWithSuchLoginException(name);
@@ -78,7 +73,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
         }
         @NotNull final EntityManager entityManager = factory().createEntityManager();
         entityManager.getTransaction().begin();
-        @Nullable final User user = userRepository.findOneById(id);
+        @Nullable final User user = new UserRepository(entityManager).findOneById(id);
         entityManager.getTransaction().commit();
         if (user == null) {
             throw new NoUserWithSuchIdException(id);
@@ -93,7 +88,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
         }
         @NotNull final EntityManager entityManager = factory().createEntityManager();
         entityManager.getTransaction().begin();
-        userRepository.persist(user);
+        new UserRepository(entityManager).persist(user);
         entityManager.getTransaction().commit();
     }
 
@@ -104,7 +99,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
         }
         @NotNull final EntityManager entityManager = factory().createEntityManager();
         entityManager.getTransaction().begin();
-        userRepository.merge(user);
+        new UserRepository(entityManager).merge(user);
         entityManager.getTransaction().commit();
     }
 
@@ -115,7 +110,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
         }
         @NotNull final EntityManager entityManager = factory().createEntityManager();
         entityManager.getTransaction().begin();
-        userRepository.remove(user.getId());
+        new UserRepository(entityManager).remove(user.getId());
         entityManager.getTransaction().commit();
     }
 
@@ -123,7 +118,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
     public void removeAll() {
         @NotNull final EntityManager entityManager = factory().createEntityManager();
         entityManager.getTransaction().begin();
-        userRepository.removeAll();
+        new UserRepository(entityManager).removeAll();
         entityManager.getTransaction().commit();
     }
 
