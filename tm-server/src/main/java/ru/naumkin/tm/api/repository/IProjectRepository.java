@@ -23,7 +23,7 @@ public interface IProjectRepository {
 
     void remove(@NotNull final String userId, @NotNull final String id);
 
-    void removeAll(@NotNull final String userId);
+    void removeAllByUserId(@NotNull final String userId);
 
     @NotNull
     List<Project> sortByDateStart(@NotNull final String userId);

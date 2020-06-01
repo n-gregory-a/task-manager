@@ -63,7 +63,7 @@ public class ProjectRepository extends AbstractRepository implements IProjectRep
     }
 
     @Override
-    public void removeAll(@NotNull final String userId) {
+    public void removeAllByUserId(@NotNull final String userId) {
         @NotNull final Query query = entityManager.createQuery(
                 "DELETE FROM Project WHERE Project.user.id=:userId");
         query.setParameter("userId", userId);
