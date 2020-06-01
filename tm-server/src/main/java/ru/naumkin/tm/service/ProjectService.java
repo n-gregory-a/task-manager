@@ -1,7 +1,6 @@
 package ru.naumkin.tm.service;
 
 import lombok.NoArgsConstructor;
-import org.apache.ibatis.session.SqlSession;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.repository.IProjectRepository;
@@ -10,47 +9,54 @@ import ru.naumkin.tm.api.service.IPropertyService;
 import ru.naumkin.tm.entity.Project;
 import ru.naumkin.tm.error.*;
 
-import java.sql.SQLException;
+import javax.persistence.EntityManager;
 import java.util.List;
 
 @NoArgsConstructor
 public final class ProjectService extends AbstractService<Project> implements IProjectService {
 
+    @NotNull
+    private IProjectRepository projectRepository;
+
     public ProjectService(
-            @NotNull final  IPropertyService propertyService
+            @NotNull final  IPropertyService propertyService,
+            @NotNull final IProjectRepository projectRepository
     ) {
         super(propertyService);
+        this.projectRepository = projectRepository;
     }
 
     @Override
-    public @NotNull List<Project> findAll() throws Exception {
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final IProjectRepository projectRepository =
-                sqlSession.getMapper(IProjectRepository.class);
-        return projectRepository.findAll();
+    public @NotNull List<Project> findAll() {
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        @NotNull final List<Project> projects = projectRepository.findAll();
+        entityManager.getTransaction().commit();
+        return projects;
     }
 
     @NotNull
     @Override
-    public List<Project> findAll(@Nullable final String userId) throws Exception {
+    public List<Project> findAllByUserId(@Nullable final String userId) {
         if (userId == null) {
             throw new UserIdIsNullException();
         }
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final IProjectRepository projectRepository =
-                sqlSession.getMapper(IProjectRepository.class);
-        return projectRepository.findAllByUserId(userId);
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        @NotNull final List<Project> projects = projectRepository.findAllByUserId(userId);
+        entityManager.getTransaction().commit();
+        return projects;
     }
 
     @NotNull
     @Override
-    public Project findOne(
+    public Project findOneByUserId(
             @Nullable final String userId,
             @Nullable final String name
-    ) throws Exception {
+    ) {
         if (name == null) {
             throw new NameIsNullException();
         }
@@ -63,58 +69,44 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final IProjectRepository projectRepository =
-                sqlSession.getMapper(IProjectRepository.class);
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
         @Nullable final Project project =
-                projectRepository.findOne(userId, name);
+                projectRepository.findOneByUserId(userId, name);
         if (project == null) {
             throw new NoProjectWithSuchNameException(name);
         }
+        entityManager.getTransaction().commit();
         return project;
     }
 
     @Override
-    public void persist(@Nullable final Project project) throws Exception {
+    public void persist(@Nullable final Project project) {
         if (project == null) {
             throw new ProjectIsNullException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final IProjectRepository projectRepository =
-                sqlSession.getMapper(IProjectRepository.class);
-        try {
-            projectRepository.persist(project);
-            sqlSession.commit();
-        } catch (SQLException e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        projectRepository.persist(project);
+        entityManager.getTransaction().commit();
     }
 
     @Override
-    public void merge(@Nullable final Project project) throws Exception {
+    public void merge(@Nullable final Project project) {
         if (project == null) {
             throw new ProjectIsNullException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final IProjectRepository projectRepository =
-                sqlSession.getMapper(IProjectRepository.class);
-        try {
-            projectRepository.merge(project);
-            sqlSession.commit();
-        } catch (SQLException e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        projectRepository.merge(project);
+        entityManager.getTransaction().commit();
     }
 
     @Override
     public void remove(
             @Nullable final String userId,
             @Nullable final Project project
-    ) throws Exception {
+    ) {
         if (project == null) {
             throw new ProjectIsNullException();
         }
@@ -124,83 +116,72 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final IProjectRepository projectRepository =
-                sqlSession.getMapper(IProjectRepository.class);
-        try {
-            projectRepository.remove(userId, project.getId());
-            sqlSession.commit();
-        } catch (SQLException e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        projectRepository.remove(userId, project.getId());
+        entityManager.getTransaction().commit();
     }
 
     @Override
-    public void removeAll(final @Nullable String userId) throws Exception {
+    public void removeAllByUserId(@Nullable final String userId) {
         if (userId == null) {
             throw new UserIdIsNullException();
         }
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final IProjectRepository projectRepository =
-                sqlSession.getMapper(IProjectRepository.class);
-        try {
-            projectRepository.removeAll(userId);
-            sqlSession.commit();
-        } catch (SQLException e) {
-            sqlSession.rollback();
-        } finally {
-            sqlSession.close();
-        }
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        projectRepository.removeAllByUserId(userId);
+        entityManager.getTransaction().commit();
     }
 
     @NotNull
     @Override
-    public List<Project> sortByDateStart(@Nullable final String userId) throws Exception {
+    public List<Project> sortByDateStart(@Nullable final String userId) {
         if (userId == null) {
             throw new UserIdIsNullException();
         }
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final IProjectRepository projectRepository =
-                sqlSession.getMapper(IProjectRepository.class);
-        return projectRepository.sortByDateStart(userId);
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        @NotNull final List<Project> projects = projectRepository.sortByDateStart(userId);
+        entityManager.getTransaction().commit();
+        return projects;
     }
 
     @NotNull
     @Override
-    public List<Project> sortByDateFinish(@Nullable final String userId) throws Exception {
+    public List<Project> sortByDateFinish(@Nullable final String userId) {
         if (userId == null) {
             throw new UserIdIsNullException();
         }
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final IProjectRepository projectRepository =
-                sqlSession.getMapper(IProjectRepository.class);
-        return projectRepository.sortByDateFinish(userId);
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        @NotNull final List<Project> projects = projectRepository.sortByDateFinish(userId);
+        entityManager.getTransaction().commit();
+        return projects;
     }
 
     @NotNull
     @Override
-    public List<Project> sortByStatus(@Nullable final String userId) throws Exception {
+    public List<Project> sortByStatus(@Nullable final String userId) {
         if (userId == null) {
             throw new UserIdIsNullException();
         }
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final IProjectRepository projectRepository =
-                sqlSession.getMapper(IProjectRepository.class);
-        return projectRepository.sortByStatus(userId);
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        @NotNull final List<Project> projects = projectRepository.sortByStatus(userId);
+        entityManager.getTransaction().commit();
+        return projects;
     }
 
     @NotNull
@@ -208,7 +189,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
     public List<Project> sortByName(
             @Nullable final String userId,
             @Nullable final String name
-    ) throws Exception {
+    ) {
         if (name == null) {
             throw new NameIsNullException();
         }
@@ -221,17 +202,18 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final IProjectRepository projectRepository =
-                sqlSession.getMapper(IProjectRepository.class);
-        return projectRepository.sortByName(userId, name);
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        @NotNull final List<Project> projects = projectRepository.sortByName(userId, name);
+        entityManager.getTransaction().commit();
+        return projects;
     }
 
     @Override
     public @NotNull List<Project> sortByDescription(
             @Nullable final String userId,
             @Nullable final String description
-    ) throws Exception {
+    ) {
         if (description == null) {
             throw new DescriptionIsNullException();
         }
@@ -244,10 +226,11 @@ public final class ProjectService extends AbstractService<Project> implements IP
         if (userId.isEmpty()) {
             throw new UserIdIsEmptyException();
         }
-        @NotNull final SqlSession sqlSession = getSqlSessionFactory().openSession();
-        @NotNull final IProjectRepository projectRepository =
-                sqlSession.getMapper(IProjectRepository.class);
-        return projectRepository.sortByDescription(userId, description);
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        @NotNull final List<Project> projects = projectRepository.sortByDescription(userId, description);
+        entityManager.getTransaction().commit();
+        return projects;
     }
 
 }
