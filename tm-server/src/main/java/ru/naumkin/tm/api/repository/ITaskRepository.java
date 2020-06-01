@@ -42,4 +42,7 @@ public interface ITaskRepository {
     @NotNull
     List<Task> sortByDescription(@NotNull final String userId, @NotNull final String description);
 
+    @NotNull
+    List<Task> findAllByProjectId(@NotNull final String userId, @NotNull final String projectId);
+
 }

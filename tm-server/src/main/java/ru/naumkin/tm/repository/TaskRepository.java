@@ -116,5 +116,19 @@ public class TaskRepository extends AbstractRepository implements ITaskRepositor
         query.setParameter("description", description);
         return query.getResultList();
     }
-    
+
+    @NotNull
+    @Override
+    public List<Task> findAllByProjectId(
+            @NotNull final String userId,
+            @NotNull final String projectId
+    ) {
+        @NotNull final TypedQuery<Task> query = entityManager.createQuery(
+                "FROM Task WHERE Task.user.id=:userId AND Task.project.id=:projectId",
+                Task.class);
+        query.setParameter("userId", userId);
+        query.setParameter("projectId", projectId);
+        return query.getResultList();
+    }
+
 }

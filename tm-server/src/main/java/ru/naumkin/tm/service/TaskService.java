@@ -233,4 +233,28 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         return tasks;
     }
 
+    @NotNull
+    @Override
+    public List<Task> findAllByProjectId(
+            @Nullable final String userId,
+            @Nullable final String ProjectId
+    ) {
+        if (userId == null) {
+            throw new UserIdIsNullException();
+        }
+        if (userId.isEmpty()) {
+            throw new UserIdIsEmptyException();
+        }
+        if (ProjectId == null) {
+            throw new IdIsNullException();
+        }
+        if (ProjectId.isEmpty()) {
+            throw new IdIsEmptyException();
+        }
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        @NotNull final List<Task> tasks = taskRepository.findAllByProjectId(userId, ProjectId);
+        return tasks;
+    }
+
 }
