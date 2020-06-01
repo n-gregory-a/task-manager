@@ -9,7 +9,7 @@ import java.util.List;
 public interface IProjectService extends IService<Project> {
 
     @NotNull
-    List<Project> findAll() throws Exception;
+    List<Project> findAll();
 
     @NotNull
     List<Project> findAll(@Nullable final String userId);
