@@ -13,7 +13,7 @@ public interface IUserService extends IService<User> {
     @NotNull
     List<User> findAll();
 
-    @Nullable
+    @NotNull
     User findOne(@NotNull final String name);
 
     @Nullable
