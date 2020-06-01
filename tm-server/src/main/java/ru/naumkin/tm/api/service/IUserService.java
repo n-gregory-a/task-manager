@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IUserService extends IService<User> {
 
-    boolean isRoleAdmin(@NotNull final String id) throws Exception;
+    boolean isRoleAdmin(@NotNull final String id);
 
     @NotNull
     List<User> findAll();
