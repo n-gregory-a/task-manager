@@ -2,9 +2,9 @@ package ru.naumkin.tm.enpoint;
 
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import ru.naumkin.tm.api.ServiceLocator;
 import ru.naumkin.tm.api.endpoint.IDomainEndpoint;
 import ru.naumkin.tm.api.service.IDomainService;
-import ru.naumkin.tm.api.service.ISessionService;
 import ru.naumkin.tm.dto.Domain;
 
 import javax.jws.WebMethod;
@@ -16,12 +16,9 @@ public final class DomainEndpoint extends AbstractEndpoint implements IDomainEnd
 
     @NotNull private IDomainService domainService;
 
-    public DomainEndpoint(
-            @NotNull final ISessionService sessionService,
-            @NotNull final IDomainService domainService
-    ) {
-        super(sessionService);
-        this.domainService = domainService;
+    public DomainEndpoint(@NotNull final ServiceLocator serviceLocator) {
+        super(serviceLocator);
+        this.domainService = serviceLocator.getDomainService();
     }
 
     @Override
