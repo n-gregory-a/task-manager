@@ -174,7 +174,7 @@ public final class DomainService implements IDomainService {
 
     @NotNull
     @Override
-    public Domain load() throws Exception {
+    public Domain load() {
         @NotNull Domain domain = new Domain();
         @NotNull final List<Project> projects = new LinkedList<>(projectService.findAll());
         @NotNull final List<Task> tasks = new LinkedList<>(taskService.findAll());
@@ -186,7 +186,7 @@ public final class DomainService implements IDomainService {
     }
 
     @Override
-    public void save(@NotNull final Domain domain) throws Exception {
+    public void save(@NotNull final Domain domain) {
         boolean nullCheck = domain.getProjects() == null ||
                 domain.getTasks() == null ||
                 domain.getUsers() == null;
@@ -204,7 +204,7 @@ public final class DomainService implements IDomainService {
         }
     }
 
-    private void persistTask(@NotNull final Object object) throws Exception {
+    private void persistTask(@NotNull final Object object) {
         if (!(object instanceof Task[])) {
             return;
         }
@@ -215,7 +215,7 @@ public final class DomainService implements IDomainService {
 
     }
 
-    private void persistProject(@NotNull final Object object) throws Exception {
+    private void persistProject(@NotNull final Object object) {
         if (!(object instanceof Project[])) {
             return;
         }
@@ -225,7 +225,7 @@ public final class DomainService implements IDomainService {
         }
     }
 
-    private void persistUser(@NotNull final Object object) throws Exception {
+    private void persistUser(@NotNull final Object object) {
         if (!(object instanceof User[])) {
             return;
         }
