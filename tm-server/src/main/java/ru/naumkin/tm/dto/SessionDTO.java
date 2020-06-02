@@ -4,10 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.naumkin.tm.api.ServiceLocator;
 import ru.naumkin.tm.api.service.IUserService;
 import ru.naumkin.tm.entity.Session;
-import ru.naumkin.tm.service.UserService;
 
 public class SessionDTO extends AbstractDTO {
 
