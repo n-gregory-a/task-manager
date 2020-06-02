@@ -6,6 +6,7 @@ import ru.naumkin.tm.api.repository.IProjectRepository;
 import ru.naumkin.tm.entity.Project;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -65,9 +66,8 @@ public class ProjectRepository extends AbstractRepository implements IProjectRep
 
     @Override
     public void remove(@NotNull final String userId, @NotNull final String id) {
-        @NotNull final TypedQuery<Project> query = entityManager.createQuery(
-                        "DELETE FROM Project p WHERE p.user.id=:userId AND p.id=:id",
-                        Project.class
+        @NotNull final Query query = entityManager.createQuery(
+                        "DELETE FROM Project p WHERE p.user.id=:userId AND p.id=:id"
         );
         query.setParameter("userId", userId);
         query.setParameter("id", id);
@@ -76,9 +76,8 @@ public class ProjectRepository extends AbstractRepository implements IProjectRep
 
     @Override
     public void removeAllByUserId(@NotNull final String userId) {
-        @NotNull final TypedQuery<Project> query = entityManager.createQuery(
-                "DELETE FROM Project p WHERE p.user.id=:userId",
-                Project.class
+        @NotNull final Query query = entityManager.createQuery(
+                "DELETE FROM Project p WHERE p.user.id=:userId"
         );
         query.setParameter("userId", userId);
         query.executeUpdate();

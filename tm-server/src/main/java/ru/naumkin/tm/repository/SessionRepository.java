@@ -7,6 +7,7 @@ import ru.naumkin.tm.api.repository.ISessionRepository;
 import ru.naumkin.tm.entity.Session;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -46,9 +47,8 @@ public final class SessionRepository extends AbstractRepository implements ISess
 
     @Override
     public void remove(@NotNull final String id) {
-        @NotNull final TypedQuery<Session> query = entityManager.createQuery(
-                "DELETE FROM Session s WHERE s.id=:id",
-                Session.class
+        @NotNull final Query query = entityManager.createQuery(
+                "DELETE FROM Session s WHERE s.id=:id"
         );
         query.setParameter("id", id);
         query.executeUpdate();
@@ -56,9 +56,8 @@ public final class SessionRepository extends AbstractRepository implements ISess
 
     @Override
     public void removeAll() {
-        @NotNull final TypedQuery<Session> query = entityManager.createQuery(
-                "DELETE FROM Session",
-                Session.class
+        @NotNull final Query query = entityManager.createQuery(
+                "DELETE FROM Session"
         );
         query.executeUpdate();
     }
