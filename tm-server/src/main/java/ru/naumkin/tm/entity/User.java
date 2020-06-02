@@ -1,5 +1,6 @@
 package ru.naumkin.tm.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,6 +38,7 @@ public final class User extends AbstractEntity {
     private List<Task> tasks = new ArrayList<>();
 
     @NotNull
+    @JsonManagedReference
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Session> sessions = new ArrayList<>();
 
