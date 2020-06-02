@@ -98,7 +98,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
                 new ProjectRepository(entityManager).findOneId(userId, id);
         entityManager.getTransaction().commit();
         if (project == null) {
-            throw new NoProjectWithSuchNameException(id);
+            throw new ProjectIsNullException();
         }
         return project;
     }
