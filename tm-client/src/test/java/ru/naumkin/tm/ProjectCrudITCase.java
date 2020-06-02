@@ -49,10 +49,13 @@ public class ProjectCrudITCase extends Assert {
     public void findAllProjectsByUserIdTest() throws Exception {
         @NotNull final ProjectDTO project1 = new ProjectDTO();
         project1.setUserId(userId);
+        project1.setName("p1");
         @NotNull final ProjectDTO project2 = new ProjectDTO();
         project2.setUserId(userId);
+        project2.setName("p2");
         @NotNull final ProjectDTO project3 = new ProjectDTO();
         project3.setUserId(userId);
+        project3.setName("p3");
         projectEndpoint.persistProject(sessionToken, project1);
         projectEndpoint.persistProject(sessionToken, project2);
         projectEndpoint.persistProject(sessionToken, project3);
@@ -120,10 +123,13 @@ public class ProjectCrudITCase extends Assert {
     public void removeAllProjectsByUserIdTest() throws Exception {
         @NotNull final ProjectDTO project1 = new ProjectDTO();
         project1.setUserId(userId);
+        project1.setName("p1");
         @NotNull final ProjectDTO project2 = new ProjectDTO();
         project2.setUserId(userId);
+        project2.setName("p2");
         @NotNull final ProjectDTO project3 = new ProjectDTO();
         project3.setUserId(userId);
+        project3.setName("p3");
         projectEndpoint.persistProject(sessionToken, project1);
         projectEndpoint.persistProject(sessionToken, project2);
         projectEndpoint.persistProject(sessionToken, project3);
