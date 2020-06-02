@@ -1,7 +1,6 @@
 package ru.naumkin.tm.api.service;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.entity.User;
 
 import java.util.List;
@@ -16,7 +15,7 @@ public interface IUserService extends IService<User> {
     @NotNull
     User findOne(@NotNull final String name);
 
-    @Nullable
+    @NotNull
     User findOneById(@NotNull final String id);
 
     void persist(@NotNull final User user);
