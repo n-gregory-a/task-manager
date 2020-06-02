@@ -2,10 +2,7 @@ package ru.naumkin.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.naumkin.tm.api.endpoint.IProjectEndpoint;
-import ru.naumkin.tm.api.endpoint.ITaskEndpoint;
-import ru.naumkin.tm.api.endpoint.Project;
-import ru.naumkin.tm.api.endpoint.Task;
+import ru.naumkin.tm.api.endpoint.*;
 import ru.naumkin.tm.command.AbstractCommand;
 
 public final class TaskAttachCommand extends AbstractCommand {
@@ -32,7 +29,7 @@ public final class TaskAttachCommand extends AbstractCommand {
         @NotNull final IProjectEndpoint projectEndpoint = bootstrap.getProjectEndpoint();
         @NotNull final String sessionToken = bootstrap.getCurrentSessionToken();
         bootstrap.getTerminalService().showMessage("Enter project name:");
-        @NotNull Project project;
+        @NotNull ProjectDTO project;
         @NotNull final String projectName = bootstrap.getTerminalService().readLine();
         project = projectEndpoint.findOneProjectByUserId(
                 sessionToken, projectName
@@ -40,7 +37,7 @@ public final class TaskAttachCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("Enter task name:");
         @NotNull final String taskName = bootstrap.getTerminalService().readLine();
         @NotNull final ITaskEndpoint taskEndpoint = bootstrap.getTaskEndpoint();
-        @Nullable final Task task;
+        @Nullable final TaskDTO task;
         task = taskEndpoint.findOneTaskByUserId(
                 sessionToken, taskName
         );

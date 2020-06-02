@@ -2,7 +2,7 @@ package ru.naumkin.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
 import ru.naumkin.tm.api.endpoint.ITaskEndpoint;
-import ru.naumkin.tm.api.endpoint.Task;
+import ru.naumkin.tm.api.endpoint.TaskDTO;
 import ru.naumkin.tm.command.AbstractCommand;
 
 public final class TaskListCommand extends AbstractCommand {
@@ -28,7 +28,7 @@ public final class TaskListCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("[TASK LIST]");
         @NotNull final ITaskEndpoint taskService = bootstrap.getTaskEndpoint();
         int index = 1;
-        for (@NotNull final Task task:
+        for (@NotNull final TaskDTO task:
                 taskService.findAllTasksByUserId(bootstrap.getCurrentSessionToken())
         ) {
             bootstrap.getTerminalService().showMessage(index++ + ". ");

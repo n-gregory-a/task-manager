@@ -3,7 +3,7 @@ package ru.naumkin.tm.command.project;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.endpoint.IProjectEndpoint;
-import ru.naumkin.tm.api.endpoint.Project;
+import ru.naumkin.tm.api.endpoint.ProjectDTO;
 import ru.naumkin.tm.command.AbstractCommand;
 
 public class ProjectStatusSortedListCommand extends AbstractCommand {
@@ -30,7 +30,7 @@ public class ProjectStatusSortedListCommand extends AbstractCommand {
                 .showMessage("[PROJECT LIST SORTED BY STATUS]");
         @NotNull final IProjectEndpoint projectService = bootstrap.getProjectEndpoint();
         int index = 1;
-        for (@NotNull final Project project:
+        for (@NotNull final ProjectDTO project:
                 projectService.sortProjectsByStatus(bootstrap.getCurrentSessionToken())
         ) {
             bootstrap.getTerminalService().showMessage(index++ + ". " + project.toString());

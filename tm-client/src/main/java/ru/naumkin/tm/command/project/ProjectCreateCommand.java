@@ -3,9 +3,7 @@ package ru.naumkin.tm.command.project;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.endpoint.IProjectEndpoint;
-import ru.naumkin.tm.api.endpoint.Project;
-import ru.naumkin.tm.api.endpoint.Session;
-import ru.naumkin.tm.api.endpoint.User;
+import ru.naumkin.tm.api.endpoint.ProjectDTO;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.util.DateFormatter;
 
@@ -35,7 +33,7 @@ public final class ProjectCreateCommand extends AbstractCommand {
         @Nullable final String sessionToken
                 = bootstrap.getCurrentSessionToken();
         @NotNull final IProjectEndpoint projectEndpoint = bootstrap.getProjectEndpoint();
-        @Nullable final Project project = new Project();
+        @Nullable final ProjectDTO project = new ProjectDTO();
         bootstrap.getTerminalService().showMessage("Enter name:");
         @NotNull final String name = bootstrap.getTerminalService().readLine();
         project.setName(name);

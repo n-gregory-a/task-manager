@@ -3,7 +3,7 @@ package ru.naumkin.tm.command.project;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.endpoint.IProjectEndpoint;
-import ru.naumkin.tm.api.endpoint.Project;
+import ru.naumkin.tm.api.endpoint.ProjectDTO;
 import ru.naumkin.tm.command.AbstractCommand;
 
 public class ProjectDescriptionFindListCommand extends AbstractCommand {
@@ -29,7 +29,7 @@ public class ProjectDescriptionFindListCommand extends AbstractCommand {
         int index = 1;
         bootstrap.getTerminalService().showMessage("Enter part of description:");
         @NotNull final String description = bootstrap.getTerminalService().readLine();
-        for (@NotNull final Project project:
+        for (@NotNull final ProjectDTO project:
                 projectEndpoint.sortProjectsByDescription(
                         bootstrap.getCurrentSessionToken(), description
                 )

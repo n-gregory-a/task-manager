@@ -1,11 +1,8 @@
 package ru.naumkin.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.endpoint.ITaskEndpoint;
-import ru.naumkin.tm.api.endpoint.Session;
-import ru.naumkin.tm.api.endpoint.Task;
-import ru.naumkin.tm.api.endpoint.User;
+import ru.naumkin.tm.api.endpoint.TaskDTO;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.util.DateFormatter;
 
@@ -34,7 +31,7 @@ public final class TaskCreateCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("[TASK CREATE]");
         @NotNull final String sessionToken = bootstrap.getCurrentSessionToken();
         @NotNull final ITaskEndpoint taskEndpoint = bootstrap.getTaskEndpoint();
-        @NotNull Task task = new Task();
+        @NotNull TaskDTO task = new TaskDTO();
         bootstrap.getTerminalService().showMessage("Enter name:");
         @NotNull final String name = bootstrap.getTerminalService().readLine();
         task.setName(name);

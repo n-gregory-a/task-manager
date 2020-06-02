@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.endpoint.ITaskEndpoint;
 import ru.naumkin.tm.api.endpoint.Status;
-import ru.naumkin.tm.api.endpoint.Task;
+import ru.naumkin.tm.api.endpoint.TaskDTO;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.util.DateFormatter;
 
@@ -36,9 +36,9 @@ public final class TaskUpdateCommand extends AbstractCommand {
         @NotNull final ITaskEndpoint taskEndpoint = bootstrap.getTaskEndpoint();
         @NotNull final String sessionToken = bootstrap.getCurrentSessionToken();
         bootstrap.getTerminalService().showMessage("Tasks available to update:");
-        @NotNull final List<Task> list = new ArrayList<>();
+        @NotNull final List<TaskDTO> list = new ArrayList<>();
         int index = 1;
-        for (@NotNull final Task task:
+        for (@NotNull final TaskDTO task:
                 taskEndpoint.findAllTasksByUserId(sessionToken)
         ) {
             bootstrap.getTerminalService().showMessage(index++ + ". ");
@@ -46,7 +46,7 @@ public final class TaskUpdateCommand extends AbstractCommand {
             list.add(task);
         }
         bootstrap.getTerminalService().showMessage("Choose task to update by number:");
-        @NotNull final Task task = list.get(Integer
+        @NotNull final TaskDTO task = list.get(Integer
                 .parseInt(bootstrap.getTerminalService().readLine()) - 1);
         @Nullable final String name = task.getName();
         bootstrap.getTerminalService().showMessage("Updating task:");

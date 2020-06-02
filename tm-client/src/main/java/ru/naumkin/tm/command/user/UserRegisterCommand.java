@@ -1,7 +1,7 @@
 package ru.naumkin.tm.command.user;
 
 import org.jetbrains.annotations.NotNull;
-import ru.naumkin.tm.api.endpoint.User;
+import ru.naumkin.tm.api.endpoint.UserDTO;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.util.HashGenerator;
 
@@ -26,7 +26,7 @@ public final class UserRegisterCommand extends AbstractCommand {
     @Override
     public void execute() throws Exception {
         bootstrap.getTerminalService().showMessage("[REGISTER NEW USER]");
-        @NotNull final User user = createUniqueLoginUser();
+        @NotNull final UserDTO user = createUniqueLoginUser();
         bootstrap.getTerminalService().showMessage("Enter password:");
         @NotNull final String password = bootstrap.getTerminalService().readLine();
         user.setPassword(HashGenerator.getHash(password));
@@ -35,12 +35,12 @@ public final class UserRegisterCommand extends AbstractCommand {
     }
 
     @NotNull
-    private User createUniqueLoginUser() throws Exception {
+    private UserDTO createUniqueLoginUser() throws Exception {
         bootstrap.getTerminalService().showMessage("Enter login:");
         @NotNull final String login = bootstrap.getTerminalService().readLine();
-        User user = new User();
+        UserDTO user = new UserDTO();
         user.setName(login);
-        for (@NotNull final User u:
+        for (@NotNull final UserDTO u:
                 bootstrap.getUserEndpoint().findAllUsers()
         ) {
             if (u.getName().equals(login)) {

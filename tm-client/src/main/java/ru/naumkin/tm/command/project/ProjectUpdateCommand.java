@@ -3,6 +3,7 @@ package ru.naumkin.tm.command.project;
 import org.jetbrains.annotations.NotNull;
 import ru.naumkin.tm.api.endpoint.IProjectEndpoint;
 import ru.naumkin.tm.api.endpoint.Project;
+import ru.naumkin.tm.api.endpoint.ProjectDTO;
 import ru.naumkin.tm.api.endpoint.Status;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.util.DateFormatter;
@@ -35,9 +36,9 @@ public final class ProjectUpdateCommand extends AbstractCommand {
         @NotNull final IProjectEndpoint projectService = bootstrap.getProjectEndpoint();
         @NotNull final String sessionToken = bootstrap.getCurrentSessionToken();
         bootstrap.getTerminalService().showMessage("Projects available to update:");
-        @NotNull final List<Project> list = new ArrayList<>();
+        @NotNull final List<ProjectDTO> list = new ArrayList<>();
         int index = 1;
-        for (@NotNull final Project project:
+        for (@NotNull final ProjectDTO project:
                 projectService.findAllProjectsByUserId(sessionToken)
         ) {
             bootstrap.getTerminalService().showMessage(index++ + ". ");
@@ -45,7 +46,7 @@ public final class ProjectUpdateCommand extends AbstractCommand {
             list.add(project);
         }
         bootstrap.getTerminalService().showMessage("Choose project to update by number:");
-        @NotNull final Project project = list.get(Integer
+        @NotNull final ProjectDTO project = list.get(Integer
                 .parseInt(bootstrap.getTerminalService().readLine()) - 1);
         bootstrap.getTerminalService().showMessage("Updating project:");
         bootstrap.getTerminalService().showMessage("id: " + project.getId() +

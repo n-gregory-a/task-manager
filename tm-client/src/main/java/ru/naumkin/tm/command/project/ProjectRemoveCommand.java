@@ -2,7 +2,7 @@ package ru.naumkin.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
 import ru.naumkin.tm.api.endpoint.IProjectEndpoint;
-import ru.naumkin.tm.api.endpoint.Project;
+import ru.naumkin.tm.api.endpoint.ProjectDTO;
 import ru.naumkin.tm.command.AbstractCommand;
 
 public final class ProjectRemoveCommand extends AbstractCommand {
@@ -30,7 +30,7 @@ public final class ProjectRemoveCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("Enter project name:");
         @NotNull final String projectName = bootstrap.getTerminalService().readLine();
         @NotNull final String sessionToken = bootstrap.getCurrentSessionToken();
-        @NotNull final Project project =
+        @NotNull final ProjectDTO project =
                 projectEndpoint.findOneProjectByUserId(
                         sessionToken, projectName
                 );

@@ -3,7 +3,7 @@ package ru.naumkin.tm.command.task;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.endpoint.ITaskEndpoint;
-import ru.naumkin.tm.api.endpoint.Task;
+import ru.naumkin.tm.api.endpoint.TaskDTO;
 import ru.naumkin.tm.command.AbstractCommand;
 
 public class TaskDescriptionFindListCommand extends AbstractCommand {
@@ -29,7 +29,7 @@ public class TaskDescriptionFindListCommand extends AbstractCommand {
         int index = 1;
         bootstrap.getTerminalService().showMessage("Enter part of description:");
         @NotNull final String description = bootstrap.getTerminalService().readLine();
-        for (@NotNull final Task task:
+        for (@NotNull final TaskDTO task:
                 taskEndpoint.sortTasksByDescription(
                         bootstrap.getCurrentSessionToken(), description)
         ) {

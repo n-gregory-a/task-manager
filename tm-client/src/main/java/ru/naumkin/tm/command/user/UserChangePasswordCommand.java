@@ -2,7 +2,7 @@ package ru.naumkin.tm.command.user;
 
 import org.jetbrains.annotations.NotNull;
 import ru.naumkin.tm.api.endpoint.RoleType;
-import ru.naumkin.tm.api.endpoint.User;
+import ru.naumkin.tm.api.endpoint.UserDTO;
 import ru.naumkin.tm.command.AbstractCommand;
 import ru.naumkin.tm.util.HashGenerator;
 
@@ -29,7 +29,7 @@ public final class UserChangePasswordCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("[PASSWORD CHANGE]");
         bootstrap.getTerminalService().showMessage("Enter login:");
         @NotNull final String login = bootstrap.getTerminalService().readLine();
-        @NotNull final User user =
+        @NotNull final UserDTO user =
                 bootstrap.getUserEndpoint().findOneUser(login);
         bootstrap.getTerminalService().showMessage("Enter new password:");
         @NotNull final String password = bootstrap.getTerminalService().readLine();

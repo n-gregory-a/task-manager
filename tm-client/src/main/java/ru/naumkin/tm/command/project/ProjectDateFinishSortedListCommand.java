@@ -2,7 +2,7 @@ package ru.naumkin.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
 import ru.naumkin.tm.api.endpoint.IProjectEndpoint;
-import ru.naumkin.tm.api.endpoint.Project;
+import ru.naumkin.tm.api.endpoint.ProjectDTO;
 import ru.naumkin.tm.command.AbstractCommand;
 
 public class ProjectDateFinishSortedListCommand extends AbstractCommand {
@@ -29,7 +29,7 @@ public class ProjectDateFinishSortedListCommand extends AbstractCommand {
                 .showMessage("[PROJECT LIST SORTED BY FINISH DATE]");
         @NotNull final IProjectEndpoint projectEndpoint = bootstrap.getProjectEndpoint();
         int index = 1;
-        for (@NotNull final Project project:
+        for (@NotNull final ProjectDTO project:
                 projectEndpoint.sortProjectsByDateFinish(bootstrap.getCurrentSessionToken())
         ) {
             bootstrap.getTerminalService().showMessage(index++ + ". ");

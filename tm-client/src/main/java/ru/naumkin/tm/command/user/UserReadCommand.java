@@ -2,7 +2,7 @@ package ru.naumkin.tm.command.user;
 
 import org.jetbrains.annotations.NotNull;
 import ru.naumkin.tm.api.endpoint.RoleType;
-import ru.naumkin.tm.api.endpoint.User;
+import ru.naumkin.tm.api.endpoint.UserDTO;
 import ru.naumkin.tm.command.AbstractCommand;
 
 public final class UserReadCommand extends AbstractCommand {
@@ -28,7 +28,7 @@ public final class UserReadCommand extends AbstractCommand {
         bootstrap.getTerminalService().showMessage("[READ USER PROFILE]");
         bootstrap.getTerminalService().showMessage("Enter login:");
         @NotNull final String login = bootstrap.getTerminalService().readLine();
-        @NotNull final User user =
+        @NotNull final UserDTO user =
                 bootstrap.getUserEndpoint().findOneUser(login);
         bootstrap.getTerminalService().printEntity(user);
     }
