@@ -1,16 +1,15 @@
 package ru.naumkin.tm.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.naumkin.tm.dto.SessionDTO;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
@@ -37,6 +36,8 @@ public final class Session extends AbstractEntity implements Cloneable {
     @Setter
     @NotNull
     @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Getter
@@ -44,5 +45,16 @@ public final class Session extends AbstractEntity implements Cloneable {
     @Nullable
     @Column(name = "signature")
     private String signature;
+
+    @NotNull
+    public SessionDTO convertToSessionDTO(@NotNull final Session session) {
+        @NotNull final SessionDTO sessionDTO = new SessionDTO();
+        sessionDTO.setId(session.getId());
+        sessionDTO.setName(session.getName());
+        sessionDTO.setTimestamp(session.getTimestamp());
+        sessionDTO.setUserId(session.getUser().getId());
+        sessionDTO.setSignature(session.getSignature());
+        return sessionDTO;
+    }
 
 }
