@@ -67,10 +67,10 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         entityManager.getTransaction().begin();
         @Nullable final Task task =
                 new TaskRepository(entityManager).findOneByUserId(userId, name);
+        entityManager.getTransaction().commit();
         if (task == null) {
             throw new NoTaskWithSuchNameException(name);
         }
-        entityManager.getTransaction().commit();
         return task;
     }
 

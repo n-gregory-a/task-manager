@@ -67,10 +67,10 @@ public final class ProjectService extends AbstractService<Project> implements IP
         entityManager.getTransaction().begin();
         @Nullable final Project project =
                 new ProjectRepository(entityManager).findOneByUserId(userId, name);
+        entityManager.getTransaction().commit();
         if (project == null) {
             throw new NoProjectWithSuchNameException(name);
         }
-        entityManager.getTransaction().commit();
         return project;
     }
 
@@ -96,10 +96,10 @@ public final class ProjectService extends AbstractService<Project> implements IP
         entityManager.getTransaction().begin();
         @Nullable final Project project =
                 new ProjectRepository(entityManager).findOneId(userId, id);
+        entityManager.getTransaction().commit();
         if (project == null) {
             throw new NoProjectWithSuchNameException(id);
         }
-        entityManager.getTransaction().commit();
         return project;
     }
 
