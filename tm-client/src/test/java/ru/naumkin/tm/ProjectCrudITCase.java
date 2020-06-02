@@ -24,7 +24,7 @@ public class ProjectCrudITCase extends Assert {
     private final IUserEndpoint userEndpoint = new UserEndpointService().getUserEndpointPort();
     
     @NotNull
-    private User user = new User();
+    private UserDTO user = new UserDTO();
 
     @NotNull
     private String sessionToken = "";
@@ -47,27 +47,27 @@ public class ProjectCrudITCase extends Assert {
 
     @Test
     public void findAllProjectsByUserIdTest() throws Exception {
-        @NotNull final Project project1 = new Project();
+        @NotNull final ProjectDTO project1 = new ProjectDTO();
         project1.setUserId(userId);
-        @NotNull final Project project2 = new Project();
+        @NotNull final ProjectDTO project2 = new ProjectDTO();
         project2.setUserId(userId);
-        @NotNull final Project project3 = new Project();
+        @NotNull final ProjectDTO project3 = new ProjectDTO();
         project3.setUserId(userId);
         projectEndpoint.persistProject(sessionToken, project1);
         projectEndpoint.persistProject(sessionToken, project2);
         projectEndpoint.persistProject(sessionToken, project3);
-        @NotNull final List<Project> projects = projectEndpoint.findAllProjectsByUserId(sessionToken);
+        @NotNull final List<ProjectDTO> projects = projectEndpoint.findAllProjectsByUserId(sessionToken);
         assertEquals(3, projects.size());
     }
 
     @Test
     public void findOneProjectByUserIdTest() throws Exception {
-        @NotNull final Project toPersist = new Project();
+        @NotNull final ProjectDTO toPersist = new ProjectDTO();
         toPersist.setName("project");
         toPersist.setUserId(user.getId());
         projectEndpoint.persistProject(sessionToken, toPersist);
         @NotNull final String persistedProjectName = toPersist.getName();
-        @NotNull final Project found =
+        @NotNull final ProjectDTO found =
                 projectEndpoint.findOneProjectByUserId(sessionToken, toPersist.getName());
         @NotNull final String foundProjectName = found.getName();
         assertEquals(persistedProjectName, foundProjectName);
@@ -75,12 +75,12 @@ public class ProjectCrudITCase extends Assert {
 
     @Test
     public void persistProjectTest() throws Exception {
-        @NotNull final Project toPersist = new Project();
+        @NotNull final ProjectDTO toPersist = new ProjectDTO();
         toPersist.setName("project");
         toPersist.setUserId(user.getId());
         projectEndpoint.persistProject(sessionToken, toPersist);
         @NotNull final String persistedProjectName = toPersist.getName();
-        @NotNull final Project found =
+        @NotNull final ProjectDTO found =
                 projectEndpoint.findOneProjectByUserId(sessionToken, toPersist.getName());
         @NotNull final String foundProjectName = found.getName();
         assertEquals(persistedProjectName, foundProjectName);
@@ -90,14 +90,14 @@ public class ProjectCrudITCase extends Assert {
     public void mergeProjectTest() throws Exception {
         @NotNull final String name = "project";
         @NotNull final String description = "description";
-        @NotNull Project project = new Project();
+        @NotNull ProjectDTO project = new ProjectDTO();
         project.setName(name);
         project.setUserId(userId);
         projectEndpoint.persistProject(sessionToken, project);
         project = projectEndpoint.findOneProjectByUserId(sessionToken, name);
         project.setDescription(description);
         projectEndpoint.mergeProject(sessionToken, project);
-        @NotNull final Project mergedProject =
+        @NotNull final ProjectDTO mergedProject =
                 projectEndpoint.findOneProjectByUserId(sessionToken, name);
         @NotNull final String mergedProjectDescription = mergedProject.getDescription();
         assertEquals(description, mergedProjectDescription);
@@ -106,29 +106,30 @@ public class ProjectCrudITCase extends Assert {
     @Test
     public void removeProjectByUserIdTest() throws Exception {
         @NotNull final String name = "project";
-        @NotNull Project project = new Project();
+        @NotNull ProjectDTO project = new ProjectDTO();
         project.setName(name);
         project.setUserId(user.getId());
         projectEndpoint.persistProject(sessionToken, project);
         project = projectEndpoint.findOneProjectByUserId(sessionToken, name);
         projectEndpoint.removeProjectByUserId(sessionToken, project);
-        @NotNull final List<Project> projects = projectEndpoint.findAllProjectsByUserId(sessionToken);
+        @NotNull final List<ProjectDTO> projects = projectEndpoint.findAllProjectsByUserId(sessionToken);
         assertEquals(0, projects.size());
     }
 
     @Test
     public void removeAllProjectsByUserIdTest() throws Exception {
-        @NotNull final Project project1 = new Project();
+        @NotNull final ProjectDTO project1 = new ProjectDTO();
         project1.setUserId(userId);
-        @NotNull final Project project2 = new Project();
+        @NotNull final ProjectDTO project2 = new ProjectDTO();
         project2.setUserId(userId);
-        @NotNull final Project project3 = new Project();
+        @NotNull final ProjectDTO project3 = new ProjectDTO();
         project3.setUserId(userId);
         projectEndpoint.persistProject(sessionToken, project1);
         projectEndpoint.persistProject(sessionToken, project2);
         projectEndpoint.persistProject(sessionToken, project3);
         projectEndpoint.removeAllProjectsByUserId(sessionToken);
-        @NotNull final List<Project> projects = projectEndpoint.findAllProjectsByUserId(sessionToken);
+        @NotNull final List<ProjectDTO> projects =
+                projectEndpoint.findAllProjectsByUserId(sessionToken);
         assertEquals(0, projects.size());
     }
 

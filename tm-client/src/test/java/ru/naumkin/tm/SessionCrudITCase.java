@@ -3,10 +3,7 @@ package ru.naumkin.tm;
 import org.jetbrains.annotations.NotNull;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
-import ru.naumkin.tm.api.endpoint.ISessionEndpoint;
-import ru.naumkin.tm.api.endpoint.IUserEndpoint;
-import ru.naumkin.tm.api.endpoint.Session;
-import ru.naumkin.tm.api.endpoint.User;
+import ru.naumkin.tm.api.endpoint.*;
 import ru.naumkin.tm.enpoint.SessionEndpointService;
 import ru.naumkin.tm.enpoint.UserEndpointService;
 
@@ -28,7 +25,7 @@ public class SessionCrudITCase extends Assert {
 
     @Before
     public void setUp() throws Exception {
-        @NotNull final User test = userEndpoint.findOneUser("test");
+        @NotNull final UserDTO test = userEndpoint.findOneUser("test");
         sessionToken = sessionEndpoint.open(test.getName(), test.getPassword());
     }
 
@@ -54,7 +51,7 @@ public class SessionCrudITCase extends Assert {
 
     @Test
     public void persistSessionTest() throws Exception {
-        @NotNull final User test = userEndpoint.findOneUser("user");
+        @NotNull final UserDTO test = userEndpoint.findOneUser("user");
         @NotNull List<Session> sessions = sessionEndpoint.findAllSessions(sessionToken);
         final int numberOfSessionsBefore = sessions.size();
         @NotNull final String testSessionToken = sessionEndpoint.open(test.getName(), test.getPassword());
@@ -65,7 +62,7 @@ public class SessionCrudITCase extends Assert {
 
     @Test
     public void removeSessionTest() throws Exception {
-        @NotNull final User test = userEndpoint.findOneUser("user");
+        @NotNull final UserDTO test = userEndpoint.findOneUser("user");
         @NotNull final String testSessionToken = sessionEndpoint.open(test.getName(), test.getPassword());
         @NotNull List<Session> sessions = sessionEndpoint.findAllSessions(sessionToken);
         final int numberOfSessionsBefore = sessions.size();

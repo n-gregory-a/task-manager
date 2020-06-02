@@ -21,7 +21,7 @@ public class TaskCrudITCase extends Assert {
     private final IUserEndpoint userEndpoint = new UserEndpointService().getUserEndpointPort();
 
     @NotNull
-    private User user = new User();
+    private UserDTO user = new UserDTO();
 
     @NotNull
     private String sessionToken = "";
@@ -44,27 +44,27 @@ public class TaskCrudITCase extends Assert {
 
     @Test
     public void findAllTasksByUserIdTest() throws Exception {
-        @NotNull final Task task1 = new Task();
+        @NotNull final TaskDTO task1 = new TaskDTO();
         task1.setUserId(userId);
-        @NotNull final Task task2 = new Task();
+        @NotNull final TaskDTO task2 = new TaskDTO();
         task2.setUserId(userId);
-        @NotNull final Task task3 = new Task();
+        @NotNull final TaskDTO task3 = new TaskDTO();
         task3.setUserId(userId);
         taskEndpoint.persistTask(sessionToken, task1);
         taskEndpoint.persistTask(sessionToken, task2);
         taskEndpoint.persistTask(sessionToken, task3);
-        @NotNull final List<Task> tasks = taskEndpoint.findAllTasksByUserId(sessionToken);
+        @NotNull final List<TaskDTO> tasks = taskEndpoint.findAllTasksByUserId(sessionToken);
         assertEquals(3, tasks.size());
     }
 
     @Test
     public void findOneTaskByUserIdTest() throws Exception {
-        @NotNull final Task toPersist = new Task();
+        @NotNull final TaskDTO toPersist = new TaskDTO();
         toPersist.setName("task");
         toPersist.setUserId(user.getId());
         taskEndpoint.persistTask(sessionToken, toPersist);
         @NotNull final String persistedTaskName = toPersist.getName();
-        @NotNull final Task found =
+        @NotNull final TaskDTO found =
                 taskEndpoint.findOneTaskByUserId(sessionToken, toPersist.getName());
         @NotNull final String foundTaskName = found.getName();
         assertEquals(persistedTaskName, foundTaskName);
@@ -72,12 +72,12 @@ public class TaskCrudITCase extends Assert {
 
     @Test
     public void persistTaskTest() throws Exception {
-        @NotNull final Task toPersist = new Task();
+        @NotNull final TaskDTO toPersist = new TaskDTO();
         toPersist.setName("task");
         toPersist.setUserId(user.getId());
         taskEndpoint.persistTask(sessionToken, toPersist);
         @NotNull final String persistedTaskName = toPersist.getName();
-        @NotNull final Task found =
+        @NotNull final TaskDTO found =
                 taskEndpoint.findOneTaskByUserId(sessionToken, toPersist.getName());
         @NotNull final String foundTaskName = found.getName();
         assertEquals(persistedTaskName, foundTaskName);
@@ -87,14 +87,14 @@ public class TaskCrudITCase extends Assert {
     public void mergeTaskTest() throws Exception {
         @NotNull final String name = "task";
         @NotNull final String description = "description";
-        @NotNull Task task = new Task();
+        @NotNull TaskDTO task = new TaskDTO();
         task.setName(name);
         task.setUserId(userId);
         taskEndpoint.persistTask(sessionToken, task);
         task = taskEndpoint.findOneTaskByUserId(sessionToken, name);
         task.setDescription(description);
         taskEndpoint.mergeTask(sessionToken, task);
-        @NotNull final Task mergedTask =
+        @NotNull final TaskDTO mergedTask =
                 taskEndpoint.findOneTaskByUserId(sessionToken, name);
         @NotNull final String mergedTaskDescription = mergedTask.getDescription();
         assertEquals(description, mergedTaskDescription);
@@ -103,29 +103,29 @@ public class TaskCrudITCase extends Assert {
     @Test
     public void removeTaskByUserIdTest() throws Exception {
         @NotNull final String name = "task";
-        @NotNull Task task = new Task();
+        @NotNull TaskDTO task = new TaskDTO();
         task.setName(name);
         task.setUserId(user.getId());
         taskEndpoint.persistTask(sessionToken, task);
         task = taskEndpoint.findOneTaskByUserId(sessionToken, name);
         taskEndpoint.removeTaskByUserId(sessionToken, task);
-        @NotNull final List<Task> tasks = taskEndpoint.findAllTasksByUserId(sessionToken);
+        @NotNull final List<TaskDTO> tasks = taskEndpoint.findAllTasksByUserId(sessionToken);
         assertEquals(0, tasks.size());
     }
 
     @Test
     public void removeAllTasksByUserIdTest() throws Exception {
-        @NotNull final Task task1 = new Task();
+        @NotNull final TaskDTO task1 = new TaskDTO();
         task1.setUserId(userId);
-        @NotNull final Task task2 = new Task();
+        @NotNull final TaskDTO task2 = new TaskDTO();
         task2.setUserId(userId);
-        @NotNull final Task task3 = new Task();
+        @NotNull final TaskDTO task3 = new TaskDTO();
         task3.setUserId(userId);
         taskEndpoint.persistTask(sessionToken, task1);
         taskEndpoint.persistTask(sessionToken, task2);
         taskEndpoint.persistTask(sessionToken, task3);
         taskEndpoint.removeAllTasksByUserId(sessionToken);
-        @NotNull final List<Task> tasks = taskEndpoint.findAllTasksByUserId(sessionToken);
+        @NotNull final List<TaskDTO> tasks = taskEndpoint.findAllTasksByUserId(sessionToken);
         assertEquals(0, tasks.size());
     }
     
