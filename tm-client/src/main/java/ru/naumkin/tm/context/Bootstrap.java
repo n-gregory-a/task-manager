@@ -113,7 +113,7 @@ public final class Bootstrap {
     }
 
     public void retrieveDefaultUser() throws Exception {
-        @NotNull final User user = userEndpoint.findOneUser("user");
+        @NotNull final UserDTO user = userEndpoint.findOneUser("user");
         @NotNull final String sessionToken = sessionEndpoint.open(user.getName(), user.getPassword());
         setCurrentSessionToken(sessionToken);
     }
