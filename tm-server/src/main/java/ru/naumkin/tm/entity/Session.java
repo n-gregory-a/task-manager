@@ -10,9 +10,11 @@ import org.jetbrains.annotations.Nullable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @NoArgsConstructor
+@Table(name = "session")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class Session extends AbstractEntity implements Cloneable {
 

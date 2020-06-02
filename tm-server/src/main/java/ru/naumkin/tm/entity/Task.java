@@ -14,6 +14,7 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
+@Table(name = "task")
 @NoArgsConstructor
 public final class Task extends AbstractEntity {
 
@@ -22,7 +23,7 @@ public final class Task extends AbstractEntity {
     private String description = "";
 
     @Nullable
-    @Column(name = "data_start")
+    @Column(name = "date_start")
     private Date dateStart = null;
 
     @Nullable

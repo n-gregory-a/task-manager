@@ -16,8 +16,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "project")
 @NoArgsConstructor
+@Table(name = "project")
 public final class Project extends AbstractEntity {
 
     @NotNull
@@ -25,7 +25,7 @@ public final class Project extends AbstractEntity {
     private String description = "";
 
     @Nullable
-    @Column(name = "data_start")
+    @Column(name = "date_start")
     private Date dateStart = null;
 
     @Nullable
