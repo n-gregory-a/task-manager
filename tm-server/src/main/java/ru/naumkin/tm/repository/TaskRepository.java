@@ -21,15 +21,16 @@ public final class TaskRepository extends AbstractRepository implements ITaskRep
     @NotNull
     @Override
     public List<Task> findAll() {
-        return entityManager.createQuery("FROM Task", Task.class).getResultList();
+        return entityManager.createQuery("SELECT FROM Task", Task.class).getResultList();
     }
 
     @NotNull
     @Override
     public List<Task> findAllByUserId(@NotNull final String userId) {
         @NotNull final TypedQuery<Task> query = entityManager.createQuery(
-                "FROM Task WHERE Task.user.id=:userId",
-                Task.class);
+                "SELECT t FROM Task t WHERE t.user.id=:userId",
+                Task.class
+        );
         query.setParameter("userId", userId);
         return query.getResultList();
     }
@@ -38,8 +39,9 @@ public final class TaskRepository extends AbstractRepository implements ITaskRep
     @Override
     public Task findOneByUserId(@NotNull final String userId, @NotNull final String name) {
         @NotNull final TypedQuery<Task> query = entityManager.createQuery(
-                "FROM Task WHERE Task.user.id=:userId AND Task.name=:name",
-                Task.class);
+                "SELECT t FROM Task t WHERE t.user.id=:userId AND t.name=:name",
+                Task.class
+        );
         query.setParameter("userId", userId);
         query.setParameter("name", name);
         return query.getSingleResult();
@@ -58,7 +60,7 @@ public final class TaskRepository extends AbstractRepository implements ITaskRep
     @Override
     public void remove(@NotNull final String userId, @NotNull final String id) {
         @NotNull final Query query = entityManager.createQuery(
-                "DELETE FROM Task WHERE Task.user.id=:userId AND Task.id=:id");
+                "DELETE FROM Task t WHERE t.user.id=:userId AND t.id=:id");
         query.setParameter("userId", userId);
         query.setParameter("id", id);
         query.executeUpdate();
@@ -67,7 +69,7 @@ public final class TaskRepository extends AbstractRepository implements ITaskRep
     @Override
     public void removeAll(@NotNull final String userId) {
         @NotNull final Query query = entityManager.createQuery(
-                "DELETE FROM Task WHERE Task.user.id=:userId");
+                "DELETE FROM Task t WHERE t.user.id=:userId");
         query.setParameter("userId", userId);
         query.executeUpdate();
     }
@@ -76,8 +78,9 @@ public final class TaskRepository extends AbstractRepository implements ITaskRep
     @Override
     public List<Task> sortByDateStart(@NotNull final String userId) {
         @NotNull final TypedQuery<Task> query = entityManager.createQuery(
-                "FROM Task WHERE Task.user.id=:userId ORDER BY Task.dateStart",
-                Task.class);
+                "SELECT t FROM Task t WHERE t.user.id=:userId ORDER BY t.dateStart",
+                Task.class
+        );
         query.setParameter("userId", userId);
         return query.getResultList();
     }
@@ -86,8 +89,9 @@ public final class TaskRepository extends AbstractRepository implements ITaskRep
     @Override
     public List<Task> sortByDateFinish(@NotNull final String userId) {
         @NotNull final TypedQuery<Task> query = entityManager.createQuery(
-                "FROM Task WHERE Task.user.id=:userId ORDER BY Task.dateFinish",
-                Task.class);
+                "SELECT t FROM Task t WHERE t.user.id=:userId ORDER BY t.dateFinish",
+                Task.class
+        );
         query.setParameter("userId", userId);
         return query.getResultList();
     }
@@ -96,8 +100,9 @@ public final class TaskRepository extends AbstractRepository implements ITaskRep
     @Override
     public List<Task> sortByStatus(@NotNull final String userId) {
         @NotNull final TypedQuery<Task> query = entityManager.createQuery(
-                "FROM Task WHERE Task.user.id=:userId ORDER BY Task.status",
-                Task.class);
+                "SELECT t FROM Task t WHERE t.user.id=:userId ORDER BY t.status",
+                Task.class
+        );
         query.setParameter("userId", userId);
         return query.getResultList();
     }
@@ -106,8 +111,9 @@ public final class TaskRepository extends AbstractRepository implements ITaskRep
     @Override
     public List<Task> sortByName(@NotNull final String userId, @NotNull final String name) {
         @NotNull final TypedQuery<Task> query = entityManager.createQuery(
-                "FROM Task WHERE user.id=:userId AND Task.name LIKE %name%",
-                Task.class);
+                "SELECT t FROM Task t WHERE t.user.id=:userId AND t.name LIKE %name%",
+                Task.class
+        );
         query.setParameter("userId", userId);
         query.setParameter("name", name);
         return query.getResultList();
@@ -117,8 +123,9 @@ public final class TaskRepository extends AbstractRepository implements ITaskRep
     @Override
     public List<Task> sortByDescription(@NotNull final String userId, @NotNull final String description) {
         @NotNull final TypedQuery<Task> query = entityManager.createQuery(
-                "FROM Task WHERE user.id=:userId AND Task.description LIKE %description%",
-                Task.class);
+                "SELECT t FROM Task t WHERE t.user.id=:userId AND t.description LIKE %description%",
+                Task.class
+        );
         query.setParameter("userId", userId);
         query.setParameter("description", description);
         return query.getResultList();
@@ -131,8 +138,9 @@ public final class TaskRepository extends AbstractRepository implements ITaskRep
             @NotNull final String projectId
     ) {
         @NotNull final TypedQuery<Task> query = entityManager.createQuery(
-                "FROM Task WHERE Task.user.id=:userId AND Task.project.id=:projectId",
-                Task.class);
+                "SELECT t FROM Task t WHERE t.user.id=:userId AND t.project.id=:projectId",
+                Task.class
+        );
         query.setParameter("userId", userId);
         query.setParameter("projectId", projectId);
         return query.getResultList();

@@ -25,8 +25,8 @@ public final class UserRepository extends AbstractRepository implements IUserRep
     @Override
     public @Nullable User findOne(@NotNull final String name) {
         @NotNull final TypedQuery<User> query = entityManager.createQuery(
-                "FROM USER WHERE User.name=:name",
-                User.class);
+                "SELECT u FROM User u WHERE u.name=:name", User.class
+        );
         query.setParameter("name", name);
         return query.getSingleResult();
     }
@@ -34,8 +34,9 @@ public final class UserRepository extends AbstractRepository implements IUserRep
     @Override
     public @Nullable User findOneById(@NotNull final String id) {
         @NotNull final TypedQuery<User> query = entityManager.createQuery(
-                "FROM USER WHERE User.id=:id",
-                User.class);
+                "SELECT u FROM User u WHERE u.id=:id",
+                User.class
+        );
         query.setParameter("id", id);
         return query.getSingleResult();
     }
@@ -53,8 +54,9 @@ public final class UserRepository extends AbstractRepository implements IUserRep
     @Override
     public void remove(@NotNull final String id) {
         @NotNull final TypedQuery<User> query = entityManager.createQuery(
-                "DELETE FROM USER WHERE User.id=:id",
-                User.class);
+                "DELETE FROM User u WHERE u.id=:id",
+                User.class
+        );
         query.setParameter("id", id);
         query.executeUpdate();
     }
@@ -62,8 +64,9 @@ public final class UserRepository extends AbstractRepository implements IUserRep
     @Override
     public void removeAll() {
         @NotNull final TypedQuery<User> query = entityManager.createQuery(
-                "DELETE FROM USER WHERE User.id=:id",
-                User.class);
+                "DELETE FROM User u WHERE u.id=:id",
+                User.class
+        );
         query.executeUpdate();
     }
 

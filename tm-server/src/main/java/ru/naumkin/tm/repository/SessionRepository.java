@@ -20,15 +20,16 @@ public final class SessionRepository extends AbstractRepository implements ISess
     @NotNull
     @Override
     public List<Session> findAll() {
-        return entityManager.createQuery("FORM Session", Session.class).getResultList();
+        return entityManager.createQuery("SELECT FORM Session", Session.class).getResultList();
     }
 
     @Nullable
     @Override
     public Session findOne(@NotNull final String id) {
         @NotNull final TypedQuery<Session> query = entityManager.createQuery(
-                "FROM Session WHERE Session.id=:id",
-                Session.class);
+                "SELECT s FROM Session s WHERE s.id=:id",
+                Session.class
+        );
         query.setParameter("id", id);
         return query.getSingleResult();
     }
@@ -46,8 +47,9 @@ public final class SessionRepository extends AbstractRepository implements ISess
     @Override
     public void remove(@NotNull final String id) {
         @NotNull final TypedQuery<Session> query = entityManager.createQuery(
-                "DELETE FROM Session WHERE Session.id=:id",
-                Session.class);
+                "DELETE FROM Session s WHERE s.id=:id",
+                Session.class
+        );
         query.setParameter("id", id);
         query.executeUpdate();
     }
@@ -56,7 +58,8 @@ public final class SessionRepository extends AbstractRepository implements ISess
     public void removeAll() {
         @NotNull final TypedQuery<Session> query = entityManager.createQuery(
                 "DELETE FROM Session",
-                Session.class);
+                Session.class
+        );
         query.executeUpdate();
     }
 
