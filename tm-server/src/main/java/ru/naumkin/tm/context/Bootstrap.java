@@ -41,7 +41,7 @@ public final class Bootstrap implements ServiceLocator {
 
     @Getter
     @NotNull
-    private final ISessionService sessionService = new SessionService(propertyService);
+    private final ISessionService sessionService = new SessionService(propertyService, userService);
 
     @NotNull
     private final IProjectEndpoint projectEndpoint = new ProjectEndpoint(serviceLocator);

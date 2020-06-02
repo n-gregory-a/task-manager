@@ -6,7 +6,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.api.service.IPropertyService;
 import ru.naumkin.tm.api.service.ISessionService;
+import ru.naumkin.tm.api.service.IUserService;
 import ru.naumkin.tm.constant.ValidationConstant;
+import ru.naumkin.tm.dto.SessionDTO;
 import ru.naumkin.tm.entity.Session;
 import ru.naumkin.tm.entity.User;
 import ru.naumkin.tm.error.*;
@@ -22,8 +24,15 @@ import java.util.List;
 @NoArgsConstructor
 public final class SessionService extends AbstractService<Session> implements ISessionService {
 
-    public SessionService(@NotNull final IPropertyService propertyService) {
+    @NotNull
+    private IUserService userService;
+
+    public SessionService(
+            @NotNull final IPropertyService propertyService,
+            @NotNull final IUserService userService
+    ) {
         super(propertyService);
+        this.userService = userService;
     }
 
     @NotNull
@@ -100,8 +109,9 @@ public final class SessionService extends AbstractService<Session> implements IS
         }
         session.setUser(user);
         sign(session);
+        @NotNull final SessionDTO sessionDTO = session.convertToSessionDTO(session);
         @NotNull final ObjectMapper objectMapper = new ObjectMapper();
-        @NotNull final String json = objectMapper.writeValueAsString(session);
+        @NotNull final String json = objectMapper.writeValueAsString(sessionDTO);
         @NotNull final String salt = getPropertyService().getSessionSalt();
         @NotNull final String saltedJson = salt + json + salt;
         @NotNull final String sessionToken = Base64.getEncoder().encodeToString(saltedJson.getBytes());
@@ -155,7 +165,8 @@ public final class SessionService extends AbstractService<Session> implements IS
         @NotNull final String saltedJson = new String(decodedBytes);
         @NotNull final String json = saltedJson.replace(getPropertyService().getSessionSalt(), "");
         @NotNull final ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(json, Session.class);
+        @NotNull final SessionDTO sessionDTO = objectMapper.readValue(json, SessionDTO.class);
+        return sessionDTO.convertToSession(sessionDTO, userService);
     }
 
     @NotNull
