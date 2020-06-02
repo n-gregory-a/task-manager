@@ -50,7 +50,7 @@ public class TaskDTO extends AbstractDTO {
         task.setDateStart(taskDTO.getDateStart());
         task.setDateFinish(taskDTO.getDateFinish());
         task.setProject(serviceLocator.getProjectService()
-                .findOne(taskDTO.getUserId(), taskDTO.getProjectId()));
+                .findOneById(taskDTO.getUserId(), taskDTO.getProjectId()));
         task.setUser(serviceLocator.getUserService().findOneById(taskDTO.getUserId()));
         task.setStatus(taskDTO.getStatus());
         return task;

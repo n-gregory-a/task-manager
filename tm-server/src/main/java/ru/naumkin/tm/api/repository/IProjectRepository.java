@@ -17,6 +17,9 @@ public interface IProjectRepository {
     @Nullable
     Project findOneByUserId(@NotNull final String userId, @NotNull final String name);
 
+    @Nullable
+    Project findOneId(@NotNull final String userId, @NotNull final String id);
+
     void persist(@NotNull final Project project);
 
     void merge(@NotNull final Project project);

@@ -42,6 +42,17 @@ public class ProjectRepository extends AbstractRepository implements IProjectRep
         return query.getSingleResult();
     }
 
+    @Nullable
+    @Override
+    public Project findOneId(@NotNull final String userId, @NotNull final String id) {
+        @NotNull final TypedQuery<Project> query = entityManager.createQuery(
+                "SELECT p FROM Project p WHERE p.user.id=:userId AND p.id=:id",
+                Project.class);
+        query.setParameter("userId", userId);
+        query.setParameter("id", id);
+        return query.getSingleResult();
+    }
+
     @Override
     public void persist(@NotNull final Project project) {
         entityManager.persist(project);

@@ -17,6 +17,9 @@ public interface IProjectService extends IService<Project> {
     @NotNull
     Project findOne(@Nullable final String userId, @Nullable final String name);
 
+    @Nullable
+    Project findOneById(@Nullable final String userId, @Nullable final String id);
+
     void persist(@NotNull final Project project);
 
     void merge(@NotNull final Project project);

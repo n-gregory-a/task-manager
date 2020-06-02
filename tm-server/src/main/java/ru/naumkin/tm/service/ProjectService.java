@@ -74,6 +74,35 @@ public final class ProjectService extends AbstractService<Project> implements IP
         return project;
     }
 
+    @NotNull
+    @Override
+    public Project findOneById(
+            @Nullable final String userId,
+            @Nullable final String id
+    ) {
+        if (id == null) {
+            throw new IdIsNullException();
+        }
+        if (userId == null) {
+            throw new UserIdIsNullException();
+        }
+        if (id.isEmpty()) {
+            throw new IdIsEmptyException();
+        }
+        if (userId.isEmpty()) {
+            throw new UserIdIsEmptyException();
+        }
+        @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
+        @Nullable final Project project =
+                new ProjectRepository(entityManager).findOneId(userId, id);
+        if (project == null) {
+            throw new NoProjectWithSuchNameException(id);
+        }
+        entityManager.getTransaction().commit();
+        return project;
+    }
+
     @Override
     public void persist(@Nullable final Project project) {
         if (project == null) {
