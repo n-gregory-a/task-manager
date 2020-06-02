@@ -57,6 +57,11 @@ public final class Task extends AbstractEntity {
         taskDTO.setDescription(task.getDescription());
         taskDTO.setDateStart(task.getDateStart());
         taskDTO.setDateFinish(task.getDateFinish());
+        try {
+            taskDTO.setProjectId(task.getProject().getId());
+        } catch (Exception e) {
+            taskDTO.setProjectId(null);
+        }
         taskDTO.setUserId(task.getUser().getId());
         taskDTO.setStatus(task.getStatus());
         return taskDTO;
