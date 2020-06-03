@@ -40,6 +40,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
         entityManager.getTransaction().begin();
         @NotNull final List<User> users = new UserRepository(entityManager).findAll();
         entityManager.getTransaction().commit();
+        entityManager.close();
         return users;
     }
 
@@ -56,6 +57,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
         entityManager.getTransaction().begin();
         @Nullable final User user = new UserRepository(entityManager).findOne(name);
         entityManager.getTransaction().commit();
+        entityManager.close();
         if (user == null) {
             throw new NoUserWithSuchLoginException(name);
         }
@@ -75,6 +77,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
         entityManager.getTransaction().begin();
         @Nullable final User user = new UserRepository(entityManager).findOneById(id);
         entityManager.getTransaction().commit();
+        entityManager.close();
         if (user == null) {
             throw new NoUserWithSuchIdException(id);
         }
@@ -90,6 +93,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
         entityManager.getTransaction().begin();
         new UserRepository(entityManager).persist(user);
         entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
     @Override
@@ -101,6 +105,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
         entityManager.getTransaction().begin();
         new UserRepository(entityManager).merge(user);
         entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
     @Override
@@ -112,6 +117,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
         entityManager.getTransaction().begin();
         new UserRepository(entityManager).remove(user.getId());
         entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
     @Override
@@ -120,6 +126,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
         entityManager.getTransaction().begin();
         new UserRepository(entityManager).removeAll();
         entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
 }

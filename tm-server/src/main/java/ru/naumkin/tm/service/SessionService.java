@@ -42,6 +42,7 @@ public final class SessionService extends AbstractService<Session> implements IS
         entityManager.getTransaction().begin();
         @NotNull final List<Session> sessions = new SessionRepository(entityManager).findAll();
         entityManager.getTransaction().commit();
+        entityManager.close();
         return sessions;
     }
 
@@ -51,6 +52,8 @@ public final class SessionService extends AbstractService<Session> implements IS
         @NotNull final EntityManager entityManager = factory().createEntityManager();
         entityManager.getTransaction().begin();
         @Nullable final Session session = new SessionRepository(entityManager).findOne(id);
+        entityManager.getTransaction().commit();
+        entityManager.close();
         if (session == null) {
             throw new SessionIsNullException();
         }
@@ -64,6 +67,7 @@ public final class SessionService extends AbstractService<Session> implements IS
         entityManager.getTransaction().begin();
         new SessionRepository(entityManager).persist(session);
         entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
     @Override
@@ -73,6 +77,7 @@ public final class SessionService extends AbstractService<Session> implements IS
         entityManager.getTransaction().begin();
         new SessionRepository(entityManager).merge(session);
         entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
     @Override
@@ -82,6 +87,7 @@ public final class SessionService extends AbstractService<Session> implements IS
         entityManager.getTransaction().begin();
         new SessionRepository(entityManager).remove(session.getId());
         entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
     @Override
@@ -90,6 +96,7 @@ public final class SessionService extends AbstractService<Session> implements IS
         entityManager.getTransaction().begin();
         new SessionRepository(entityManager).removeAll();
         entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
     @NotNull
@@ -99,7 +106,10 @@ public final class SessionService extends AbstractService<Session> implements IS
         session.setName("Session" + System.currentTimeMillis());
         session.setTimestamp(System.currentTimeMillis());
         @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
         @Nullable final User user = new UserRepository(entityManager).findOne(login);
+        entityManager.getTransaction().commit();
+        entityManager.close();
         if (user == null) {
             throw new UserIsNullException();
         }
@@ -147,8 +157,11 @@ public final class SessionService extends AbstractService<Session> implements IS
             throw new SessionValidationException();
         }
         @NotNull final EntityManager entityManager = factory().createEntityManager();
+        entityManager.getTransaction().begin();
         final boolean sessionNotExists =
                 new SessionRepository(entityManager).findOne(session.getId()) == null;
+        entityManager.getTransaction().commit();
+        entityManager.close();
         if (sessionNotExists) {
             throw new SessionIsNullException();
         }

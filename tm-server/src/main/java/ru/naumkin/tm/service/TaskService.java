@@ -25,6 +25,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         entityManager.getTransaction().begin();
         @NotNull final List<Task> tasks = new TaskRepository(entityManager).findAll();
         entityManager.getTransaction().commit();
+        entityManager.close();
         return tasks;
     }
 
@@ -42,6 +43,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         @NotNull final List<Task> tasks =
                 new TaskRepository(entityManager).findAllByUserId(userId);
         entityManager.getTransaction().commit();
+        entityManager.close();
         return tasks;
     }
 
@@ -68,6 +70,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         @Nullable final Task task =
                 new TaskRepository(entityManager).findOneByUserId(userId, name);
         entityManager.getTransaction().commit();
+        entityManager.close();
         if (task == null) {
             throw new NoTaskWithSuchNameException(name);
         }
@@ -83,6 +86,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         entityManager.getTransaction().begin();
         new TaskRepository(entityManager).persist(task);
         entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
     @Override
@@ -94,6 +98,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         entityManager.getTransaction().begin();
         new TaskRepository(entityManager).merge(task);
         entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
     @Override
@@ -114,6 +119,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         entityManager.getTransaction().begin();
         new TaskRepository(entityManager).remove(userId, task.getId());
         entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
     @Override
@@ -128,6 +134,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         entityManager.getTransaction().begin();
         new TaskRepository(entityManager).removeAll(userId);
         entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
     @NotNull
@@ -144,6 +151,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         @NotNull final List<Task> tasks =
                 new TaskRepository(entityManager).sortByDateStart(userId);
         entityManager.getTransaction().commit();
+        entityManager.close();
         return tasks;
     }
 
@@ -161,6 +169,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         @NotNull final List<Task> tasks =
                 new TaskRepository(entityManager).sortByDateFinish(userId);
         entityManager.getTransaction().commit();
+        entityManager.close();
         return tasks;
     }
 
@@ -178,6 +187,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         @NotNull final List<Task> tasks =
                 new TaskRepository(entityManager).sortByStatus(userId);
         entityManager.getTransaction().commit();
+        entityManager.close();
         return tasks;
     }
 
@@ -204,6 +214,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         @NotNull final List<Task> tasks =
                 new TaskRepository(entityManager).sortByName(userId, name);
         entityManager.getTransaction().commit();
+        entityManager.close();
         return tasks;
     }
 
@@ -229,6 +240,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         @NotNull final List<Task> tasks =
                 new TaskRepository(entityManager).sortByDescription(userId, description);
         entityManager.getTransaction().commit();
+        entityManager.close();
         return tasks;
     }
 
@@ -254,6 +266,8 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
         entityManager.getTransaction().begin();
         @NotNull final List<Task> tasks =
                 new TaskRepository(entityManager).findAllByProjectId(userId, ProjectId);
+        entityManager.getTransaction().commit();
+        entityManager.close();
         return tasks;
     }
 

@@ -25,6 +25,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         entityManager.getTransaction().begin();
         @NotNull final List<Project> projects = new ProjectRepository(entityManager).findAll();
         entityManager.getTransaction().commit();
+        entityManager.close();
         return projects;
     }
 
@@ -42,6 +43,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         @NotNull final List<Project> projects =
                 new ProjectRepository(entityManager).findAllByUserId(userId);
         entityManager.getTransaction().commit();
+        entityManager.close();
         return projects;
     }
 
@@ -68,6 +70,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         @Nullable final Project project =
                 new ProjectRepository(entityManager).findOneByUserId(userId, name);
         entityManager.getTransaction().commit();
+        entityManager.close();
         if (project == null) {
             throw new NoProjectWithSuchNameException(name);
         }
@@ -97,6 +100,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         @Nullable final Project project =
                 new ProjectRepository(entityManager).findOneId(userId, id);
         entityManager.getTransaction().commit();
+        entityManager.close();
         if (project == null) {
             throw new ProjectIsNullException();
         }
@@ -112,6 +116,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         entityManager.getTransaction().begin();
         new ProjectRepository(entityManager).persist(project);
         entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
     @Override
@@ -123,6 +128,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         entityManager.getTransaction().begin();
         new ProjectRepository(entityManager).merge(project);
         entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
     @Override
@@ -143,6 +149,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         entityManager.getTransaction().begin();
         new ProjectRepository(entityManager).remove(userId, project.getId());
         entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
     @Override
@@ -157,6 +164,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         entityManager.getTransaction().begin();
         new ProjectRepository(entityManager).removeAllByUserId(userId);
         entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
     @NotNull
@@ -173,6 +181,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         @NotNull final List<Project> projects =
                 new ProjectRepository(entityManager).sortByDateStart(userId);
         entityManager.getTransaction().commit();
+        entityManager.close();
         return projects;
     }
 
@@ -190,6 +199,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         @NotNull final List<Project> projects =
                 new ProjectRepository(entityManager).sortByDateFinish(userId);
         entityManager.getTransaction().commit();
+        entityManager.close();
         return projects;
     }
 
@@ -207,6 +217,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         @NotNull final List<Project> projects =
                 new ProjectRepository(entityManager).sortByStatus(userId);
         entityManager.getTransaction().commit();
+        entityManager.close();
         return projects;
     }
 
@@ -233,6 +244,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         @NotNull final List<Project> projects =
                 new ProjectRepository(entityManager).sortByName(userId, name);
         entityManager.getTransaction().commit();
+        entityManager.close();
         return projects;
     }
 
@@ -258,6 +270,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
         @NotNull final List<Project> projects =
                 new ProjectRepository(entityManager).sortByDescription(userId, description);
         entityManager.getTransaction().commit();
+        entityManager.close();
         return projects;
     }
 
