@@ -1,4 +1,4 @@
-https://gitlab.com/grigory-naumkin/se-13.git
+https://gitlab.com/grigory-naumkin/se-14.git
 
 ### Task Manager
 ***
@@ -25,5 +25,7 @@ email: <ovonely@gmail.com>
 
 #### Running
 ***
-    java -jar ./task-manager-1.0.0.jar
+    java -jar ./tm-server-1.0.0.jar
+    java -jar ./tm-client-1.0.0.jar
+    
 
