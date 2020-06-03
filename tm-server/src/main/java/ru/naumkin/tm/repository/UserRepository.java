@@ -7,6 +7,7 @@ import ru.naumkin.tm.api.repository.IUserRepository;
 import ru.naumkin.tm.entity.User;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public final class UserRepository extends AbstractRepository implements IUserRep
 
     @Override
     public @NotNull List<User> findAll() {
-        return entityManager.createQuery("FROM User", User.class).getResultList();
+        return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
     }
 
     @Override
@@ -53,9 +54,8 @@ public final class UserRepository extends AbstractRepository implements IUserRep
 
     @Override
     public void remove(@NotNull final String id) {
-        @NotNull final TypedQuery<User> query = entityManager.createQuery(
-                "DELETE FROM User u WHERE u.id=:id",
-                User.class
+        @NotNull final Query query = entityManager.createQuery(
+                "DELETE FROM User u WHERE u.id=:id"
         );
         query.setParameter("id", id);
         query.executeUpdate();
@@ -63,9 +63,8 @@ public final class UserRepository extends AbstractRepository implements IUserRep
 
     @Override
     public void removeAll() {
-        @NotNull final TypedQuery<User> query = entityManager.createQuery(
-                "DELETE FROM User u WHERE u.id=:id",
-                User.class
+        @NotNull final Query query = entityManager.createQuery(
+                "DELETE FROM User u WHERE u.id=:id"
         );
         query.executeUpdate();
     }

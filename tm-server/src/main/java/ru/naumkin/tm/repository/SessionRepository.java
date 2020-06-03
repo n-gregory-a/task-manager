@@ -21,7 +21,7 @@ public final class SessionRepository extends AbstractRepository implements ISess
     @NotNull
     @Override
     public List<Session> findAll() {
-        return entityManager.createQuery("SELECT FORM Session", Session.class).getResultList();
+        return entityManager.createQuery("SELECT s FROM Session s", Session.class).getResultList();
     }
 
     @Nullable
