@@ -46,10 +46,13 @@ public class TaskCrudITCase extends Assert {
     public void findAllTasksByUserIdTest() throws Exception {
         @NotNull final TaskDTO task1 = new TaskDTO();
         task1.setUserId(userId);
+        task1.setName("task1");
         @NotNull final TaskDTO task2 = new TaskDTO();
         task2.setUserId(userId);
+        task2.setName("task2");
         @NotNull final TaskDTO task3 = new TaskDTO();
         task3.setUserId(userId);
+        task3.setName("task3");
         taskEndpoint.persistTask(sessionToken, task1);
         taskEndpoint.persistTask(sessionToken, task2);
         taskEndpoint.persistTask(sessionToken, task3);
@@ -117,10 +120,13 @@ public class TaskCrudITCase extends Assert {
     public void removeAllTasksByUserIdTest() throws Exception {
         @NotNull final TaskDTO task1 = new TaskDTO();
         task1.setUserId(userId);
+        task1.setName("task1");
         @NotNull final TaskDTO task2 = new TaskDTO();
         task2.setUserId(userId);
+        task2.setName("task2");
         @NotNull final TaskDTO task3 = new TaskDTO();
         task3.setUserId(userId);
+        task3.setName("task3");
         taskEndpoint.persistTask(sessionToken, task1);
         taskEndpoint.persistTask(sessionToken, task2);
         taskEndpoint.persistTask(sessionToken, task3);
