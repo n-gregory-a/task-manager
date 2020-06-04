@@ -3,7 +3,6 @@ package ru.naumkin.tm.service;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.naumkin.tm.api.repository.IUserRepository;
 import ru.naumkin.tm.api.service.IPropertyService;
 import ru.naumkin.tm.api.service.IUserService;
 import ru.naumkin.tm.entity.User;
@@ -37,9 +36,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
     @Override
     public List<User> findAll() {
         @NotNull final EntityManager entityManager = factory().createEntityManager();
-        entityManager.getTransaction().begin();
         @NotNull final List<User> users = new UserRepository(entityManager).findAll();
-        entityManager.getTransaction().commit();
         entityManager.close();
         return users;
     }
@@ -54,9 +51,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
             throw new NameIsEmptyException();
         }
         @NotNull final EntityManager entityManager = factory().createEntityManager();
-        entityManager.getTransaction().begin();
         @Nullable final User user = new UserRepository(entityManager).findOne(name);
-        entityManager.getTransaction().commit();
         entityManager.close();
         if (user == null) {
             throw new NoUserWithSuchLoginException(name);
@@ -74,9 +69,7 @@ public final class UserService extends AbstractService<User> implements IUserSer
             throw new IdIsEmptyException();
         }
         @NotNull final EntityManager entityManager = factory().createEntityManager();
-        entityManager.getTransaction().begin();
         @Nullable final User user = new UserRepository(entityManager).findOneById(id);
-        entityManager.getTransaction().commit();
         entityManager.close();
         if (user == null) {
             throw new NoUserWithSuchIdException(id);
