@@ -22,9 +22,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
     @Override
     public @NotNull List<Project> findAll() {
         @NotNull final EntityManager entityManager = factory().createEntityManager();
-        entityManager.getTransaction().begin();
         @NotNull final List<Project> projects = new ProjectRepository(entityManager).findAll();
-        entityManager.getTransaction().commit();
         entityManager.close();
         return projects;
     }
@@ -39,10 +37,8 @@ public final class ProjectService extends AbstractService<Project> implements IP
             throw new UserIdIsEmptyException();
         }
         @NotNull final EntityManager entityManager = factory().createEntityManager();
-        entityManager.getTransaction().begin();
         @NotNull final List<Project> projects =
                 new ProjectRepository(entityManager).findAllByUserId(userId);
-        entityManager.getTransaction().commit();
         entityManager.close();
         return projects;
     }
@@ -66,10 +62,8 @@ public final class ProjectService extends AbstractService<Project> implements IP
             throw new UserIdIsEmptyException();
         }
         @NotNull final EntityManager entityManager = factory().createEntityManager();
-        entityManager.getTransaction().begin();
         @Nullable final Project project =
                 new ProjectRepository(entityManager).findOneByUserId(userId, name);
-        entityManager.getTransaction().commit();
         entityManager.close();
         if (project == null) {
             throw new NoProjectWithSuchNameException(name);
@@ -96,10 +90,8 @@ public final class ProjectService extends AbstractService<Project> implements IP
             throw new UserIdIsEmptyException();
         }
         @NotNull final EntityManager entityManager = factory().createEntityManager();
-        entityManager.getTransaction().begin();
         @Nullable final Project project =
                 new ProjectRepository(entityManager).findOneId(userId, id);
-        entityManager.getTransaction().commit();
         entityManager.close();
         if (project == null) {
             throw new ProjectIsNullException();
@@ -177,10 +169,8 @@ public final class ProjectService extends AbstractService<Project> implements IP
             throw new UserIdIsEmptyException();
         }
         @NotNull final EntityManager entityManager = factory().createEntityManager();
-        entityManager.getTransaction().begin();
         @NotNull final List<Project> projects =
                 new ProjectRepository(entityManager).sortByDateStart(userId);
-        entityManager.getTransaction().commit();
         entityManager.close();
         return projects;
     }
@@ -195,10 +185,8 @@ public final class ProjectService extends AbstractService<Project> implements IP
             throw new UserIdIsEmptyException();
         }
         @NotNull final EntityManager entityManager = factory().createEntityManager();
-        entityManager.getTransaction().begin();
         @NotNull final List<Project> projects =
                 new ProjectRepository(entityManager).sortByDateFinish(userId);
-        entityManager.getTransaction().commit();
         entityManager.close();
         return projects;
     }
@@ -213,10 +201,8 @@ public final class ProjectService extends AbstractService<Project> implements IP
             throw new UserIdIsEmptyException();
         }
         @NotNull final EntityManager entityManager = factory().createEntityManager();
-        entityManager.getTransaction().begin();
         @NotNull final List<Project> projects =
                 new ProjectRepository(entityManager).sortByStatus(userId);
-        entityManager.getTransaction().commit();
         entityManager.close();
         return projects;
     }
@@ -240,10 +226,8 @@ public final class ProjectService extends AbstractService<Project> implements IP
             throw new UserIdIsEmptyException();
         }
         @NotNull final EntityManager entityManager = factory().createEntityManager();
-        entityManager.getTransaction().begin();
         @NotNull final List<Project> projects =
                 new ProjectRepository(entityManager).sortByName(userId, name);
-        entityManager.getTransaction().commit();
         entityManager.close();
         return projects;
     }
@@ -266,10 +250,8 @@ public final class ProjectService extends AbstractService<Project> implements IP
             throw new UserIdIsEmptyException();
         }
         @NotNull final EntityManager entityManager = factory().createEntityManager();
-        entityManager.getTransaction().begin();
         @NotNull final List<Project> projects =
                 new ProjectRepository(entityManager).sortByDescription(userId, description);
-        entityManager.getTransaction().commit();
         entityManager.close();
         return projects;
     }
