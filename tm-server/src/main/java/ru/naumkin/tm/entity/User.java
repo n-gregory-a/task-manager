@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.jetbrains.annotations.NotNull;
 import ru.naumkin.tm.dto.UserDTO;
 import ru.naumkin.tm.enumerated.RoleType;
@@ -16,8 +17,10 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "app_user")
+@Cacheable
 @NoArgsConstructor
+@Table(name = "app_user")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public final class User extends AbstractEntity {
 
     @NotNull
