@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.naumkin.tm.dto.SessionDTO;
@@ -12,9 +13,11 @@ import ru.naumkin.tm.dto.SessionDTO;
 import javax.persistence.*;
 
 @Entity
+@Cacheable
 @NoArgsConstructor
 @Table(name = "session")
 @JsonIgnoreProperties(ignoreUnknown = true)
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public final class Session extends AbstractEntity implements Cloneable {
 
     @Override
