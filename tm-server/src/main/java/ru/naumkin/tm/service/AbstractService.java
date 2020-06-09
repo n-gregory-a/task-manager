@@ -37,6 +37,13 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
         settings.put(Environment.DIALECT, propertyService.getDbDialect());
         settings.put(Environment.HBM2DDL_AUTO, "update");
         settings.put(Environment.SHOW_SQL, "true");
+        settings.put("hibernate.cache.use_second_level_cache", "true");
+        settings.put("hibernate.cache.use_query_cache", "true");
+        settings.put("hibernate.cache.use_minimal_puts", "true");
+        settings.put("hibernate.cache.hazelcast.use_lite_member", "true");
+        settings.put("hibernate.cache.region_prefix", "true");
+        settings.put("hibernate.cache.provider_configuration_file_resource_path", "hazelcast.xml");
+        settings.put("hibernate.cache.region.factory_class", "com.hazelcast.hibernate.HazelcastLocalCacheRegionFactory");
 
         final StandardServiceRegistryBuilder registryBuilder = new StandardServiceRegistryBuilder();
         registryBuilder.applySettings(settings);
