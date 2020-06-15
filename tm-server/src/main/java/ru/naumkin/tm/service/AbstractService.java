@@ -37,6 +37,7 @@ public abstract class AbstractService<E extends AbstractEntity> implements IServ
         settings.put(Environment.DIALECT, propertyService.getDbDialect());
         settings.put(Environment.HBM2DDL_AUTO, "update");
         settings.put(Environment.SHOW_SQL, "true");
+        settings.put(Environment.FORMAT_SQL, "true");
         settings.put("hibernate.cache.use_second_level_cache", "true");
         settings.put("hibernate.cache.use_query_cache", "true");
         settings.put("hibernate.cache.use_minimal_puts", "true");
