@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="1" author="Grigory Naumkin">
+        <createTable tableName="project">
+            <column name="id" type="varchar(50)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_start" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_finish" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="varchar(50)">
+                <constraints nullable="false" foreignKeyName="fk_user_id" references="app_user(id)"/>
+            </column>
+            <column name="status" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
