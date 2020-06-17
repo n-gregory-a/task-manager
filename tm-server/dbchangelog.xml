@@ -5,25 +5,25 @@
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <changeSet id="1" author="Grigory Naumkin">
         <createTable tableName="project">
-            <column name="id" type="varchar(50)">
+            <column name="id" type="varchar(255)">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="name" type="varchar(50)">
+            <column name="name" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="description" type="varchar(50)">
+            <column name="description" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="date_start" type="varchar(50)">
+            <column name="date_start" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="date_finish" type="varchar(50)">
+            <column name="date_finish" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="user_id" type="varchar(50)">
-                <constraints nullable="false" foreignKeyName="fk_user_id" references="app_user(id)"/>
+            <column name="user_id" type="varchar(255)">
+                <constraints nullable="false" foreignKeyName="fk_project_user_id" references="app_user(id)"/>
             </column>
-            <column name="status" type="varchar(50)">
+            <column name="status" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -31,29 +31,49 @@
 
     <changeSet id="2" author="Grigory Naumkin">
         <createTable tableName="task">
-            <column name="id" type="varchar(50)">
+            <column name="id" type="varchar(255)">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="name" type="varchar(50)">
+            <column name="name" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="description" type="varchar(50)">
+            <column name="description" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="date_start" type="varchar(50)">
+            <column name="date_start" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="date_finish" type="varchar(50)">
+            <column name="date_finish" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="project_id" type="varchar(50)">
-                <constraints nullable="false" foreignKeyName="fk_project_id" references="project(id)"/>
+            <column name="project_id" type="varchar(255)">
+                <constraints nullable="false" foreignKeyName="fk_task_project_id" references="project(id)"/>
+            </column>
+            <column name="user_id" type="varchar(255)">
+                <constraints nullable="false" foreignKeyName="fk_task_user_id" references="app_user(id)"/>
+            </column>
+            <column name="status" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="3" author="Grigory Naumkin">
+        <createTable tableName="session">
+            <column name="id" type="varchar(255)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="signature" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="timestamp" type="bigint">
+                <constraints nullable="false"/>
             </column>
             <column name="user_id" type="varchar(50)">
-                <constraints nullable="false" foreignKeyName="fk_user_id" references="app_user(id)"/>
-            </column>
-            <column name="status" type="varchar(50)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" foreignKeyName="fk_session_user_id" references="app_user(id)"/>
             </column>
         </createTable>
     </changeSet>
