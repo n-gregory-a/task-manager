@@ -94,5 +94,27 @@
             </column>
         </createTable>
     </changeSet>
+    
+    <changeSet id="5" author="Grigory Naumkin">
+        <insert tableName="app_user">
+            <column name="id" value="ac015212-c0c8-4db8-a671-26c5ca3b9785"/>
+            <column name="name" value="user"/>
+            <column name="password_hash" value="c324704c740341d2de267a91edc418fdd348a9cac9f3af39ef0c0a8239297cd85ba1d6e71c1e5132fb6939dcd261b865de0ef0e5a2bf76cb18a2e216f551baea"/>
+            <column name="role" value="USER"/>
+        </insert>
 
+        <insert tableName="app_user">
+            <column name="id" value="c92ab879-d40b-46b1-9f4d-cc67285c832f"/>
+            <column name="name" value="admin"/>
+            <column name="password_hash" value="b698d1bb2e6bc0faf2125c96297a115de3e3379e98d16b07f83d1a07949901638bb138902ab46bc9b8fb406637cfb66f0ee05e59542090e7763ded308254088d"/>
+            <column name="role" value="ADMIN"/>
+        </insert>
+
+        <insert tableName="app_user">
+            <column name="id" value="5c3aaed0-5d0d-430d-8f17-72c9f9e1c846"/>
+            <column name="name" value="test"/>
+            <column name="password_hash" value="63aef177088d30c6b8355c3d6d4866c8ea9a5af9f0a6140f97634cbbe620e139f54becd009ab927ee54b990d62d8e3b8dc590fddd71619950d0eb5e5ea3d40a7"/>
+            <column name="role" value="USER"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
