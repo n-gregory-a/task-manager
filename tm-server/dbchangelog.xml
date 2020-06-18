@@ -19,6 +19,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <rollback>
+            drop table app_user cascade;
+        </rollback>
     </changeSet>
 
     <changeSet id="2" author="Grigory Naumkin">
@@ -68,6 +71,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <rollback>
+            drop table project cascade;
+        </rollback>
     </changeSet>
 
     <changeSet id="4" author="Grigory Naumkin">
@@ -97,6 +103,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <rollback>
+            drop table task;
+        </rollback>
     </changeSet>
 
     <changeSet id="5" author="Grigory Naumkin">
@@ -117,5 +126,8 @@
                 <constraints nullable="false" foreignKeyName="fk_session_user_id" references="app_user(id)"/>
             </column>
         </createTable>
+        <rollback>
+            drop table session;
+        </rollback>
     </changeSet>
 </databaseChangeLog>
